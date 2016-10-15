@@ -9,4 +9,10 @@ public class UserVO {
 		this.password = password;
 		this.username = username;
 	}
+	public String getUsername(){
+		return this.username;
+	}
+	public long getID(){
+		return this.userid;
+	}
 }	
