@@ -14,6 +14,7 @@ public class CreditBLService_Driver {
 		CreditResultMessage result = service.recharge(1);
 		if (result==CreditResultMessage.SUCCESS) System.out.println("CreditBLService.recharge SUCCESS");
 		result = service.recharge(-1);
+		
 		if (result==CreditResultMessage.FAIL_LESSTHANZERO) System.out.println("CreditBLService.recharge FAIL_LESSTHANZERO");
 	}
 }
