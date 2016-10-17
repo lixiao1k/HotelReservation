@@ -1,10 +1,14 @@
 package vo;
 
-import java.util.Map;
+import java.util.List;
 
 public class RoomVO {
-	Map room;
-	public RoomVO(Map room){
-		this.room = room;
+	List<RoomInfo> info;
+	public RoomVO(List<RoomInfo> info){
+		this.info = info;
 	}
+	public List<RoomInfo> getAllRooms(){
+		return this.info;
+	}
+	
 }
