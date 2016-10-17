@@ -1,5 +1,12 @@
 package vo;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+	
 public class RoomInfo {
 	private String type;
 	private int num;
@@ -32,4 +39,5 @@ public class RoomInfo {
 	public void setCurrentNum(int num){
 		this.num = num;
 	}
+
 }

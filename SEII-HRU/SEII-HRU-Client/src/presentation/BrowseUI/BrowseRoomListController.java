@@ -2,8 +2,11 @@ package presentation.BrowseUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,14 +21,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import presentation.StrategyUI.CreateNewStrategy;
+import javafx.util.Callback;
+import presentation.HotelUI.RoomInfoController;
 import vo.RoomInfo;
-import vo.RoomVO;
+
 
 public class BrowseRoomListController implements Initializable{
 	@FXML ListView<RoomInfo> roomListView;
@@ -34,7 +36,10 @@ public class BrowseRoomListController implements Initializable{
 	public void createNewRoom(ActionEvent e){
 		Stage stage = new Stage();
 		try {
-			Parent newRoomInfo = FXMLLoader.load(getClass().getClassLoader().getResource("presentation/HotelUI/RoomInfo.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("presentation/HotelUI/RoomInfo.fxml"));
+			Parent newRoomInfo = loader.load();
+			RoomInfoController controller = loader.getController();
+			controller.setController(this);
 			Scene scene = new Scene(newRoomInfo,350,150);
 			stage.setScene(scene);
 			stage.show();
@@ -46,18 +51,18 @@ public class BrowseRoomListController implements Initializable{
 	public void updateRoom(String type,int num,double price,String operation){
 		if (operation.equals("CREATE")){
 			RoomInfo newItem = new RoomInfo(type, num, num, price);
-			roomListView.getItems().add(newItem);
-			roomListViewData.add(roomListViewData.size(),newItem);
-			System.out.println(1);
-			roomListView.layout();
-			roomListView.scrollTo(roomListView.getItems().size()-1);
+			System.out.println(roomListView.getItems().size());
+			roomListViewData.add(newItem);
+			System.out.println(roomListView.getItems().size());
 		}
 		if (operation.equals("CHANGE")){
-			System.out.println(2);
+
 			for (RoomInfo item:roomListViewData){
 				if (item.getType().equals(type)){
-					item.setCurrentNum(num);
-					item.setPrice(price);
+					RoomInfo newItem = new RoomInfo(item.getType(), num, item.getTotal(), item.getPrice());
+					int index =roomListViewData.indexOf(item);
+					roomListViewData.set(index, null);
+					roomListViewData.set(index, newItem);
 					break;
 				}
 			}
@@ -66,7 +71,10 @@ public class BrowseRoomListController implements Initializable{
 	public void changeRoomInfo(ActionEvent e,String roomType,String roomNum,String roomPrice){
 		Stage stage = new Stage();
 		try {
-			Parent newRoomInfo = FXMLLoader.load(getClass().getClassLoader().getResource("presentation/HotelUI/RoomInfo.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("presentation/HotelUI/RoomInfo.fxml"));
+			Parent newRoomInfo = loader.load();
+			RoomInfoController controller = loader.getController();
+			controller.setController(this);
 			TextField type = (TextField) newRoomInfo.lookup("#roomType");
 			TextField num = (TextField) newRoomInfo.lookup("#roomNum");
 			TextField price = (TextField) newRoomInfo.lookup("#roomPrice");
@@ -84,19 +92,21 @@ public class BrowseRoomListController implements Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		RoomInfo doubleBed = new RoomInfo("双人房", 53, 110, 389);
 		RoomInfo bigBed = new RoomInfo("大床房", 36, 89, 413);
-		RoomInfo singleBes = new RoomInfo("单人房", 46, 57, 277);
+		RoomInfo singleBed = new RoomInfo("单人房", 46, 57, 277);
 		roomListViewData = FXCollections.observableArrayList();
 		roomListViewData.add(doubleBed);
 		roomListViewData.add(bigBed);
-		roomListViewData.add(singleBes);
+		roomListViewData.add(singleBed);
 		roomListView.setCellFactory(e -> new roomListCell());
 		roomListView.setItems(roomListViewData);
-
+		
 	}
 	
 	class roomListCell extends ListCell<RoomInfo>{
+
 		public void updateItem(RoomInfo item,boolean empty){
 			super.updateItem(item, empty);
 
@@ -122,6 +132,7 @@ public class BrowseRoomListController implements Initializable{
                 cell.add(delete, 3, 0);
                 setGraphic(cell);
             } else {
+
                 setGraphic(null);
             }
         }

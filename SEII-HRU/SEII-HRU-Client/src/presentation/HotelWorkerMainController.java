@@ -33,7 +33,9 @@ public class HotelWorkerMainController {
 	}
 	@FXML protected void goRoomList(ActionEvent event){
 		try {
-			Parent browseRoomList = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseRoomListUI.fxml"));
+		
+			Parent browseRoomList = FXMLLoader.load(getClass().getClassLoader().getResource("presentation/BrowseUI/BrowseRoomListUI.fxml"));
+
 			browseRoomList.getProperties().put("NAME", "browseRoomList");
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
@@ -43,9 +45,11 @@ public class HotelWorkerMainController {
 					break;
 				}
 			}
+			
 			hotelmain.add(browseRoomList, 2, 1);
 		} catch (IOException e) {
 			// log ÈÕÖ¾&&×´Ì¬À¸
+			System.out.println(e.getCause());
 		}
 		
 	}
