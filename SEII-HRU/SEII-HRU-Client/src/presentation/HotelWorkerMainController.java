@@ -48,6 +48,24 @@ public class HotelWorkerMainController {
 		}
 		
 	}
+	@FXML protected void goRoomList(ActionEvent event){
+		try {
+			Parent browseRoomList = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseRoomListUI.fxml"));
+			browseRoomList.getProperties().put("NAME", "browseRoomList");
+			ObservableList<Node> list = hotelmain.getChildren();
+			for (Node node:list){
+				String value = (String) node.getProperties().get("NAME");
+				if (value!=null&&value.contains("List")){
+					list.remove(node);
+					break;
+				}
+			}
+			hotelmain.add(browseRoomList, 2, 1);
+		} catch (IOException e) {
+			// log ÈÕÖ¾&&×´Ì¬À¸
+		}
+		
+	}
 	@FXML protected void goStrategyList(ActionEvent event){
 		try {
 			Parent browseStrategyList = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseStrategyListUI.fxml"));

@@ -1,0 +1,53 @@
+package presentation.HotelUI;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import presentation.BrowseUI.BrowseRoomListController;
+
+public class RoomInfoController implements Initializable{
+	FXMLLoader loader;
+	Parent father;
+	@FXML TextField roomType;
+	@FXML TextField roomPrice;
+	@FXML TextField roomNum;
+	@FXML
+	public void update(ActionEvent e){
+	
+		try {
+			String type = roomType.getText();
+			double price = Double.parseDouble(roomPrice.getText());
+			int num = Integer.parseInt(roomNum.getText());
+			
+			BrowseRoomListController controller = loader.getController();
+			if (roomType.isEditable()) 
+				controller.updateRoom(type, num, price, "CREATE");
+			else 
+				controller.updateRoom(type, num, price, "CHANGE");
+			
+		} catch(NumberFormatException e1){
+			Stage stage = new Stage();
+		}
+		Stage stage = (Stage)roomType.getScene().getWindow();
+		stage.close();
+	}
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		loader = new FXMLLoader(getClass().getClassLoader().getResource("presentation/BrowseUI/BrowseRoomListUI.fxml"));
+		try {
+			father = loader.load();
+		} catch (IOException e) {
+			//log
+		}
+	}
+
+}
