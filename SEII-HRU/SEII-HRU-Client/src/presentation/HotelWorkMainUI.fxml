@@ -5,7 +5,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.text.*?>
 
 <GridPane fx:id="hotelmain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.HotelWorkerMainController">
   <children>
@@ -33,20 +32,13 @@
     </MenuBar>
     <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.margin="$x3" GridPane.rowIndex="1" GridPane.rowSpan="1">
       <children>
-<<<<<<< HEAD
         <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#goSetHotelInfo" prefHeight="38.0" prefWidth="117.0" text="维护酒店信息">
-=======
-        <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="38.0" prefWidth="117.0" text="维护酒店信息">
-          <font>
-            <Font name="幼圆" size="12.0" fx:id="x4" />
-          </font>
->>>>>>> origin/master
           <VBox.margin>
             <Insets bottom="10.0" left="7.0" top="10.0" />
           </VBox.margin>
         </Button>
         <Separator prefWidth="200.0" />
-        <Button font="$x4" mnemonicParsing="false" onAction="#goRoomList" prefHeight="38.0" prefWidth="117.0" text="查看客房信息">
+        <Button mnemonicParsing="false" onAction="#goOrderList" prefHeight="38.0" prefWidth="117.0" text="浏览订单">
           <VBox.margin>
             <Insets left="7.0" top="5.0" fx:id="x1" />
           </VBox.margin>
@@ -56,9 +48,17 @@
             <Insets top="10.0" fx:id="x2" />
           </VBox.margin>
         </Separator>
-        <Button font="$x4" mnemonicParsing="false" onAction="#goOrderList" prefHeight="38.0" prefWidth="117.0" text="浏览订单信息" VBox.margin="$x1" />
-        <Separator prefWidth="200.0" VBox.margin="$x2" />
-        <Button font="$x4" mnemonicParsing="false" onAction="#goStrategyList" prefHeight="38.0" prefWidth="117.0" text="查看策略列表" VBox.margin="$x1" />
+        <Button mnemonicParsing="false" onAction="#goRoomList" prefHeight="38.0" prefWidth="117.0" text="更新客房" VBox.margin="$x1" />
+        <Separator prefWidth="200.0">
+          <VBox.margin>
+            <Insets top="10.0" fx:id="x2" />
+          </VBox.margin>
+        </Separator>
+        <Button mnemonicParsing="false" onAction="#goStrategyList" prefHeight="38.0" prefWidth="117.0" text="浏览策略列表">
+          <VBox.margin>
+            <Insets left="7.0" top="5.0" fx:id="x1" />
+          </VBox.margin>
+        </Button>
       </children>
     </VBox>
     <Label text="状态栏" GridPane.columnIndex="0" GridPane.rowIndex="3" />
