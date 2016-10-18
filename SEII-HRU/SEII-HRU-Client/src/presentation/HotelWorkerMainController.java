@@ -19,7 +19,7 @@ public class HotelWorkerMainController {
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&value.contains("List")){
 					list.remove(node);
 					break;
 				}
@@ -37,7 +37,7 @@ public class HotelWorkerMainController {
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&value.contains("List")){
 					list.remove(node);
 					break;
 				}
@@ -57,7 +57,7 @@ public class HotelWorkerMainController {
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&value.contains("List")){
 					list.remove(node);
 					break;
 				}
@@ -77,7 +77,7 @@ public class HotelWorkerMainController {
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&value.contains("List")){
 					list.remove(node);
 					break;
 				}

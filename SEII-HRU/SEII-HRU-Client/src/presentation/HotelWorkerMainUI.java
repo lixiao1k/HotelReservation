@@ -15,7 +15,7 @@ public class HotelWorkerMainUI extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		Parent root = FXMLLoader.load(getClass().getResource("HotelWorkMainUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("WebManagerMainUI.fxml"));
 		Parent HotelInfo = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
 		HotelInfo.getProperties().put("NAME", "HotelInfo");
 		GridPane pane = (GridPane) root.lookup("#hotelmain");
