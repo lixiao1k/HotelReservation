@@ -16,6 +16,7 @@ import presentation.BrowseUI.BrowseRoomListController;
 public class RoomInfoController implements Initializable{
 	FXMLLoader loader;
 	Parent father;
+	BrowseRoomListController controller;
 	@FXML TextField roomType;
 	@FXML TextField roomPrice;
 	@FXML TextField roomNum;
@@ -26,8 +27,6 @@ public class RoomInfoController implements Initializable{
 			String type = roomType.getText();
 			double price = Double.parseDouble(roomPrice.getText());
 			int num = Integer.parseInt(roomNum.getText());
-			
-			BrowseRoomListController controller = loader.getController();
 			if (roomType.isEditable()) 
 				controller.updateRoom(type, num, price, "CREATE");
 			else 
@@ -39,15 +38,13 @@ public class RoomInfoController implements Initializable{
 		Stage stage = (Stage)roomType.getScene().getWindow();
 		stage.close();
 	}
+	public void setController(BrowseRoomListController controller){
+		this.controller = controller;
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		loader = new FXMLLoader(getClass().getClassLoader().getResource("presentation/BrowseUI/BrowseRoomListUI.fxml"));
-		try {
-			father = loader.load();
-		} catch (IOException e) {
-			//log
-		}
+		
 	}
 
 }
