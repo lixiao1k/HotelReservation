@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="mainPane" gridLinesVisible="false" hgap="10.0" prefHeight="564.0" prefWidth="768.0" scaleX="1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<GridPane fx:id="mainPane" gridLinesVisible="false" hgap="10.0" prefHeight="564.0" prefWidth="768.0" scaleX="1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.BrowseUI.BrowseOrderListController">
   <children>
     <Label alignment="CENTER" prefHeight="49.0" prefWidth="94.0" text="Search" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
       <font>
@@ -18,15 +18,15 @@
         <Insets left="10.0" top="5.0" />
       </GridPane.margin>
     </Label>
-    <TextField prefHeight="28.0" prefWidth="381.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-    <Button mnemonicParsing="false" prefHeight="28.000099182128906" prefWidth="116.0" text="Search" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-    <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
+    <TextField fx:id="searchText" prefHeight="28.0" prefWidth="381.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+    <Button mnemonicParsing="false" onAction="#searchInText" prefHeight="28.000099182128906" prefWidth="116.0" text="Search" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+    <ListView fx:id="orderListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
     <Label font="$x1" text="Type" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <GridPane.margin>
         <Insets left="10.0" top="5.0" />
       </GridPane.margin>
     </Label>
-    <ChoiceBox prefHeight="29.0" prefWidth="112.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <ChoiceBox fx:id="orderType" prefHeight="29.0" prefWidth="112.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="项 1" />

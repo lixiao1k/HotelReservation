@@ -50,10 +50,9 @@ public class BrowseRoomListController implements Initializable{
 	}
 	public void updateRoom(String type,int num,double price,String operation){
 		if (operation.equals("CREATE")){
+
 			RoomInfo newItem = new RoomInfo(type, num, num, price);
-			System.out.println(roomListView.getItems().size());
 			roomListViewData.add(newItem);
-			System.out.println(roomListView.getItems().size());
 		}
 		if (operation.equals("CHANGE")){
 
@@ -90,6 +89,14 @@ public class BrowseRoomListController implements Initializable{
 			//log info && status
 		}
 	}
+	public void deleteItem(ActionEvent e,String type){
+		for (RoomInfo item:roomListViewData){
+			if (item.getType().equals(type)){
+				roomListViewData.remove(item);
+				break;
+			}
+		}
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -100,12 +107,12 @@ public class BrowseRoomListController implements Initializable{
 		roomListViewData.add(doubleBed);
 		roomListViewData.add(bigBed);
 		roomListViewData.add(singleBed);
-		roomListView.setCellFactory(e -> new roomListCell());
+		roomListView.setCellFactory(e -> new RoomListCell());
 		roomListView.setItems(roomListViewData);
 		
 	}
 	
-	class roomListCell extends ListCell<RoomInfo>{
+	class RoomListCell extends ListCell<RoomInfo>{
 
 		public void updateItem(RoomInfo item,boolean empty){
 			super.updateItem(item, empty);
@@ -125,6 +132,10 @@ public class BrowseRoomListController implements Initializable{
                 	changeRoomInfo(e,temp[0],temp[1],temp[2]);
                 });
                 Button delete = new Button("delete");
+                delete.setOnAction((ActionEvent e) ->{
+                	String[] temp = ((String)change.getProperties().get("NAME")).split(" ");
+                	deleteItem(e,temp[0]);
+                });
                 cell.add(type, 0, 0);
                 cell.add(avaliableNum, 0, 1);
                 cell.add(price, 1, 0);

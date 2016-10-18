@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="createStratrgyPane" prefHeight="600.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.StrategyUI.CreateNewStrategyController">
+<GridPane fx:id="stratrgyPane" prefHeight="600.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.StrategyUI.StrategyController">
   <children>
     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="77.0" text="类型" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <font>
@@ -18,7 +18,7 @@
         <Insets top="10.0" fx:id="x2" />
       </GridPane.margin>
     </Label>
-    <ChoiceBox id="StrategyTypeChoice" fx:id="strategyTypeChoice" prefHeight="22.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <ChoiceBox id="strategyTypeChoice" fx:id="strategyTypeChoice" prefHeight="22.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="节日促销策略" />
@@ -32,7 +32,7 @@
         <Insets right="8.0" top="5.0" />
       </GridPane.margin>
     </ChoiceBox>
-    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="94.0" text="确定" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+    <Button mnemonicParsing="false" onAction="#save" prefHeight="27.0" prefWidth="94.0" text="确定" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
       <GridPane.margin>
         <Insets right="10.0" />
       </GridPane.margin>
@@ -43,7 +43,7 @@
       </GridPane.margin>
     </Button>
     <Label alignment="CENTER" font="$x1" text="策略名：" GridPane.columnIndex="2" GridPane.margin="$x2" GridPane.rowIndex="0" />
-    <TextField prefHeight="27.0" prefWidth="211.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
+    <TextField fx:id="strategyName" prefHeight="27.0" prefWidth="211.0" GridPane.columnIndex="3" GridPane.rowIndex="0">
       <GridPane.margin>
         <Insets right="8.0" top="10.0" />
       </GridPane.margin>
@@ -56,12 +56,12 @@
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="211.0" />
   </columnConstraints>
   <padding>
-    <Insets top="30.0" />
+    <Insets top="10.0" fx:id="x2" />
   </padding>
   <rowConstraints>
-    <RowConstraints maxHeight="299.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="577.0" minHeight="0.0" prefHeight="215.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="577.0" minHeight="6.0" prefHeight="204.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="577.0" minHeight="10.0" prefHeight="74.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="299.0" minHeight="0.0" prefHeight="39.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="577.0" minHeight="0.0" prefHeight="249.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="577.0" minHeight="6.0" prefHeight="256.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="577.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
   </rowConstraints>
 </GridPane>

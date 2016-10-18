@@ -21,7 +21,7 @@ public class RoomInfoController implements Initializable{
 	@FXML TextField roomPrice;
 	@FXML TextField roomNum;
 	@FXML
-	public void update(ActionEvent e){
+	protected void update(ActionEvent e){
 	
 		try {
 			String type = roomType.getText();
@@ -36,6 +36,11 @@ public class RoomInfoController implements Initializable{
 			Stage stage = new Stage();
 		}
 		Stage stage = (Stage)roomType.getScene().getWindow();
+		stage.close();
+	}
+	@FXML 
+	protected void cancel(ActionEvent e){
+		Stage stage = (Stage) roomNum.getScene().getWindow();
 		stage.close();
 	}
 	public void setController(BrowseRoomListController controller){

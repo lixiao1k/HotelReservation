@@ -1,26 +1,25 @@
 package vo;
 
-import java.util.Random;
-
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-	
-public class RoomInfo {
+public class StrategyRoomInfo{
 	private String type;
 	private int num;
 	private int total;
 	private double price;
-	private long orderID;
-	public RoomInfo(String type,int num,int total,double price){
+	private double off;
+	private double offPrice;
+	public StrategyRoomInfo(String type,int num,int total,double price,double off){
 		this.type = type;
 		this.num = num;
 		this.total = total;
 		this.price = price;
-		
+		this.off = off;
+		this.offPrice = price*off;
+	}
+	public double getOff(){
+		return this.off;
+	}
+	public double getOffPrice(){
+		return this.offPrice;
 	}
 	public String getType(){
 		return this.type;
