@@ -38,7 +38,7 @@
           </VBox.margin>
         </Button>
         <Separator prefWidth="200.0" />
-        <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="117.0" text="用户管理">
+        <Button mnemonicParsing="false" onAction="#goManageUser" prefHeight="38.0" prefWidth="117.0" text="用户管理">
           <VBox.margin>
             <Insets left="7.0" top="5.0" fx:id="x1" />
           </VBox.margin>

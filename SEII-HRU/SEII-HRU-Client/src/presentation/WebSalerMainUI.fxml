@@ -48,7 +48,7 @@
             <Insets top="10.0" fx:id="x2" />
           </VBox.margin>
         </Separator>
-        <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="117.0" text="信用充值" VBox.margin="$x1" />
+        <Button mnemonicParsing="false" onAction="#goRechargeCredit" prefHeight="38.0" prefWidth="117.0" text="信用充值" VBox.margin="$x1" />
       </children>
     </VBox>
     <Label text="状态栏" GridPane.columnIndex="0" GridPane.rowIndex="3" />

@@ -19,7 +19,7 @@ public class WebManagerMainController {
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&(value.contains("User")||value.contains("Info"))){
 					list.remove(node);
 					break;
 				}
@@ -28,6 +28,22 @@ public class WebManagerMainController {
 		} catch (IOException e) {
 			// log 日志&&状态栏
 		}
-		
+	}
+	@FXML protected void goManageUser(ActionEvent event){
+		try {
+			Parent ManageUser = FXMLLoader.load(getClass().getResource("UserUI/ManageUser.fxml"));
+			ManageUser.getProperties().put("NAME", "ManageUser");
+			ObservableList<Node> list = hotelmain.getChildren();
+			for (Node node:list){
+				String value = (String) node.getProperties().get("NAME");
+				if (value!=null&&(value.contains("User")||value.contains("Info"))){
+					list.remove(node);
+					break;
+				}
+			}
+			hotelmain.add(ManageUser, 2, 1);
+		} catch (IOException e) {
+			// log 日志&&状态栏
+		}	
 	}
 }
