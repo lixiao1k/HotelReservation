@@ -15,6 +15,11 @@ import vo.RoomInfo;
 public class FestivalStrategyFormController extends StrategyFormController implements Initializable{
 	@FXML DatePicker beginTime;
 	@FXML DatePicker endTime;
+	public void initial(StrategyInfo item){
+		super.initial(item);
+		this.beginTime.setValue(((FestivalStrategyInfo)item).getBeginTime());
+		this.endTime.setValue(((FestivalStrategyInfo)item).getEndTime());
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -22,18 +27,7 @@ public class FestivalStrategyFormController extends StrategyFormController imple
 		beginTime.setValue(LocalDate.now());
 		endTime.setDayCellFactory(e -> new StrategyEndDateCell());
 		endTime.setValue(beginTime.getValue());
-		hotelRoomListViewData = FXCollections.observableArrayList();
-		RoomInfo doubleBed = new RoomInfo("双人房", 53, 110, 389);
-		RoomInfo bigBed = new RoomInfo("大床房", 36, 89, 413);
-		RoomInfo singleBed = new RoomInfo("单人房", 46, 57, 277);
-		hotelRoomListViewData.add(doubleBed);
-		hotelRoomListViewData.add(bigBed);
-		hotelRoomListViewData.add(singleBed);
-		hotelRoomListView.setCellFactory(e -> new HotelRoomListCell());
-		hotelRoomListView.setItems(hotelRoomListViewData);
-		strategyRoomListViewData = FXCollections.observableArrayList();
-		strategyRoomListView.setCellFactory(e -> new StrategyRoomListCell());
-		strategyRoomListView.setItems(strategyRoomListViewData);
+		
 	}
 	public DatePicker getBeginTime(){
 		return this.beginTime;

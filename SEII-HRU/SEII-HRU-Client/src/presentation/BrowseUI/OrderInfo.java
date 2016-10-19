@@ -23,7 +23,7 @@ public class OrderInfo {
 		this.people = people;
 		this.child = isHaveChild;
 		this.orderRoom = orderRoom;
-		this.status = OrderStatus.GOOD;
+		this.status = OrderStatus.UNEXECUTED;
 		// test code
 		Random random = new Random();
 		this.orderID = random.nextLong()+123456789;

@@ -17,8 +17,8 @@
         <Insets left="10.0" top="5.0" />
       </GridPane.margin>
     </Label>
-    <TextField prefHeight="28.0" prefWidth="381.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-    <Button mnemonicParsing="false" prefHeight="28.000099182128906" prefWidth="116.0" text="Search" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+    <TextField fx:id="searchField" prefHeight="28.0" prefWidth="381.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+    <Button onAction="#search" mnemonicParsing="false" prefHeight="28.000099182128906" prefWidth="116.0" text="Search" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
     <ListView id="strategy" fx:id="strategyList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1" />
     <Button mnemonicParsing="false" onAction="#createNewStrategy" prefHeight="28.000099182128906" prefWidth="116.0" text="Create" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
   </children>

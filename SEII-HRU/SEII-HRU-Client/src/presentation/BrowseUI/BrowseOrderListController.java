@@ -4,6 +4,7 @@ package presentation.BrowseUI;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -31,9 +32,24 @@ public class BrowseOrderListController implements Initializable{
 	@FXML ChoiceBox<String> orderType;
 	@FXML TextField searchText;
 	ObservableList<OrderInfo> orderListViewData;
+	String[] itemValues = {"UNEXECUTED","EXECUTED","ABNORMAL","REVOKED"};
+	ObservableList<String> typeStr = FXCollections.observableArrayList("未执行订单","已执行订单","异常订单","已撤销订单");
+	List<Boolean> isOrderListViewDataSearched;
 	@FXML
 	protected void searchInText(ActionEvent e){
-		
+		Collections.fill(isOrderListViewDataSearched, false);
+		String searchStr = searchText.getText();
+		long id = Long.parseLong(searchStr);
+		int size = orderListViewData.size();
+		//记得以后评审把所有size()去掉！
+		for (int i=0;i<size;i++){
+			if (orderListViewData.get(i).getOrderID()==id){
+				isOrderListViewDataSearched.set(i, true);
+				
+			}
+		}
+		orderListView.setItems(null);
+		orderListView.setItems(orderListViewData);
 	}
 	private void execute(ActionEvent e,long id){
 		for (OrderInfo oinfo:orderListViewData){
@@ -46,26 +62,47 @@ public class BrowseOrderListController implements Initializable{
 				orderListViewData.set(index, newItem);
 			}
 		}
+		searchInChoice(itemValues[typeStr.indexOf(orderType.getSelectionModel().getSelectedItem())]);
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		//test data
 		List<OrderRoomInfo> orderR = new ArrayList<OrderRoomInfo>();
+		isOrderListViewDataSearched = new ArrayList<Boolean>();
 		orderR.add(new OrderRoomInfo("双人房",1,289));
 		orderR.add(new OrderRoomInfo("单人房", 2, 356));
 		OrderInfo oinfo = new OrderInfo(LocalDate.now(), LocalDate.now().minusDays(2), 4, false, orderR);
+		OrderInfo oinfo2 = new OrderInfo(LocalDate.now(), LocalDate.now().minusDays(10), 4, false, orderR);
 		orderListViewData = FXCollections.observableArrayList();
 		orderListViewData.add(oinfo);
+		orderListViewData.add(oinfo2);
+		isOrderListViewDataSearched.add(false);
+		isOrderListViewDataSearched.add(false);
 		orderListView.setCellFactory(e -> new OrderListCell());
 		orderListView.setItems(orderListViewData);
+		
+		orderType.setItems(typeStr);
+
 		orderType.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				// TODO Auto-generated method stub
-				
+				String value = itemValues[orderType.getItems().indexOf(newValue)];
+				searchInChoice(value);
 			}
 		});
+	}
+	protected void searchInChoice(String newValue) {
+		Collections.fill(isOrderListViewDataSearched, false);
+		int size = orderListViewData.size();
+		for (int i=0;i<size;i++){
+			if (orderListViewData.get(i).getStatus().toString().equals(newValue)){
+				isOrderListViewDataSearched.set(i, true);
+			}
+		}
+		orderListView.setItems(null);
+		orderListView.setItems(orderListViewData);
 	}
 	class OrderListCell extends ListCell<OrderInfo>{
 		public void updateItem(OrderInfo item,boolean empty){
@@ -108,6 +145,11 @@ public class BrowseOrderListController implements Initializable{
 				cell.add(room, 2, 0,1,2);
 				cell.add(execute, 3, 0);
 				cell.add(issue, 4, 0);
+				if (isOrderListViewDataSearched.get(orderListViewData.indexOf(item))){
+					setStyle("-fx-background-color:#FF8000");
+				}else{
+					setStyle(null);
+				}
 				setGraphic(cell);
 			}
 			else {

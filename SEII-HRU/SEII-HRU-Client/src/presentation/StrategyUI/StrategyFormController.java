@@ -1,8 +1,10 @@
 package presentation.StrategyUI;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +17,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import presentation.StrategyUI.StrategyFormController.HotelRoomListCell;
+import presentation.StrategyUI.StrategyFormController.StrategyRoomListCell;
 import vo.RoomInfo;
 import vo.StrategyRoomInfo;
 
@@ -23,6 +27,19 @@ public class StrategyFormController{
 	@FXML ListView<StrategyRoomInfo> strategyRoomListView;
 	ObservableList<RoomInfo> hotelRoomListViewData;
 	ObservableList<StrategyRoomInfo> strategyRoomListViewData;
+	public void initial(StrategyInfo item){
+		this.initial();
+		strategyRoomListViewData.addAll(item.getStrategyRoomList());
+		for (int i=0;i<hotelRoomListViewData.size();i++){
+			for (int j=0;j<strategyRoomListViewData.size();j++){
+				if (hotelRoomListViewData.get(i).getType().equals(strategyRoomListViewData.get(j).getType())){
+					hotelRoomListViewData.remove(i);
+					i--;
+					break;
+				}
+			}
+		}
+	}
 	public ObservableList<StrategyRoomInfo> getStrategyRoomListViewData(){
 		return this.strategyRoomListViewData;
 	}
@@ -110,5 +127,18 @@ public class StrategyFormController{
 			}
 		}
 	}
-
+	public void initial(){
+		hotelRoomListViewData = FXCollections.observableArrayList();
+		RoomInfo doubleBed = new RoomInfo("双人房", 53, 110, 389);
+		RoomInfo bigBed = new RoomInfo("大床房", 36, 89, 413);
+		RoomInfo singleBed = new RoomInfo("单人房", 46, 57, 277);
+		hotelRoomListViewData.add(doubleBed);
+		hotelRoomListViewData.add(bigBed);
+		hotelRoomListViewData.add(singleBed);
+		hotelRoomListView.setCellFactory(e -> new HotelRoomListCell());
+		hotelRoomListView.setItems(hotelRoomListViewData);
+		strategyRoomListViewData = FXCollections.observableArrayList();
+		strategyRoomListView.setCellFactory(e -> new StrategyRoomListCell());
+		strategyRoomListView.setItems(strategyRoomListViewData);
+	}
 }

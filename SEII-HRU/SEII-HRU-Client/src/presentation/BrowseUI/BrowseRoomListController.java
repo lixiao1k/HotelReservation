@@ -39,7 +39,9 @@ public class BrowseRoomListController implements Initializable{
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("presentation/HotelUI/RoomInfo.fxml"));
 			Parent newRoomInfo = loader.load();
 			RoomInfoController controller = loader.getController();
+			TextField num = (TextField) newRoomInfo.lookup("#roomNum");
 			controller.setController(this);
+			num.setEditable(false);
 			Scene scene = new Scene(newRoomInfo,350,150);
 			stage.setScene(scene);
 			stage.show();
@@ -48,17 +50,16 @@ public class BrowseRoomListController implements Initializable{
 		}
 		
 	}
-	public void updateRoom(String type,int num,double price,String operation){
+	public void updateRoom(String type,int num,int total,double price,String operation){
 		if (operation.equals("CREATE")){
-
-			RoomInfo newItem = new RoomInfo(type, num, num, price);
+			RoomInfo newItem = new RoomInfo(type, num, total, price);
 			roomListViewData.add(newItem);
 		}
 		if (operation.equals("CHANGE")){
 
 			for (RoomInfo item:roomListViewData){
 				if (item.getType().equals(type)){
-					RoomInfo newItem = new RoomInfo(item.getType(), num, item.getTotal(), item.getPrice());
+					RoomInfo newItem = new RoomInfo(item.getType(),num,total,price);
 					int index =roomListViewData.indexOf(item);
 					roomListViewData.set(index, null);
 					roomListViewData.set(index, newItem);
@@ -67,7 +68,7 @@ public class BrowseRoomListController implements Initializable{
 			}
 		}
 	}
-	public void changeRoomInfo(ActionEvent e,String roomType,String roomNum,String roomPrice){
+	public void changeRoomInfo(ActionEvent e,String roomType,String roomNum,String roomTotal,String roomPrice){
 		Stage stage = new Stage();
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("presentation/HotelUI/RoomInfo.fxml"));
@@ -77,10 +78,12 @@ public class BrowseRoomListController implements Initializable{
 			TextField type = (TextField) newRoomInfo.lookup("#roomType");
 			TextField num = (TextField) newRoomInfo.lookup("#roomNum");
 			TextField price = (TextField) newRoomInfo.lookup("#roomPrice");
+			TextField total = (TextField) newRoomInfo.lookup("#roomTotal");
 			type.setText(roomType);
 			type.setEditable(false);
 			type.setFocusTraversable(false);
 			num.setText(roomNum);
+			total.setText(roomTotal);
 			price.setText(roomPrice);
 			Scene scene = new Scene(newRoomInfo,350,150);
 			stage.setScene(scene);
@@ -126,10 +129,10 @@ public class BrowseRoomListController implements Initializable{
                 Label price = new Label(item.getPrice()+"RMB");
                 price.setFont(new Font("YouYuan",13));
                 Button change = new Button("change");
-                change.getProperties().put("NAME", item.getType()+" "+item.getCurrentNum()+" "+item.getPrice());
+                change.getProperties().put("NAME", item.getType()+" "+item.getCurrentNum()+" "+item.getTotal()+" "+item.getPrice());
                 change.setOnAction((ActionEvent e)->{
                 	String[] temp = ((String)change.getProperties().get("NAME")).split(" ");
-                	changeRoomInfo(e,temp[0],temp[1],temp[2]);
+                	changeRoomInfo(e,temp[0],temp[1],temp[2],temp[3]);
                 });
                 Button delete = new Button("delete");
                 delete.setOnAction((ActionEvent e) ->{

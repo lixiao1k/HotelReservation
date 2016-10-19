@@ -20,6 +20,7 @@ public class RoomInfoController implements Initializable{
 	@FXML TextField roomType;
 	@FXML TextField roomPrice;
 	@FXML TextField roomNum;
+	@FXML TextField roomTotal;
 	@FXML
 	protected void update(ActionEvent e){
 	
@@ -27,10 +28,11 @@ public class RoomInfoController implements Initializable{
 			String type = roomType.getText();
 			double price = Double.parseDouble(roomPrice.getText());
 			int num = Integer.parseInt(roomNum.getText());
+			int total = Integer.parseInt(roomTotal.getText());
 			if (roomType.isEditable()) 
-				controller.updateRoom(type, num, price, "CREATE");
+				controller.updateRoom(type, num,total, price, "CREATE");
 			else 
-				controller.updateRoom(type, num, price, "CHANGE");
+				controller.updateRoom(type, num,total, price, "CHANGE");
 			
 		} catch(NumberFormatException e1){
 			Stage stage = new Stage();

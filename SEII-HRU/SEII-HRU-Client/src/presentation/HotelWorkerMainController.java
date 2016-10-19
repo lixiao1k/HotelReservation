@@ -85,6 +85,7 @@ public class HotelWorkerMainController {
 			hotelmain.add(browseStrategyList, 2, 1);
 		} catch (IOException e) {
 			// log ÈÕÖ¾&&×´Ì¬À¸
+			System.out.println(e.getCause()+e.getMessage());
 		}
 		
 	}
