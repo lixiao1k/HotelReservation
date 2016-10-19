@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane fx:id="hotelmain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.WebSalerMainController">
+<GridPane fx:id="webSalerMain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.WebSalerMainController">
   <children>
     <MenuBar GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0">
       <menus>
@@ -32,13 +32,13 @@
     </MenuBar>
     <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.margin="$x3" GridPane.rowIndex="1" GridPane.rowSpan="1">
       <children>
-        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#goCreateNewStrategy" prefHeight="38.0" prefWidth="117.0" text="制定促销策略">
+        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#goCreateNewStrategy" prefHeight="38.0" prefWidth="117.0" text="查看策略列表">
           <VBox.margin>
             <Insets bottom="10.0" left="7.0" top="10.0" />
           </VBox.margin>
         </Button>
         <Separator prefWidth="200.0" />
-        <Button mnemonicParsing="false" onAction="#goCancelOrder" prefHeight="38.0" prefWidth="117.0" text="撤销异常订单">
+        <Button mnemonicParsing="false" onAction="#goCancelOrder" prefHeight="38.0" prefWidth="117.0" text="查看订单信息">
           <VBox.margin>
             <Insets left="7.0" top="5.0" fx:id="x1" />
           </VBox.margin>

@@ -17,8 +17,8 @@ public class WebManagerMainUI extends Application{
 		// TODO Auto-generated method stub
 		Parent root = FXMLLoader.load(getClass().getResource("WebManagerMainUI.fxml"));
 		Parent HotelInfo = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
-		HotelInfo.getProperties().put("NAME", "HotelInfo");
-		GridPane pane = (GridPane) root.lookup("#hotelmain");
+		HotelInfo.getProperties().put("NAME", "HotelInfoPane");
+		GridPane pane = (GridPane) root.lookup("#webManagerMain");
 		pane.add(HotelInfo, 2, 1);
 		Scene scene = new Scene(root,900,600);
 		primaryStage.setScene(scene);

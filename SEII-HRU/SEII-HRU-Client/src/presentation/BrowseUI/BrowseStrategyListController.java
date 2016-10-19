@@ -51,7 +51,7 @@ public class BrowseStrategyListController implements Initializable{
 		String searchText = searchField.getText();
 		for (int i=0;i<strategyListData.size();i++){
 			//这里需要相似度计算？
-			if (strategyListData.get(i).getName().contains(searchText)){
+			if (searchText!=null&&searchText!=""&&strategyListData.get(i).getName().contains(searchText)){
 				isStrategyListDataSearched.set(i, true);
 			}
 		}
@@ -60,6 +60,7 @@ public class BrowseStrategyListController implements Initializable{
 	}
 	public void update(StrategyInfo item,String operation){
 		if (operation.equals("CREATE")){
+			isStrategyListDataSearched.add(false);
 			strategyListData.add(item);
 		}
 		if (operation.equals("CHANGE")){
