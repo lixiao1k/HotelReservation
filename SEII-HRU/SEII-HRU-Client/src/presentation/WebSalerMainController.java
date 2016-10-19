@@ -11,20 +11,20 @@ import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 
 public class WebSalerMainController {
-	@FXML private GridPane hotelmain;
+	@FXML private GridPane webSalerMain;
 	@FXML protected void goCreateNewStrategy(ActionEvent event){
 		try {
-			Parent NewStrategy = FXMLLoader.load(getClass().getResource("StrategyUI/CreateNewStrategy.fxml"));
-			NewStrategy.getProperties().put("NAME", "NewStrategy");
-			ObservableList<Node> list = hotelmain.getChildren();
+			Parent NewStrategy = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseStrategyListUI.fxml"));
+			NewStrategy.getProperties().put("NAME", "browseStrategyList");
+			ObservableList<Node> list = webSalerMain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("Strategy")||value.contains("Order"))){
+				if (value!=null&&(value.contains("List"))){
 					list.remove(node);
 					break;
 				}
 			}
-			hotelmain.add(NewStrategy, 2, 1);
+			webSalerMain.add(NewStrategy, 2, 1);
 		} catch (IOException e) {
 			// log 日志&&状态栏
 		}
@@ -32,17 +32,17 @@ public class WebSalerMainController {
 	}
 	@FXML protected void goCancelOrder(ActionEvent event){
 		try {
-			Parent CancelOrder = FXMLLoader.load(getClass().getResource("OrderUI/CancelOrder.fxml"));
-			CancelOrder.getProperties().put("NAME", "CancelOrder");
-			ObservableList<Node> list = hotelmain.getChildren();
+			Parent CancelOrder = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseAbnormalOrderListUI.fxml"));
+			CancelOrder.getProperties().put("NAME", "browseAbnormalOrderList");
+			ObservableList<Node> list = webSalerMain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("Strategy")||value.contains("Order"))){
+				if (value!=null&&(value.contains("List"))){
 					list.remove(node);
 					break;
 				}
 			}
-			hotelmain.add(CancelOrder, 2, 1);
+			webSalerMain.add(CancelOrder, 2, 1);
 		} catch (IOException e) {
 			// log 日志&&状态栏
 		}

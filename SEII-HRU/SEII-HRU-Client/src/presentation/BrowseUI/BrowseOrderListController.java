@@ -62,6 +62,7 @@ public class BrowseOrderListController implements Initializable{
 				orderListViewData.set(index, newItem);
 			}
 		}
+		if (orderType.getSelectionModel().getSelectedItem()!=null)
 		searchInChoice(itemValues[typeStr.indexOf(orderType.getSelectionModel().getSelectedItem())]);
 	}
 	@Override

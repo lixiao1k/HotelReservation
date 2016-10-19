@@ -11,23 +11,22 @@ import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 
 public class WebManagerMainController {
-	@FXML private GridPane hotelmain;
+	@FXML private GridPane webManagerMain;
 	@FXML protected void goSetHotelInfo(ActionEvent event){
 		try {
 			Parent HotelInfo = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
-			HotelInfo.getProperties().put("NAME", "HotelInfo");
-			ObservableList<Node> list = hotelmain.getChildren();
+			HotelInfo.getProperties().put("NAME", "HotelInfoPane");
+			ObservableList<Node> list = webManagerMain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&(value.contains("Pane"))){
 					list.remove(node);
 					break;
 				}
 			}
-			hotelmain.add(HotelInfo, 2, 1);
+			webManagerMain.add(HotelInfo, 2, 1);
 		} catch (IOException e) {
 			// log ÈÕÖ¾&&×´Ì¬À¸
 		}
-		
 	}
 }
