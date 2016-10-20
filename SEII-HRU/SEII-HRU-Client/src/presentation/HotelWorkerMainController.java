@@ -1,17 +1,22 @@
 package presentation;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
-public class HotelWorkerMainController {
+public class HotelWorkerMainController implements Initializable{
 	@FXML private GridPane hotelmain;
+	@FXML private Button goStrategyListButton;
 	@FXML protected void goSetHotelInfo(ActionEvent event){
 		try {
 			Parent HotelInfo = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
@@ -87,6 +92,11 @@ public class HotelWorkerMainController {
 			// log ÈÕÖ¾&&×´Ì¬À¸
 			System.out.println(e.getCause()+e.getMessage());
 		}
-		
+
+		//goStrategyListButton.getStyleClass().add("main-pane-button");
+	}
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 	}
 }

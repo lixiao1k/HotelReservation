@@ -43,6 +43,8 @@ import vo.StrategyRoomInfo;
 public class BrowseStrategyListController implements Initializable{
 	@FXML ListView<StrategyInfo> strategyList;
 	@FXML TextField searchField;
+	@FXML Button searchButton;
+	@FXML Button createButton;
 	ObservableList<StrategyInfo> strategyListData;
 	List<Boolean> isStrategyListDataSearched;
 	@FXML
@@ -214,6 +216,9 @@ public class BrowseStrategyListController implements Initializable{
 		strategyListData.add(item);
 		strategyList.setCellFactory(e -> new StrategyListCell());
 		strategyList.setItems(strategyListData);
+		createButton.getStyleClass().add("sub-pane-button");
+		searchButton.getStyleClass().add("sub-pane-button");
+		//设置控件的动画
 		
 	}
 }

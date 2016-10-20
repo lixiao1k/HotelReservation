@@ -32,13 +32,13 @@
     </MenuBar>
     <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.margin="$x3" GridPane.rowIndex="1" GridPane.rowSpan="1">
       <children>
-        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#goSetHotelInfo" prefHeight="38.0" prefWidth="117.0" text="维护酒店信息">
+        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#goSetHotelInfo" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="维护酒店信息">
           <VBox.margin>
             <Insets bottom="10.0" left="7.0" top="10.0" />
           </VBox.margin>
         </Button>
         <Separator prefWidth="200.0" />
-        <Button mnemonicParsing="false" onAction="#goOrderList" prefHeight="38.0" prefWidth="117.0" text="浏览订单">
+        <Button mnemonicParsing="false" onAction="#goOrderList" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="浏览订单">
           <VBox.margin>
             <Insets left="7.0" top="5.0" fx:id="x1" />
           </VBox.margin>
@@ -48,13 +48,13 @@
             <Insets top="10.0" fx:id="x2" />
           </VBox.margin>
         </Separator>
-        <Button mnemonicParsing="false" onAction="#goRoomList" prefHeight="38.0" prefWidth="117.0" text="更新客房" VBox.margin="$x1" />
+        <Button mnemonicParsing="false" onAction="#goRoomList" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="更新客房" VBox.margin="$x1" />
         <Separator prefWidth="200.0">
           <VBox.margin>
             <Insets top="10.0" fx:id="x2" />
           </VBox.margin>
         </Separator>
-        <Button mnemonicParsing="false" onAction="#goStrategyList" prefHeight="38.0" prefWidth="117.0" text="浏览策略列表">
+        <Button fx:id="goStrategyListButton" mnemonicParsing="false" onAction="#goStrategyList" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="浏览策略列表">
           <VBox.margin>
             <Insets left="7.0" top="5.0" fx:id="x1" />
           </VBox.margin>
