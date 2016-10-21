@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+
+<GridPane hgap="10.0" prefHeight="564.0" prefWidth="768.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <children>
+    <TextField prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <GridPane.margin>
+        <Insets left="80.0" right="60.0" />
+      </GridPane.margin>
+    </TextField>
+    <Button mnemonicParsing="false" text="查询" GridPane.columnIndex="1" GridPane.rowIndex="0">
+      <font>
+        <Font size="20.0" fx:id="x2" />
+      </font>
+    </Button>
+    <Label alignment="CENTER" prefHeight="160.0" prefWidth="400.0" text="订单信息" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+      <font>
+        <Font size="15.0" fx:id="x1" />
+      </font>
+    </Label>
+    <RadioButton alignment="CENTER_LEFT" contentDisplay="LEFT" font="$x1" mnemonicParsing="false" text="恢复全部信用" GridPane.columnIndex="0" GridPane.rowIndex="3">
+      <toggleGroup>
+        <ToggleGroup fx:id="group" />
+      </toggleGroup>
+      <GridPane.margin>
+        <Insets bottom="30.0" left="160.0" />
+      </GridPane.margin>
+    </RadioButton>
+    <RadioButton font="$x1" mnemonicParsing="false" text="恢复一半信用" toggleGroup="$group" GridPane.columnIndex="0" GridPane.rowIndex="3">
+      <GridPane.margin>
+        <Insets left="160.0" top="30.0" />
+      </GridPane.margin>
+    </RadioButton>
+    <RadioButton alignment="CENTER_LEFT" font="$x1" mnemonicParsing="false" text="设置已撤销状态" GridPane.columnIndex="0" GridPane.rowIndex="2">
+      <GridPane.margin>
+        <Insets left="160.0" />
+      </GridPane.margin>
+    </RadioButton>
+    <Button font="$x2" mnemonicParsing="false" text="提交" GridPane.columnIndex="0" GridPane.rowIndex="4">
+      <GridPane.margin>
+        <Insets left="100.0" />
+      </GridPane.margin>
+    </Button>
+    <Button font="$x2" mnemonicParsing="false" text="取消" GridPane.columnIndex="0" GridPane.rowIndex="4">
+      <GridPane.margin>
+        <Insets left="320.0" />
+      </GridPane.margin>
+    </Button>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="535.0" minWidth="10.0" prefWidth="416.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="342.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="222.0" minHeight="10.0" prefHeight="222.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="116.0" minHeight="0.0" prefHeight="32.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="88.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>
