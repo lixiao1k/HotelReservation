@@ -42,7 +42,7 @@ public class ClientMainUIController implements Initializable{
 	@FXML
 	protected void goVIPRegister(ActionEvent e){
 		try {
-			Parent Register = FXMLLoader.load(getClass().getResource("UserUI/Register.fxml"));
+			Parent Register = FXMLLoader.load(getClass().getResource("MemberUI/Register.fxml"));
 			Register.getProperties().put("NAME", "VIPRegisterPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
@@ -61,7 +61,7 @@ public class ClientMainUIController implements Initializable{
 	@FXML
 	protected void goPersonInfo(ActionEvent e){
 		try {
-			Parent PersonInfo = FXMLLoader.load(getClass().getResource("UserUI/keepinfo.fxml"));
+			Parent PersonInfo = FXMLLoader.load(getClass().getResource("MemberUI/Keeppersoninfo.fxml"));
 			PersonInfo.getProperties().put("NAME", "PersonInfoPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){

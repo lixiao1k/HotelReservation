@@ -40,7 +40,7 @@ public class LoginMainController implements Initializable{
 		String title = null;
 		if (username.equals("client")&&password.equals("client")){
 			loader.setLocation(getClass().getResource("ClientMainUI.fxml"));
-			content = FXMLLoader.load(getClass().getClassLoader().getResource("presentation/UserUI/keepinfo.fxml"));
+			content = FXMLLoader.load(getClass().getClassLoader().getResource("presentation/MemberUI/Keeppersoninfo.fxml"));
 			content.getProperties().put("NAME", "PersonInfoPane");
 			title = "酒店预订系统  -  客户";
 		}

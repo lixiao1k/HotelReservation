@@ -18,17 +18,13 @@
 	-fx-background-color : white;
 }
 .main-pane-button{
-	-fx-background-color : white;
-	-fx-graphic: url("person30.jpg");
 
-	-fx-content-display: graphic-only;
 }
 .main-pane-button:hover{
-	-fx-opacity:0.7;
-	-fx-content-display: left;
+
 }
 .mainUIVBox {
-	-fx-background-color : white;
+	
 }
 .record-sales {
     -fx-padding: 8 15 15 15;
