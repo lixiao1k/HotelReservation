@@ -216,8 +216,7 @@ public class BrowseStrategyListController implements Initializable{
 		strategyListData.add(item);
 		strategyList.setCellFactory(e -> new StrategyListCell());
 		strategyList.setItems(strategyListData);
-		createButton.getStyleClass().add("sub-pane-button");
-		searchButton.getStyleClass().add("sub-pane-button");
+		
 		//设置控件的动画
 		
 	}
