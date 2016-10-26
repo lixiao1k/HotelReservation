@@ -140,5 +140,20 @@
             <Insets bottom="20.0" left="40.0" right="10.0" top="40.0" />
          </GridPane.margin>
       </ListView>
+      <Label prefHeight="15.0" prefWidth="77.0" text="此订单评分：" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="60.0" top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="5.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="150.0" top="10.0" />
+         </GridPane.margin>
+      </Label>
+      <TextArea maxHeight="100.0" maxWidth="230.0" prefHeight="100.0" prefWidth="100.0" text="评价：" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="10.0" top="50.0" />
+         </GridPane.margin>
+      </TextArea>
    </children>
 </GridPane>
