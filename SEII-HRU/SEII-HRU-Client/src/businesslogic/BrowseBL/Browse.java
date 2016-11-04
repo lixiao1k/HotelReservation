@@ -1,7 +1,7 @@
 package businesslogic.BrowseBL;
 
 import businesslogic.CreditBL.CreditList;
-import businesslogic.HotelBL.HotelList;
+import businesslogic.HotelBL.Hotel;
 import businesslogic.MemberBL.MemberController;
 import businesslogic.OrderBL.OrderController;
 import businesslogic.OrderBL.OrderList;
@@ -31,7 +31,7 @@ public class Browse {
 	}
 
 
-	public HotelList getHotels() {
+	public Hotel getHotels() {
 		// TODO Auto-generated method stub
 		return null;
 	}
