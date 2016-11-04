@@ -38,9 +38,9 @@ public class BrowseController implements BrowseBLService_Update{
 	}
 
 	@Override
-	public CreditList getCreditInfo() {
+	public CreditList getCreditInfo(long userId) {
 		// TODO Auto-generated method stub
-		return browseObject.getCreditInfo();
+		return browseObject.getCreditInfo(userId);
 	}
 
 	@Override

@@ -16,6 +16,7 @@ public interface BrowseBLService_Update {
 	public OrderList getWEBOrderInfo();
 	public Hotel getHotels();
 	public CreditList getCreditInfo();
+	public CreditList getCreditInfo(long userId);
 	public HotelVO getHotel(long hotelId);
 	public StrategyVO getStrategyInfo(String strategyName);
 	public MemberVO getMemberInfo(long userid);

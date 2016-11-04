@@ -1,16 +1,16 @@
-package vo;
+package businesslogic.CommentBL;
 
 import java.time.LocalDate;
 
-import businesslogic.CommentBL.CommentInfo;
+import vo.CommentVO;
 
-public class CommentVO {
+public class CommentInfo {
 	private int grade;
 	private String comment;
 	private LocalDate date;
 	private long userid;
 	private long hotelId;
-    public CommentVO(int grade,String comment,long userid,long hotelId){
+    public CommentInfo(int grade,String comment,long userid,long hotelId){
     	//get time;
     	date = LocalDate.now();
     	this.userid = userid;
@@ -18,7 +18,7 @@ public class CommentVO {
     	this.comment = comment;
     	this.hotelId = hotelId;
     }
-    public CommentVO(CommentInfo vo){
+    public CommentInfo(CommentVO vo){
     	grade = vo.getGrade();
     	comment = vo.getComment();
     	date = vo.getDate();
@@ -43,7 +43,4 @@ public class CommentVO {
     public String toString(){
     	return date + " " + "∆¿¬€»À:"+userid+" ∆¿¬€æ∆µÍ:"+hotelId+" comment:"+comment+" grade:"+grade;
     }
-	public CommentVO() {
-		// TODO Auto-generated constructor stub
-	}
 }
