@@ -3,6 +3,7 @@ package businesslogic.BrowseBL;
 import businesslogic.CreditBL.CreditController;
 import businesslogic.CreditBL.CreditList;
 import businesslogic.HotelBL.Hotel;
+import businesslogic.HotelBL.HotelList;
 import businesslogic.MemberBL.MemberController;
 import businesslogic.OrderBL.OrderController;
 import businesslogic.OrderBL.OrderList;
@@ -33,7 +34,7 @@ public class Browse {
 	}
 
 
-	public Hotel getHotels() {
+	public HotelList getHotels() {
 		// TODO Auto-generated method stub
 		return null;
 	}

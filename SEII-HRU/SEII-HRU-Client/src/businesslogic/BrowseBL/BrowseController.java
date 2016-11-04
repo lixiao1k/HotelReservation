@@ -1,7 +1,7 @@
 package businesslogic.BrowseBL;
 
 import businesslogic.CreditBL.CreditList;
-import businesslogic.HotelBL.Hotel;
+import businesslogic.HotelBL.HotelList;
 import businesslogic.MemberBL.MemberController;
 import businesslogic.OrderBL.OrderController;
 import businesslogic.OrderBL.OrderList;
@@ -32,7 +32,7 @@ public class BrowseController implements BrowseBLService_Update{
 	}
 
 	@Override
-	public Hotel getHotels() {
+	public HotelList getHotels() {
 		// TODO Auto-generated method stub
 		return browseObject.getHotels();
 	}

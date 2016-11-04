@@ -18,4 +18,13 @@ public class StrategyList {
 	public void setStrategyList(List<StrategyVO> list) {
 		this.list = list;
 	}
+	public boolean delete(long id){
+		for(StrategyVO vo:list){
+			if(vo.getID()==id){
+				list.remove(vo);
+				return true;
+			}
+		}
+		return false;
+	}
 }

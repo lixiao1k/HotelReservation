@@ -1,7 +1,7 @@
 package businesslogicservice.BrowseBLService;
 
 import businesslogic.CreditBL.CreditList;
-import businesslogic.HotelBL.Hotel;
+import businesslogic.HotelBL.HotelList;
 import businesslogic.OrderBL.OrderList;
 import businesslogicservice.OrderBLService.OrderResultMessage;
 import vo.HotelVO;
@@ -14,7 +14,7 @@ public interface BrowseBLService_Update {
 	public OrderList getUserOrderInfo(long userId,OrderStatus status);
 	public OrderList getHotelOrderInfo(long hotelId,OrderStatus status);
 	public OrderList getWEBOrderInfo();
-	public Hotel getHotels();
+	public HotelList getHotels();
 	public CreditList getCreditInfo();
 	public CreditList getCreditInfo(long userId);
 	public HotelVO getHotel(long hotelId);
