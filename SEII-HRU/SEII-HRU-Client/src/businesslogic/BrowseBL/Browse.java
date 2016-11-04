@@ -1,5 +1,6 @@
 package businesslogic.BrowseBL;
 
+import businesslogic.CreditBL.CreditController;
 import businesslogic.CreditBL.CreditList;
 import businesslogic.HotelBL.HotelList;
 import businesslogic.MemberBL.MemberController;
@@ -13,6 +14,7 @@ import vo.StrategyVO;
 public class Browse {
 	OrderController orderController;
 	MemberController memberController;
+	CreditController creditController;
 	public OrderList getUserOrderInfo(long userId, OrderStatus status) {
 		// TODO Auto-generated method stub
 		return orderController.getUserOrderInfo(userId, status);
@@ -37,12 +39,11 @@ public class Browse {
 	}
 
 
-	public CreditList getCreditInfo() {
+	public CreditList getCreditInfo(long userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return creditController.getInfo(userId);
 	}
-
-
+	
 	public HotelVO getHotel(long hotelId) {
 		// TODO Auto-generated method stub
 		return null;

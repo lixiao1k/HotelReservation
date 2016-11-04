@@ -1,31 +1,28 @@
-package vo;
+package businesslogic.CreditBL;
 
 import java.time.LocalDate;
 
-import businesslogic.CreditBL.CreditInfo;
+import vo.CreditVO;
 
-public class CreditVO {
+public class CreditInfo {
 	private long userId;
 	private LocalDate date;
 	private int delta;
 	private int credit;
-	public CreditVO(long userId,LocalDate date,int delta,int credit){
+	public CreditInfo(long userId,LocalDate date,int delta,int credit){
 		this.userId = userId;
 		this.date = date;
 		this.delta = delta;
 		this.credit = credit;
 	}
-	public CreditVO(CreditInfo vo){
+	public String toString(){
+		return "UserId:"+userId+"; date:"+date+"; "+delta+" -> "+credit;
+	}
+	public CreditInfo(CreditVO vo){
 		this.userId = vo.getUserId();
 		this.date = vo.getDate();
 		this.delta = vo.getDelta();
 		this.credit = vo.getCredit();
-	}
-	public String toString(){
-		return "UserId:"+userId+"; date:"+date+"; "+delta+" -> "+credit;
-	}
-	public CreditVO() {
-		// TODO Auto-generated constructor stub
 	}
 	public long getUserId(){
 		return this.userId;
