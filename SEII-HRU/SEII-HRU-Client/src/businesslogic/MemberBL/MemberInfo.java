@@ -1,26 +1,17 @@
-package vo;
+package businesslogic.MemberBL;
 
 import java.util.Random;
 
-import businesslogic.MemberBL.MemberInfo;
-import businesslogic.MemberBL.VIPInfo;
+import vo.MemberVO;
 
-public class MemberVO {
+public class MemberInfo {
 	private String phone;
 	private String name;
 	private int credit;
 	private boolean VIPFlag;
 	private VIPInfo vipInfo;
 	private long memberId;
-	public MemberVO(MemberInfo info){
-		this.phone = info.getPhone();
-		this.name = info.getName();
-		this.credit = info.getCredit();
-		this.memberId = info.getId();
-		this.VIPFlag = info.isVIP();
-		this.vipInfo = info.getVIP();
-	}
-	public MemberVO(String phone,String name){
+	public MemberInfo(String phone,String name){
 		this.phone = phone;
 		this.name = name;
 		this.credit = 70;
@@ -28,12 +19,17 @@ public class MemberVO {
 		Random rnd = new Random();
 		this.memberId = rnd.nextLong();
 	}
-	public MemberVO() {
-		// TODO Auto-generated constructor stub
+	public void setAllInfo(MemberVO vo){
+		this.phone = vo.getPhone();
+		this.name = vo.getName();
+		this.credit = vo.getCredit();
+		this.VIPFlag = vo.isVIP();
+		this.vipInfo = vo.getVIP();
 	}
 	public String toString(){
 		return "name:"+this.name+"; phone:"+this.phone+"; credit:"+this.credit+"; "+getVIPInfo();
 	}
+	public void setFlag(boolean flag){ this.VIPFlag = flag; }
 	public VIPInfo getVIP(){ return this.vipInfo; }
 	public long getId(){ return this.memberId; }
 	public void setPhone(String phone){ this.phone = phone; }
