@@ -66,4 +66,10 @@ public class BrowseController implements BrowseBLService_Update{
 	public void setOrderController(OrderController orderController){
 		browseObject.setOrderController(orderController);
 	}
+
+	@Override
+	public CreditList getCreditInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
