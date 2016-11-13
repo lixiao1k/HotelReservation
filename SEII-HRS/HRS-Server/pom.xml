@@ -4,6 +4,21 @@
   <artifactId>HRS-Server</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>HRS-Server</name>
+  <build>
+	 <pluginManagement>  
+       <plugins>  
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.1</version>
+			<configuration>
+				<fork>true</fork>
+				
+			</configuration>
+		</plugin>
+		</plugins>
+		</pluginManagement>
+  </build>
   <dependencies>
   	<dependency>
   		<groupId>junit</groupId>
@@ -31,4 +46,5 @@
   		<version>1.2.6</version>
   	</dependency>
   </dependencies>
+
 </project>
