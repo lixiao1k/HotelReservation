@@ -1,11 +1,12 @@
-package businesslogicservice.OrderBLService; 
+package logic.service;
 
-import businesslogic.OrderBL.OrderList;
-import vo.OrderStatus;
+import info.OrderStatus;
+import list.OrderList;
+import resultmessage.OrderResultMessage;
 import vo.OrderVO;
 import vo.StrategyVO;
 
-public interface OrderBLService_Update {
+public interface OrderLogicService {
 	public OrderList getUserOrderInfo(long userId,OrderStatus status);
 	public OrderList getHotelOrderInfo(long hotelId,OrderStatus status);
 	public OrderList getWEBOrderInfo();

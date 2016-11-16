@@ -1,8 +1,5 @@
 package data.service;
 
-import po.UserPO;
+public class UserDataService {
 
-public interface UserDataService {
-	public void login(String username,String password);
-	public void register(UserPO po);
 }
