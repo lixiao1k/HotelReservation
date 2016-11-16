@@ -30,4 +30,10 @@ public class UserPO {
 	public void setPassword(String password){
 		this.password = password;
 	}
+	/*
+	 * 这里userId为代理主键，由于hibernate能通过反射机制访问private，设立private来防止view和logic层的误操作
+	 */
+	private void setUserId(long userId){
+		this.userId = userId;
+	}
 }
