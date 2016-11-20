@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="info">
+    <class name="OrderItem" table="OrderItem">
+        <id name="oiid">
+            <column name="ORDERITEM_ID"></column>
+            <generator class="native"></generator>
+        </id>
+        <property name="num" type="int">
+            <column name="NUM"></column>
+        </property>
+        <property name="price" type="double">
+            <column name="PRICE"></column>
+        </property>
+        <many-to-one name="order" class="po.OrderPO" cascade="all">
+            <column name="ORDER_ID"></column>
+        </many-to-one>
+        <many-to-one name="room" class="Room" cascade="all">
+            <column name="ROOM_ID"></column>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

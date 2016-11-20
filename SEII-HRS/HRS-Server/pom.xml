@@ -5,6 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>HRS-Server</name>
   <build>
+  	 <defaultGoal>compile</defaultGoal>
 	 <pluginManagement>  
        <plugins>  
 		<plugin>
@@ -20,6 +21,12 @@
 		</pluginManagement>
   </build>
   <dependencies>
+  	<dependency>
+  		<groupId>com.mchange</groupId>
+  		<artifactId>c3p0</artifactId>
+  		<version>0.9.2</version>
+  	</dependency>
+
   	<dependency>
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>

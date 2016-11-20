@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="po">
+    <class name="OrderPO" table="`Order`">
+        <id name="oid">
+            <column name="ORDER_ID"></column>
+            <generator class="native"></generator>
+        </id>
+        <property name="status" not-null="true">
+   			<type name="org.hibernate.type.EnumType">
+    			<param name="enumClass">info.OrderStatus</param>
+   				 <!--
+    			 12为java.sql.Types.VARCHAR常量值，即保存枚举的字面值到数据库。如果不指定type参数，保存枚举的索引值(从0开始)到数据库
+    			 -->
+  		    	<param name="type">12</param>
+ 		   </type>
+        </property>
+        <property name="checkInTime" type="date">
+            <column name="CHECK_IN_TIME" not-null="true"></column>
+        </property>
+        <property name="checkOutTime" type="date">
+            <column name="CHECK_OUT_TIME" not-null="true"></column>
+        </property>
+        <property name="abnormalTime" type="date">
+            <column name="ABNORMAL_TIME" not-null="true"></column>
+        </property>
+        <property name="child" type="boolean">
+            <column name="CHILD" not-null="true"></column>
+        </property>
+        <property name="people" type="int">
+            <column name="PEOPLE" not-null="true"></column>
+        </property>   
+       	<many-to-one
+       	    name="user"
+       	    column="USER_ID"
+       	    class="UserPO"
+       	    not-null="true"
+       	    lazy="false"
+		/>
+       	<many-to-one
+       	    name="hotel"
+       	    column="HOTEL_ID"
+       	    class="HotelPO"
+       	    not-null="true"
+       	    lazy="false"
+       	/>
+       	<set name="orderItems" cascade="all">
+       	    <key column="ORDER_ID"></key>
+       	    <one-to-many class="info.OrderItem"/>
+       	</set>
+    </class>
+</hibernate-mapping>

@@ -1,12 +1,12 @@
-package logic.service.impl;
+package logic.service.impl.order;
 
+import java.rmi.RemoteException;
 import java.util.Iterator;
 
 import javax.management.RuntimeErrorException;
 
 import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
-
 import data.datahelper.HibernateUtil;
 import info.OrderItem;
 import info.OrderStatus;
@@ -44,8 +44,8 @@ public class OrderLogicServiceImpl implements OrderLogicService{
 
 	@Override
 	public OrderResultMessage create(OrderVO vo) {
-		// TODO 自动生成的方法存根
-		return null;
+		//orderDao.insert(po);
+		return OrderResultMessage.SUCCESS;
 	}
 
 	@Override
@@ -58,11 +58,27 @@ public class OrderLogicServiceImpl implements OrderLogicService{
 			OrderPO po = orderDao.getInfo(orderId);
 			//如果返回的是Null,说明没有这个订单，返回错误，否则置为abnormal状态
 			if (po!=null){
-				po.setStatus(OrderStatus.ABNORMAL);
-				orderDao.update(po);
-				return OrderResultMessage.SUCCESS;
+				if(po.getStatus()==OrderStatus.UNEXECUTED){
+					po.setStatus(OrderStatus.ABNORMAL);
+					orderDao.update(po);
+					//提交事务
+					HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.commit();
+					return OrderResultMessage.ABNORMAL_SUCCESS;
+				}
+				else{
+					HibernateUtil.getCurrentSession()
+									.getTransaction()
+									.commit();
+					return OrderResultMessage.FAIL_WRONGSTATUS;
+				}
 			}
 			else{
+				//提交事务
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.commit();
 				return OrderResultMessage.FAIL_WRONGID;
 			}
 			
@@ -76,10 +92,7 @@ public class OrderLogicServiceImpl implements OrderLogicService{
 			}
 			throw e;
 		}finally{
-			//提交事务
-			HibernateUtil.getCurrentSession()
-							.getTransaction()
-							.commit();
+			
 		}
 	}
 
@@ -121,9 +134,17 @@ public class OrderLogicServiceImpl implements OrderLogicService{
 					OrderItem oi = oiit.next();
 					sum+=oi.getPrice()*oi.getNum();
 				}
+				//提交事务
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.commit();
 				return sum;
 			}
 			else{
+				//提交事务
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.commit();
 				return -1;
 			}
 		}catch(RuntimeException e){
@@ -136,10 +157,7 @@ public class OrderLogicServiceImpl implements OrderLogicService{
 			}
 			throw e;
 		}finally{
-			//提交事务
-			HibernateUtil.getCurrentSession()
-							.getTransaction()
-							.commit();
+		
 		}
 	}
 

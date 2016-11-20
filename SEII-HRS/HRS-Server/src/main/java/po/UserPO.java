@@ -1,10 +1,13 @@
 package po;
 
 public class UserPO {
-	private long userId;
+	private long uid;
 	private String username;
 	private String password;
 	private Role role;
+	public UserPO(){
+		
+	}
 	public UserPO(String username,String password){
 		this.username = username;
 		this.password = password;
@@ -21,8 +24,8 @@ public class UserPO {
 	public String getPassword(){
 		return this.password;
 	}
-	public long getUserId(){
-		return this.userId;
+	public long getUid(){
+		return this.uid;
 	}
 	public void setUsername(String username){
 		this.username = username;
@@ -33,7 +36,7 @@ public class UserPO {
 	/*
 	 * 这里userId为代理主键，由于hibernate能通过反射机制访问private，设立private来防止view和logic层的误操作
 	 */
-	private void setUserId(long userId){
-		this.userId = userId;
+	private void setUid(long uid){
+		this.uid = uid;
 	}
 }

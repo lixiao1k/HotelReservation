@@ -2,12 +2,11 @@
 <!DOCTYPE hibernate-mapping PUBLIC   
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
-<hibernate-mapping>
-    <class name="UserPO" table="User">
-        <id name="id">
-            <generator class="native"></generator>
+<hibernate-mapping package="po">
+    <class name="HotelPO" table="Hotel">
+        <id name="hid" type="long">
+           <column name="HOTEL_ID"></column>
+           <generator class="native"></generator>
         </id>
-        <property name="username"></property>
-        <property name="password"></property>
     </class>
 </hibernate-mapping>
