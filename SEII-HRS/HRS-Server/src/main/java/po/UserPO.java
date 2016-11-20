@@ -5,12 +5,17 @@ public class UserPO {
 	private String username;
 	private String password;
 	private Role role;
+	private CreditPO credit;
 	public UserPO(){
 		
 	}
 	public UserPO(String username,String password){
 		this.username = username;
 		this.password = password;
+		credit=new CreditPO();
+	}
+	public CreditPO getCredit(){
+		return credit;
 	}
 	public Role getRole(){
 		return this.role;
