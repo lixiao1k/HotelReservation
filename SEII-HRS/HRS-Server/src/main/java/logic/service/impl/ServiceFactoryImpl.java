@@ -38,57 +38,57 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 
 	@Override
 	public BrowseLogicService getBrowseLogicService() throws RemoteException {
-		if (browseService==null)
-			browseService = new BrowseLogicServiceImpl();
+		//if (browseService==null)
+		//	browseService = new BrowseLogicServiceImpl();
 		return browseService;
 	}
 
 	@Override
 	public CommentLogicService getCommentLogicService() throws RemoteException {
-		if (commentService==null)
-			commentService = new CommentLogicServiceImpl();
+		//if (commentService==null)
+		//	commentService = new CommentLogicServiceImpl();
 		return commentService;
 	}
 
 	@Override
 	public CreditLogicService getCreditLogicService() throws RemoteException {
-		if (creditService==null)
-			creditService = new CreditLogicServiceImpl();
+		//if (creditService==null)
+		//	creditService = new CreditLogicServiceImpl();
 		return creditService;
 	}
 
 	@Override
 	public HotelLogicService getHotelLogicService() throws RemoteException {
-		if (hotelService==null)
-			hotelService = new HotelLogicServiceImpl();
+		//if (hotelService==null)
+		//	hotelService = new HotelLogicServiceImpl();
 		return hotelService;
 	}
 
 	@Override
 	public MemberLogicService getMemberLogicService() throws RemoteException {
-		if (memberService==null)
-			memberService = new MemberLogicServiceImpl();
+		//if (memberService==null)
+		//	memberService = new MemberLogicServiceImpl();
 		return memberService;
 	}
 
 	@Override
 	public OrderLogicService getOrderLogicService() throws RemoteException {
-		if (orderService==null)
-			orderService = new OrderLogicServiceImpl();
+		//if (orderService==null)
+		//	orderService = new OrderLogicServiceImpl();
 		return orderService;
 	}
 
 	@Override
 	public StrategyLogicService getStrategyLogicService() throws RemoteException {
-		if (strategyService==null)
-			strategyService = new StrategyLogicServiceImpl();
+		//if (strategyService==null)
+		//	strategyService = new StrategyLogicServiceImpl();
 		return strategyService;
 	}
 
 	@Override
 	public UserLogicService getUserLogicService() throws RemoteException {
-		if (userService==null)
-			userService = new UserLogicServiceImpl();
+		//if (userService==null)
+		//	userService = new UserLogicServiceImpl();
 		return userService;
 	}
 
