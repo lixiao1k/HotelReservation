@@ -1,4 +1,4 @@
-package data.datahelper;
+package util;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

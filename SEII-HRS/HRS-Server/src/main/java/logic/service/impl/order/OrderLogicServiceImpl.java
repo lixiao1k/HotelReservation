@@ -7,158 +7,80 @@ import javax.management.RuntimeErrorException;
 
 import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
-import data.datahelper.HibernateUtil;
 import info.OrderItem;
 import info.OrderStatus;
+import list.Cache;
 import list.OrderList;
 import logic.service.OrderLogicService;
 import po.OrderPO;
 import resultmessage.OrderResultMessage;
+import util.HibernateUtil;
 import vo.OrderVO;
 import vo.StrategyVO;
 
 public class OrderLogicServiceImpl implements OrderLogicService{
-	private OrderDao orderDao;
-	public OrderLogicServiceImpl() {
-		orderDao = DaoManager
-					.getInstance()
-					.getOrderDao();
+	private OrderDO orderDO;
+	public OrderLogicServiceImpl(){
+		orderDO = new OrderDO();
+	}
+	/*
+	 * 指定orderDO中缓存大小的构造器
+	 * @param size of orderDO's cache
+	 */
+	public OrderLogicServiceImpl(int size){
+		orderDO = new OrderDO(size);
 	}
 	@Override
-	public OrderList getUserOrderInfo(long userId, OrderStatus status) {
-		// TODO 自动生成的方法存根
+	public OrderList getUserOrderInfo(long userId, OrderStatus status) throws RemoteException {
+		return orderDO.getUserOrderInfo(userId, status);
+	}
+	@Override
+	public OrderList getHotelOrderInfo(long hotelId, OrderStatus status) throws RemoteException {
+		return orderDO.getHotelOrderInfo(hotelId, status);
+	}
+	@Override
+	public OrderList getWEBOrderInfo() throws RemoteException {
+		return orderDO.getWEBOrderInfo();
+	}
+	@Override
+	public OrderResultMessage create(OrderVO vo) throws RemoteException {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public OrderList getHotelOrderInfo(long hotelId, OrderStatus status) {
-		// TODO 自动生成的方法存根
+	public OrderResultMessage abnormal(long orderId) throws RemoteException {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public OrderList getWEBOrderInfo() {
-		// TODO 自动生成的方法存根
+	public OrderResultMessage userCancel(long orderId) throws RemoteException {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public OrderResultMessage create(OrderVO vo) {
-		//orderDao.insert(po);
-		return OrderResultMessage.SUCCESS;
-	}
-
-	@Override
-	public OrderResultMessage abnormal(long orderId) {
-		try{
-			//开始事务
-			HibernateUtil.getCurrentSession()
-							.beginTransaction();
-			//根据orderId获取orderPO
-			OrderPO po = orderDao.getInfo(orderId);
-			//如果返回的是Null,说明没有这个订单，返回错误，否则置为abnormal状态
-			if (po!=null){
-				if(po.getStatus()==OrderStatus.UNEXECUTED){
-					po.setStatus(OrderStatus.ABNORMAL);
-					orderDao.update(po);
-					//提交事务
-					HibernateUtil.getCurrentSession()
-								.getTransaction()
-								.commit();
-					return OrderResultMessage.ABNORMAL_SUCCESS;
-				}
-				else{
-					HibernateUtil.getCurrentSession()
-									.getTransaction()
-									.commit();
-					return OrderResultMessage.FAIL_WRONGSTATUS;
-				}
-			}
-			else{
-				//提交事务
-				HibernateUtil.getCurrentSession()
-								.getTransaction()
-								.commit();
-				return OrderResultMessage.FAIL_WRONGID;
-			}
-			
-		}catch(RuntimeException e){
-			try{
-				HibernateUtil.getCurrentSession()
-								.getTransaction()
-								.rollback();
-			}catch(RuntimeErrorException ex){
-				ex.printStackTrace();
-			}
-			throw e;
-		}finally{
-			
-		}
-	}
-
-	@Override
-	public OrderResultMessage userCancel(long orderId) {
-		// TODO 自动生成的方法存根
+	public OrderResultMessage execute(long orderId) throws RemoteException {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public OrderResultMessage execute(long orderId) {
-		// TODO 自动生成的方法存根
+	public OrderResultMessage reExecute(long orderId) throws RemoteException {
+		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
-	public OrderResultMessage reExecute(long orderId) {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	@Override
-	public boolean isUsed(StrategyVO vo) {
-		// TODO 自动生成的方法存根
+	public boolean isUsed(StrategyVO vo) throws RemoteException {
+		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
-	public double getTotal(long orderId) {
-		try{
-			HibernateUtil.getCurrentSession()
-							.beginTransaction();
-			//根据orderId获取orderPO
-			OrderPO po = orderDao.getInfo(orderId);
-			if (po!=null){
-				Iterator<OrderItem> oiit = po.getOrderRoomIterator();
-				double sum = 0.0;
-				while(oiit.hasNext()){
-					OrderItem oi = oiit.next();
-					sum+=oi.getPrice()*oi.getNum();
-				}
-				//提交事务
-				HibernateUtil.getCurrentSession()
-								.getTransaction()
-								.commit();
-				return sum;
-			}
-			else{
-				//提交事务
-				HibernateUtil.getCurrentSession()
-								.getTransaction()
-								.commit();
-				return -1;
-			}
-		}catch(RuntimeException e){
-			try{
-				HibernateUtil.getCurrentSession()
-								.getTransaction()
-								.rollback();
-			}catch(RuntimeErrorException ex){
-				ex.printStackTrace();
-			}
-			throw e;
-		}finally{
-		
-		}
+	public double getTotal(long orderId) throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
 	}
-
+	@Override
+	public OrderResultMessage webCancel(long orderId) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

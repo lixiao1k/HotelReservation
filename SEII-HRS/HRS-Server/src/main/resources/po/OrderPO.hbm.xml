@@ -23,7 +23,7 @@
         <property name="checkOutTime" type="date">
             <column name="CHECK_OUT_TIME" not-null="true"></column>
         </property>
-        <property name="abnormalTime" type="date">
+        <property name="abnormalTime" type="timestamp">
             <column name="ABNORMAL_TIME" not-null="true"></column>
         </property>
         <property name="child" type="boolean">

@@ -52,6 +52,11 @@
   		<artifactId>log4j</artifactId>
   		<version>1.2.6</version>
   	</dependency>
+  	<dependency>
+       <groupId>net.sf.dozer</groupId>
+       <artifactId>dozer</artifactId>
+       <version>5.2.1</version>
+    </dependency>
   </dependencies>
 
 </project>

@@ -1,9 +1,9 @@
 package data.datahelper.impl;
 
 import data.datahelper.CreditDataHelper;
-import data.datahelper.HibernateUtil;
 import po.CreditPO;
 import po.UserPO;
+import util.HibernateUtil;
 
 public class CreditDataHelperMysqlImpl implements CreditDataHelper{
 

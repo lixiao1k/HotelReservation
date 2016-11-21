@@ -1,8 +1,8 @@
 package data.datahelper.impl;
 
-import data.datahelper.HibernateUtil;
 import data.datahelper.UserDataHelper;
 import po.UserPO;
+import util.HibernateUtil;
 
 public class UserDataHelperMysqlImpl implements UserDataHelper{
 

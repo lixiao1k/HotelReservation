@@ -18,6 +18,7 @@ public interface OrderLogicService extends Remote{
 	public OrderResultMessage userCancel(long orderId) throws RemoteException;
 	public OrderResultMessage execute(long orderId) throws RemoteException;
 	public OrderResultMessage reExecute(long orderId) throws RemoteException;
+	public OrderResultMessage webCancel(long orderId) throws RemoteException;
 	public boolean isUsed(StrategyVO vo) throws RemoteException;
 	public double getTotal(long orderId) throws RemoteException;
 }

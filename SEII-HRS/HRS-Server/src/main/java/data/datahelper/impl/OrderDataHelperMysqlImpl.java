@@ -1,8 +1,8 @@
 package data.datahelper.impl;
 
-import data.datahelper.HibernateUtil;
 import data.datahelper.OrderDataHelper;
 import po.OrderPO;
+import util.HibernateUtil;
 
 public class OrderDataHelperMysqlImpl implements OrderDataHelper{
 

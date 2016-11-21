@@ -1,6 +1,7 @@
 package po;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import info.OrderItem;
 import info.OrderStatus;
+import vo.OrderVO;
 
 public class OrderPO implements Serializable{
 	/**
@@ -20,15 +22,16 @@ public class OrderPO implements Serializable{
 	private HotelPO hotel;
 	private Date checkInTime;
 	private Date checkOutTime;
-	private Date abnormalTime;
+	private Timestamp abnormalTime;
 	//给orderItems赋值set的实现类，防止在其他类对该类操作过程中抛出nullpointerexception，而是在迭代器中返回null，提高程序健壮性
 	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
 	private boolean child;
 	private int people;
+
 	public long getOid(){
 		return this.oid;
 	}
-	public Date getAbnormalTime(){
+	public Timestamp getAbnormalTime(){
 		return this.abnormalTime;
 	}
 	public UserPO getUser(){
@@ -55,7 +58,6 @@ public class OrderPO implements Serializable{
 	/*
 	 * 由于hibernate能够利用java反射机制存入记录，故将该方法设置为private，隐藏细节，增强操作，而提供另外的getIterator方法供使用
 	 */
-
 	private Set<OrderItem> getOrderItems(){
 		return this.orderItems;
 	}
@@ -65,7 +67,7 @@ public class OrderPO implements Serializable{
 	public Iterator<OrderItem> getOrderRoomIterator(){
 		return this.orderItems.iterator();
 	}
-	public void setAbnormalTime(Date abnormalTime){
+	public void setAbnormalTime(Timestamp abnormalTime){
 		this.abnormalTime = abnormalTime;
 	}
 	public void setStatus(OrderStatus status){
