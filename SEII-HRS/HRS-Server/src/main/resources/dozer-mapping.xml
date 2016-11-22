@@ -12,8 +12,12 @@
     <class-a>po.OrderPO</class-a>
     <class-b>vo.OrderVO</class-b>
     <field>
-        <a></a>
-        <b></b>
+        <a>user.uid</a>
+        <b>userId</b>
+    </field>
+    <field>
+        <a>hotel.hid</a>
+        <b>hotelId</b>
     </field>
 </mapping>
 </mappings>

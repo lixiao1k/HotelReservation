@@ -1,25 +1,25 @@
 package list;
 
 public class CacheKey {
-	private int accessTimes;
+	private long accessTime;
 	private Object key;
 	public CacheKey(Object key,int accessTimes){
 		if (key==null) 
 			throw new IllegalArgumentException("null key!");
-		this.accessTimes = accessTimes;
+		this.accessTime = accessTimes;
 		this.key = key;
 	}
 	public CacheKey(Object key){
 		this(key,0);
 	}
-	public int getAccessTimes(){
-		return this.accessTimes;
+	public long getAccessTime(){
+		return this.accessTime;
 	}
 	public Object getKey(){
 		return this.key;
 	}
-	public void setAccessTimes(int accessTimes){
-		this.accessTimes = accessTimes;
+	public void setAccessTime(long accessTime){
+		this.accessTime = accessTime;
 	}
 	public boolean equals(Object obj){
 		if(!(obj instanceof CacheKey)){

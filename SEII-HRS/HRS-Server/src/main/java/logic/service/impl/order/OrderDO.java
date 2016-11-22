@@ -1,10 +1,13 @@
 package logic.service.impl.order;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.management.RuntimeErrorException;
 import javax.persistence.TemporalType;
+
+import org.hibernate.engine.HibernateIterator;
 
 import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
@@ -12,8 +15,11 @@ import info.OrderItem;
 import info.OrderStatus;
 import list.Cache;
 import list.OrderList;
+import po.HotelPO;
 import po.OrderPO;
+import po.UserPO;
 import resultmessage.OrderResultMessage;
+import util.DozerMappingUtil;
 import util.HibernateUtil;
 import vo.OrderVO;
 import vo.StrategyVO;
@@ -38,7 +44,7 @@ public class OrderDO {
 		orders = new Cache<OrderPO>(cacheSize);
 	}
 	public OrderList getUserOrderInfo(long userId, OrderStatus status) {
-		// TODO 自动生成的方法存根
+		
 		return null;
 	}
 
@@ -53,8 +59,110 @@ public class OrderDO {
 		// TODO 自动生成的方法存根
 		return null;
 	}
+	/*
+	 * 创建订单
+	 * @param OrderVO 从view层传回来的订单表单信息
+	 */
 	public OrderResultMessage create(OrderVO vo) {
-		//orderDao.insert(po);
+		//虽然界面层做了简单的数据验证判断，这里还是要重复一次，防止因恶意抓包破坏数据，并且要比界面层验证应更详细
+		//事务开启标识
+		boolean flag = false;
+		// 当前时间
+		Date now = new Date();
+		//简单的数据验证
+		if (!(vo.getCheckInTime().before(vo.getCheckOutTime())
+				&& vo.getCheckInTime().after(now)))
+			return null;
+		else if (!(vo.getPeople()>0))
+			return null;
+		else if (!(vo.getHotelId()>0&&vo.getUserId()>0))
+			return null;
+		//先根据userId和hotelId查询cache
+		Iterator cacheIt = orders.getKeys();
+		UserPO upo = null;
+		HotelPO hpo = null;
+		while(cacheIt.hasNext()){
+			long orderId = (long) cacheIt.next();
+			OrderPO cachePO = orders.get(orderId);
+			if (upo!=null&&cachePO.getUser().getUid()==vo.getUserId()){
+				upo = cachePO.getUser();
+			}
+			if (hpo!=null&&cachePO.getHotel().getHid()==vo.getHotelId()){
+				hpo = cachePO.getHotel();
+			}
+			if (hpo!=null&&upo!=null)
+				break;
+		}
+		//若找不到，则连接数据库查找
+		if (hpo==null||upo==null){
+			try{
+				HibernateUtil.getCurrentSession()
+								.beginTransaction();
+				flag = true;
+				if (upo==null)
+					upo = DaoManager.getInstance()
+										.getUserDao()
+										.getInfo(vo.getUserId());
+			//	if (hpo==null)
+			//		hpo = DaoManager.getInstance();
+			//整个order创建事务还未完成，不提交事务				
+			}catch(RuntimeException e){
+				try{
+					HibernateUtil.getCurrentSession()
+									.getTransaction()
+									.rollback();
+				}catch(RuntimeErrorException ex){
+					ex.printStackTrace();
+				}
+				throw e;
+			}
+		}
+		
+		//二次验证订单的房间信息是否属实
+		Iterator<OrderItem> oiit = vo.getOrderRoomIterator();
+		//Iterator<HotelItem> hoiit = hpo.getHotelRoomIterator();
+		if (oiit==null)
+			return null;
+		while(oiit.hasNext()){
+			OrderItem oi = oiit.next();
+			boolean roomFlag = false;
+		    //while(hoiit.hasNext()){
+			//	HotelItem hi = hoiit.next();
+			//	if (hi.getRoom().getType()==oi.getRoom().getType()){
+			//		if (hi.getNum()>=oi.getNum()&&Math.abs(hi.getPrice()-oi.getPrice())<=0.001){
+			//			roomFlag = true;
+			//		}else{
+			//			break;
+			//		}
+			//	}
+			//}
+			if (!roomFlag){
+				return null;
+			}
+		}
+		//设置新订单信息
+		OrderPO po = DozerMappingUtil.getInstance().map(vo, OrderPO.class);
+		po.setStatus(OrderStatus.UNEXECUTED);
+		po.setAbnormalTime(null);
+		po.setUser(upo);
+		po.setHotel(hpo);
+		//存储订单，开启数据库事务,同时存储到cache中
+		try{
+			if (!flag)
+			HibernateUtil.getCurrentSession()
+							.beginTransaction();
+			//po = orderDao.insert(po);
+			orders.put(po.getOid(), po);
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 		return OrderResultMessage.SUCCESS;
 	}
 	/*
@@ -185,6 +293,9 @@ public class OrderDO {
 		// TODO 自动生成的方法存根
 		return false;
 	}
+	/*
+	 * 供getTotal方法调用
+	 */
 	private double calculate(Iterator<OrderItem> it){
 		double sum = 0.0;
 		while(it.hasNext()){
@@ -193,6 +304,9 @@ public class OrderDO {
 		}
 		return sum;
 	}
+	/*
+	 * 计算订单的总价格，为计算相应促销策略后的价格
+	 */
 	public double getTotal(long orderId) {
 		//查询cache中是否存在该订单
 		OrderPO cachePO = null;

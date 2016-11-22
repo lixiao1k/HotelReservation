@@ -5,6 +5,7 @@ import java.util.Set;
 
 import info.BusinessCircle;
 import info.BusinessCity;
+import info.HotelItem;
 import info.HotelRoom;
 import info.Rank;
 
@@ -16,7 +17,7 @@ public class HotelPO {
 	private BusinessCity businessCity;
 	private double score;
 	private Rank rank;
-	private Set<HotelRoom> rooms = new HashSet<HotelRoom>();
+	private Set<HotelItem> rooms = new HashSet<HotelItem>();
 	public HotelPO(){
 		
 	}

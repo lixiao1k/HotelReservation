@@ -8,5 +8,20 @@
            <column name="HOTEL_ID"></column>
            <generator class="native"></generator>
         </id>
+        <property name="name" type="string">
+            <column name="NAME" not-null="true"></column>
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" not-null="true"></column>
+        </property>
+       	<many-to-one name="businessCity"></many-to-one>
+        <many-to-one name="businessCircle"></many-to-one>
+    	<property name="score">
+    	    <column name="SCORE"></column>
+    	</property>
+    	<property name="rank">
+    	    <column name=""></column>
+    	</property>
+    	
     </class>
 </hibernate-mapping>

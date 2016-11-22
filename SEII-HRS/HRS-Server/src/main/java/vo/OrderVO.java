@@ -10,7 +10,6 @@ import info.OrderStatus;
 
 
 public class OrderVO{
-	private OrderStatus status;
 	private long userId;
 	private long hotelId;
 	private Date checkInTime;
@@ -37,15 +36,10 @@ public class OrderVO{
 	public int getPeople(){
 		return this.people;
 	}
-	public OrderStatus getStatus(){
-		return this.status;
-	}
 	public Iterator<OrderItem> getOrderRoomIterator(){
 		return this.orderItems.iterator();
 	}
-	public void setStatus(OrderStatus status){
-		this.status = status;
-	}
+
 	public void setPeople(int people){
 		this.people = people;
 	}

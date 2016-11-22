@@ -2,19 +2,27 @@ package list;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class Cache<T> {
 	private Map<Object,CacheEntry<T>> map = new HashMap<Object,CacheEntry<T>>();
-	private TreeSet<CacheKey> accessQueue = new TreeSet<CacheKey>(new AccessTimesComparator());
+	private TreeSet<CacheKey> accessQueue = new TreeSet<CacheKey>(new AccessTimeComparator());
 	private int size = 20;
 	public Cache(int size){
 		if (size<0)
 			throw new IllegalArgumentException("size less than 0!");
 		this.size = size;
 	}
-
+	public Iterator<Object> getKeys(){
+		Set<Object> keys;
+		synchronized (map) {
+			keys = map.keySet();
+		}
+		return keys.iterator();
+	}
 	public T get(Object key){
 		if (key==null)
 			throw new IllegalArgumentException("key is null");
@@ -23,7 +31,7 @@ public class Cache<T> {
 			return null;
 		CacheKey cacheKey = entry.getKey();
 		accessQueue.remove(cacheKey);
-		cacheKey.setAccessTimes(cacheKey.getAccessTimes()+1);
+		cacheKey.setAccessTime(System.currentTimeMillis());
 		accessQueue.add(cacheKey);
 		return entry.getEntry();
 	}
@@ -50,7 +58,7 @@ public class Cache<T> {
 			}else{
 				cacheKey = entry.getKey();
 				this.accessQueue.remove(cacheKey);
-				cacheKey.setAccessTimes(cacheKey.getAccessTimes()+1);
+				cacheKey.setAccessTime(System.currentTimeMillis());
 			}
 			this.accessQueue.add(cacheKey);
 			this.map.put(key, new CacheEntry<T>(data,cacheKey));
@@ -75,13 +83,13 @@ public class Cache<T> {
 			throw new IllegalArgumentException("key is null");
 		return map.containsKey(key);
 	}
-	private class AccessTimesComparator implements Comparator<CacheKey> {
+	private class AccessTimeComparator implements Comparator<CacheKey> {
 
 		@Override
 		public int compare(CacheKey o1, CacheKey o2) {
-			if (o1.getAccessTimes()>o2.getAccessTimes()){
+			if (o1.getAccessTime()>o2.getAccessTime()){
 				return 1;
-			}else if (o1.getAccessTimes()==o2.getAccessTimes())
+			}else if (o1.getAccessTime()==o2.getAccessTime())
 				return 0;
 			else return -1;
 		}
