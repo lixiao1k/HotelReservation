@@ -1,4 +1,4 @@
-package list;
+package info;
 
 import java.util.Comparator;
 import java.util.HashMap;

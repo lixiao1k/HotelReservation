@@ -21,5 +21,15 @@ public class UserDaoImpl implements UserDao{
 	public UserPO getInfo(long userId) {
 		return userDataHelper.getInfo(userId);
 	}
+	@Override
+	public UserPO getInfo(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void update(UserPO po) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

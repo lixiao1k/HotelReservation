@@ -7,10 +7,10 @@ import javax.management.RuntimeErrorException;
 
 import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
+import info.Cache;
+import info.ListWrapper;
 import info.OrderItem;
 import info.OrderStatus;
-import list.Cache;
-import list.OrderList;
 import logic.service.OrderLogicService;
 import po.OrderPO;
 import resultmessage.OrderResultMessage;
@@ -31,15 +31,15 @@ public class OrderLogicServiceImpl implements OrderLogicService{
 		orderDO = new OrderDO(size);
 	}
 	@Override
-	public OrderList getUserOrderInfo(long userId, OrderStatus status) throws RemoteException {
+	public ListWrapper<OrderVO> getUserOrderInfo(long userId, OrderStatus status) throws RemoteException {
 		return orderDO.getUserOrderInfo(userId, status);
 	}
 	@Override
-	public OrderList getHotelOrderInfo(long hotelId, OrderStatus status) throws RemoteException {
+	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId, OrderStatus status) throws RemoteException {
 		return orderDO.getHotelOrderInfo(hotelId, status);
 	}
 	@Override
-	public OrderList getWEBOrderInfo() throws RemoteException {
+	public ListWrapper<OrderVO> getWEBOrderInfo() throws RemoteException {
 		return orderDO.getWEBOrderInfo();
 	}
 	@Override

@@ -11,10 +11,10 @@ import org.hibernate.engine.HibernateIterator;
 
 import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
+import info.Cache;
+import info.ListWrapper;
 import info.OrderItem;
 import info.OrderStatus;
-import list.Cache;
-import list.OrderList;
 import po.HotelPO;
 import po.OrderPO;
 import po.UserPO;
@@ -43,19 +43,20 @@ public class OrderDO {
 		orderDao = DaoManager.getInstance().getOrderDao();
 		orders = new Cache<OrderPO>(cacheSize);
 	}
-	public OrderList getUserOrderInfo(long userId, OrderStatus status) {
+	public ListWrapper<OrderVO> getUserOrderInfo(long userId, OrderStatus status) {
 		
 		return null;
 	}
 
 
-	public OrderList getHotelOrderInfo(long hotelId, OrderStatus status) {
+	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId, OrderStatus status) {
 		// TODO 自动生成的方法存根
+		
 		return null;
 	}
 
 
-	public OrderList getWEBOrderInfo() {
+	public ListWrapper<OrderVO> getWEBOrderInfo() {
 		// TODO 自动生成的方法存根
 		return null;
 	}

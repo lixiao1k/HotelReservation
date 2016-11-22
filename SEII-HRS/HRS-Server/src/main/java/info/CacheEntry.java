@@ -1,4 +1,4 @@
-package list;
+package info;
 
 public class CacheEntry<T> {
 	private final T entry;

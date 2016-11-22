@@ -3,7 +3,6 @@ package logic.service.impl;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import logic.service.BrowseLogicService;
 import logic.service.CommentLogicService;
 import logic.service.CreditLogicService;
 import logic.service.HotelLogicService;
@@ -18,7 +17,6 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 	 * 
 	 */
 	private static final long serialVersionUID = -7077664542687834453L;
-	private BrowseLogicService browseService;
 	private CommentLogicService commentService;
 	private CreditLogicService creditService;
 	private HotelLogicService hotelService;
@@ -36,12 +34,6 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 		super();
 	}
 
-	@Override
-	public BrowseLogicService getBrowseLogicService() throws RemoteException {
-		//if (browseService==null)
-		//	browseService = new BrowseLogicServiceImpl();
-		return browseService;
-	}
 
 	@Override
 	public CommentLogicService getCommentLogicService() throws RemoteException {

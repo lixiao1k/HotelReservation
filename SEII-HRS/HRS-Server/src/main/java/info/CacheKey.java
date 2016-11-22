@@ -1,4 +1,4 @@
-package list;
+package info;
 
 public class CacheKey {
 	private long accessTime;
