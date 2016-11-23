@@ -1,17 +1,21 @@
 package po;
 
+import info.UserStatus;
+
 public class UserPO {
 	private long uid;
 	private String username;
 	private String password;
 	private Role role;
 	private CreditPO credit;
+	private UserStatus status;
 	public UserPO(){
 		
 	}
 	public UserPO(String username,String password){
 		this.username = username;
 		this.password = password;
+		setStatus(UserStatus.ONLINE);
 		credit=new CreditPO();
 	}
 	public CreditPO getCredit(){
@@ -43,5 +47,11 @@ public class UserPO {
 	 */
 	private void setUid(long uid){
 		this.uid = uid;
+	}
+	public UserStatus getStatus() {
+		return status;
+	}
+	public void setStatus(UserStatus status) {
+		this.status = status;
 	}
 }
