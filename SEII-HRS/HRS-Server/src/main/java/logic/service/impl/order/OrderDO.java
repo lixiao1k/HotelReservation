@@ -2,13 +2,11 @@ package logic.service.impl.order;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.management.RuntimeErrorException;
-import javax.persistence.TemporalType;
-
-import org.hibernate.engine.HibernateIterator;
-
 import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
 import info.Cache;
@@ -43,22 +41,32 @@ public class OrderDO {
 		orderDao = DaoManager.getInstance().getOrderDao();
 		orders = new Cache<OrderPO>(cacheSize);
 	}
+	/*
+	 * 内部转化器，由于三个getOrder方法在逻辑上的实现都差不多，故抽离出来
+	 */
+	private ListWrapper<OrderVO> transform(ListWrapper<OrderPO> list){
+		Iterator<OrderPO> it = list.iterator();
+		Set<OrderVO> set = new HashSet<OrderVO>();
+		while(it.hasNext()){
+			OrderPO po = it.next();
+			set.add(DozerMappingUtil.getInstance().map(po, OrderVO.class));
+		}
+		return new ListWrapper<OrderVO>(set);
+	}
 	public ListWrapper<OrderVO> getUserOrderInfo(long userId, OrderStatus status) {
 		
-		return null;
+		return this.transform(orderDao.getUserOrders(userId,status));
 	}
 
 
 	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId, OrderStatus status) {
-		// TODO 自动生成的方法存根
 		
-		return null;
+		return this.transform(orderDao.getHotelOrders(hotelId, status));
 	}
 
 
 	public ListWrapper<OrderVO> getWEBOrderInfo() {
-		// TODO 自动生成的方法存根
-		return null;
+		return this.transform(orderDao.getTodayOrders());
 	}
 	/*
 	 * 创建订单

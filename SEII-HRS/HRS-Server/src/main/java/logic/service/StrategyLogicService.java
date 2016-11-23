@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 
 import info.ListWrapper;
 import resultmessage.StrategyResultMessage;
-import vo.OrderVO;
 import vo.RoomVO;
 import vo.StrategyVO;
 

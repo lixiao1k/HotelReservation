@@ -6,6 +6,7 @@ import data.dao.OrderDao;
 import data.datahelper.OrderDataHelper;
 import data.datahelper.impl.DataFactory;
 import info.ListWrapper;
+import info.OrderStatus;
 import po.OrderPO;
 
 public class OrderDaoImpl implements OrderDao{
@@ -29,18 +30,20 @@ public class OrderDaoImpl implements OrderDao{
 		return orderDataHelper.getInfo(orderId);
 	}
 	@Override
-	public ListWrapper<OrderPO> getHotelOrders(long hotelId) {
+	public ListWrapper<OrderPO> getHotelOrders(long hotelId,OrderStatus status) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	@Override
-	public ListWrapper<OrderPO> getUserOrders(long hotelId) {
+	public ListWrapper<OrderPO> getUserOrders(long userId,OrderStatus status) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	@Override
 	public ListWrapper<OrderPO> getTodayOrders() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
