@@ -10,14 +10,14 @@ public class CreditDataHelperMysqlImpl implements CreditDataHelper{
 	@Override
 	public void add(long userID, int value) {
 		UserPO user=(UserPO)HibernateUtil.getCurrentSession().get(UserPO.class, userID);
-		user.getCredit().addCredit(value);
+		//user.getCredit().addCredit(value);
 		HibernateUtil.getCurrentSession().saveOrUpdate(user);
 	}
 
 	@Override
 	public void decrease(long userID, int value) {
 		UserPO user=(UserPO)HibernateUtil.getCurrentSession().get(UserPO.class, userID);
-		user.getCredit().decreaseCredit(value);
+		//user.getCredit().decreaseCredit(value);
 		HibernateUtil.getCurrentSession().saveOrUpdate(user);
 	}
 
