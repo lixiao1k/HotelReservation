@@ -24,7 +24,7 @@ public class LoginMainController implements Initializable{
 		Scene scene = new Scene(register);
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		stage.setTitle("ע��");
+		stage.setTitle("Register");
 		stage.show();
 		
 		Stage login = (Stage) usernameField.getScene().getWindow();
@@ -40,37 +40,37 @@ public class LoginMainController implements Initializable{
 		String title = null;
 		if (username.equals("client")&&password.equals("client")){
 			loader.setLocation(getClass().getResource("ClientMainUI.fxml"));
-			content = FXMLLoader.load(getClass().getClassLoader().getResource("presentation/MemberUI/Keeppersoninfo.fxml"));
+			content = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/Keeppersoninfo.fxml"));
 			content.getProperties().put("NAME", "PersonInfoPane");
-			title = "�Ƶ�Ԥ��ϵͳ  -  �ͻ�";
+			title = "酒店预订系统 - 客户";
 		}
 		else if (username.equals("hotelworker")&&password.equals("hotelworker")){
 			loader.setLocation(getClass().getResource("HotelWorkerMainUI.fxml"));
 			content = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
 			content.getProperties().put("NAME", "HotelInfoPane");
-			title = "�Ƶ�Ԥ��ϵͳ  -  �Ƶ깤����Ա";
+			title = "酒店预订系统 - 酒店工作人员";
 		}
 		else if (username.equals("websaler")&&password.equals("websaler")){
 			loader.setLocation(getClass().getResource("WebSalerMainUI.fxml"));
 			content = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseStrategyListUI.fxml"));
 			content.getProperties().put("NAME", "browseStrategyList");
-			title = "�Ƶ�Ԥ��ϵͳ  -  ��վӪ����Ա";
+			title = "酒店预订系统 - 网站营销人员";
 		}
 		else if (username.equals("webmanager")&&password.equals("webmanager")){
 			loader.setLocation(getClass().getResource("WebManagerMainUI.fxml"));
 			content = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
 			content.getProperties().put("NAME", "HotelInfoPane");
-			title = "�Ƶ�Ԥ��ϵͳ  -  ��վ������Ա";
+			title = "酒店预订系统 - 网站管理人员";
 		}
 		else {
-			System.out.println("�˺Ż��������");
+			System.out.println("账号或密码错误");
 			flag = false;
 		}
 		if (flag){
 			GridPane root = (GridPane) loader.load();
 			root.add(content, 2, 1);
 			Scene scene = new Scene(root,900,600);
-			scene.getStylesheets().add(getClass().getClassLoader().getResource("css/main.css").toExternalForm());
+//			scene.getStylesheets().add(getClass().getClassLoader().getResource("css/main.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setTitle(title);
 			stage.setScene(scene);

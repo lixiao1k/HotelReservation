@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane fx:id="webSalerMain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.MainUI.WebSalerMainController">
+<GridPane id="hotelmain" fx:id="clientmain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.MainUI.ClientMainUIController">
   <children>
     <MenuBar GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0">
       <menus>
@@ -32,13 +32,13 @@
     </MenuBar>
     <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.margin="$x3" GridPane.rowIndex="1" GridPane.rowSpan="1">
       <children>
-        <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#goCreateNewStrategy" prefHeight="38.0" prefWidth="117.0" text="查看策略列表">
+        <Button fx:id="goPersonInfoButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goPersonInfo" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="维护个人信息">
           <VBox.margin>
             <Insets bottom="10.0" left="7.0" top="10.0" />
           </VBox.margin>
         </Button>
         <Separator prefWidth="200.0" />
-        <Button mnemonicParsing="false" onAction="#goCancelOrder" prefHeight="38.0" prefWidth="117.0" text="查看订单信息">
+        <Button fx:id="goBrowseOrderListButton" mnemonicParsing="false" onAction="#goBrowseOrderList" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="浏览订单">
           <VBox.margin>
             <Insets left="7.0" top="5.0" fx:id="x1" />
           </VBox.margin>
@@ -48,7 +48,17 @@
             <Insets top="10.0" fx:id="x2" />
           </VBox.margin>
         </Separator>
-        <Button mnemonicParsing="false" onAction="#goRechargeCredit" prefHeight="38.0" prefWidth="117.0" text="信用充值" VBox.margin="$x1" />
+        <Button fx:id="goVIPRegisterButton" mnemonicParsing="false" onAction="#goVIPRegister" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="注册会员" VBox.margin="$x1" />
+        <Separator prefWidth="200.0">
+          <VBox.margin>
+            <Insets top="10.0" fx:id="x2" />
+          </VBox.margin>
+        </Separator>
+        <Button  fx:id="goHotelListButton" mnemonicParsing="false" onAction="#goHotelList" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="搜索酒店">
+          <VBox.margin>
+            <Insets left="7.0" top="5.0" fx:id="x1" />
+          </VBox.margin>
+        </Button>
       </children>
     </VBox>
     <Label text="状态栏" GridPane.columnIndex="0" GridPane.rowIndex="3" />

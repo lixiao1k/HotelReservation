@@ -20,12 +20,12 @@ public class RegisterMainController implements Initializable{
 	@FXML 
 	protected void save(ActionEvent e) throws IOException{
 		// save logic
-		System.out.println("注锟斤拷晒锟�(锟斤拷锟斤拷锟竭硷拷锟姐还未写锟斤拷锟剿号诧拷锟芥储锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷预锟斤拷锟剿号碉拷录锟介看)");
+		System.out.println("注册成功(由于逻辑层还未写，账号不存储。。。请用预设账号登录查看)");
 		Parent root = FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
 		Scene scene = new Scene(root);
 		Stage login = new Stage();
 		login.setScene(scene);
-		login.setTitle("锟狡碉拷预锟斤拷系统锟斤拷录");
+		login.setTitle("酒店预订系统登录");
 		login.show();
 		Stage register = (Stage) usernameField.getScene().getWindow();
 		register.close();

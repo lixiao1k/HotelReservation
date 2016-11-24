@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane fx:id="webManagerMain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.WebManagerMainController">
+<GridPane fx:id="webManagerMain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.MainUI.WebManagerMainController">
   <children>
     <MenuBar GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0">
       <menus>
