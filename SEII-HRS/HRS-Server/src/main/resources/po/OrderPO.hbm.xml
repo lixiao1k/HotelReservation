@@ -37,14 +37,14 @@
        	    column="USER_ID"
        	    class="UserPO"
        	    not-null="true"
-       	    lazy="false"
+       	    lazy="true"
 		/>
        	<many-to-one
        	    name="hotel"
        	    column="HOTEL_ID"
        	    class="HotelPO"
        	    not-null="true"
-       	    lazy="false"
+       	    lazy="true"
        	/>
        	<set name="orderItems" cascade="all">
        	    <key column="ORDER_ID"></key>
