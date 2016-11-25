@@ -16,7 +16,7 @@ public class WebSalerMainUI extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		Parent root = FXMLLoader.load(getClass().getResource("WebSalerMainUI.fxml"));
-		Parent NewStrategy = FXMLLoader.load(getClass().getResource("StrategyUI/Strategy.fxml"));
+		Parent NewStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/Strategy.fxml"));
 		NewStrategy.getProperties().put("NAME", "NewStrategy");
 		GridPane pane = (GridPane) root.lookup("#hotelmain");
 		pane.add(NewStrategy, 2, 1);

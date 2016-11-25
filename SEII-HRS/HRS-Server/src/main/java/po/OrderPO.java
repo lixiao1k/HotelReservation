@@ -10,15 +10,29 @@ import java.util.Set;
 import info.OrderItem;
 import info.OrderStatus;
 import vo.OrderVO;
-
+/*
+ * oid 代理主键
+ * orderId 订单编号
+ * status 订单状态
+ * member 下订单人的编号
+ * hotel 下订单酒店
+ * checkInTime 入住时间
+ * checkOutTime 预计退房时间
+ * abnormalTime 订单异常时间
+ * orderItems 订单项
+ * child 是否有儿童
+ * people 订单人数
+ * @author whk
+ */
 public class OrderPO implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -413441769499293324L;
 	private long oid;
+	private String orderId;
 	private OrderStatus status;
-	private UserPO user;
+	private MemberPO member;
 	private HotelPO hotel;
 	private Date checkInTime;
 	private Date checkOutTime;
@@ -34,8 +48,8 @@ public class OrderPO implements Serializable{
 	public Timestamp getAbnormalTime(){
 		return this.abnormalTime;
 	}
-	public UserPO getUser(){
-		return this.user;
+	public MemberPO getMember(){
+		return this.member;
 	}
 	public HotelPO getHotel(){
 		return this.hotel;
@@ -51,6 +65,9 @@ public class OrderPO implements Serializable{
 	}
 	public int getPeople(){
 		return this.people;
+	}
+	public String getOrderId(){
+		return orderId;
 	}
 	public OrderStatus getStatus(){
 		return this.status;
@@ -85,17 +102,19 @@ public class OrderPO implements Serializable{
 	public void setCheckInTime(Date checkInTime){
 		this.checkInTime = checkInTime;
 	}
-	public void setUser(UserPO user){
-		this.user = user;
+	public void setMember(MemberPO member){
+		this.member = member;
 	}
 	public void setHotel(HotelPO hotel){
 		this.hotel = hotel;
 	}
-	public void setOid(long oid){
+	private void setOid(long oid){
 		this.oid = oid;
 	}
 	public void setOrderItems(Set<OrderItem> orderItems){
 		this.orderItems = orderItems;
 	}
-	
+	public void setOrderId(String  orderId){
+		this.orderId = orderId;
+	}
 }

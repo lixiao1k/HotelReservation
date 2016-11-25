@@ -14,6 +14,7 @@ import info.ListWrapper;
 import info.OrderItem;
 import info.OrderStatus;
 import po.HotelPO;
+import po.MemberPO;
 import po.OrderPO;
 import po.UserPO;
 import resultmessage.OrderResultMessage;
@@ -88,30 +89,30 @@ public class OrderDO {
 			return null;
 		//先根据userId和hotelId查询cache
 		Iterator cacheIt = orders.getKeys();
-		UserPO upo = null;
+		MemberPO mpo = null;
 		HotelPO hpo = null;
 		while(cacheIt.hasNext()){
 			long orderId = (long) cacheIt.next();
 			OrderPO cachePO = orders.get(orderId);
-			if (upo!=null&&cachePO.getUser().getUid()==vo.getUserId()){
-				upo = cachePO.getUser();
-			}
+			//if (mpo!=null&&cachePO.getMember().getMid()==vo.getUserId()){
+			//	mpo = cachePO.getMember();
+			//}
 			if (hpo!=null&&cachePO.getHotel().getHid()==vo.getHotelId()){
 				hpo = cachePO.getHotel();
 			}
-			if (hpo!=null&&upo!=null)
+			if (hpo!=null&&mpo!=null)
 				break;
 		}
 		//若找不到，则连接数据库查找
-		if (hpo==null||upo==null){
+		if (hpo==null||mpo==null){
 			try{
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
 				flag = true;
-				if (upo==null)
-					upo = DaoManager.getInstance()
-										.getUserDao()
-										.getInfo(vo.getUserId());
+			//	if (mpo==null)
+			//		mpo = DaoManager.getInstance()
+			//							.getUserDao()
+			//							.getInfo(vo.getUserId());
 			//	if (hpo==null)
 			//		hpo = DaoManager.getInstance();
 			//整个order创建事务还未完成，不提交事务				
@@ -153,7 +154,7 @@ public class OrderDO {
 		OrderPO po = DozerMappingUtil.getInstance().map(vo, OrderPO.class);
 		po.setStatus(OrderStatus.UNEXECUTED);
 		po.setAbnormalTime(null);
-		po.setUser(upo);
+		//po.setMember(mpo);
 		po.setHotel(hpo);
 		//存储订单，开启数据库事务,同时存储到cache中
 		try{
