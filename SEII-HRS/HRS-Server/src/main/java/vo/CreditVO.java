@@ -15,17 +15,8 @@ public class CreditVO {
 		this.delta = delta;
 		this.credit = credit;
 	}
-	public CreditVO(CreditInfo vo){
-		this.userId = vo.getUserId();
-		this.date = vo.getDate();
-		this.delta = vo.getDelta();
-		this.credit = vo.getCredit();
-	}
 	public String toString(){
 		return "UserId:"+userId+"; date:"+date+"; "+delta+" -> "+credit;
-	}
-	public CreditVO() {
-		// TODO Auto-generated constructor stub
 	}
 	public long getUserId(){
 		return this.userId;
