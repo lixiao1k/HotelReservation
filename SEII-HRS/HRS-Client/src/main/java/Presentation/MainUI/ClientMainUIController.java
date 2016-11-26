@@ -61,7 +61,7 @@ public class ClientMainUIController implements Initializable{
 	@FXML
 	protected void goPersonInfo(ActionEvent e){
 		try {
-			Parent PersonInfo = FXMLLoader.load(getClass().getResource("MemberUI/Keeppersoninfo.fxml"));
+			Parent PersonInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
 			PersonInfo.getProperties().put("NAME", "PersonInfoPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
