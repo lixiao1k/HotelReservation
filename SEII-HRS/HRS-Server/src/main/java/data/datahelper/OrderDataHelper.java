@@ -10,6 +10,6 @@ public interface OrderDataHelper {
 	public void update(OrderPO po);
 	public OrderPO getInfo(long orderId);
 	public List<OrderPO> getWEBOrders();
-	public List<OrderPO> getUserOrders(long userId,OrderStatus status);
-	public List<OrderPO> getHotelOrders(long hotelId,OrderStatus status);
+	public List<OrderPO> getUserOrders(long userId);
+	public List<OrderPO> getHotelOrders(long hotelId);
 }

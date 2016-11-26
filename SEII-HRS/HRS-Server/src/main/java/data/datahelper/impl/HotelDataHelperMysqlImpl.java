@@ -1,14 +1,15 @@
-package data.dao.Impl;
+package data.datahelper.impl;
 
-import data.dao.HotelDao;
+import data.datahelper.HotelDataHelper;
 import info.BusinessCity;
 import info.HotelItem;
 import info.ListWrapper;
 import info.Rule;
 import po.HotelPO;
+import util.HibernateUtil;
 
-public class HotelDaoImpl implements HotelDao {
-
+public class HotelDataHelperMysqlImpl implements HotelDataHelper{
+	private static final String getInfoQuery = "from Hotel as h where h.hid=:HOTELID";
 	@Override
 	public void insert(HotelPO po) {
 		// TODO Auto-generated method stub
@@ -23,20 +24,8 @@ public class HotelDaoImpl implements HotelDao {
 
 	@Override
 	public HotelPO getInfo(long hotelId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ListWrapper<HotelItem> getRoom(long hotelId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateRoom(long hotelId,HotelItem rpo) {
-		// TODO Auto-generated method stub
-		
+		HotelPO po = (HotelPO)HibernateUtil.getCurrentSession().get(HotelPO.class, hotelId);
+		return po;
 	}
 
 	@Override
@@ -56,5 +45,5 @@ public class HotelDaoImpl implements HotelDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

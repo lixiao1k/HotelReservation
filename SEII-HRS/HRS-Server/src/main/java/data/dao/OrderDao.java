@@ -8,7 +8,7 @@ public interface OrderDao {
 	public void update(OrderPO po);
 	public void insert(OrderPO po);
 	public OrderPO getInfo(long orderId);
-	public ListWrapper<OrderPO> getHotelOrders(long hotelId,OrderStatus status);
-	public ListWrapper<OrderPO> getUserOrders(long userId,OrderStatus status);
+	public ListWrapper<OrderPO> getHotelOrders(long hotelId);
+	public ListWrapper<OrderPO> getUserOrders(long userId);
 	public ListWrapper<OrderPO> getTodayOrders();
 }

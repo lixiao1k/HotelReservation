@@ -8,6 +8,15 @@
             <column name="ORDER_ID"></column>
             <generator class="native"></generator>
         </id>
+        <property name="orderId" type="string">
+            <column name="ORDER_ID" not-null="true"></column>
+        </property>
+        <property name="actualCheckInTime" type="date">
+            <column name="ACTUAL_CIN_TIME" not-null="false"></column>
+        </property>
+        <property name="actualCheckOutTime" type="date">
+            <column name="ACTUAL_COUT_TIME" not-null=false></column>
+        </property>
         <property name="status" not-null="true">
    			<type name="org.hibernate.type.EnumType">
     			<param name="enumClass">info.OrderStatus</param>
@@ -24,7 +33,7 @@
             <column name="CHECK_OUT_TIME" not-null="true"></column>
         </property>
         <property name="abnormalTime" type="timestamp">
-            <column name="ABNORMAL_TIME" not-null="true"></column>
+            <column name="ABNORMAL_TIME" not-null="false"></column>
         </property>
         <property name="child" type="boolean">
             <column name="CHILD" not-null="true"></column>
@@ -32,10 +41,17 @@
         <property name="people" type="int">
             <column name="PEOPLE" not-null="true"></column>
         </property>   
+        <property name="roomNum" type="int">
+            <column name="ROOM_NUM" not-null="true"></column>
+        </property>
+        <property name="roomPrice" type="double">
+            <column name="ROOM_PRICE" not-null="true"></column>
+        </property>
+        <one-to-one name="room" column="ROOM_ID" class="Room" not-null="true"></one-to-one>
        	<many-to-one
        	    name="user"
        	    column="USER_ID"
-       	    class="UserPO"
+       	    class="MemberPO"
        	    not-null="true"
        	    lazy="true"
 		/>
@@ -46,9 +62,6 @@
        	    not-null="true"
        	    lazy="true"
        	/>
-       	<set name="orderItems" cascade="all">
-       	    <key column="ORDER_ID"></key>
-       	    <one-to-many class="info.OrderItem"/>
-       	</set>
+
     </class>
 </hibernate-mapping>

@@ -31,14 +31,14 @@ public class OrderDaoImpl implements OrderDao{
 		return orderDataHelper.getInfo(orderId);
 	}
 	@Override
-	public ListWrapper<OrderPO> getHotelOrders(long hotelId,OrderStatus status) {
-		List<OrderPO> list = orderDataHelper.getHotelOrders(hotelId,status);
+	public ListWrapper<OrderPO> getHotelOrders(long hotelId) {
+		List<OrderPO> list = orderDataHelper.getHotelOrders(hotelId);
 		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
 		return res;
 	}
 	@Override
-	public ListWrapper<OrderPO> getUserOrders(long userId,OrderStatus status) {
-		List<OrderPO> list = orderDataHelper.getHotelOrders(userId,status);
+	public ListWrapper<OrderPO> getUserOrders(long userId) {
+		List<OrderPO> list = orderDataHelper.getHotelOrders(userId);
 		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
 		return res;
 	}

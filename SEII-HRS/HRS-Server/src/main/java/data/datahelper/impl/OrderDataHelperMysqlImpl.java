@@ -12,8 +12,8 @@ import util.HibernateUtil;
 
 public class OrderDataHelperMysqlImpl implements OrderDataHelper{
 	private static final String abnormalQuery = "from Order as o where o.status=ABNORMAL";
-	private static final String userQuery = "from Order as o where o.member=:USERID and o.status=:STATUS";
-	private static final String hotelQuery = "from Order as o where o.hotel=:HOTELID and o.status=:STATUS";
+	private static final String userQuery = "from Order as o where o.member=:USERID";
+	private static final String hotelQuery = "from Order as o where o.hotel=:HOTELID";
 	@Override
 	public void insert(OrderPO po) {
 		HibernateUtil.getCurrentSession()
@@ -45,20 +45,18 @@ public class OrderDataHelperMysqlImpl implements OrderDataHelper{
 	}
 
 	@Override
-	public List<OrderPO> getUserOrders(long userId,OrderStatus status) {
+	public List<OrderPO> getUserOrders(long userId) {
 		Session session = HibernateUtil.getCurrentSession();
 		Query query = session.createQuery(userQuery);
-		query.setString("STATUS", status.toString());
 		query.setLong("USERID", userId);
 		List<OrderPO> list = query.list();
 		return list;
 	}
 
 	@Override
-	public List<OrderPO> getHotelOrders(long hotelId,OrderStatus status) {
+	public List<OrderPO> getHotelOrders(long hotelId) {
 		Session session = HibernateUtil.getCurrentSession();
 		Query query = session.createQuery(userQuery);
-		query.setString("STATUS", status.toString());
 		query.setLong("HOTELID", hotelId);
 		List<OrderPO> list = query.list();
 		return list;

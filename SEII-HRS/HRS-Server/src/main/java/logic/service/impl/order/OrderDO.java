@@ -10,9 +10,10 @@ import javax.management.RuntimeErrorException;
 import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
 import info.Cache;
+import info.HotelItem;
 import info.ListWrapper;
-import info.OrderItem;
 import info.OrderStatus;
+import info.Room;
 import po.HotelPO;
 import po.MemberPO;
 import po.OrderPO;
@@ -20,6 +21,7 @@ import po.UserPO;
 import resultmessage.OrderResultMessage;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
+import vo.NewOrderVO;
 import vo.OrderVO;
 import vo.StrategyVO;
 /*
@@ -50,30 +52,69 @@ public class OrderDO {
 		Set<OrderVO> set = new HashSet<OrderVO>();
 		while(it.hasNext()){
 			OrderPO po = it.next();
-			set.add(DozerMappingUtil.getInstance().map(po, OrderVO.class));
+			OrderVO vo = DozerMappingUtil.getInstance().map(po, OrderVO.class);
+			double price = vo.getRoomPrice()*vo.getRoomNum();
+			double priceAfterStrategy = price*vo.getStrategyOff();
+			vo.setPrice(price);
+			vo.setPriceAfterStrategy(priceAfterStrategy);
+			set.add(vo);
 		}
 		return new ListWrapper<OrderVO>(set);
 	}
-	public ListWrapper<OrderVO> getUserOrderInfo(long userId, OrderStatus status) {
-		
-		return this.transform(orderDao.getUserOrders(userId,status));
+	public ListWrapper<OrderVO> getUserOrderInfo(long userId) {
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			return this.transform(orderDao.getUserOrders(userId));
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
 
 
-	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId, OrderStatus status) {
-		
-		return this.transform(orderDao.getHotelOrders(hotelId, status));
+	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId) {
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			return this.transform(orderDao.getHotelOrders(hotelId));
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
 
 
 	public ListWrapper<OrderVO> getWEBOrderInfo() {
-		return this.transform(orderDao.getTodayOrders());
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			return this.transform(orderDao.getTodayOrders());
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
 	/*
 	 * 创建订单
 	 * @param OrderVO 从view层传回来的订单表单信息
 	 */
-	public OrderResultMessage create(OrderVO vo) {
+	public OrderResultMessage create(NewOrderVO vo) {
 		//虽然界面层做了简单的数据验证判断，这里还是要重复一次，防止因恶意抓包破坏数据，并且要比界面层验证应更详细
 		//事务开启标识
 		boolean flag = false;
@@ -82,21 +123,28 @@ public class OrderDO {
 		//简单的数据验证
 		if (!(vo.getCheckInTime().before(vo.getCheckOutTime())
 				&& vo.getCheckInTime().after(now)))
-			return null;
+			return OrderResultMessage.FAIL_WRONGORDERINFO;
 		else if (!(vo.getPeople()>0))
-			return null;
+			return OrderResultMessage.FAIL_WRONGORDERINFO;
 		else if (!(vo.getHotelId()>0&&vo.getUserId()>0))
-			return null;
+			return OrderResultMessage.FAIL_WRONGORDERINFO;
 		//先根据userId和hotelId查询cache
 		Iterator cacheIt = orders.getKeys();
 		MemberPO mpo = null;
 		HotelPO hpo = null;
 		while(cacheIt.hasNext()){
-			long orderId = (long) cacheIt.next();
+			long orderId;
+			//cache中的键可能非orderId
+			try{
+				orderId = (long) cacheIt.next();
+			}catch(NumberFormatException e){
+				continue;
+			}
 			OrderPO cachePO = orders.get(orderId);
-			//if (mpo!=null&&cachePO.getMember().getMid()==vo.getUserId()){
-			//	mpo = cachePO.getMember();
-			//}
+			if (cachePO==null) continue;
+			if (mpo!=null&&cachePO.getMember().getMid()==vo.getUserId()){
+				mpo = cachePO.getMember();
+			}
 			if (hpo!=null&&cachePO.getHotel().getHid()==vo.getHotelId()){
 				hpo = cachePO.getHotel();
 			}
@@ -127,43 +175,40 @@ public class OrderDO {
 				throw e;
 			}
 		}
-		
+		if (hpo==null||mpo==null) return OrderResultMessage.FAIL_WRONGORDERINFO;
 		//二次验证订单的房间信息是否属实
-		Iterator<OrderItem> oiit = vo.getOrderRoomIterator();
-		//Iterator<HotelItem> hoiit = hpo.getHotelRoomIterator();
-		if (oiit==null)
-			return null;
-		while(oiit.hasNext()){
-			OrderItem oi = oiit.next();
-			boolean roomFlag = false;
-		    //while(hoiit.hasNext()){
-			//	HotelItem hi = hoiit.next();
-			//	if (hi.getRoom().getType()==oi.getRoom().getType()){
-			//		if (hi.getNum()>=oi.getNum()&&Math.abs(hi.getPrice()-oi.getPrice())<=0.001){
-			//			roomFlag = true;
-			//		}else{
-			//			break;
-			//		}
-			//	}
-			//}
-			if (!roomFlag){
-				return null;
-			}
+		Room room = vo.getRoom();
+		Iterator<HotelItem> hoiit = hpo.getRoom();
+		if (room==null)
+			return OrderResultMessage.FAIL_WRONGORDERINFO;
+		boolean roomFlag = false;
+		while(hoiit.hasNext()){
+			HotelItem oi = hoiit.next();
+			roomFlag = false;
+		    if (oi.getRoom().getType().equals(room.getType())){
+		    	if (oi.getNum()>=vo.getRoomNum()&&Math.abs(oi.getPrice()-vo.getRoomPrice())<1){
+		    		roomFlag = true;
+		    	}
+		    	break;
+		    }
 		}
+		if (!roomFlag) return OrderResultMessage.FAIL_WRONGORDERINFO;
 		//设置新订单信息
 		OrderPO po = DozerMappingUtil.getInstance().map(vo, OrderPO.class);
 		po.setStatus(OrderStatus.UNEXECUTED);
 		po.setAbnormalTime(null);
-		//po.setMember(mpo);
+		po.setMember(mpo);
 		po.setHotel(hpo);
+		String orderNum = "SE-"+now;
+		po.setOrderId(orderNum);
 		//存储订单，开启数据库事务,同时存储到cache中
 		try{
 			if (!flag)
 			HibernateUtil.getCurrentSession()
 							.beginTransaction();
-			//po = orderDao.insert(po);
 			orders.put(po.getOid(), po);
 		}catch(RuntimeException e){
+			orders.remove(po.getOid());
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
@@ -198,11 +243,14 @@ public class OrderDO {
 		}catch(IllegalArgumentException e){
 			System.err.println("传入参数为空");
 		}
+		boolean flag = false;
 		//若cache 中无，则从数据库中获得，操作后存入cache
 		if (cachePO==null){
 			OrderPO po = null;
 			//根据orderId获取orderPO
 			try{
+				HibernateUtil.getCurrentSession().beginTransaction();
+				flag = true;
 				po = orderDao.getInfo(orderId);
 				//如果返回的是Null,说明没有这个订单，返回错误，否则置为相应的状态
 				if (po!=null){
@@ -211,6 +259,9 @@ public class OrderDO {
 					//判断状态是否为给定的状态
 					if(po.getStatus()==judgeStatus[operation-1]){
 						po.setStatus(changeStatus[operation-1]);
+						//额外事务卸载这里
+						if (operation==1)
+							po.setAbnormalTime(new Timestamp(System.currentTimeMillis()));
 						orderDao.update(po);
 						//提交事务并返回成功
 						HibernateUtil.getCurrentSession()
@@ -235,6 +286,7 @@ public class OrderDO {
 				}
 			}catch(RuntimeException e){
 				//遇到运行时相关错误则回滚事务
+				orders.remove(po.getOid());
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
@@ -249,6 +301,7 @@ public class OrderDO {
 			//由于涉及到数据库操作，注意到这里如果数据库回滚时，cache中的数据也要相应的发生改变，先保存原始状态
 			OrderStatus tempStatus = cachePO.getStatus();
 			try{
+				if(!flag)
 				HibernateUtil.getCurrentSession().beginTransaction();
 				
 				if (tempStatus==judgeStatus[operation-1]){
@@ -287,7 +340,7 @@ public class OrderDO {
 	public OrderResultMessage abnormal(long orderId) {
 		return changeStatus(orderId,1);
 	}
-	public OrderResultMessage userCancel(long orderId) {
+	public OrderResultMessage userRevoke(long orderId) {
 		return changeStatus(orderId,4);
 	}
 	public OrderResultMessage execute(long orderId) {
@@ -296,63 +349,8 @@ public class OrderDO {
 	public OrderResultMessage reExecute(long orderId) {
 		return changeStatus(orderId,3);
 	}
-	public OrderResultMessage webCancel(long orderId){
+	public OrderResultMessage webRevoke(long orderId){
 		return changeStatus(orderId,5);
-	}
-	public boolean isUsed(StrategyVO vo) {
-		// TODO 自动生成的方法存根
-		return false;
-	}
-	/*
-	 * 供getTotal方法调用
-	 */
-	private double calculate(Iterator<OrderItem> it){
-		double sum = 0.0;
-		while(it.hasNext()){
-			OrderItem oi = it.next();
-			sum+=oi.getPrice()*oi.getNum();
-		}
-		return sum;
-	}
-	/*
-	 * 计算订单的总价格，为计算相应促销策略后的价格
-	 */
-	public double getTotal(long orderId) {
-		//查询cache中是否存在该订单
-		OrderPO cachePO = null;
-		try{
-			cachePO = orders.get(orderId);
-		}catch(IllegalArgumentException e){
-			System.err.println("OrderNumber incorrect!");
-		}
-		if(cachePO==null){
-			try{
-				HibernateUtil.getCurrentSession()
-								.beginTransaction();
-				OrderPO po = orderDao.getInfo(orderId);
-				if (po!=null){
-					// 加入到cache中
-					orders.put(orderId, po);
-					Iterator<OrderItem> oiit = po.getOrderRoomIterator();
-					return calculate(oiit);
-				}else{
-					return -1;
-				}
-			}catch(RuntimeException e){
-				try{
-					HibernateUtil.getCurrentSession()
-									.getTransaction()
-									.commit();
-				}catch(RuntimeErrorException ex){
-					ex.printStackTrace();
-				}
-				throw e;
-			}
-		}//存在则无需访问数据库
-		else{
-			Iterator<OrderItem> oiit = cachePO.getOrderRoomIterator();
-			return calculate(oiit);
-		}
 	}
 
 }
