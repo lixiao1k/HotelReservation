@@ -6,6 +6,8 @@ import info.HotelItem;
 import info.ListWrapper;
 import info.Rule;
 import po.HotelPO;
+import vo.BasicHotelVO;
+import vo.SearchHotelVO;
 
 public interface HotelDao {
 	public void insert(HotelPO po);
@@ -16,4 +18,5 @@ public interface HotelDao {
 	public ListWrapper<HotelItem> getHotelListByRule(Rule rule);
 	public ListWrapper<HotelItem> getHotelListByString(String rule);
 	public ListWrapper<BusinessCity> getAllCity();
+	public ListWrapper<HotelPO> getHotelListByCityAndCircle(BusinessCity city,BusinessCircle circle);
 }

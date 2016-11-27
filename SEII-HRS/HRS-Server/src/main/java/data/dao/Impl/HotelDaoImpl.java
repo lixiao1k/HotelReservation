@@ -1,6 +1,11 @@
 package data.dao.Impl;
 
+import java.util.List;
+
 import data.dao.HotelDao;
+import data.datahelper.HotelDataHelper;
+import data.datahelper.impl.HotelDataHelperMysqlImpl;
+import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
 import info.ListWrapper;
@@ -8,7 +13,7 @@ import info.Rule;
 import po.HotelPO;
 
 public class HotelDaoImpl implements HotelDao {
-
+	private HotelDataHelper hotelDataHelper = new HotelDataHelperMysqlImpl();
 	@Override
 	public void insert(HotelPO po) {
 		// TODO Auto-generated method stub
@@ -53,8 +58,14 @@ public class HotelDaoImpl implements HotelDao {
 
 	@Override
 	public ListWrapper<BusinessCity> getAllCity() {
-		// TODO Auto-generated method stub
-		return null;
+		List<BusinessCity> list = hotelDataHelper.getAllCity();
+		return new ListWrapper<BusinessCity>(list);
+	}
+
+	@Override
+	public ListWrapper<HotelPO> getHotelListByCityAndCircle(BusinessCity city, BusinessCircle circle) {
+		List<HotelPO> list = hotelDataHelper.getHotelListByCityAndCircle(city, circle);
+		return new ListWrapper<HotelPO>(list);
 	}
 
 }

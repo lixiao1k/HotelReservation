@@ -22,8 +22,7 @@ public class HotelLogicServiceImpl implements HotelLogicService{
 	private HotelDO hotelDO;
 	@Override
 	public ListWrapper<BusinessCity> getCity() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return hotelDO.getCity();
 	}
 
 	@Override

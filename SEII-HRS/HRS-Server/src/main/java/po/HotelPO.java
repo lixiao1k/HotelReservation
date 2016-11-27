@@ -23,8 +23,12 @@ public class HotelPO {
 	private Set<CommentPO> comments = new HashSet<CommentPO>();
 	private Set<OrderPO> orders = new HashSet<OrderPO>();
 	private Set<HotelItem> rooms = new HashSet<HotelItem>();
+	private Set<StrategyPO> strategies = new HashSet<StrategyPO>();
 	public HotelPO(){
 		
+	}
+	private void setStrategies(Set<StrategyPO> strategies){
+		this.strategies = strategies;
 	}
 	public void setFacility(String facility){
 		this.facility = facility;
@@ -82,6 +86,12 @@ public class HotelPO {
 	}
 	private Set<HotelItem> getRooms(){
 		return rooms;
+	}
+	private Set<StrategyPO> getStrategies(){
+		return strategies;
+	}
+	public Iterator<StrategyPO> getStrategyIterator(){
+		return strategies.iterator();
 	}
 	public String getName(){
 		return name;

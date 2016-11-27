@@ -19,9 +19,11 @@ import info.Rule;
 import po.HotelPO;
 import resultmessage.HotelResultMessage;
 import util.HibernateUtil;
+import vo.BasicHotelVO;
 import vo.HotelVO;
 import vo.RoomVO;
 import vo.RuleVO;
+import vo.SearchHotelVO;
 
 public class HotelDO {
 	private HotelDao hotelDao;
@@ -29,7 +31,7 @@ public class HotelDO {
 	public ListWrapper<BusinessCity> getCity() throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
-			
+			return hotelDao.getAllCity();
 		}catch(RuntimeException e){
 			try{
 				HibernateUtil.getCurrentSession()
@@ -40,7 +42,6 @@ public class HotelDO {
 			}
 			throw e;
 		}
-		return null;
 	}
 	public HotelVO getHotelInfo(long hotelId) throws RemoteException{
 		HotelPO po = null;
@@ -192,5 +193,19 @@ public class HotelDO {
 		
 		return null;
 	}
-
+	public ListWrapper<BasicHotelVO> getHotels(SearchHotelVO vo){
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			return null;
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
+	}
 }
