@@ -2,8 +2,6 @@ package po;
 
 import java.time.LocalDate;
 
-import info.CommentInfo;
-
 public class CommentPO {
 	private int grade;
 	private String comment;

@@ -43,4 +43,10 @@ public class MemberDaoImpl implements MemberDao{
 		
 	}
 
+	@Override
+	public VIPPO getVIPInfo(long userId) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }
