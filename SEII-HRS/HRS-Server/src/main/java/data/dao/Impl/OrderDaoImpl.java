@@ -1,6 +1,7 @@
 package data.dao.Impl;
 
 import java.util.Iterator;
+import java.util.List;
 
 import data.dao.OrderDao;
 import data.datahelper.OrderDataHelper;
@@ -30,21 +31,22 @@ public class OrderDaoImpl implements OrderDao{
 		return orderDataHelper.getInfo(orderId);
 	}
 	@Override
-	public ListWrapper<OrderPO> getHotelOrders(long hotelId,OrderStatus status) {
-		// TODO Auto-generated method stub
-		
-		return null;
+	public ListWrapper<OrderPO> getHotelOrders(long hotelId) {
+		List<OrderPO> list = orderDataHelper.getHotelOrders(hotelId);
+		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
+		return res;
 	}
 	@Override
-	public ListWrapper<OrderPO> getUserOrders(long userId,OrderStatus status) {
-		// TODO Auto-generated method stub
-		
-		return null;
+	public ListWrapper<OrderPO> getUserOrders(long userId) {
+		List<OrderPO> list = orderDataHelper.getHotelOrders(userId);
+		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
+		return res;
 	}
 	@Override
 	public ListWrapper<OrderPO> getTodayOrders() {
-		
-		return null;
+		List<OrderPO> list = orderDataHelper.getWEBOrders();
+		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
+		return res;
 	}
 
 }

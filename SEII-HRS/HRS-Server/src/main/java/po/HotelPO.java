@@ -13,6 +13,9 @@ public class HotelPO {
 	private long hid;
 	private String name;
 	private String description;
+	private String facility;
+	private String address;
+	private String service;
 	private BusinessCircle businessCircle;
 	private BusinessCity businessCity;
 	private double score;
@@ -20,8 +23,30 @@ public class HotelPO {
 	private Set<CommentPO> comments = new HashSet<CommentPO>();
 	private Set<OrderPO> orders = new HashSet<OrderPO>();
 	private Set<HotelItem> rooms = new HashSet<HotelItem>();
+	private Set<StrategyPO> strategies = new HashSet<StrategyPO>();
 	public HotelPO(){
 		
+	}
+	private void setStrategies(Set<StrategyPO> strategies){
+		this.strategies = strategies;
+	}
+	public void setFacility(String facility){
+		this.facility = facility;
+	}
+	public void setAddress(String address){
+		this.address = address;
+	}
+	public void setService(String service){
+		this.service = service;
+	}
+	public String getFacility(){
+		return facility;
+	}
+	public String getAddress(){
+		return address;
+	}
+	public String getService(){
+		return service;
 	}
 	private void setComments(Set<CommentPO> comments){
 		this.comments = comments;
@@ -61,6 +86,12 @@ public class HotelPO {
 	}
 	private Set<HotelItem> getRooms(){
 		return rooms;
+	}
+	private Set<StrategyPO> getStrategies(){
+		return strategies;
+	}
+	public Iterator<StrategyPO> getStrategyIterator(){
+		return strategies.iterator();
 	}
 	public String getName(){
 		return name;

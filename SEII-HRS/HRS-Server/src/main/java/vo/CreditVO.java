@@ -2,7 +2,6 @@ package vo;
 
 import java.time.LocalDate;
 
-import info.CreditInfo;
 
 public class CreditVO {
 	private long userId;

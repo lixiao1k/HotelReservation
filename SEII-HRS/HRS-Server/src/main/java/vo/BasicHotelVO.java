@@ -1,0 +1,72 @@
+package vo;
+
+import java.util.Set;
+
+import info.HotelItem;
+import info.Rank;
+
+public class BasicHotelVO {
+	private long hotelId;
+	private String hotelName;
+	private Set<HotelItem> rooms;
+	private Rank rank;
+	private double score;
+	private String description;
+	private String facility;
+	private String address;
+	private String service;
+	public void setDescription(String description){
+		this.description = description;
+	}
+	public String getDescription(){
+		return description;
+	}
+	public void setRank(Rank rank){
+		this.rank = rank;
+	}
+	public void setScore(double score){
+		this.score = score;
+	}
+	public void setHotelId(long hotelId){
+		this.hotelId = hotelId;
+	}
+	public void setHotelName(String hotelName){
+		this.hotelName = hotelName;
+	}
+	public void setRooms(Set<HotelItem> rooms){
+		this.rooms = rooms;
+	}
+	public Set<HotelItem> getRooms(){
+		return rooms;
+	}
+	public Rank getRank(){
+		return rank;
+	}
+	public double getScore(){
+		return score;
+	}
+	public long getHotelId(){
+		return hotelId;
+	}
+	public String getHotelName(){
+		return hotelName;
+	}
+	public void setFacility(String facility){
+		this.facility = facility;
+	}
+	public void setAddress(String address){
+		this.address = address;
+	}
+	public void setService(String service){
+		this.service = service;
+	}
+	public String getFacility(){
+		return facility;
+	}
+	public String getAddress(){
+		return address;
+	}
+	public String getService(){
+		return service;
+	}
+}

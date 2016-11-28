@@ -2,7 +2,6 @@ package vo;
 
 import java.time.LocalDate;
 
-import info.CommentInfo;
 
 public class CommentVO {
 	private int grade;
