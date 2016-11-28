@@ -15,31 +15,26 @@ public class MemerLogicServiceImpl implements MemberLogicService{
 	}
 	@Override
 	public MemberResultMessage registerVIP(VIPVO vo) throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
+		return memberDO.registerVIP(vo);
 	}
 
 	@Override
 	public MemberResultMessage cancel(long id) throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
+		return memberDO.cancel(id);
 	}
 
 	@Override
 	public MemberVO getInfo(long id) throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
+		return memberDO.getInfo(id);
 	}
 
 	@Override
 	public MemberResultMessage changeInfo(MemberVO vo) throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
+		return memberDO.changeInfo(vo);
 	}
 
 	@Override
 	public ListWrapper<MemberVO> manageInfo() throws RemoteException {
-		// TODO 自动生成的方法存根
-		return null;
+		return memberDO.manageInfo();
 	}
 }
