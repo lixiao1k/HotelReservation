@@ -63,6 +63,7 @@ public class UserDO {
 	
 	//µÇ³ö
 	public void logout(long userid) throws RemoteException{
+		HibernateUtil.getCurrentSession().beginTransaction();
 		UserPO po=userDao.getInfo(userid);
 		po.setStatus(UserStatus.OFFLINE);
 		userDao.update(po);
@@ -70,7 +71,7 @@ public class UserDO {
 	
 	//×¢²á
 	public RegisterResultMessage register(String username,String password) throws RemoteException{
-		if(password.length()<=14){
+		if(password.length()>=15){
 			return RegisterResultMessage.FAIL_PASSWORDLENGTH;
 		}
 		Iterator cacheItem=users.getKeys();

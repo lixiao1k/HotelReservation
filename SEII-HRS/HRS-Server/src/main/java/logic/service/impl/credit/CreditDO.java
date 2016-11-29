@@ -18,6 +18,7 @@ public class CreditDO {
 		creditDao=DaoManager.getInstance().getCreditDao();
 	}
 	public ListWrapper<CreditVO> getInfo(long userId) throws RemoteException {
+		HibernateUtil.getCurrentSession().beginTransaction();
 		ListWrapper<CreditPO> polist=creditDao.getinfo(userId);
 		List<CreditVO> volist=null;
 		while(polist.iterator().hasNext()){
@@ -33,6 +34,7 @@ public class CreditDO {
 		if(po.getCredit()<0){
 			return CreditResultMessage.FAIL_LESSTHANZERO;
 		}else{
+			HibernateUtil.getCurrentSession().beginTransaction();
 			creditDao.insert(po);
 			return CreditResultMessage.SUCCESS;
 		}
