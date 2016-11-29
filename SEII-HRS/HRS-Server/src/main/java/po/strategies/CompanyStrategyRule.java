@@ -2,6 +2,7 @@ package po.strategies;
 
 import java.io.Serializable;
 
+import info.OrderStrategy;
 import po.OrderPO;
 
 public class CompanyStrategyRule implements StrategyRule,Serializable{
@@ -17,9 +18,14 @@ public class CompanyStrategyRule implements StrategyRule,Serializable{
 		this.name = data;
 	}
 	@Override
-	public boolean canBeApplied(OrderPO po) {
-		//if (po.getMember().)
+	public boolean canBeApplied(OrderStrategy po) {
+		if (po.getCompanyName().equals(name))
+			return true;
 		return false;
+	}
+	@Override
+	public String getInfo() {
+		return null;
 	}
 
 }

@@ -3,6 +3,7 @@ package po.strategies;
 import java.io.Serializable;
 import java.util.Date;
 
+import info.OrderStrategy;
 import po.OrderPO;
 
 public class FestivalStrategyRule implements StrategyRule,Serializable{
@@ -22,10 +23,14 @@ public class FestivalStrategyRule implements StrategyRule,Serializable{
 		endTime = new Date(datas[1]);
 	}
 	@Override
-	public boolean canBeApplied(OrderPO po) {
+	public boolean canBeApplied(OrderStrategy po) {
 		Date checkInTime = po.getCheckInTime();
 		if(checkInTime.before(endTime)&&checkInTime.after(beginTime))
 			return true;
 		return false;
+	}
+	@Override
+	public String getInfo() {
+		return beginTime.toString()+"|"+endTime.toString();
 	}
 }

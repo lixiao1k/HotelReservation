@@ -4,4 +4,5 @@ public interface DataFactoryService {
 	public OrderDataHelper getOrderDataHelper();
 	public UserDataHelper getUserDataHelper();
 	public CreditDataHelper getCreditDataHelper();
+	public StrategyDataHelper getStrategyDataHelper();
 }

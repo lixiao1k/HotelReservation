@@ -1,8 +1,9 @@
 package po.strategies;
 
-import po.OrderPO;
+import info.OrderStrategy;
 
 public interface StrategyRule {
-	public boolean canBeApplied(OrderPO po);
-	
+	public boolean canBeApplied(OrderStrategy po);
+	public String getInfo();
+
 }

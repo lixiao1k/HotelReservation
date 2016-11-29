@@ -1,6 +1,7 @@
 package po;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import info.StrategyItem;
@@ -24,8 +25,17 @@ public class StrategyPO {
 	public HotelPO getHotel(){
 		return this.hotel;
 	}
+	public StrategyRule getRule(){
+		return rule;
+	}
+	private Set<StrategyItem> getItems(){
+		return items;
+	}
+	public Iterator<StrategyItem> getStrategyRoom(){
+		return items.iterator();
+	}
 	public StrategyType getStrategyType(){
-		return this.getStrategyType();
+		return this.type;
 	}
 	public void setStrategyType(StrategyType type){
 		this.type = type;
@@ -38,5 +48,11 @@ public class StrategyPO {
 	}
 	public void setName(String name){
 		this.name = name;
+	}
+	public void setStrategyRule(StrategyRule rule){
+		this.rule = rule;
+	}
+	public void setItems(Set<StrategyItem> items){
+		this.items = items;
 	}
 }

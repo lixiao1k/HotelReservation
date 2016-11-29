@@ -68,4 +68,10 @@ public class HotelDaoImpl implements HotelDao {
 		return new ListWrapper<HotelPO>(list);
 	}
 
+	@Override
+	public HotelItem getRoomByRid(long hotelId, long roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
