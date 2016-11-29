@@ -1,11 +1,9 @@
 package Presentation.MemberUI;
 
-import java.awt.Button;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Presentation.MainUI.ClientMainUIController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,44 +20,51 @@ import javafx.scene.layout.GridPane;
 public class KeepPersonInfoController implements Initializable{
 	@FXML Label IDLabel;
 	@FXML TextField nameTextField;
-	@FXML DatePicker birthdayPicker;
+	@FXML TextField birthdayTextField;
 	@FXML TextField companyNameTextField;
 	@FXML ComboBox<String> contactComboBox;
-	@FXML TextField creditTextField;
+	@FXML Label creditLabel;
 	
-	GridPane clientmain;
+	private boolean isEdit=false;
+	
 	
 	@FXML 
 	protected void add(ActionEvent e){
-		
+		if(isEdit){
+			contactComboBox.setEditable(true);
+		}
 	}
 	
 	@FXML
 	protected void goCreditBrowse(ActionEvent e){
-//		try {
-//			Parent creditBrowse = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/CreditUI/CreditBrowse.fxml"));
-//			creditBrowse.getProperties().put("NAME","CreditBrowsePane" );
-//			ObservableList<Node> list =clientmain.getChildren();
-//			for(Node node:list){
-//				String value=(String)node.getProperties().get("NAME");
-//				if(value!=null&&value.contains("pane")){
-//					list.remove(node);
-//					break;
-//				}
-//			}
-//			clientmain.add(creditBrowse, 2, 1);
-//			} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		
-//		
+		try {
+			GridPane clientmain=(GridPane)IDLabel.getScene().getWindow().getScene().getRoot();
+			Parent creditBrowse = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/CreditUI/CreditBrowse.fxml"));
+			creditBrowse.getProperties().put("NAME","CreditBrowsePane" );
+			ObservableList<Node> list =clientmain.getChildren();
+			for(Node node:list){
+				String value=(String)node.getProperties().get("NAME");
+				if(value!=null&&value.contains("Pane")){
+					list.remove(node);
+					break;
+				}
+			}
+			clientmain.add(creditBrowse, 2, 1);
+			} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		
 	}
 	
 	@FXML
 	protected void edit(ActionEvent e){
-		
+		isEdit=true;
+		nameTextField.setEditable(true);
+		companyNameTextField.setEditable(true);
+//		contactComboBox.setEditable(true);
 	}
 
 	@FXML
@@ -68,8 +73,11 @@ public class KeepPersonInfoController implements Initializable{
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
-		
+		nameTextField.setEditable(false);
+		companyNameTextField.setEditable(false);
+		contactComboBox.setEditable(false);
+		birthdayTextField.setEditable(false);
+		birthdayTextField.setText("1996/11/19");
 	}
 
 }
