@@ -1,25 +1,25 @@
 package po;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import info.StrategyRoom;
+import info.StrategyItem;
+import info.StrategyType;
+import po.strategies.StrategyRule;
+
 
 public class StrategyPO {
 	private long id;
 	private String name;
-	private String description;
 	private HotelPO hotel;
-	private Set<StrategyRoom> rooms;
 	private StrategyType type;
-	
+	private Set<StrategyItem> items = new HashSet<StrategyItem>();
+	private StrategyRule rule;
 	public long getId(){
 		return this.id;
 	}
 	public String getName(){
 		return this.name;
-	}
-	public String getDescription(){
-		return this.description;
 	}
 	public HotelPO getHotel(){
 		return this.hotel;

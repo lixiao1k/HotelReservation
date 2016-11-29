@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="po">
+    <class name="StrategyPO" table="Strategy">
+        <id name="id" type="long">
+            <column name="S_ID"></column>
+            <generator class="native"></generator>
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" not-null="true"></column>
+        </property>
+   		<property name="rule" type="binary">
+   		    <column name="RULE" not-null="true"></column>
+   		</property>
+        <many-to-one name="hotel"></many-to-one>
+        <one-to-one name="type"></one-to-one>
+   		<set name="items"></set>
+    </class>
+</hibernate-mapping>
