@@ -5,8 +5,8 @@ import java.rmi.RemoteException;
 import info.BusinessCity;
 import info.ListWrapper;
 import logic.service.HotelLogicService;
-import logic.service.impl.order.OrderDO;
 import resultmessage.HotelResultMessage;
+import vo.AddHotelResultVO;
 import vo.BasicHotelVO;
 import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
@@ -15,8 +15,8 @@ import vo.HotelVO;
 import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
 import vo.RoomVO;
-import vo.RuleVO;
 import vo.SearchHotelVO;
+import vo.AddHotelVO;
 
 public class HotelLogicServiceImpl implements HotelLogicService{
 	private HotelDO hotelDO;
@@ -55,11 +55,7 @@ public class HotelLogicServiceImpl implements HotelLogicService{
 		return null;
 	}
 
-	@Override
-	public HotelVO getHotelInfo(long hotelId) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public RoomVO getRoomInfo(long hotelId) throws RemoteException {
@@ -80,21 +76,10 @@ public class HotelLogicServiceImpl implements HotelLogicService{
 	}
 
 	@Override
-	public HotelResultMessage addHotel(HotelVO vo) throws RemoteException {
+	public AddHotelResultVO addHotel(AddHotelVO vo) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public HotelResultMessage deleteHotel(HotelVO vo) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ListWrapper<HotelVO> getHotelList(RuleVO vo, int size) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

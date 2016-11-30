@@ -48,5 +48,10 @@ public class StrategyLogicServiceImpl implements StrategyLogicService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public ListWrapper<String> getTypes() throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

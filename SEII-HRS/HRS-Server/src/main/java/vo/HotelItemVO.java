@@ -3,7 +3,6 @@ package vo;
 import java.util.Date;
 
 import info.Room;
-import po.HotelPO;
 
 public class HotelItemVO {
 	private Room room;

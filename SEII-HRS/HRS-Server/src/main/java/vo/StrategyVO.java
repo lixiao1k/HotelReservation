@@ -2,7 +2,6 @@ package vo;
 
 import java.util.Set;
 
-import info.StrategyItem;
 import info.StrategyType;
 
 public class StrategyVO {

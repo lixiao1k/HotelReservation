@@ -48,13 +48,13 @@ public class HotelPO {
 	public String getService(){
 		return service;
 	}
-	private void setComments(Set<CommentPO> comments){
+	public void setComments(Set<CommentPO> comments){
 		this.comments = comments;
 	}
-	private void setRooms(Set<HotelItem> rooms){
+	public void setRooms(Set<HotelItem> rooms){
 		this.rooms = rooms;
 	}
-	private void setOrders(Set<OrderPO> orders){
+	public void setOrders(Set<OrderPO> orders){
 		this.orders = orders;
 	}
 	public void setName(String name){
@@ -71,6 +71,9 @@ public class HotelPO {
 	}
 	private void setHid(long hid){
 		this.hid = hid;
+	}
+	public void setRank(Rank rank){
+		this.rank = rank;
 	}
 	public long getHid(){
 		return this.hid;

@@ -127,12 +127,12 @@ public class StrategyDO {
 			strategies.put(po.getId(), po);
 			//构造返回信息
 			Set<StrategyItemVO> set = new HashSet<>();
-			Iterator<StrategyItem> siit = vo.getItems().iterator();
+			Iterator<StrategyItemVO> siit = vo.getItems().iterator();
 			while(siit.hasNext()){
-				StrategyItem si = siit.next();
+				StrategyItemVO si = siit.next();
 				HotelItem hi = DaoManager.getInstance()
 											.getHotelDao()
-											.getRoomByRid(po.getHotel().getHid(), si.getId());
+											.getRoomByRid(po.getHotel().getHid(),si.getRoom());
 				double before = hi.getPrice();
 				StrategyItemVO sivo = new StrategyItemVO();
 				sivo.setPriceBefore(before);
@@ -182,7 +182,7 @@ public class StrategyDO {
 				StrategyItem si = siit.next();
 				HotelItem hi = DaoManager.getInstance()
 											.getHotelDao()
-											.getRoomByRid(po.getHotel().getHid(), si.getId());
+											.getRoomByRid(po.getHotel().getHid(), si.getRoom());
 				double before = hi.getPrice();
 				StrategyItemVO sivo = new StrategyItemVO();
 				sivo.setPriceBefore(before);
@@ -248,5 +248,7 @@ public class StrategyDO {
 			throw e;
 		}
 	}
-
+	public ListWrapper<String> getTypes(){
+		return StrategyRuleUtil.getInstance().getTypes();
+	}
 }

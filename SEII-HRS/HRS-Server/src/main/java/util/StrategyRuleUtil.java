@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+
+import info.ListWrapper;
 
 
 public class StrategyRuleUtil {
@@ -43,5 +46,9 @@ public class StrategyRuleUtil {
 		if (key==null)
 			throw new IllegalArgumentException("wrong argument");
 		return instance.types.get(key);
+	}
+	public static ListWrapper<String> getTypes(){
+		Set<String> result = instance.types.keySet();
+		return new ListWrapper<>(result);
 	}
 }

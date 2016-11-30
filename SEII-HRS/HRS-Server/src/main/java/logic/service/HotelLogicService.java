@@ -7,6 +7,8 @@ import java.util.Base64;
 import info.BusinessCity;
 import info.ListWrapper;
 import resultmessage.HotelResultMessage;
+import vo.AddHotelResultVO;
+import vo.AddHotelVO;
 import vo.BasicHotelVO;
 import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
@@ -15,7 +17,6 @@ import vo.HotelVO;
 import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
 import vo.RoomVO;
-import vo.RuleVO;
 import vo.SearchHotelVO;
 
 public interface HotelLogicService extends Remote{
@@ -25,12 +26,9 @@ public interface HotelLogicService extends Remote{
 	public ListWrapper<Long> getBookHotel(long userId) throws RemoteException;
 	public HotelResultMessage roomCheckIn(CheckInRoomInfoVO vo) throws RemoteException;
 	public HotelResultMessage roomCheckOut(CheckOutRoomInfoVO vo) throws RemoteException;
-	public HotelVO getHotelInfo(long hotelId) throws RemoteException;
 	public RoomVO getRoomInfo(long hotelId) throws RemoteException;
 	public HotelResultMessage setHotelInfo(MaintainHotelInfoVO vo) throws RemoteException;
 	public HotelResultMessage setRoomInfo(MaintainRoomInfoVO vo) throws RemoteException;
-	public HotelResultMessage addHotel(HotelVO vo) throws RemoteException;
-	public HotelResultMessage deleteHotel(HotelVO vo) throws RemoteException;
-	public ListWrapper<HotelVO> getHotelList(RuleVO vo,int size) throws RemoteException;
+	public AddHotelResultVO addHotel(AddHotelVO vo) throws RemoteException;
 	
 }

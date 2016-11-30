@@ -1,18 +1,16 @@
 package logic.service.impl.hotel;
 
-import java.lang.reflect.Member;
 import java.rmi.RemoteException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
 import javax.management.RuntimeErrorException;
 
-import org.hibernate.engine.HibernateIterator;
-
+import antlr.debug.NewLineListener;
 import data.dao.HotelDao;
-import data.dao.MemberDao;
-import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
 import info.BusinessCity;
 import info.Cache;
@@ -31,11 +29,16 @@ import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
 import vo.ExtraHotelVO;
 import vo.HotelCommentVO;
-import vo.HotelVO;
+import vo.HotelItemVO;
+import vo.HotelWorkerVO;
+import vo.MaintainHotelInfoVO;
+import vo.MaintainRoomInfoVO;
 import vo.OrderVO;
+import vo.RoomInfoVO;
 import vo.RoomVO;
-import vo.RuleVO;
 import vo.SearchHotelVO;
+import vo.AddHotelResultVO;
+import vo.AddHotelVO;
 
 public class HotelDO {
 	private HotelDao hotelDao;
@@ -59,93 +62,53 @@ public class HotelDO {
 			throw e;
 		}
 	}
-	public HotelVO getHotelInfo(long hotelId) throws RemoteException{
-		HotelPO po = null;
-		HotelResultMessage result = null;
-		//ËÑË÷cache
-		HotelPO cachePO = null;
-		cachePO = hotels.get(hotelId);
-		boolean flag = false;
-		if (cachePO==null){
-			try{
-				HibernateUtil.getCurrentSession()
-								.beginTransaction();
-				flag = true;
-				po = hotelDao.getInfo(hotelId);
-				if (po!=null){
-					hotels.put(hotelId, po);
-					result = HotelResultMessage.SUCCESS;
-				}else{
-					result = HotelResultMessage.FAIL;
-				}
-				HibernateUtil.getCurrentSession()
-								.getTransaction()
-								.commit();
-			}catch(RuntimeException e){
-				hotels.remove(hotelId);
-				try{
-					HibernateUtil.getCurrentSession()
-									.getTransaction()
-									.rollback();
-					result = HotelResultMessage.FAIL;
-				}catch(RuntimeErrorException ex){
-					ex.printStackTrace();
-				}
-				throw e;
-			}
-		}else{
-			result = HotelResultMessage.SUCCESS;
-			
-		}
-		return null;
-	}
-	public RoomVO getRoomInfo(long hotelId) throws RemoteException{
+	public ListWrapper<HotelItemVO> getRoomInfo(long hotelId) throws RemoteException{
 		HotelPO po = null;
 		Iterator<HotelItem> rit;
-		Set<HotelItem> rooms = new HashSet<HotelItem>();
-		HotelResultMessage result = null;
+		Set<HotelItemVO> rooms = new HashSet<HotelItemVO>();
 		//ËÑË÷cache
 		HotelPO cachePO = null;
 		cachePO = hotels.get(hotelId);
-		boolean flag = false;
 		if (cachePO==null){
 			try{
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
-				flag = true;
 				po = hotelDao.getInfo(hotelId);
 				if (po!=null){
 					rit = po.getRoom();
+					Date now = new Date();
 					while(rit.hasNext()){
 						HotelItem hi = rit.next();
-						rooms.add(hi);
+						if(hi.getDate().toString().equals(new Date().toString()))
+							rooms.add(DozerMappingUtil.getInstance().map(hi, HotelItemVO.class));
 					}
 					hotels.put(hotelId, po);
-					result = HotelResultMessage.SUCCESS;
-					
-				}else{
-					result = HotelResultMessage.FAIL;
-				}
+
+				}else
+					return null;
+				return new ListWrapper<>(rooms);
 			}catch(RuntimeException e){
 				hotels.remove(hotelId);
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.rollback();
+					return null;
 				}catch(RuntimeErrorException ex){
 					ex.printStackTrace();
 				}
 				throw e;
 			}
 		}else{
-			result = HotelResultMessage.SUCCESS;
 			rit = cachePO.getRoom();
 			while(rit.hasNext()){
 				HotelItem hi = rit.next();
-				rooms.add(hi);
+				if(hi.getDate().toString().equals(new Date().toString()))
+					rooms.add(DozerMappingUtil.getInstance().map(hi, HotelItemVO.class));
 			}
+			return new ListWrapper<>(rooms);
 		}
-		return null;
+		
 	}
 
 	public ExtraHotelVO getExtraHotelDetail(long hotelId, long userId) throws RemoteException {
@@ -252,7 +215,6 @@ public class HotelDO {
 			throw e;
 		}
 	}
-
 	public HotelResultMessage roomCheckIn(CheckInRoomInfoVO vo) throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession()
@@ -261,105 +223,262 @@ public class HotelDO {
 			Iterator<HotelItem> it = rooms.iterator();
 			while(it.hasNext()){
 				HotelItem hi = it.next();
-				if(vo.getCheckInTime().before(hi.getDate())&&vo.getCheckInTime().after(hi.getDate())){
+				if(vo.getCheckInTime().compareTo(hi.getDate())==0){
 					int num = hi.getNum();
 					num-=vo.getRoomNum();
 					hi.setNum(num);
-					//hotelDao.
+					hotelDao.updateRoom(vo.getHotelId(), hi);
 				}
 			}
 			HibernateUtil.getCurrentSession()
 							.getTransaction()
 							.commit();
+			return HotelResultMessage.SUCCESS;
 		}catch(RuntimeException e){
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return HotelResultMessage.FAIL;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}
 			throw e;
 		}
-		return null;
 	}
-
 	public HotelResultMessage roomCheckOut(CheckOutRoomInfoVO vo) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			HibernateUtil.getCurrentSession()
+							.beginTransaction();
+			OrderPO po = DaoManager.getInstance().getOrderDao().getInfo(vo.getOrderId());
+			Date checkOutTime = po.getCheckOutTime();
+			ListWrapper<HotelItem> rooms = hotelDao.getHotelItemByRoom(po.getHotel().getHid(), po.getRoom());
+			Iterator<HotelItem> it = rooms.iterator();
+			while(it.hasNext()){
+				HotelItem hi = it.next();
+				if (hi.getDate().after(vo.getActualCheckOutTime())&&hi.getDate().before(checkOutTime)){
+					int num = hi.getNum();
+					num+=po.getRoomNum();
+					hi.setNum(num);
+					hotelDao.updateRoom(po.getHotel().getHid(), hi);
+				}
+			}
+			HibernateUtil.getCurrentSession()
+							.getTransaction()
+							.commit();
+			return HotelResultMessage.SUCCESS;
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.rollback();
+				return HotelResultMessage.FAIL;
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
-	public HotelResultMessage setHotelInfo(HotelVO vo) throws RemoteException{
-		
-		return null;
-	}
-	
-	public HotelResultMessage setRoomInfo(long hotelId,RoomVO vo) throws RemoteException{
-		HotelPO po = null;
-		HotelResultMessage result = null;
-		//ËÑË÷cache
+	public HotelResultMessage setHotelInfo(MaintainHotelInfoVO vo) throws RemoteException{
 		HotelPO cachePO = null;
-		cachePO = hotels.get(hotelId);
+		cachePO = hotels.get(vo.getHotelId());
+		HotelPO po = null;
 		boolean flag = false;
 		if (cachePO==null){
 			try{
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
 				flag = true;
-				po = hotelDao.getInfo(hotelId);
-				if (po!=null){
-					hotels.put(hotelId, po);
-					result = HotelResultMessage.SUCCESS;
-				}else{
-					result = HotelResultMessage.FAIL;
+				po = hotelDao.getInfo(vo.getHotelId());
+				if (po==null)
+					return HotelResultMessage.FAIL;
+				else{
+					if(vo.getAddress()!=null)
+						po.setAddress(vo.getAddress());
+					if(vo.getCircle()!=null)
+						po.setBusinessCircle(vo.getCircle());
+					if(vo.getDescription()!=null)
+						po.setDescription(vo.getDescription());
+					if(vo.getFacility()!=null)
+						po.setFacility(vo.getFacility());
+					if(vo.getService()!=null)
+						po.setService(vo.getService());
+					hotelDao.update(po);
+					hotels.put(vo.getHotelId(), po);
 				}
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.commit();
+				return HotelResultMessage.SUCCESS;
 			}catch(RuntimeException e){
-				hotels.remove(hotelId);
+				hotels.remove(vo.getHotelId());
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.rollback();
+					return HotelResultMessage.FAIL;
 				}catch(RuntimeErrorException ex){
 					ex.printStackTrace();
 				}
 				throw e;
 			}
 		}else{
-			result = HotelResultMessage.SUCCESS;
+			try{
+				if(!flag)
+				HibernateUtil.getCurrentSession()
+								.beginTransaction();
+				po = cachePO;
+				if(vo.getAddress()!=null)
+					po.setAddress(vo.getAddress());
+				if(vo.getCircle()!=null)
+					po.setBusinessCircle(vo.getCircle());
+				if(vo.getDescription()!=null)
+					po.setDescription(vo.getDescription());
+				if(vo.getFacility()!=null)
+					po.setFacility(vo.getFacility());
+				if(vo.getService()!=null)
+					po.setService(vo.getService());
+				hotelDao.update(po);
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.commit();
+				hotels.remove(vo.getHotelId());
+				hotels.put(vo.getHotelId(), po);
+				return HotelResultMessage.SUCCESS;
+			}catch(RuntimeException e){
+				hotels.remove(vo.getHotelId());
+				try{
+					HibernateUtil.getCurrentSession()
+									.getTransaction()
+									.rollback();
+					return HotelResultMessage.FAIL;
+				}catch(RuntimeErrorException ex){
+					ex.printStackTrace();
+				}
+				throw e;
+			}
+		
 		}
-		return result;
 	}
-	public HotelResultMessage addHotel(HotelVO vo) throws RemoteException{
-		return null;
-	}
-	public HotelResultMessage deleteHotel(long hotelId) throws RemoteException{
-		HotelResultMessage result;
+	public HotelResultMessage setRoomInfo(MaintainRoomInfoVO vo) throws RemoteException{
 		try{
 			HibernateUtil.getCurrentSession()
 							.beginTransaction();
-			//hotelDao.delete(hotelId);
-			result = HotelResultMessage.SUCCESS;
+			Set<RoomInfoVO> changeInfo = vo.getChangeInfo();
+			Iterator<RoomInfoVO> it = changeInfo.iterator();
+			while(it.hasNext()){
+				RoomInfoVO rivo = it.next();
+				int num = rivo.getNum();
+				ListWrapper<HotelItem> before = hotelDao.getHotelItemByRoom(vo.getHotelId(), rivo.getSourceType());
+				ListWrapper<HotelItem> after = hotelDao.getHotelItemByRoom(vo.getHotelId(), rivo.getTargetType());
+				Iterator<HotelItem> beforeIt = before.iterator();
+				Iterator<HotelItem> afterIt = after.iterator();
+				while(beforeIt.hasNext()){
+					HotelItem hi = beforeIt.next();
+					hi.setNum(hi.getNum()-num);
+					hotelDao.updateRoom(vo.getHotelId(), hi);
+				}
+				while(afterIt.hasNext()){
+					HotelItem hi = afterIt.next();
+					hi.setNum(hi.getNum()+num);
+					hotelDao.updateRoom(vo.getHotelId(), hi);
+				}
+			}
+			HibernateUtil.getCurrentSession()
+							.getTransaction()
+							.commit();
+			return HotelResultMessage.SUCCESS;
 		}catch(RuntimeException e){
-			result = HotelResultMessage.FAIL;
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return HotelResultMessage.FAIL;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}
 			throw e;
 		}
-		return null;
 	}
-	//private void transform(){}
-	public ListWrapper<HotelVO> getHotelList(RuleVO vo,int size) throws RemoteException{
+	public AddHotelResultVO addHotel(AddHotelVO vo) throws RemoteException{
+		HotelResultMessage resultMessage = null;
+		AddHotelResultVO result = new AddHotelResultVO();
+		try{
+			HibernateUtil.getCurrentSession()
+							.beginTransaction();
+			HotelPO po = DozerMappingUtil.getInstance().map(vo, HotelPO.class);
+			Set<HotelItemVO> newItems = vo.getItems();
+			Iterator<HotelItemVO> it = newItems.iterator();
+			Set<HotelItem> hiList = new HashSet<HotelItem>();
+		    Calendar calendar = new GregorianCalendar(); 
+		    Date now = new Date();
+			while(it.hasNext()){
+				calendar.setTime(now);
+				Date temp = calendar.getTime();
+				HotelItemVO hivo = it.next();
+				for(int i=0;i<15;i++){
+					HotelItem hi = new HotelItem();
+					hi.setHotel(po);
+					hi.setNum(hivo.getNum());
+					hi.setRoom(hivo.getRoom());
+					hi.setPrice(hivo.getPrice());
+					hi.setDate(temp);
+					hiList.add(hi);
+					calendar.add(calendar.DATE, 1);
+					temp = calendar.getTime();
+				}
+			}
+			po.setRooms(hiList);
+			hotelDao.insert(po);
+			resultMessage = HotelResultMessage.SUCCESS;
+			long hotelId = po.getHid();
+			//add new ÕËºÅ
 		
-		return null;
+			result.setHotelId(hotelId);
+			result.setHotelResultMessage(resultMessage);
+			HotelWorkerVO hwvo = new HotelWorkerVO("", "");
+			result.setHotelWorker(hwvo);
+			HibernateUtil.getCurrentSession()
+							.getTransaction()
+							.commit();
+			return result;
+		}catch(RuntimeException e){
+			resultMessage = HotelResultMessage.FAIL;
+			result.setHotelResultMessage(resultMessage);
+			result.setHotelWorker(null);
+			try{
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.rollback();
+				return result;
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
 	public ListWrapper<BasicHotelVO> getHotels(SearchHotelVO vo){
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
-			return null;
+			Rule rule = DozerMappingUtil.getInstance().map(vo, Rule.class);
+			ListWrapper<HotelPO> hotels = hotelDao.getHotelListByRule(rule);
+			Iterator<HotelPO> it = hotels.iterator();
+			Set<BasicHotelVO> result = new HashSet<>();
+			while(it.hasNext()){
+				HotelPO po = it.next();
+				BasicHotelVO bhvo = DozerMappingUtil.getInstance().map(po, BasicHotelVO.class);
+				Set<HotelItemVO> items = new HashSet<>();
+				Iterator<HotelItem> hiit = po.getRoom();
+				while(hiit.hasNext()){
+					HotelItem hi = hiit.next();
+					HotelItemVO hivo = DozerMappingUtil.getInstance().map(hi, HotelItemVO.class);
+					items.add(hivo);
+				}
+				bhvo.setRooms(items);
+				result.add(bhvo);
+			}
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			return new ListWrapper<>(result);
 		}catch(RuntimeException e){
 			try{
 				HibernateUtil.getCurrentSession()

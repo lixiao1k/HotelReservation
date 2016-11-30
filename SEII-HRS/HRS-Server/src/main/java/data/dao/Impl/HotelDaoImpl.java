@@ -46,7 +46,7 @@ public class HotelDaoImpl implements HotelDao {
 	}
 
 	@Override
-	public ListWrapper<HotelItem> getHotelListByRule(Rule rule) {
+	public ListWrapper<HotelPO> getHotelListByRule(Rule rule) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -69,14 +69,15 @@ public class HotelDaoImpl implements HotelDao {
 		return new ListWrapper<HotelPO>(list);
 	}
 
+
 	@Override
-	public HotelItem getRoomByRid(long hotelId, long roomId) {
+	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room) {
+	public HotelItem getRoomByRid(long hotelId, Room room) {
 		// TODO Auto-generated method stub
 		return null;
 	}
