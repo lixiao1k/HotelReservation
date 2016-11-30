@@ -7,7 +7,7 @@ public class UserPO {
 	private String username;
 	private String password;
 	private Role role;
-	private CreditPO credit;
+	private int credit;
 	private UserStatus status;
 	public UserPO(){
 		
@@ -16,10 +16,20 @@ public class UserPO {
 		this.username = username;
 		this.password = password;
 		setStatus(UserStatus.ONLINE);
-		credit=new CreditPO();
+		credit=0;
 	}
-	public CreditPO getCredit(){
+	public int getCredit(){
 		return credit;
+	}
+	public int addCredit(int value){
+		return credit+value;
+	}
+	public int decrease(int value){
+		if(credit-value<0){
+			return -1;
+		}else{
+			return credit-value;
+		}
 	}
 	public Role getRole(){
 		return this.role;

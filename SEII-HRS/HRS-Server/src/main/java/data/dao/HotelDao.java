@@ -14,6 +14,7 @@ public interface HotelDao {
 	public void update(HotelPO po);
 	public HotelPO getInfo(long hotelId);
 	public ListWrapper<HotelItem> getRoom(long hotelId);
+	public HotelItem getRoomByRid(long hotelId,long roomId);
 	public void updateRoom(long hotelId,HotelItem rpo);
 	public ListWrapper<HotelItem> getHotelListByRule(Rule rule);
 	public ListWrapper<HotelItem> getHotelListByString(String rule);

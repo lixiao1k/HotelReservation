@@ -1,32 +1,29 @@
 package logic.service.impl.user;
 
-import data.dao.UserDao;
-import data.dao.Impl.DaoManager;
+import java.rmi.RemoteException;
+
 import logic.service.UserLogicService;
 import resultmessage.LoginResultMessage;
 import resultmessage.RegisterResultMessage;
 
 public class UserLogicServiceImpl implements UserLogicService{
-	private UserDao userDao;
+	private UserDO userDO;
 	public UserLogicServiceImpl() {
-		userDao=DaoManager.getInstance().getUserDao();
+		userDO=new UserDO(); 
 	}
 	@Override
-	public LoginResultMessage login(String username, String password) {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	@Override
-	public void logout(long userid) {
-		// TODO 自动生成的方法存根
-		
+	public LoginResultMessage login(String username, String password) throws RemoteException {
+		return userDO.login(username, password);
 	}
 
 	@Override
-	public RegisterResultMessage register(String username, String password) {
-		// TODO 自动生成的方法存根
-		return null;
+	public void logout(long userid) throws RemoteException {
+		userDO.logout(userid);
+	}
+
+	@Override
+	public RegisterResultMessage register(String username, String password) throws RemoteException {
+		return userDO.register(username, password);
 	}
 
 }

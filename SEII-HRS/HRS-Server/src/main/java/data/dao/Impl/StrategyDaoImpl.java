@@ -1,39 +1,44 @@
 package data.dao.Impl;
 
+import java.util.List;
+
 import data.dao.StrategyDao;
+import data.datahelper.StrategyDataHelper;
+import data.datahelper.impl.DataFactory;
 import info.ListWrapper;
 import po.StrategyPO;
 
 public class StrategyDaoImpl implements StrategyDao{
-
+	private StrategyDataHelper strategyDataHelper;
+	public StrategyDaoImpl() {
+		strategyDataHelper = DataFactory
+							.getInstance()
+							.getStrategyDataHelper();
+	}
 	@Override
 	public void insert(StrategyPO po) {
-		// TODO Auto-generated method stub
-		
+		strategyDataHelper.insert(po);
 	}
 
 	@Override
 	public void delete(StrategyPO po) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void update(StrategyPO po) {
-		// TODO Auto-generated method stub
-		
+		strategyDataHelper.delete(po);
 	}
 
 	@Override
 	public StrategyPO getInfo(long strategyId) {
-		// TODO Auto-generated method stub
-		return null;
+		return strategyDataHelper.getInfo(strategyId);
 	}
 
 	@Override
 	public ListWrapper<StrategyPO> getHotelStrategyList(long hotelId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<StrategyPO> list = strategyDataHelper.getHotelStrategyList(hotelId);
+		return new ListWrapper<StrategyPO>(list);
 	}
 
+	@Override
+	public ListWrapper<StrategyPO> getWEBStrategyList() {
+		List<StrategyPO> list = strategyDataHelper.getWEBStrategyList();
+		return new ListWrapper<StrategyPO>(list);
+	}
 }

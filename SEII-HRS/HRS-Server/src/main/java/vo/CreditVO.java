@@ -17,9 +17,6 @@ public class CreditVO {
 	public String toString(){
 		return "UserId:"+userId+"; date:"+date+"; "+delta+" -> "+credit;
 	}
-	public CreditVO() {
-		// TODO Auto-generated constructor stub
-	}
 	public long getUserId(){
 		return this.userId;
 	}

@@ -3,12 +3,14 @@ package data.datahelper.impl;
 import data.datahelper.CreditDataHelper;
 import data.datahelper.DataFactoryService;
 import data.datahelper.OrderDataHelper;
+import data.datahelper.StrategyDataHelper;
 import data.datahelper.UserDataHelper;
 
 public class DataFactory implements DataFactoryService{
 	private OrderDataHelper orderDataHelper;
 	private UserDataHelper userDataHelper;
 	private CreditDataHelper creditDataHelper;
+	private StrategyDataHelper strategyDataHelper;
 	private static DataFactory instance;
 
 	static{
@@ -38,6 +40,12 @@ public class DataFactory implements DataFactoryService{
 		if(creditDataHelper==null)
 			creditDataHelper = new CreditDataHelperMysqlImpl();
 		return creditDataHelper;
+	}
+	@Override
+	public StrategyDataHelper getStrategyDataHelper() {
+		if(strategyDataHelper==null)
+			strategyDataHelper = new StrategyDataHelperMysqlImpl();
+		return strategyDataHelper;
 	}
 
 }

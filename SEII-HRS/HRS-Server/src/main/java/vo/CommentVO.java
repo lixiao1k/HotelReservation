@@ -35,7 +35,4 @@ public class CommentVO {
     public String toString(){
     	return date + " " + "ÆÀÂÛÈË:"+userid+" ÆÀÂÛ¾Æµê:"+hotelId+" comment:"+comment+" grade:"+grade;
     }
-	public CommentVO() {
-		// TODO Auto-generated constructor stub
-	}
 }

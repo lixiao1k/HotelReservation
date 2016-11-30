@@ -10,7 +10,6 @@ import info.UserStatus;
 import po.UserPO;
 import resultmessage.LoginResultMessage;
 import resultmessage.RegisterResultMessage;
-import util.DozerMappingUtil;
 import util.HibernateUtil;
 
 public class UserDO {
@@ -43,7 +42,7 @@ public class UserDO {
 		}
 		if(upo==null){
 			HibernateUtil.getCurrentSession().beginTransaction();
-			upo=DaoManager.getInstance().getUserDao().getInfo(username);
+			upo=userDao.getInfo(username);
 		}
 		if(upo==null){
 			return LoginResultMessage.FAIL_NOINFO;
@@ -53,7 +52,7 @@ public class UserDO {
 			if(upo.getPassword().equals(password)){
 				upo.setStatus(UserStatus.ONLINE);
 				users.put(upo.getUid(), upo);
-				DaoManager.getInstance().getUserDao().update(upo);
+				userDao.update(upo);
 				return LoginResultMessage.SUCCESS;
 			}else{
 				users.put(upo.getUid(), upo);
@@ -64,14 +63,15 @@ public class UserDO {
 	
 	//µÇ³ö
 	public void logout(long userid) throws RemoteException{
-		UserPO po=DaoManager.getInstance().getUserDao().getInfo(userid);
+		HibernateUtil.getCurrentSession().beginTransaction();
+		UserPO po=userDao.getInfo(userid);
 		po.setStatus(UserStatus.OFFLINE);
-		DaoManager.getInstance().getUserDao().update(po);
+		userDao.update(po);
 	}
 	
 	//×¢²á
 	public RegisterResultMessage register(String username,String password) throws RemoteException{
-		if(password.length()<=14){
+		if(password.length()>=15){
 			return RegisterResultMessage.FAIL_PASSWORDLENGTH;
 		}
 		Iterator cacheItem=users.getKeys();
@@ -83,12 +83,12 @@ public class UserDO {
 			}
 		}
 		HibernateUtil.getCurrentSession().beginTransaction();
-		UserPO upo=DaoManager.getInstance().getUserDao().getInfo(username);
+		UserPO upo=userDao.getInfo(username);
 		if(upo!=null){
 			return RegisterResultMessage.FAIL_USEREXIST;
 		}else{
 			upo=new UserPO(username, password);
-			DaoManager.getInstance().getUserDao().insert(upo);
+			userDao.insert(upo);
 			return RegisterResultMessage.SUCCESS;
 		}
 	}

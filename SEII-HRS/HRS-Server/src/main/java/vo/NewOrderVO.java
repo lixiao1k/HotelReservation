@@ -16,7 +16,7 @@ public class NewOrderVO {
 	private Room room;
 	private int roomNum;
 	private double roomPrice;
-	private String strategy;
+	private long strategy;
 	private double strategyOff;
 	public String getContactWay(){
 		return contactWay;
@@ -51,7 +51,7 @@ public class NewOrderVO {
 	public double getRoomPrice(){
 		return roomPrice;
 	}
-	public String getStrategy(){
+	public long getStrategy(){
 		return strategy;
 	}
 	public double getStrategyOff(){
@@ -84,7 +84,7 @@ public class NewOrderVO {
 	public void setRoomPrice(double roomPrice){
 		this.roomPrice = roomPrice;
 	}
-	public void setStrategy(String strategy){
+	public void setStrategy(long strategy){
 		this.strategy = strategy;
 	}
 	public void setStrategyOff(double strategyOff){
