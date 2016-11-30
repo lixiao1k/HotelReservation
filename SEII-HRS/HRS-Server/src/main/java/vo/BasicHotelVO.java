@@ -8,7 +8,7 @@ import info.Rank;
 public class BasicHotelVO {
 	private long hotelId;
 	private String hotelName;
-	private Set<HotelItem> rooms;
+	private Set<HotelItemVO> rooms;
 	private Rank rank;
 	private double score;
 	private String description;
@@ -33,10 +33,10 @@ public class BasicHotelVO {
 	public void setHotelName(String hotelName){
 		this.hotelName = hotelName;
 	}
-	public void setRooms(Set<HotelItem> rooms){
+	public void setRooms(Set<HotelItemVO> rooms){
 		this.rooms = rooms;
 	}
-	public Set<HotelItem> getRooms(){
+	public Set<HotelItemVO> getRooms(){
 		return rooms;
 	}
 	public Rank getRank(){

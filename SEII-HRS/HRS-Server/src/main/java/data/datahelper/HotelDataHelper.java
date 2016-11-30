@@ -6,6 +6,7 @@ import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
 import info.ListWrapper;
+import info.Room;
 import info.Rule;
 import po.HotelPO;
 
@@ -17,4 +18,5 @@ public interface HotelDataHelper {
 	public ListWrapper<HotelItem> getHotelListByString(String rule);
 	public List<BusinessCity> getAllCity();
 	public List<HotelPO> getHotelListByCityAndCircle(BusinessCity city, BusinessCircle circle);
+	public List<HotelItem> getHotelItemByRoom(long hotelId,Room room);
 }

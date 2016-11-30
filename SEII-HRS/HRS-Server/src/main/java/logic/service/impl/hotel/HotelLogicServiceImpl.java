@@ -45,7 +45,7 @@ public class HotelLogicServiceImpl implements HotelLogicService{
 
 	@Override
 	public HotelResultMessage roomCheckIn(CheckInRoomInfoVO vo) throws RemoteException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

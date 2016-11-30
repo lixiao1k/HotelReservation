@@ -11,4 +11,5 @@ public interface OrderDao {
 	public ListWrapper<OrderPO> getHotelOrders(long hotelId);
 	public ListWrapper<OrderPO> getUserOrders(long userId);
 	public ListWrapper<OrderPO> getTodayOrders();
+	public ListWrapper<OrderPO> getHotelUserOrders(long hotelId,long userId);
 }

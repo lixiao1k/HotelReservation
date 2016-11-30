@@ -4,6 +4,7 @@ import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
 import info.ListWrapper;
+import info.Room;
 import info.Rule;
 import po.HotelPO;
 import vo.BasicHotelVO;
@@ -20,4 +21,5 @@ public interface HotelDao {
 	public ListWrapper<HotelItem> getHotelListByString(String rule);
 	public ListWrapper<BusinessCity> getAllCity();
 	public ListWrapper<HotelPO> getHotelListByCityAndCircle(BusinessCity city,BusinessCircle circle);
+	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room);
 }

@@ -25,10 +25,12 @@
     </field>
 </mapping>
 <mapping>
-    <class-a></class-a>
-    <class-b></class-b>
+    <class-a>po.StrategyPO</class-a>
+    <class-b>info.HotelStrategyVO</class-b>
     <field>
-        
+        <a>hotel.hid</a>
+        <b>hotelId</b>
     </field>
 </mapping>
+<mapping></mapping>
 </mappings>

@@ -1,22 +1,15 @@
-package info;
+package vo;
 
 import java.util.Date;
 
+import info.Room;
 import po.HotelPO;
 
-public class HotelItem {
-	private long hiId;
-	private HotelPO hotel;
+public class HotelItemVO {
 	private Room room;
 	private int num;
 	private double price;
 	private Date date;
-	public long getHiId(){
-		return this.hiId;
-	}
-	public HotelPO getHotel(){
-		return this.hotel;
-	}
 	public Room getRoom(){
 		return this.room;
 	}
@@ -37,12 +30,6 @@ public class HotelItem {
 	}
 	public void setRoom(Room room){
 		this.room = room;
-	}
-	public void setHotel(HotelPO hotel){
-		this.hotel = hotel;
-	}
-	private void setHiId(long hiId){
-		this.hiId = hiId;
 	}
 	public void setDate(Date date){
 		this.date = date;

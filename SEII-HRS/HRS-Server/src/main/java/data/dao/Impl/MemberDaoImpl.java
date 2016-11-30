@@ -2,6 +2,7 @@ package data.dao.Impl;
 
 import data.dao.MemberDao;
 import info.ListWrapper;
+import po.MemberPO;
 import po.UserPO;
 import po.VIPPO;
 
@@ -14,7 +15,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public UserPO getInfo(long userId) {
+	public MemberPO getInfo(long userId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

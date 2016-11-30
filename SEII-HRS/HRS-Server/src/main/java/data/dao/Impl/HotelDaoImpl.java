@@ -9,6 +9,7 @@ import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
 import info.ListWrapper;
+import info.Room;
 import info.Rule;
 import po.HotelPO;
 
@@ -70,6 +71,12 @@ public class HotelDaoImpl implements HotelDao {
 
 	@Override
 	public HotelItem getRoomByRid(long hotelId, long roomId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room) {
 		// TODO Auto-generated method stub
 		return null;
 	}

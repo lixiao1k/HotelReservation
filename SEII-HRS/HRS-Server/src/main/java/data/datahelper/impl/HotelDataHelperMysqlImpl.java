@@ -9,6 +9,7 @@ import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
 import info.ListWrapper;
+import info.Room;
 import info.Rule;
 import po.HotelPO;
 import util.HibernateUtil;
@@ -18,6 +19,7 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 	private static final String getAllCityQuery = "form BusinessCity as bc";
 	private static final String getHotelByCityAndCircle = 
 									"from Hotel as h where h.businessCity=:BCITY and h.businessCircle=:BCIRCLE";
+	private static final String getHotelItemQuery = "from HotleItem as hi wher hi.hotel=:HOTEL and hi.room=:ROOM";
 	@Override
 	public void insert(HotelPO po) {
 		// TODO Auto-generated method stub
@@ -59,6 +61,15 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 		Query query = HibernateUtil.getCurrentSession().createQuery(getHotelByCityAndCircle);
 		query.setEntity("BCITY", city);
 		query.setEntity("BCIRCLE", circle);
+		return query.list();
+	}
+
+	@Override
+	public List<HotelItem> getHotelItemByRoom(long hotelId,Room room) {
+		HotelPO po = (HotelPO) HibernateUtil.getCurrentSession().get(HotelPO.class, hotelId);
+		Query query = HibernateUtil.getCurrentSession().createQuery(getHotelItemQuery);
+		query.setEntity("HOTEL", po);
+		query.setEntity("ROOM", room);
 		return query.list();
 	}
 	

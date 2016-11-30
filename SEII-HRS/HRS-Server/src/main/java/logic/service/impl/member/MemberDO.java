@@ -6,6 +6,7 @@ import java.util.List;
 import data.dao.MemberDao;
 import data.dao.Impl.DaoManager;
 import info.ListWrapper;
+import po.MemberPO;
 import po.UserPO;
 import po.VIPPO;
 import resultmessage.MemberResultMessage;
@@ -21,7 +22,7 @@ public class MemberDO {
 	}
 	public MemberResultMessage registerVIP(VIPVO vo) throws RemoteException {
 		HibernateUtil.getCurrentSession().beginTransaction();
-		UserPO upo=null;
+		MemberPO upo=null;
 		upo=memberDao.getInfo(vo.getUserId());
 		if(upo==null){
 			return MemberResultMessage.REGISTERVIP_FAIL_WRONGID;
@@ -42,7 +43,7 @@ public class MemberDO {
 	
 	public MemberResultMessage cancel(long id) throws RemoteException {
 		HibernateUtil.getCurrentSession().beginTransaction();
-		UserPO upo=null;
+		MemberPO upo=null;
 		upo=memberDao.getInfo(id);
 		if(upo==null){
 			return MemberResultMessage.CANCELVIP_FAIL_WRONGID;
@@ -61,14 +62,14 @@ public class MemberDO {
 
 	public MemberVO getInfo(long id) throws RemoteException {
 		HibernateUtil.getCurrentSession().beginTransaction();
-		UserPO upo=null;
+		MemberPO upo=null;
 		upo=memberDao.getInfo(id);
 		return DozerMappingUtil.getInstance().map(upo,MemberVO.class);
 	}
 
 	public MemberResultMessage changeInfo(MemberVO vo) throws RemoteException {
 		HibernateUtil.getCurrentSession().beginTransaction();
-		UserPO upo=null;
+		MemberPO upo=null;
 		upo=memberDao.getInfo(vo.getId());
 		if(upo==null){
 			return MemberResultMessage.CHANGEINFO_FAIL_WORNDID;

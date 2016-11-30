@@ -2,7 +2,6 @@ package data.datahelper;
 
 import java.util.List;
 
-import info.OrderStatus;
 import po.OrderPO;
 
 public interface OrderDataHelper {
@@ -12,4 +11,5 @@ public interface OrderDataHelper {
 	public List<OrderPO> getWEBOrders();
 	public List<OrderPO> getUserOrders(long userId);
 	public List<OrderPO> getHotelOrders(long hotelId);
+	public List<OrderPO> getHotelUserOrders(long hotelId, long userId);
 }

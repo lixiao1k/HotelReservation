@@ -48,5 +48,10 @@ public class OrderDaoImpl implements OrderDao{
 		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
 		return res;
 	}
+	@Override
+	public ListWrapper<OrderPO> getHotelUserOrders(long hotelId, long userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
