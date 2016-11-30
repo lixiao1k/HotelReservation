@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import logic.service.UserLogicService;
 import resultmessage.LoginResultMessage;
 import resultmessage.RegisterResultMessage;
+import vo.LoginResultVO;
 
 public class UserLogicServiceImpl implements UserLogicService{
 	private UserDO userDO;
@@ -12,7 +13,7 @@ public class UserLogicServiceImpl implements UserLogicService{
 		userDO=new UserDO(); 
 	}
 	@Override
-	public LoginResultMessage login(String username, String password) throws RemoteException {
+	public LoginResultVO login(String username, String password) throws RemoteException {
 		return userDO.login(username, password);
 	}
 

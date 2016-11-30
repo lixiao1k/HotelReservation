@@ -13,14 +13,14 @@ public class TestUserBL {
 	public void testlogin() throws RemoteException {
 		UserLogicService userLogic=new UserLogicServiceImpl();
 		LoginResultMessage result=null;
-		result=userLogic.login("Admin", "Admin");
+		result=userLogic.login("Admin", "Admin").getResultMessage();
 		Assert.assertEquals("Login success.", LoginResultMessage.SUCCESS, result);
-		result=userLogic.login("Admin", "Admin");
+		result=userLogic.login("Admin", "Admin").getResultMessage();
 		Assert.assertEquals("Login fail. Already logged.", LoginResultMessage.FAIL_LOGGED, result);
-		result=userLogic.login("None", "None");
+		result=userLogic.login("None", "None").getResultMessage();
 		Assert.assertEquals("Login fail. No Such User.", LoginResultMessage.FAIL_NOINFO, result);
 		userLogic.logout(1);
-		result=userLogic.login("Admin", "Adminn");
+		result=userLogic.login("Admin", "Adminn").getResultMessage();
 		Assert.assertEquals("Login fail. Wrong password.", LoginResultMessage.FAIL_WRONG, result);
 	}
 	
@@ -30,10 +30,10 @@ public class TestUserBL {
 		LoginResultMessage result=null;		
 		userLogic.login("Admin", "Admin");
 		userLogic.logout(1);
-		result=userLogic.login("Admin", "Admin");
+		result=userLogic.login("Admin", "Admin").getResultMessage();
 		Assert.assertEquals("Logout success and login.", LoginResultMessage.SUCCESS, result);
 		userLogic.logout(2);
-		result=userLogic.login("Admin", "Admin");
+		result=userLogic.login("Admin", "Admin").getResultMessage();
 		Assert.assertEquals("Logout fail. Cannot login.", LoginResultMessage.FAIL_LOGGED, result);
 	}
 	

@@ -1,12 +1,13 @@
 package po;
 
 import info.UserStatus;
+import info.UserType;
 
 public class UserPO {
 	private long uid;
 	private String username;
 	private String password;
-	private Role role;
+	private UserType type;
 	private int credit;
 	private UserStatus status;
 	public UserPO(){
@@ -18,17 +19,18 @@ public class UserPO {
 		setStatus(UserStatus.ONLINE);
 		credit=0;
 	}
+	public UserPO(String username,String password, UserType type){
+		this.username = username;
+		this.password = password;
+		this.type=type;
+		setStatus(UserStatus.ONLINE);
+		credit=0;
+	}
 	public int getCredit(){
 		return credit;
 	}
 	public void setCredit(int credit){
 		this.credit=credit;
-	}
-	public Role getRole(){
-		return this.role;
-	}
-	public void setRole(Role role){
-		this.role = role;
 	}
 	public String getUsername(){
 		return this.username;
@@ -56,5 +58,11 @@ public class UserPO {
 	}
 	public void setStatus(UserStatus status) {
 		this.status = status;
+	}
+	public UserType getType() {
+		return type;
+	}
+	public void setType(UserType type) {
+		this.type = type;
 	}
 }

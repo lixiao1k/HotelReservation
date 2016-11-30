@@ -11,6 +11,7 @@ import po.UserPO;
 import resultmessage.LoginResultMessage;
 import resultmessage.RegisterResultMessage;
 import util.HibernateUtil;
+import vo.LoginResultVO;
 
 public class UserDO {
 	private UserDao userDao;
@@ -27,9 +28,10 @@ public class UserDO {
 	}
 	
 	//µÇÂ½
-	public LoginResultMessage login(String username,String password) throws RemoteException{
+	public LoginResultVO login(String username,String password) throws RemoteException{
 		Iterator cacheItem=users.getKeys();
 		UserPO upo=null;
+		LoginResultVO lrvo=new LoginResultVO(null, null, 0);
 		while(cacheItem.hasNext()){
 			long userid=(long)cacheItem.next();
 			UserPO cachePO=users.get(userid);
@@ -45,18 +47,24 @@ public class UserDO {
 			upo=userDao.getInfo(username);
 		}
 		if(upo==null){
-			return LoginResultMessage.FAIL_NOINFO;
+			lrvo.setLoginResultMessage(LoginResultMessage.FAIL_NOINFO);
+			return lrvo;
 		}else if(upo.getStatus()==UserStatus.ONLINE){
-			return LoginResultMessage.FAIL_LOGGED;
+			lrvo.setLoginResultMessage(LoginResultMessage.FAIL_LOGGED);
+			return lrvo;
 		}else{
 			if(upo.getPassword().equals(password)){
 				upo.setStatus(UserStatus.ONLINE);
 				users.put(upo.getUid(), upo);
 				userDao.update(upo);
-				return LoginResultMessage.SUCCESS;
+				lrvo.setLoginResultMessage(LoginResultMessage.SUCCESS);
+				lrvo.setUserType(upo.getType());
+				lrvo.setUserID(upo.getUid());
+				return lrvo;
 			}else{
 				users.put(upo.getUid(), upo);
-				return LoginResultMessage.FAIL_WRONG;
+				lrvo.setLoginResultMessage(LoginResultMessage.FAIL_WRONG);
+				return lrvo;
 			}
 		}
 	}
