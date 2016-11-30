@@ -42,28 +42,28 @@ public class LoginMainController implements Initializable{
 			loader.setLocation(getClass().getResource("ClientMainUI.fxml"));
 			content = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/Keeppersoninfo.fxml"));
 			content.getProperties().put("NAME", "PersonInfoPane");
-			title = "酒店预订系统-客户";
+			title = "HRS-Client";
 		}
 		else if (username.equals("hotelworker")&&password.equals("hotelworker")){
 			loader.setLocation(getClass().getResource("HotelWorkerMainUI.fxml"));
 			content = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
 			content.getProperties().put("NAME", "HotelInfoPane");
-			title = "闁版帒绨垫０鍕吂缁崵绮� - 闁版帒绨靛銉ょ稊娴滃搫鎲�";
+			title = "HRS-HotelWorker";
 		}
 		else if (username.equals("websaler")&&password.equals("websaler")){
 			loader.setLocation(getClass().getResource("WebSalerMainUI.fxml"));
 			content = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseStrategyListUI.fxml"));
 			content.getProperties().put("NAME", "browseStrategyList");
-			title = "闁版帒绨垫０鍕吂缁崵绮� - 缂冩垹鐝拃銉╂敘娴滃搫鎲�";
+			title = "HRS-WebSaler";
 		}
 		else if (username.equals("webmanager")&&password.equals("webmanager")){
 			loader.setLocation(getClass().getResource("WebManagerMainUI.fxml"));
 			content = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
 			content.getProperties().put("NAME", "HotelInfoPane");
-			title = "闁版帒绨垫０鍕吂缁崵绮� - 缂冩垹鐝粻锛勬倞娴滃搫鎲�";
+			title = "HRS-WebManager";
 		}
 		else {
-			System.out.println("鐠愶箑褰块幋鏍х槕閻線鏁婄拠锟�");
+			System.out.println("Accout or Password Error!");
 			flag = false;
 		}
 		if (flag){
