@@ -1,5 +1,4 @@
 import java.rmi.RemoteException;
-import java.time.LocalDate;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,15 +19,13 @@ public class TestCreditBL {
 	}
 	
 	@Test
-	public void testinsert() throws RemoteException {
+	public void testexcharge() throws RemoteException {
 		CreditLogicService creditLogic=new CreditLogicServiceImpl();
 		CreditResultMessage result=null;
-		LocalDate time=LocalDate.of(1970, 1, 1);
-		CreditVO testvo=new CreditVO(1, time, 100000000, 0);
-		result=creditLogic.insert(testvo);
+		result=creditLogic.excharge(1, 10000);
 		Assert.assertEquals("Insert success.", CreditResultMessage.SUCCESS, result);
-		CreditVO testvo2=new CreditVO(1, time, -1, 0);
-		result=creditLogic.insert(testvo2);
+		creditLogic.excharge(1, -10000);
+		result=creditLogic.excharge(1, -1);
 		Assert.assertEquals("Insert fail. Less than zero.", CreditResultMessage.FAIL_LESSTHANZERO, result);
 	}
 }

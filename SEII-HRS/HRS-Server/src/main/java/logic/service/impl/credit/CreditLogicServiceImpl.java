@@ -18,8 +18,8 @@ public class CreditLogicServiceImpl implements CreditLogicService{
 	}
 
 	@Override
-	public CreditResultMessage insert(CreditVO vo) throws RemoteException {
-		return creditDO.insert(vo);
+	public CreditResultMessage excharge(long userId, int delta) {
+		return creditDO.excharge(userId, delta);
 	}
 	
 }

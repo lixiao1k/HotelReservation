@@ -21,15 +21,8 @@ public class UserPO {
 	public int getCredit(){
 		return credit;
 	}
-	public int addCredit(int value){
-		return credit+value;
-	}
-	public int decrease(int value){
-		if(credit-value<0){
-			return -1;
-		}else{
-			return credit-value;
-		}
+	public void setCredit(int credit){
+		this.credit=credit;
 	}
 	public Role getRole(){
 		return this.role;

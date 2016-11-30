@@ -13,13 +13,16 @@ public class CreditDaoImpl implements CreditDao{
 	}
 
 	@Override
-	public void insert(CreditPO po) {
-		creditDataHelper.insert(po);
-	}
-	@Override
 	public ListWrapper<CreditPO> getinfo(long userId) {
 		// TODO 自动生成的方法存根
 		return null;
 	}
+
+	@Override
+	public void insert(CreditPO po) {
+		// TODO 自动生成的方法存根
+		
+	}
+
 
 }

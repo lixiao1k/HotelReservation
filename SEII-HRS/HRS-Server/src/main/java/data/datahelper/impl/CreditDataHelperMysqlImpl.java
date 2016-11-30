@@ -8,14 +8,15 @@ import util.HibernateUtil;
 public class CreditDataHelperMysqlImpl implements CreditDataHelper{
 
 	@Override
-	public void insert(CreditPO po) {
-		HibernateUtil.getCurrentSession().save(po);
-	}
-
-	@Override
 	public ListWrapper<CreditPO> getinfo(long userId) {
 		// TODO 自动生成的方法存根
 		return null;
+	}
+
+	@Override
+	public void insert(CreditPO po) {
+		// TODO 自动生成的方法存根
+		
 	}
 
 }

@@ -12,16 +12,13 @@ public class MemberVO {
 	public MemberVO(String phone,String name){
 		this.phone = phone;
 		this.name = name;
-		this.credit = 70;
+		this.credit = 0;
 		this.VIPFlag = false;
 		Random rnd = new Random();
 		this.memberId = rnd.nextLong();
 	}
-	public MemberVO() {
-		// TODO Auto-generated constructor stub
-	}
 	public String toString(){
-		return "name:"+this.name+"; phone:"+this.phone+"; credit:"+this.credit+"; ";
+		return "name:"+this.name+"; phone:"+this.phone+"; credit:"+this.credit;
 	}
 	public long getId(){ return this.memberId; }
 	public void setPhone(String phone){ this.phone = phone; }
