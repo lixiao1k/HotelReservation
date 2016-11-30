@@ -9,6 +9,5 @@ import vo.CreditVO;
 
 public interface CreditLogicService extends Remote{
 	public ListWrapper<CreditVO> getInfo(long userId) throws RemoteException;
-	public CreditResultMessage update(long userId,int value) throws RemoteException;
 	public CreditResultMessage insert(CreditVO vo) throws RemoteException;
 }

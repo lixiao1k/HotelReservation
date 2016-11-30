@@ -15,7 +15,7 @@ public class LoginMainUI extends Application {
 		Parent root=FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
 		Scene scene=new Scene(root);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("酒店预订系统登录");
+		primaryStage.setTitle("�Ƶ�Ԥ��ϵͳ��¼");
 		primaryStage.show();
 	}
 

@@ -12,6 +12,16 @@ public class ListWrapper<T> {
 			data.add((T) it.next());
 		}
 	}
+	public void add(T element){
+		data.add(element);
+	}
+	public void addAll(ListWrapper<T> list){
+		Iterator<T> it = list.iterator();
+		while(it.hasNext()){
+			T element = it.next();
+			data.add(element);
+		}
+	}
 	public ListWrapper(Collection<T> collection){
 		this(collection.iterator());
 	}

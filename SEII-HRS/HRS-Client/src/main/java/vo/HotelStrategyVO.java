@@ -1,10 +1,10 @@
 package vo;
 
 import java.util.Set;
-
 import info.StrategyType;
 
-public class StrategyVO {
+public class HotelStrategyVO {
+	private long id;
 	private StrategyType type;
 	private String name;
 	private long hotelId;
@@ -39,5 +39,8 @@ public class StrategyVO {
 	}
 	public String getExtraInfo(){
 		return extraInfo;
+	}
+	public long getId(){
+		return id;
 	}
 }

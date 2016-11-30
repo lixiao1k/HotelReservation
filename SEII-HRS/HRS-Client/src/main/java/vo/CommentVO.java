@@ -2,7 +2,6 @@ package vo;
 
 import java.time.LocalDate;
 
-import info.CommentInfo;
 
 public class CommentVO {
 	private int grade;
@@ -17,13 +16,6 @@ public class CommentVO {
     	this.grade = grade;
     	this.comment = comment;
     	this.hotelId = hotelId;
-    }
-    public CommentVO(CommentInfo vo){
-    	grade = vo.getGrade();
-    	comment = vo.getComment();
-    	date = vo.getDate();
-    	userid = vo.getUserId();
-    	hotelId = vo.getHotelId();
     }
     public int getGrade(){
     	return grade;
@@ -43,7 +35,4 @@ public class CommentVO {
     public String toString(){
     	return date + " " + "∆¿¬€»À:"+userid+" ∆¿¬€æ∆µÍ:"+hotelId+" comment:"+comment+" grade:"+grade;
     }
-	public CommentVO() {
-		// TODO Auto-generated constructor stub
-	}
 }
