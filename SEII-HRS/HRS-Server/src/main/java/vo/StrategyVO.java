@@ -9,7 +9,7 @@ public class StrategyVO {
 	private StrategyType type;
 	private String name;
 	private long hotelId;
-	private Set<StrategyItem> items;
+	private Set<StrategyItemVO> items;
 	private String extraInfo;
 	public void setExtraInfo(String extraInfo){
 		this.extraInfo = extraInfo;
@@ -23,10 +23,10 @@ public class StrategyVO {
 	public void setStrategyType(StrategyType type){
 		this.type = type;
 	}
-	public void setItems(Set<StrategyItem> items){
+	public void setItems(Set<StrategyItemVO> items){
 		this.items = items;
 	}
-	public Set<StrategyItem> getItems(){
+	public Set<StrategyItemVO> getItems(){
 		return items;
 	}
 	public long getHotelId(){
