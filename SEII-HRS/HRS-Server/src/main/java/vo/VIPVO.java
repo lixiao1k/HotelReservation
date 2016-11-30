@@ -1,17 +1,35 @@
 package vo;
 
+import java.util.Date;
+
 public class VIPVO {
 	private int type;
-	private String info;
+	private Date birthday;
 	private long userId;
-	public VIPVO(int type,String info,long userId){
+	private String companyName;
+	public void setType(int type){
 		this.type = type;
-		this.info = info;
+	}
+	public void setBirthDay(Date birthday){
+		this.birthday = birthday;
+	}
+	public void setUserId(long userId){
 		this.userId = userId;
 	}
-	public void setId(long userId){ this.userId = userId; }
-	public long getId(){ return this.userId; }
-	public int getType(){ return this.type; }
-	public String getInfo(){ return this.info; }
+	public void setCompanyName(String companyName){
+		this.companyName = companyName;
+	}
+	public String getCompanyName(){
+		return companyName;
+	}
+	public long getUserId(){
+		return userId;
+	}
+	public Date getBirthday(){
+		return birthday;
+	}
+	public int getType(){
+		return type;
+	}
 	
 }

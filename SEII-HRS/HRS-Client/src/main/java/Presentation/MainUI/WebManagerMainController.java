@@ -12,9 +12,9 @@ import javafx.scene.layout.GridPane;
 
 public class WebManagerMainController {
 	@FXML private GridPane webManagerMain;
-	@FXML protected void goSetHotelInfo(ActionEvent event){
+	@FXML protected void goAddHotelInfo(ActionEvent event){
 		try {
-			Parent HotelInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/SetHotelInfo.fxml"));
+			Parent HotelInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/AddHotelInfo.fxml"));
 			HotelInfo.getProperties().put("NAME", "HotelInfo");
 			ObservableList<Node> list = webManagerMain.getChildren();
 			for (Node node:list){

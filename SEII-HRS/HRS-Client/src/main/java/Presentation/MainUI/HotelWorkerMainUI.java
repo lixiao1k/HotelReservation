@@ -24,5 +24,4 @@ public class HotelWorkerMainUI extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-
 }

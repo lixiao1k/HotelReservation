@@ -9,12 +9,12 @@ import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
 import info.Cache;
 import info.ListWrapper;
-import info.OrderItem;
 import info.OrderStatus;
 import logic.service.OrderLogicService;
 import po.OrderPO;
 import resultmessage.OrderResultMessage;
 import util.HibernateUtil;
+import vo.NewOrderVO;
 import vo.OrderVO;
 import vo.StrategyVO;
 
@@ -30,57 +30,53 @@ public class OrderLogicServiceImpl implements OrderLogicService{
 	public OrderLogicServiceImpl(int size){
 		orderDO = new OrderDO(size);
 	}
-	@Override
-	public ListWrapper<OrderVO> getUserOrderInfo(long userId, OrderStatus status) throws RemoteException {
-		return orderDO.getUserOrderInfo(userId, status);
-	}
-	@Override
-	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId, OrderStatus status) throws RemoteException {
-		return orderDO.getHotelOrderInfo(hotelId, status);
-	}
+
 	@Override
 	public ListWrapper<OrderVO> getWEBOrderInfo() throws RemoteException {
 		return orderDO.getWEBOrderInfo();
 	}
-	@Override
-	public OrderResultMessage create(OrderVO vo) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	@Override
 	public OrderResultMessage abnormal(long orderId) throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		return orderDO.abnormal(orderId);
 	}
-	@Override
-	public OrderResultMessage userCancel(long orderId) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	@Override
 	public OrderResultMessage execute(long orderId) throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		return orderDO.execute(orderId);
 	}
 	@Override
 	public OrderResultMessage reExecute(long orderId) throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		return orderDO.reExecute(orderId);
 	}
 	@Override
-	public boolean isUsed(StrategyVO vo) throws RemoteException {
+	public ListWrapper<OrderVO> getUserOrderInfo(long userId) throws RemoteException {
 		// TODO Auto-generated method stub
-		return false;
+		return orderDO.getUserOrderInfo(userId);
 	}
 	@Override
-	public double getTotal(long orderId) throws RemoteException {
+	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId) throws RemoteException {
 		// TODO Auto-generated method stub
-		return 0;
+		return orderDO.getHotelOrderInfo(hotelId);
 	}
 	@Override
-	public OrderResultMessage webCancel(long orderId) throws RemoteException {
+	public OrderResultMessage create(NewOrderVO vo) throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return orderDO.create(vo);
+	}
+	@Override
+	public OrderResultMessage userRevoke(long orderId) throws RemoteException {
+		// TODO Auto-generated method stub
+		return orderDO.userRevoke(orderId);
+	}
+	@Override
+	public OrderResultMessage webRevoke(long orderId) throws RemoteException {
+		// TODO Auto-generated method stub
+		return orderDO.webRevoke(orderId);
 	}
 	
 }

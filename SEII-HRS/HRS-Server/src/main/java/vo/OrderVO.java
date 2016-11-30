@@ -5,30 +5,86 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import info.OrderItem;
 import info.OrderStatus;
+import info.Room;
 
 
 public class OrderVO{
-	private long userId;
-	private long hotelId;
+	private String orderNum;
+	private String name;
+	private OrderStatus status;
+	private String hotelName;
 	private Date checkInTime;
 	private Date checkOutTime;
-	//给orderItems赋值set的实现类，防止在其他类对该类操作过程中抛出nullpointerexception，而是在迭代器中返回null，提高程序健壮性
-	private Set<OrderItem> orderItems = new HashSet<OrderItem>();
+	private Date actualCheckInTime;
+	private Date actualCheckOutTime;
+	private Room room;
+	private int roomNum;
+	private double roomPrice;
+	private String strategy;
+	private double strategyOff;
+	private double price;
+	private double priceAfterStrategy;
 	private boolean child;
 	private int people;
+	private String contactWay;
+	private String contactName;
+	public String getContactWay(){
+		return contactWay;
+	}
+	public String getContactName(){
+		return contactName;
+	}
+	public void setContactWay(String contactWay){
+		this.contactWay = contactWay;
+	}
+	public void setContactName(String contactName){
+		this.contactName = contactName;
+	}
 	public Date getCheckInTime(){
 		return this.checkInTime;
 	}
-	public long getUserId(){
-		return this.userId;
+	public String getName(){
+		return this.name;
 	}
-	public long getHotelId(){
-		return this.hotelId;
+	public String getHotelName(){
+		return this.hotelName;
 	}
 	public Date getCheckOutTime(){
 		return this.checkOutTime;
+	}
+	public String getOrderNum(){
+		return orderNum;
+	}
+	public OrderStatus getStatus(){
+		return status;
+	}
+	public Date getActualCheckInTime(){
+		return actualCheckInTime;
+	}
+	public Date getActualCheckOutTime(){
+		return actualCheckOutTime;
+	}
+	public Room getRoom(){
+		return room;
+	}
+	public int getRoomNum(){
+		return roomNum;
+	}
+	public double getRoomPrice(){
+		return roomPrice;
+	}
+	public double getPrice(){
+		return price;
+	}
+	public double getPriceAfterStrategy(){
+		return priceAfterStrategy;
+	}
+	public String getStrategy(){
+		return strategy;
+	}
+	public double getStrategyOff(){
+		return strategyOff;
 	}
 	public boolean getChild(){
 		return this.child;
@@ -36,10 +92,6 @@ public class OrderVO{
 	public int getPeople(){
 		return this.people;
 	}
-	public Iterator<OrderItem> getOrderRoomIterator(){
-		return this.orderItems.iterator();
-	}
-
 	public void setPeople(int people){
 		this.people = people;
 	}
@@ -52,13 +104,43 @@ public class OrderVO{
 	public void setCheckInTime(Date checkInTime){
 		this.checkInTime = checkInTime;
 	}
-	public void setOrderItems(Set<OrderItem> orderItems){
-		this.orderItems = orderItems;
+	public void setActualCheckInTime(Date actualCheckInTime){
+		this.actualCheckInTime = actualCheckInTime;
 	}
-	public void setUserId(long userId){
-		this.userId = userId;
+	public void setActualCheckOutTime(Date actualCheckOutTime){
+		this.actualCheckOutTime = actualCheckOutTime;
 	}
-	public void setHotelId(long hotelId){
-		this.hotelId = hotelId;
+	public void setOrderNum(String orderNum){
+		this.orderNum = orderNum;
+	}
+	public void setName(String name){
+		this.name = name;
+	}
+	public void setRoom(Room room){
+		this.room = room;
+	}
+	public void setPrice(double price){
+		this.price = price;
+	}
+	public void setRoomNum(int roomNum){
+		this.roomNum =roomNum;
+	}
+	public void setRoomPrice(double roomPrice){
+		this.roomPrice = roomPrice;
+	}
+	public void setPriceAfterStrategy(double priceAfterStrategy){
+		this.priceAfterStrategy = priceAfterStrategy;
+	}
+	public void setStatus(OrderStatus status){
+		this.status = status;
+	}
+	public void setStrategy(String strategy){
+		this.strategy = strategy;
+	}
+	public void setStrategyOff(double strategyOff){
+		this.strategyOff = strategyOff;
+	}
+	public void setHotelName(String hotelName){
+		this.hotelName = hotelName;
 	}
 }

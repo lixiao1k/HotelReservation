@@ -9,11 +9,7 @@
             <generator class="native"></generator>
         </id>
         <property name="type" type="string">
-            <column name="TYPE"></column>
+            <column name="TYPE" not-null="true"></column>
         </property>
-        <set name="orderItems" cascade="all">
-            <key column="ROOM_ID"></key>
-            <one-to-many class="OrderItem"/>
-        </set>
     </class>
 </hibernate-mapping>

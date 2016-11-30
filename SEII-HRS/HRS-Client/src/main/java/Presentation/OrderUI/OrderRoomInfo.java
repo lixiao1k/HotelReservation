@@ -1,4 +1,4 @@
-package info;
+package Presentation.OrderUI;
 
 public class OrderRoomInfo {
 	String type;

@@ -23,7 +23,7 @@ public class ClientMainUIController implements Initializable{
 	@FXML
 	protected void goHotelList(ActionEvent e){
 		try {
-			Parent HotelList = FXMLLoader.load(getClass().getResource("HotelUI/HotelBrowse.fxml"));
+			Parent HotelList = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/HotelBrowse.fxml"));
 			HotelList.getProperties().put("NAME", "HotelListPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
@@ -35,14 +35,14 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(HotelList, 2, 1);
 		} catch (IOException e1) {
-			// log 锟斤拷志&&状态锟斤拷
+			// log 日志&&状态栏
 			e1.printStackTrace();
 		}
 	}
 	@FXML
 	protected void goVIPRegister(ActionEvent e){
 		try {
-			Parent Register = FXMLLoader.load(getClass().getResource("MemberUI/Register.fxml"));
+			Parent Register = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/Register.fxml"));
 			Register.getProperties().put("NAME", "VIPRegisterPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
@@ -54,14 +54,14 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(Register, 2, 1);
 		} catch (IOException e1) {
-			// log 锟斤拷志&&状态锟斤拷
+			// log 日志&&状态栏
 			e1.printStackTrace();
 		}
 	}
 	@FXML
 	protected void goPersonInfo(ActionEvent e){
 		try {
-			Parent PersonInfo = FXMLLoader.load(getClass().getResource("MemberUI/Keeppersoninfo.fxml"));
+			Parent PersonInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
 			PersonInfo.getProperties().put("NAME", "PersonInfoPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
@@ -73,7 +73,7 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(PersonInfo, 2, 1);
 		} catch (IOException e1) {
-			// log 锟斤拷志&&状态锟斤拷
+			// log 日志&&状态栏
 			e1.printStackTrace();
 		}
 		
@@ -81,7 +81,7 @@ public class ClientMainUIController implements Initializable{
 	@FXML
 	protected void goBrowseOrderList(ActionEvent e){
 		try {
-			Parent PersonInfo = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseOrderListUI.fxml"));
+			Parent PersonInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/BrowseOrderListUI.fxml"));
 			PersonInfo.getProperties().put("NAME", "BrowseOrderPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
@@ -93,7 +93,7 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(PersonInfo, 2, 1);
 		} catch (IOException e1) {
-			// log 锟斤拷志&&状态锟斤拷
+			// log 日志&&状态栏
 			e1.printStackTrace();
 		}
 		

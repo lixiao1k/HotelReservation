@@ -9,9 +9,8 @@ import vo.RoomVO;
 import vo.StrategyVO;
 
 public interface StrategyLogicService extends Remote{
-	public ListWrapper<StrategyVO> GetStrateInfo(long Hotelid) throws RemoteException;
-	public StrategyResultMessage DeleteStrategyInfo(long Hotelid,long Strategyid) throws RemoteException;
-	public StrategyResultMessage AddStrategyInfo(StrategyVO vo) throws RemoteException;
-	public StrategyResultMessage ChangeStrategyInfo(StrategyVO vo) throws RemoteException;
+	public ListWrapper<StrategyVO> getStrateInfo(long hotelId) throws RemoteException;
+	public StrategyResultMessage deleteStrategyInfo(long hotelId,long Strategyid) throws RemoteException;
+	public StrategyResultMessage addStrategyInfo(long hotelId,StrategyVO vo) throws RemoteException;
 	public RoomVO getRoomInfo(long Hotelid) throws RemoteException;
 }

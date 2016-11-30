@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="422.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Label alignment="CENTER" prefHeight="30.0" prefWidth="62.0" text="名称：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+      <font>
+        <Font size="20.0" fx:id="x1" />
+      </font>
+      <GridPane.margin>
+        <Insets bottom="300.0" left="50.0" />
+      </GridPane.margin>
+    </Label>
+    <Label font="$x1" prefHeight="30.0" prefWidth="62.0" text="密码：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+      <GridPane.margin>
+        <Insets bottom="200.0" left="50.0" />
+      </GridPane.margin>
+    </Label>
+    <TextField prefHeight="30.0" prefWidth="576.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+      <GridPane.margin>
+        <Insets bottom="300.0" left="120.0" right="94.0" />
+      </GridPane.margin>
+    </TextField>
+    <TextField prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+      <GridPane.margin>
+        <Insets bottom="200.0" left="120.0" right="94.0" />
+      </GridPane.margin>
+    </TextField>
+      <ChoiceBox prefWidth="150.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets left="15.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <ChoiceBox prefWidth="150.0">
+         <GridPane.margin>
+            <Insets left="205.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <ChoiceBox prefWidth="150.0">
+         <GridPane.margin>
+            <Insets left="390.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="376.0" minHeight="10.0" prefHeight="354.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>
