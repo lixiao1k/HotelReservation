@@ -15,21 +15,20 @@ import po.HotelPO;
 import util.HibernateUtil;
 
 public class HotelDataHelperMysqlImpl implements HotelDataHelper{
-	private static final String getInfoQuery = "from Hotel as h where h.hid=:HOTELID";
-	private static final String getAllCityQuery = "form BusinessCity as bc";
+	private static final String getAllCityQuery = "form BusinessCity";
 	private static final String getHotelByCityAndCircle = 
 									"from Hotel as h where h.businessCity=:BCITY and h.businessCircle=:BCIRCLE";
 	private static final String getHotelItemQuery = "from HotleItem as hi wher hi.hotel=:HOTEL and hi.room=:ROOM";
+	private static final String getHotelListByRuleQuery = 
+			"from Hotel as h where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY and";
 	@Override
 	public void insert(HotelPO po) {
-		// TODO Auto-generated method stub
-		
+		HibernateUtil.getCurrentSession().save(po);
 	}
 
 	@Override
 	public void update(HotelPO po) {
-		// TODO Auto-generated method stub
-		
+		HibernateUtil.getCurrentSession().update(po);
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 	}
 
 	@Override
-	public ListWrapper<HotelItem> getHotelListByRule(Rule rule) {
+	public ListWrapper<HotelPO> getHotelListByRule(Rule rule) {
 		// TODO Auto-generated method stub
 		return null;
 	}

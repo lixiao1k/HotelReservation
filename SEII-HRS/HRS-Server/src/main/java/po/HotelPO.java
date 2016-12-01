@@ -20,12 +20,16 @@ public class HotelPO {
 	private BusinessCity businessCity;
 	private double score;
 	private Rank rank;
+	private MemberPO hotelworker;
 	private Set<CommentPO> comments = new HashSet<CommentPO>();
 	private Set<OrderPO> orders = new HashSet<OrderPO>();
 	private Set<HotelItem> rooms = new HashSet<HotelItem>();
 	private Set<StrategyPO> strategies = new HashSet<StrategyPO>();
 	public HotelPO(){
 		
+	}
+	public void setHotelworker(MemberPO hotelworker){
+		this.hotelworker = hotelworker;
 	}
 	private void setStrategies(Set<StrategyPO> strategies){
 		this.strategies = strategies;
@@ -107,6 +111,9 @@ public class HotelPO {
 	}
 	public BusinessCity getBusinessCity(){
 		return businessCity;
+	}
+	public MemberPO getHotelworker(){
+		return hotelworker;
 	}
 	public double getScore(){
 		return score;

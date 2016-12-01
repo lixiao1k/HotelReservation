@@ -1,5 +1,6 @@
 package info;
 
+
 import java.util.Date;
 
 public class OrderStrategy {

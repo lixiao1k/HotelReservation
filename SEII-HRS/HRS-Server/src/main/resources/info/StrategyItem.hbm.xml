@@ -5,11 +5,25 @@
 <hibernate-mapping package="info">
     <class name="StrategyItem" table="StrategyItem">
         <id name="id" type="long">
-            <column name="SITEM_ID"></column>
+            <column name="SI_ID"></column>
             <generator class="native"></generator>
         </id>
-        <property name="off" type="double">
+        <property name="off" type="double" lazy="false">
             <column name="OFF" not-null="true"></column>
         </property>
+        <many-to-one
+            name="strategy"
+            column="S_ID"
+            class="StrategyPO"
+            not-null="true"
+            lazy="true"
+        />
+        <many-to-one 
+            name="room"
+            column="ROOM_ID"
+            class="Room"
+            not-null="false"
+            lazy="true"
+        />
     </class>
 </hibernate-mapping>

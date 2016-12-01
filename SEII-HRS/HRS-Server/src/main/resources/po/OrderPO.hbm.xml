@@ -4,7 +4,7 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
 <hibernate-mapping package="po">
     <class name="OrderPO" table="`Order`">
-        <id name="oid">
+        <id name="oid" type="long">
             <column name="ORDER_ID"></column>
             <generator class="native"></generator>
         </id>
@@ -15,7 +15,7 @@
             <column name="ACTUAL_CIN_TIME" not-null="false"></column>
         </property>
         <property name="actualCheckOutTime" type="date">
-            <column name="ACTUAL_COUT_TIME" not-null=false></column>
+            <column name="ACTUAL_COUT_TIME" not-null="false"></column>
         </property>
         <property name="status" not-null="true">
    			<type name="org.hibernate.type.EnumType">
@@ -47,10 +47,29 @@
         <property name="roomPrice" type="double">
             <column name="ROOM_PRICE" not-null="true"></column>
         </property>
-        <one-to-one name="room" column="ROOM_ID" class="Room" not-null="true"></one-to-one>
+        <property name="contactWay" type="string">
+            <column name="CONTACT_WAY" not-null="true"></column>
+        </property>
+        <property name="contactName" type="string">
+            <column name="CONTACT_NAME" not-null="true"></column>
+        </property>
+       	<many-to-one 
+       		name="room"
+       		column="ROOM_ID"
+       		class="info.Room"
+       		not-null="true"
+       		lazy="true"
+       	/>
        	<many-to-one
-       	    name="user"
-       	    column="USER_ID"
+       	    name="strategy"
+       	    column="S_ID"
+       	    class="StrategyPO"
+       	    not-null="false"
+       	    lazy="true"
+       	/>
+       	<many-to-one
+       	    name="member"
+       	    column="MEMBER_ID"
        	    class="MemberPO"
        	    not-null="true"
        	    lazy="true"
@@ -62,6 +81,5 @@
        	    not-null="true"
        	    lazy="true"
        	/>
-
     </class>
 </hibernate-mapping>

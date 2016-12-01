@@ -1,7 +1,10 @@
 package data.datahelper.impl;
 
+import data.datahelper.CommentDataHelper;
 import data.datahelper.CreditDataHelper;
 import data.datahelper.DataFactoryService;
+import data.datahelper.HotelDataHelper;
+import data.datahelper.MemberDataHelper;
 import data.datahelper.OrderDataHelper;
 import data.datahelper.StrategyDataHelper;
 import data.datahelper.UserDataHelper;
@@ -11,6 +14,9 @@ public class DataFactory implements DataFactoryService{
 	private UserDataHelper userDataHelper;
 	private CreditDataHelper creditDataHelper;
 	private StrategyDataHelper strategyDataHelper;
+	private HotelDataHelper hotelDataHelper;
+	private CommentDataHelper commentDataHelper;
+	private MemberDataHelper memberDataHelper;
 	private static DataFactory instance;
 
 	static{
@@ -46,6 +52,24 @@ public class DataFactory implements DataFactoryService{
 		if(strategyDataHelper==null)
 			strategyDataHelper = new StrategyDataHelperMysqlImpl();
 		return strategyDataHelper;
+	}
+	@Override
+	public HotelDataHelper getHotelDataHelper() {
+		if(hotelDataHelper==null)
+			hotelDataHelper = new HotelDataHelperMysqlImpl();
+		return hotelDataHelper;
+	}
+	@Override
+	public CommentDataHelper getCommentDataHelper() {
+		if(commentDataHelper==null)
+			commentDataHelper = new CommentDataHelperMysqlImpl();
+		return commentDataHelper;
+	}
+	@Override
+	public MemberDataHelper getMemberDataHelper() {
+		if(memberDataHelper==null)
+			memberDataHelper = new MemberDataHelperMysqlImpl();
+		return memberDataHelper;
 	}
 
 }

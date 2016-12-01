@@ -122,6 +122,18 @@ public class StrategyDO {
 			Constructor constructor = clazz.getConstructor(String.class);
 			StrategyRule rule = (StrategyRule) constructor.newInstance(vo.getExtraInfo());
 			po.setStrategyRule(rule);
+			//…Ë÷√items
+			Iterator<StrategyItemVO> sivoIt = vo.getItems().iterator();
+			Set<StrategyItem> items = new HashSet<>();
+			while(sivoIt.hasNext()){
+				StrategyItemVO sivo = sivoIt.next();
+				StrategyItem si = new StrategyItem();
+				si.setOff(sivo.getOff());
+				si.setRoom(sivo.getRoom());
+				si.setStrategy(po);
+				items.add(si);
+			}
+			po.setItems(items);
 			strategyDao.insert(po);
 			//¥Ê»Îcache
 			strategies.put(po.getId(), po);

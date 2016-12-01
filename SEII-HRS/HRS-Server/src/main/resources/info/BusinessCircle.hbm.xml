@@ -5,7 +5,7 @@
     <hibernate-mapping package="info">
         <class name="BusinessCircle" table="BusinessCircle">
             <id name="bcircleId" type="long">
-                <column name="BUSINESS_CIRCLE_ID"></column>
+                <column name="BCIRCLE_ID"></column>
             	<generator class="native"></generator>
             </id>
             <property name="name" type="string">

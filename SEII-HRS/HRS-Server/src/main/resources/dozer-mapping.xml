@@ -23,14 +23,29 @@
         <a>hotel.name</a>
         <b>hotelName</b>
     </field>
+    <field>
+        <a>strategy.name</a>
+        <b>strategy</b>
+    </field>
 </mapping>
 <mapping>
     <class-a>po.StrategyPO</class-a>
-    <class-b>info.HotelStrategyVO</class-b>
+    <class-b>vo.HotelStrategyVO</class-b>
     <field>
         <a>hotel.hid</a>
         <b>hotelId</b>
     </field>
 </mapping>
-<mapping></mapping>
+<mapping>
+    <class-a>po.HotelPO</class-a>
+    <class-b>vo.BasicHotelVO</class-b>
+    <field>
+        <a>hid</a>
+        <b>hotelId</b>
+    </field>
+    <field>
+        <a>name</a>
+        <b>hotelName</b>
+    </field>
+</mapping>
 </mappings>

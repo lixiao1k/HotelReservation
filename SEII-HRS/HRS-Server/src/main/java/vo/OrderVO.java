@@ -21,7 +21,7 @@ public class OrderVO{
 	private Room room;
 	private int roomNum;
 	private double roomPrice;
-	private long strategy;
+	private String strategy;
 	private double strategyOff;
 	private double price;
 	private double priceAfterStrategy;
@@ -80,7 +80,7 @@ public class OrderVO{
 	public double getPriceAfterStrategy(){
 		return priceAfterStrategy;
 	}
-	public long getStrategy(){
+	public String getStrategy(){
 		return strategy;
 	}
 	public double getStrategyOff(){
@@ -134,7 +134,7 @@ public class OrderVO{
 	public void setStatus(OrderStatus status){
 		this.status = status;
 	}
-	public void setStrategy(long strategy){
+	public void setStrategy(String strategy){
 		this.strategy = strategy;
 	}
 	public void setStrategyOff(double strategyOff){

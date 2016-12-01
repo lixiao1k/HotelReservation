@@ -23,11 +23,17 @@
         <!-- Drop and re-create the database schema on startup -->  
         <property name="hbm2ddl.auto">update</property> 
         <!--  关联映射文件  -->
-        <mapping resource="po/OrderPO.hbm.xml"/>
-	    <mapping resource="info/Room.hbm.xml"/>
+        <mapping resource="info/Room.hbm.xml"/>
 	    <mapping resource="info/BusinessCity.hbm.xml"/>
-	    <mapping resource="info/BusinessCircle.hbm.xml" />
+	    <mapping resource="info/BusinessCircle.hbm.xml"/>
+	    <mapping resource="info/HotelItem.hbm.xml"/>
+	    <mapping resource="info/StrategyItem.hbm.xml"/>
+	    <mapping resource="info/StrategyType.hbm.xml"/>
+        <mapping resource="po/OrderPO.hbm.xml"/>
 	    <mapping resource="po/HotelPO.hbm.xml"/>
 	    <mapping resource="po/UserPO.hbm.xml"/>
+	    <mapping resource="po/Role.hbm.xml"/>
+	    <mapping resource="po/StrategyPO.hbm.xml"/>
+	    
     </session-factory>  
 </hibernate-configuration>  

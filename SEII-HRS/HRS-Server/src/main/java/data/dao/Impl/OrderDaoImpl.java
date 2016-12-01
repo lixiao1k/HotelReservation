@@ -50,8 +50,9 @@ public class OrderDaoImpl implements OrderDao{
 	}
 	@Override
 	public ListWrapper<OrderPO> getHotelUserOrders(long hotelId, long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderPO> list = orderDataHelper.getHotelUserOrders(hotelId, userId);
+		ListWrapper<OrderPO> res = new ListWrapper<>(list);
+		return res;
 	}
 
 }

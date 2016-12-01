@@ -15,11 +15,13 @@ public interface HotelDao {
 	public void update(HotelPO po);
 	public HotelPO getInfo(long hotelId);
 	public ListWrapper<HotelItem> getRoom(long hotelId);
+	//返回今天的房间
 	public HotelItem getRoomByRid(long hotelId,Room room);
 	public void updateRoom(long hotelId,HotelItem rpo);
 	public ListWrapper<HotelPO> getHotelListByRule(Rule rule);
 	public ListWrapper<HotelItem> getHotelListByString(String rule);
 	public ListWrapper<BusinessCity> getAllCity();
 	public ListWrapper<HotelPO> getHotelListByCityAndCircle(BusinessCity city,BusinessCircle circle);
+	//返回所有的房间
 	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room);
 }

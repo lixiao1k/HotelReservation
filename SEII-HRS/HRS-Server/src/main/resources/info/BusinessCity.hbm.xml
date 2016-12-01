@@ -5,14 +5,14 @@
 <hibernate-mapping package="info">
     <class name="BusinessCity" table="BusinessCity">
         <id name="bcityId" type="long">
-            <column name="BUSINESS_CITY_ID"></column>
+            <column name="BCITY_ID"></column>
         	<generator class="native"></generator>
         </id>
         <property name="name" type="string">
             <column name="NAME" not-null="true"></column>
         </property>
-        <set name="circles" inverse="true" cascade="all">
-            <key column="CIRCLE_ID"></key>
+        <set name="circles" inverse="true" cascade="all" lazy="true">
+            <key column="BCIRCLE_ID"></key>
             <one-to-many class="info.BusinessCircle"/>
         </set>
     </class>

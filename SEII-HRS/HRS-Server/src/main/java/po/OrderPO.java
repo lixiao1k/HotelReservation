@@ -48,6 +48,7 @@ public class OrderPO implements Serializable{
 	private Timestamp abnormalTime;
 	private boolean child;
 	private int people;
+	private StrategyPO strategy;
 	private String contactWay;
 	private String contactName;
 	public String getContactWay(){
@@ -107,7 +108,9 @@ public class OrderPO implements Serializable{
 	public double getRoomPrice(){
 		return roomPrice;
 	}
-
+	public StrategyPO getStrategy(){
+		return strategy;
+	}
 	public void setAbnormalTime(Timestamp abnormalTime){
 		this.abnormalTime = abnormalTime;
 	}
@@ -154,5 +157,7 @@ public class OrderPO implements Serializable{
 	public void setRoomPrice(double roomPrice){
 		this.roomPrice = roomPrice;
 	}
-	
+	public void setStrategy(StrategyPO strategy){
+		this.strategy = strategy;
+	}
 }

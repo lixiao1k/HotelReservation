@@ -4,6 +4,7 @@ import java.util.List;
 
 import data.dao.HotelDao;
 import data.datahelper.HotelDataHelper;
+import data.datahelper.impl.DataFactory;
 import data.datahelper.impl.HotelDataHelperMysqlImpl;
 import info.BusinessCircle;
 import info.BusinessCity;
@@ -14,10 +15,14 @@ import info.Rule;
 import po.HotelPO;
 
 public class HotelDaoImpl implements HotelDao {
-	private HotelDataHelper hotelDataHelper = new HotelDataHelperMysqlImpl();
+	private HotelDataHelper hotelDataHelper;
+	public HotelDaoImpl() {
+		hotelDataHelper = DataFactory
+							.getInstance()
+							.getHotelDataHelper();
+	}
 	@Override
 	public void insert(HotelPO po) {
-		// TODO Auto-generated method stub
 		
 	}
 

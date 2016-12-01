@@ -23,8 +23,6 @@
         <property name="service" type="string">
             <column name="SERVICE" not-null="false"></column>
         </property>
-        <one-to-one name="businessCity" column="BUSINESS_CITY" class="BusinessCity" not-null="true"></one-to-one>
-        <one-to-one name="businessCircle" column="BUSINESS_CIRCLE" class="BusinessCircle" not-null="false"></one-to-one>
     	<property name="score" type="double">
     	    <column name="SCORE" not-null="false"></column>
     	</property>
@@ -37,17 +35,42 @@
   		    	<param name="type">12</param>
  		   </type>
         </property>
-        <set name="comments" inverse="true" cascade="all">
+        <one-to-one 
+            name="hotelworker"
+            column="HW_ID"
+            class="po.HotelWorkerPO"
+            not-null="true"
+            lazy="true"
+        />
+        <many-to-one 
+            name="businessCity"
+            column="BCITY_ID"
+            class="info.BusinessCity"
+            not-null="true"
+            lazy="true"
+        />
+         <many-to-one 
+            name="businessCircle"
+            column="BCIRCLE_ID"
+            class="info.BusinessCircle"
+            not-null="true"
+            lazy="true"
+        />
+        <set name="comments" inverse="true" cascade="all" lazy="true">
             <key column="COMMENT_ID"></key>
-            <one-to-many class="po.CommentPO"/>
+            <one-to-many class="CommentPO"/>
         </set>
-        <set name="orders" inverse="true" cascade="all">
+        <set name="orders" inverse="true" cascade="all" lazy="true">
             <key column="ORDER_ID"></key>
-            <one-to-many class="po.OrderPO"/>
+            <one-to-many class="OrderPO"/>
         </set>
-        <set name="rooms" inverse="true" cascade="all">
-            <key column="ROOM_ID"></key>
-            <one-to-many class="info.Room"/>
+        <set name="rooms" inverse="true" cascade="all" lazy="true">
+            <key column="HI_ID"></key>
+            <one-to-many class="info.HotelItem"/>
+        </set>
+        <set name="strategies" inverse="true" cascade="all" lazy="true">
+            <key column="S_ID"></key>
+            <one-to-many class="StrategyPO"/>
         </set>
     </class>
 </hibernate-mapping>
