@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="576.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserUI.ManageWebSalerController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -28,6 +28,44 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Label text="用户名：">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="200.0" left="30.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField>
+         <GridPane.margin>
+            <Insets bottom="200.0" left="100.0" right="120.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="昵称：">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="100.0" left="49.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField>
+         <GridPane.margin>
+            <Insets bottom="100.0" left="100.0" right="120.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="密码：">
+         <GridPane.margin>
+            <Insets left="50.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField>
+         <GridPane.margin>
+            <Insets left="100.0" right="120.0" />
+         </GridPane.margin>
+      </TextField>
    </children>
 </GridPane>
-

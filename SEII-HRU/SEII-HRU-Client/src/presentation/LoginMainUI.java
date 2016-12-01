@@ -11,7 +11,7 @@ public class LoginMainUI extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		Parent root = FXMLLoader.load(getClass().getResource("/LoginMainUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("�Ƶ�Ԥ��ϵͳ��¼");

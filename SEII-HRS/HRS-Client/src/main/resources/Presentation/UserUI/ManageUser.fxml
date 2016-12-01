@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="ManagePane" prefHeight="564.0" prefWidth="768.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.UserUI.ManageUserController">
+<GridPane fx:id="ManagePane" prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserUI.ManageUserController">
   <!-- TODO Add Nodes -->
   <children>
     <Label alignment="CENTER" prefHeight="48.0" prefWidth="161.0" text="选择管理的用户：" GridPane.columnIndex="0" GridPane.rowIndex="0">
@@ -31,7 +31,7 @@
         <Insets />
       </GridPane.margin>
     </ChoiceBox>
-    <Button mnemonicParsing="false" text="提交" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <Button mnemonicParsing="false" text="添加" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <font>
         <Font size="20.0" fx:id="x1" />
       </font>
@@ -39,11 +39,16 @@
         <Insets left="100.0" />
       </GridPane.margin>
     </Button>
-    <Button font="$x1" mnemonicParsing="false" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <Button font="$x1" mnemonicParsing="false" text="提交" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <GridPane.margin>
         <Insets left="240.0" />
       </GridPane.margin>
     </Button>
+      <Button mnemonicParsing="false" text="取消" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="182.0" />

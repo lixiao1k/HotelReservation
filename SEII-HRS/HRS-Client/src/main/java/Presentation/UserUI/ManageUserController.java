@@ -53,7 +53,7 @@ public class ManageUserController implements Initializable{
 					}
 				}
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource(newNode));
+					FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Presentation/UserUI/"+newNode));
 					Parent newManage = loader.load();
 					newManage.getProperties().put("NAME", newValue);
 					ManagePane.add(newManage, 0,1,2,1);
@@ -63,5 +63,9 @@ public class ManageUserController implements Initializable{
 				}	
 			}		
 		});
+	}
+	
+	public GridPane getGridPane(){
+		return this.ManagePane;
 	}
 }

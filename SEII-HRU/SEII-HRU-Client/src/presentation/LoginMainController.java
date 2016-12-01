@@ -70,7 +70,7 @@ public class LoginMainController implements Initializable{
 			GridPane root = (GridPane) loader.load();
 			root.add(content, 2, 1);
 			Scene scene = new Scene(root,900,600);
-			scene.getStylesheets().add(getClass().getClassLoader().getResource("css/main.css").toExternalForm());
+	//		scene.getStylesheets().add(getClass().getClassLoader().getResource("css/main.css").toExternalForm());
 			Stage stage = new Stage();
 			stage.setTitle(title);
 			stage.setScene(scene);

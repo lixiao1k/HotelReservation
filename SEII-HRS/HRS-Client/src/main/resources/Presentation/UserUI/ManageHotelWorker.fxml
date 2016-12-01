@@ -15,42 +15,46 @@
         <Font size="20.0" fx:id="x1" />
       </font>
       <GridPane.margin>
-        <Insets bottom="300.0" left="50.0" />
+        <Insets left="50.0" />
       </GridPane.margin>
     </Label>
     <Label font="$x1" prefHeight="30.0" prefWidth="62.0" text="密码：" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <GridPane.margin>
-        <Insets bottom="200.0" left="50.0" />
+        <Insets left="50.0" top="100.0" />
       </GridPane.margin>
     </Label>
     <TextField prefHeight="30.0" prefWidth="576.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <GridPane.margin>
-        <Insets bottom="300.0" left="120.0" right="94.0" />
+        <Insets left="120.0" right="94.0" />
       </GridPane.margin>
     </TextField>
     <TextField prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <GridPane.margin>
-        <Insets bottom="200.0" left="120.0" right="94.0" />
+        <Insets left="120.0" right="94.0" top="100.0" />
       </GridPane.margin>
     </TextField>
-      <ChoiceBox prefWidth="150.0">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
+      <TextField>
          <GridPane.margin>
-            <Insets left="15.0" />
+            <Insets left="50.0" right="180.0" />
          </GridPane.margin>
-      </ChoiceBox>
-      <ChoiceBox prefWidth="150.0">
+      </TextField>
+      <Button mnemonicParsing="false" text="搜索">
          <GridPane.margin>
-            <Insets left="205.0" />
+            <Insets left="410.0" />
          </GridPane.margin>
-      </ChoiceBox>
-      <ChoiceBox prefWidth="150.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+        <columns>
+          <TableColumn prefWidth="75.0" text="地址" />
+          <TableColumn prefWidth="75.0" text="商圈" />
+        </columns>
          <GridPane.margin>
-            <Insets left="390.0" />
+            <Insets bottom="220.0" left="20.0" right="20.0" />
          </GridPane.margin>
-      </ChoiceBox>
+      </TableView>
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
