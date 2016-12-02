@@ -27,6 +27,11 @@ public class ManageClientVO {
 	public void addPhonenumber(String number){
 		phonenumber.add(number);
 	}
+	@Override
+	public String toString() {
+		return "ManageClientVO [userid=" + userid + ", username=" + username + ", birthday=" + birthday
+				+ ", companyname=" + companyname + ", phonenumber=" + phonenumber + "]";
+	}
 	public void deletePhonenumber(String number){
 		phonenumber.remove(number);
 	}

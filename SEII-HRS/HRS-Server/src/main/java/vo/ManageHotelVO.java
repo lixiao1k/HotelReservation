@@ -16,6 +16,12 @@ public class ManageHotelVO {
 	public void setHotelname(String hotelname) {
 		this.hotelname = hotelname;
 	}
+	@Override
+	public String toString() {
+		return "ManageHotelVO [hotelname=" + hotelname + ", address=" + address + ", bussinesscity=" + bussinesscity
+				+ ", bussinesscircle=" + bussinesscircle + ", hotelid=" + hotelid + ", userid=" + userid + ", username="
+				+ username + ", password=" + password + ", name=" + name + "]";
+	}
 	public String getAddress() {
 		return address;
 	}

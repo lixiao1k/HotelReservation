@@ -10,6 +10,7 @@ import logic.service.MemberLogicService;
 import logic.service.impl.credit.CreditLogicServiceImpl;
 import logic.service.impl.member.MemberLogicServiceImpl;
 import resultmessage.MemberResultMessage;
+import vo.ManageClientVO;
 import vo.MemberVO;
 import vo.VIPVO;
 
@@ -61,7 +62,12 @@ public class TestMemberBL {
 	
 	@Test
 	public void testClient() throws RemoteException {
-		MemberLogicService memberlogicservice=new MemberLogicServiceImpl();
-		
+		MemberLogicService memberLogic=new MemberLogicServiceImpl();
+		MemberResultMessage resultmessage=null;
+		LocalDate testbirth=LocalDate.of(1970, 1, 1);
+		ManageClientVO testvo=new ManageClientVO(2, "bingyuhuo", testbirth, "bingyuhuo", null);
+		memberLogic.addClient(testvo);
+		ManageClientVO getvo=memberLogic.getClient("bingyuhuo");
+		Assert.assertEquals("", "", "");
 	}
 }
