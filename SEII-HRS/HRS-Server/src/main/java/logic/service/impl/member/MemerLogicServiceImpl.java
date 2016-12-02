@@ -30,11 +30,11 @@ public class MemerLogicServiceImpl implements MemberLogicService{
 
 	@Override
 	public MemberResultMessage changeInfo(MemberVO vo) throws RemoteException {
-		return memberDO.changeInfo(vo);
+		return null;
 	}
 
 	@Override
 	public ListWrapper<MemberVO> manageInfo() throws RemoteException {
-		return memberDO.manageInfo();
+		return null;
 	}
 }

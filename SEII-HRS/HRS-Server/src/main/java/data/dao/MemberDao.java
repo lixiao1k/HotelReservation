@@ -11,7 +11,7 @@ public interface MemberDao {
 	public VIPPO getVIPInfo(long userId);
 	public MemberPO getInfo(long userId);
 	public void cancel(long userId);
-	public void update(UserPO po);
-	public ListWrapper<UserPO> manageInfo();
+	public void update(MemberPO po);
+	public ListWrapper<MemberPO> manageInfo();
 	public void delete(long userId);
 }

@@ -17,6 +17,7 @@ import info.Cache;
 import info.HotelItem;
 import info.ListWrapper;
 import info.Rule;
+import po.ClientMemberPO;
 import po.CommentPO;
 import po.HotelPO;
 import po.MemberPO;
@@ -43,6 +44,15 @@ import vo.AddHotelVO;
 public class HotelDO {
 	private HotelDao hotelDao;
 	private Cache<HotelPO> hotels;
+	public HotelDO(){
+		hotelDao = DaoManager.getInstance().getHotelDao();
+		hotels = new Cache<HotelPO>(10);
+	}
+	public HotelDO(int size){
+		hotelDao = DaoManager.getInstance().getHotelDao();
+		hotels = new Cache<HotelPO>(size);
+		
+	}
 	public ListWrapper<BusinessCity> getCity() throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
@@ -191,7 +201,7 @@ public class HotelDO {
 			MemberPO member = DaoManager.getInstance().getMemberDao().getInfo(userId);
 			Set<Long> result = new HashSet<>();
 			if (member!=null){
-				Iterator<OrderPO> oit = member.getOrder();
+				Iterator<OrderPO> oit = ((ClientMemberPO)member).getOrder();
 				while(oit.hasNext()){
 					OrderPO opo = oit.next();
 					result.add(opo.getHotel().getHid());

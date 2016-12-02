@@ -18,4 +18,7 @@ public class BusinessCircle {
 	private void setBcircleid(long bcircleId){
 		this.bcircleId = bcircleId;
 	}
+	public void setBcircleId(long bcircleId) {
+		this.bcircleId = bcircleId;
+	}
 }

@@ -3,9 +3,16 @@ package logic.service.impl.member;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
+import org.hibernate.engine.HibernateIterator;
+
 import data.dao.MemberDao;
 import data.dao.Impl.DaoManager;
+import info.Cache;
 import info.ListWrapper;
+import info.VIPType;
+import po.ClientMemberPO;
 import po.MemberPO;
 import po.UserPO;
 import po.VIPPO;
@@ -17,77 +24,216 @@ import vo.VIPVO;
 
 public class MemberDO {
 	private MemberDao memberDao;
+	private Cache<MemberPO> members;
+	private final int VipCredit = 10000;
+	private VIPType[] vipType = {};
 	public MemberDO() {
 		memberDao=DaoManager.getInstance().getMemberDao();
+		members = new Cache<>(20);
+	}
+	public MemberDO(int size){
+		memberDao=DaoManager.getInstance().getMemberDao();
+		members = new Cache<>(size);
 	}
 	public MemberResultMessage registerVIP(VIPVO vo) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO upo=null;
-		upo=memberDao.getInfo(vo.getUserId());
-		if(upo==null){
-			return MemberResultMessage.REGISTERVIP_FAIL_WRONGID;
+		MemberPO cachePO = null;
+		cachePO = members.get(vo.getUserId());
+		boolean flag = false;
+		if (cachePO!=null){
+			if(cachePO instanceof ClientMemberPO){
+				ClientMemberPO cmpo = (ClientMemberPO)cachePO;
+				if(cmpo.isVip())
+					return MemberResultMessage.FAIL_ALREADYVIP;
+				else{
+					if(cmpo.getCredit()<VipCredit)
+						return MemberResultMessage.FAIL_CREDITNOTENOUGH;
+					else{
+						try{
+							HibernateUtil.getCurrentSession()
+											.beginTransaction();
+							flag = true;
+							cmpo.setVip(true);
+							VIPPO vippo = DozerMappingUtil.getInstance().map(vo, VIPPO.class);
+							vippo.setType(vipType[vo.getType()]);
+							cmpo.setVipInfo(vippo);
+							members.remove(vo.getUserId());
+							members.put(vo.getUserId(), cmpo);
+							memberDao.update(cmpo);
+							HibernateUtil.getCurrentSession()
+											.getTransaction()
+											.commit();
+							return MemberResultMessage.SUCCESS;
+						}catch(RuntimeException e){
+							members.remove(vo.getUserId());
+							try{
+								HibernateUtil.getCurrentSession()
+												.getTransaction()
+												.rollback();
+								return MemberResultMessage.FAIL;
+							}catch(RuntimeErrorException ex){
+								ex.printStackTrace();
+							}
+							throw e;
+						}
+				
+					}
+				}
+			}else
+				return MemberResultMessage.FAIL_WRONGID;
+		}else{
+			try{
+				if(!flag)
+				HibernateUtil.getCurrentSession()
+								.beginTransaction();
+				MemberPO po = memberDao.getInfo(vo.getUserId());
+				if(po==null)
+					return MemberResultMessage.FAIL_WRONGID;
+				else{
+					if(po instanceof ClientMemberPO){
+						if(((ClientMemberPO) po).isVip())
+							return MemberResultMessage.FAIL_ALREADYVIP;
+						else{
+							if(((ClientMemberPO) po).getCredit()<VipCredit)
+								return MemberResultMessage.FAIL_CREDITNOTENOUGH;
+							else{
+								((ClientMemberPO) po).setVip(true);
+								VIPPO vippo = DozerMappingUtil.getInstance().map(vo, VIPPO.class);
+								vippo.setType(vipType[vo.getType()]);
+								((ClientMemberPO) po).setVipInfo(vippo);
+								memberDao.update(po);
+								members.put(vo.getUserId(), po);
+								HibernateUtil.getCurrentSession()
+												.getTransaction()
+												.commit();
+								return MemberResultMessage.SUCCESS;
+							}
+						}
+					}else
+						return MemberResultMessage.FAIL_WRONGID;
+				}
+			}catch(RuntimeException e){
+				members.remove(vo.getUserId());
+				try{
+					HibernateUtil.getCurrentSession()
+									.getTransaction()
+									.rollback();
+					return MemberResultMessage.FAIL;
+				}catch(RuntimeErrorException ex){
+					ex.printStackTrace();
+				}
+				throw e;
+			}
 		}
-		if(upo.getCredit()<10000){
-			return MemberResultMessage.REGISTERVIP_FAIL_CREDITNOTENOUGH;
-		}
-		VIPPO vpo=null;
-		vpo=memberDao.getVIPInfo(vo.getUserId());
-		if(vpo!=null){
-			return MemberResultMessage.REGISTERVIP_FAIL_ALREADYVIP;
-		}
-		VIPPO po=DozerMappingUtil.getInstance().map(vo, VIPPO.class);
-		memberDao.registerVIP(po);
-		return MemberResultMessage.REGISTERVIP_SUCCESS;
-		
 	}
 	
 	public MemberResultMessage cancel(long id) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO upo=null;
-		upo=memberDao.getInfo(id);
-		if(upo==null){
-			return MemberResultMessage.CANCELVIP_FAIL_WRONGID;
+		MemberPO cachePO = null;
+		cachePO = members.get(id);
+		boolean flag = false;
+		if(cachePO!=null){
+			if(cachePO instanceof ClientMemberPO){
+				cachePO = (ClientMemberPO) cachePO;
+				if(((ClientMemberPO) cachePO).isVip()){
+					if(((ClientMemberPO) cachePO).getCredit()>VipCredit)
+						return MemberResultMessage.FAIL;
+					else{
+						try{
+							HibernateUtil.getCurrentSession()
+											.beginTransaction();
+							
+							((ClientMemberPO) cachePO).setVipInfo(null);
+							((ClientMemberPO) cachePO).setVip(false);
+							memberDao.update(cachePO);
+							HibernateUtil.getCurrentSession()
+											.getTransaction()
+											.commit();
+							return MemberResultMessage.SUCCESS;
+						}catch(RuntimeException e){
+							members.remove(id);
+							try{
+								HibernateUtil.getCurrentSession()
+												.getTransaction()
+												.rollback();
+								return MemberResultMessage.FAIL;
+							}catch(RuntimeErrorException ex){
+								ex.printStackTrace();
+							}
+							throw e;
+						}
+					
+						
+					}
+				}else
+					return MemberResultMessage.FAIL_NOTVIP;
+			}else
+				return MemberResultMessage.FAIL_WRONGID;
+		}else{
+			try{
+				HibernateUtil.getCurrentSession()
+								.beginTransaction();
+				MemberPO po = memberDao.getInfo(id);
+				if(po!=null&&po instanceof ClientMemberPO){
+					po = (ClientMemberPO) po;
+					if(((ClientMemberPO)po).isVip()){
+						if(((ClientMemberPO)po).getCredit()>VipCredit)
+							return MemberResultMessage.FAIL;
+						else{
+							((ClientMemberPO)po).setVip(false);
+							((ClientMemberPO)po).setVipInfo(null);
+							memberDao.update(po);
+							members.put(id, po);
+							HibernateUtil.getCurrentSession().getTransaction().commit();
+							return MemberResultMessage.SUCCESS;
+						}
+					}else
+						return MemberResultMessage.FAIL_NOTVIP;
+				}else
+					return MemberResultMessage.FAIL_WRONGID;
+			}catch(RuntimeException e){
+				members.remove(id);
+				try{
+					HibernateUtil.getCurrentSession()
+									.getTransaction()
+									.rollback();
+					return MemberResultMessage.FAIL;
+				}catch(RuntimeErrorException ex){
+					ex.printStackTrace();
+				}
+				throw e;
+			}
 		}
-		if(upo.getCredit()>=10000){
-			return MemberResultMessage.CANCELVIP_FAIL_CREDITENOUGH;
-		}
-		VIPPO vpo=null;
-		vpo=memberDao.getVIPInfo(id);
-		if(vpo==null){
-			return MemberResultMessage.CANCELVIP_FAIL_NOTVIP;
-		}
-		memberDao.cancel(id);
-		return MemberResultMessage.CANCELVIP_SUCCESS;
 	}
 
 	public MemberVO getInfo(long id) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO upo=null;
-		upo=memberDao.getInfo(id);
-		return DozerMappingUtil.getInstance().map(upo,MemberVO.class);
+		MemberPO cachePO = null;
+		cachePO = members.get(id);
+		if(cachePO!=null){
+			MemberVO vo = DozerMappingUtil.getInstance().map(cachePO, MemberVO.class);
+			return vo;
+		}else{
+			try{
+				HibernateUtil.getCurrentSession()
+								.beginTransaction();
+				MemberPO po = memberDao.getInfo(id);
+				members.put(id, po);
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.commit();
+				MemberVO vo = DozerMappingUtil.getInstance().map(cachePO, MemberVO.class);
+				return vo;
+			}catch(RuntimeException e){
+				members.remove(id);
+				try{
+					HibernateUtil.getCurrentSession()
+									.getTransaction()
+									.rollback();
+					return null;
+				}catch(RuntimeErrorException ex){
+					ex.printStackTrace();
+				}
+				throw e;
+			}
+		}
 	}
 
-	public MemberResultMessage changeInfo(MemberVO vo) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO upo=null;
-		upo=memberDao.getInfo(vo.getId());
-		if(upo==null){
-			return MemberResultMessage.CHANGEINFO_FAIL_WORNDID;
-		}
-		UserPO po=DozerMappingUtil.getInstance().map(vo, UserPO.class);
-		memberDao.update(po);
-		return MemberResultMessage.CHANGEINFO_SUCCESS;
-	}
-
-	public ListWrapper<MemberVO> manageInfo() throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		ListWrapper<UserPO> polist=memberDao.manageInfo();
-		List<MemberVO> volist=null;
-		while(polist.iterator().hasNext()){
-			UserPO po=polist.iterator().next();
-			MemberVO vo=DozerMappingUtil.getInstance().map(po, MemberVO.class);
-			volist.add(vo);
-		}
-		return DozerMappingUtil.getInstance().map(volist, ListWrapper.class);
-	}
 }

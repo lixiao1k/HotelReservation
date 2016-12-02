@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 
 import data.datahelper.StrategyDataHelper;
+import po.HotelPO;
 import po.StrategyPO;
 import util.HibernateUtil;
 
@@ -28,8 +29,9 @@ public class StrategyDataHelperMysqlImpl implements StrategyDataHelper{
 
 	@Override
 	public List<StrategyPO> getHotelStrategyList(long hotelId) {
+		HotelPO hotel = (HotelPO) HibernateUtil.getCurrentSession().get(HotelPO.class, hotelId);
 		Query query = HibernateUtil.getCurrentSession().createQuery(hotelStrategyList);
-		query.setLong("HOTEL", hotelId);
+		query.setEntity("HOTEL", hotel);
 		return query.list();
 	}
 

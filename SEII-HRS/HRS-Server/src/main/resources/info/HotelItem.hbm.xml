@@ -22,14 +22,14 @@
             column="HOTEL_ID"
             class="po.HotelPO"
             not-null="true"
-            lazy="true"
+            lazy="proxy"
          />
         <many-to-one 
             name="room"
             column="ROOM_ID"
             class="Room"
             not-null="true"
-            lazy="true"
+            lazy="proxy"
         />
     </class>
 </hibernate-mapping>

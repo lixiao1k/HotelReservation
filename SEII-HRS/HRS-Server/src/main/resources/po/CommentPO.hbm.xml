@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="po">
+	<class name="CommentPO" table="Comment">
+	    <id name="id" type="long">
+	        <column name="COMMENT_ID"></column>
+	        <generator class="native"></generator>
+	    </id>
+	    <property name="grade" type="int">
+	        <column name="GRADE" not-null="false"></column>
+	    </property>
+	    <property name="comment" type="string">
+	        <column name="COMMENT" not-null="true"></column>
+	    </property>
+	    <property name="date" type="date">
+	        <column name="DATE" not-null="true"></column>
+	    </property>
+	    <many-to-one name="room" column="ROOM_ID" class="info.Room" not-null="true" lazy="proxy"></many-to-one>
+	    <many-to-one name="member" column="M_ID" class="MemberPO" not-null="true" lazy="proxy"></many-to-one>
+		<many-to-one name="order" column="ORDER_ID" unique="true" class="OrderPO" not-null="true" lazy="proxy"></many-to-one>
+		<many-to-one name="hotel" column="HOTEL_ID" class="HotelPO" not-null="true" lazy="proxy"></many-to-one>
+	</class>
+</hibernate-mapping>    

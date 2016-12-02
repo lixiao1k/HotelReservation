@@ -127,4 +127,10 @@ public class HotelPO {
 	private Set<CommentPO> getComments(){
 		return comments;
 	}
+	public void setBusinessCity(BusinessCity businessCity) {
+		this.businessCity = businessCity;
+	}
+	public void setScore(double score) {
+		this.score = score;
+	}
 }

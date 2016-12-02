@@ -7,6 +7,7 @@ import data.dao.UserDao;
 import data.dao.Impl.DaoManager;
 import info.Cache;
 import info.UserStatus;
+import info.UserType;
 import po.UserPO;
 import resultmessage.LoginResultMessage;
 import resultmessage.RegisterResultMessage;
@@ -32,6 +33,7 @@ public class UserDO {
 		Iterator cacheItem=users.getKeys();
 		UserPO upo=null;
 		LoginResultVO lrvo=new LoginResultVO(null, null, 0);
+		boolean flag = false;
 		while(cacheItem.hasNext()){
 			long userid=(long)cacheItem.next();
 			UserPO cachePO=users.get(userid);
@@ -44,13 +46,18 @@ public class UserDO {
 		}
 		if(upo==null){
 			HibernateUtil.getCurrentSession().beginTransaction();
+			flag = true;
 			upo=userDao.getInfo(username);
 		}
 		if(upo==null){
 			lrvo.setLoginResultMessage(LoginResultMessage.FAIL_NOINFO);
+			if(flag)
+				HibernateUtil.getCurrentSession().getTransaction().commit();
 			return lrvo;
 		}else if(upo.getStatus()==UserStatus.ONLINE){
 			lrvo.setLoginResultMessage(LoginResultMessage.FAIL_LOGGED);
+			if(flag)
+				HibernateUtil.getCurrentSession().getTransaction().commit();
 			return lrvo;
 		}else{
 			if(upo.getPassword().equals(password)){
@@ -60,10 +67,14 @@ public class UserDO {
 				lrvo.setLoginResultMessage(LoginResultMessage.SUCCESS);
 				lrvo.setUserType(upo.getType());
 				lrvo.setUserID(upo.getUid());
+				if(flag)
+					HibernateUtil.getCurrentSession().getTransaction().commit();
 				return lrvo;
 			}else{
 				users.put(upo.getUid(), upo);
 				lrvo.setLoginResultMessage(LoginResultMessage.FAIL_WRONG);
+				if(flag)
+					HibernateUtil.getCurrentSession().getTransaction().commit();
 				return lrvo;
 			}
 		}
@@ -96,6 +107,7 @@ public class UserDO {
 			return RegisterResultMessage.FAIL_USEREXIST;
 		}else{
 			upo=new UserPO(username, password);
+			upo.setType(UserType.CLIENT);
 			userDao.insert(upo);
 			return RegisterResultMessage.SUCCESS;
 		}

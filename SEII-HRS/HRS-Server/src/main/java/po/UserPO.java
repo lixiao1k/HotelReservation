@@ -8,7 +8,6 @@ public class UserPO {
 	private String username;
 	private String password;
 	private UserType type;
-	private int credit;
 	private UserStatus status;
 	public UserPO(){
 		
@@ -17,20 +16,12 @@ public class UserPO {
 		this.username = username;
 		this.password = password;
 		setStatus(UserStatus.ONLINE);
-		credit=0;
 	}
 	public UserPO(String username,String password, UserType type){
 		this.username = username;
 		this.password = password;
 		this.type=type;
 		setStatus(UserStatus.ONLINE);
-		credit=0;
-	}
-	public int getCredit(){
-		return credit;
-	}
-	public void setCredit(int credit){
-		this.credit=credit;
 	}
 	public String getUsername(){
 		return this.username;

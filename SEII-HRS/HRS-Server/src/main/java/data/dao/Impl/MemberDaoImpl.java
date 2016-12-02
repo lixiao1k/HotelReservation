@@ -26,17 +26,6 @@ public class MemberDaoImpl implements MemberDao{
 		
 	}
 
-	@Override
-	public void update(UserPO po) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ListWrapper<UserPO> manageInfo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void delete(long userId) {
@@ -47,6 +36,18 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public VIPPO getVIPInfo(long userId) {
 		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public void update(MemberPO po) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ListWrapper<MemberPO> manageInfo() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

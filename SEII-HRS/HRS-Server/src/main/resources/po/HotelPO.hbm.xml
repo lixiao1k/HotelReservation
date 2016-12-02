@@ -35,26 +35,20 @@
   		    	<param name="type">12</param>
  		   </type>
         </property>
-        <one-to-one 
-            name="hotelworker"
-            column="HW_ID"
-            class="po.HotelWorkerPO"
-            not-null="true"
-            lazy="true"
-        />
+        <one-to-one name="hotelworker" class="po.HotelWorkerPO" cascade="all" property-ref="hotel"></one-to-one>
         <many-to-one 
             name="businessCity"
             column="BCITY_ID"
             class="info.BusinessCity"
             not-null="true"
-            lazy="true"
+            lazy="proxy"
         />
          <many-to-one 
             name="businessCircle"
             column="BCIRCLE_ID"
             class="info.BusinessCircle"
             not-null="true"
-            lazy="true"
+            lazy="proxy"
         />
         <set name="comments" inverse="true" cascade="all" lazy="true">
             <key column="COMMENT_ID"></key>

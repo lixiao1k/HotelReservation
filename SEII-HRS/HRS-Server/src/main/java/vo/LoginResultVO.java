@@ -4,9 +4,9 @@ import info.UserType;
 import resultmessage.LoginResultMessage;
 
 public class LoginResultVO {
-    LoginResultMessage resultMessage;
-    UserType userType;
-    long userid;
+    private LoginResultMessage resultMessage;
+    private UserType userType;
+    private long userid;
     public LoginResultVO(LoginResultMessage resultMessage,UserType userType,long userid) {
 		// TODO Auto-generated constructor stub
     	this.resultMessage=resultMessage;

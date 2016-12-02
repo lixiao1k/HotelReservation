@@ -25,18 +25,18 @@ public class CreditDO {
 	public CreditResultMessage excharge(long userId, int delta) {
 		HibernateUtil.getCurrentSession().beginTransaction();
 		UserPO upo=userDao.getInfo(userId);
-		if(upo.getCredit()+delta<0){
+	//	if(upo.getCredit()+delta<0){
 			return CreditResultMessage.FAIL_LESSTHANZERO;
-		}else{
-			LocalDate time=LocalDate.now();
-			CreditPO po=new CreditPO(userId, time, delta, upo.getCredit());
-			creditDao.insert(po);
-			upo.setCredit(upo.getCredit()+delta);
-			userDao.update(upo);
-			return CreditResultMessage.SUCCESS;
+	//	}else{
+	//		LocalDate time=LocalDate.now();
+	//		CreditPO po=new CreditPO(userId, time, delta, upo.getCredit());
+	//		creditDao.insert(po);
+	//		upo.setCredit(upo.getCredit()+delta);
+	//		userDao.update(upo);
+	//		return CreditResultMessage.SUCCESS;
 		}
 		
-	}
+	//}
 	
 	public ListWrapper<CreditVO> getInfo(long userId) throws RemoteException {
 		HibernateUtil.getCurrentSession().beginTransaction();

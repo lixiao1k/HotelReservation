@@ -55,4 +55,13 @@ public class StrategyPO {
 	public void setItems(Set<StrategyItem> items){
 		this.items = items;
 	}
+	public StrategyType getType() {
+		return type;
+	}
+	public void setType(StrategyType type) {
+		this.type = type;
+	}
+	public void setRule(StrategyRule rule) {
+		this.rule = rule;
+	}
 }

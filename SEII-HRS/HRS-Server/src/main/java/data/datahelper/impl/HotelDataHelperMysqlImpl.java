@@ -21,6 +21,8 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 	private static final String getHotelItemQuery = "from HotleItem as hi wher hi.hotel=:HOTEL and hi.room=:ROOM";
 	private static final String getHotelListByRuleQuery = 
 			"from Hotel as h where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY and";
+	private static final String getHotelListByString = 
+			"from Hotel as h where h.name like :STRING";
 	@Override
 	public void insert(HotelPO po) {
 		HibernateUtil.getCurrentSession().save(po);
@@ -38,15 +40,18 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 	}
 
 	@Override
-	public ListWrapper<HotelPO> getHotelListByRule(Rule rule) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HotelPO> getHotelListByRule(Rule rule) {
+		Query query = HibernateUtil.getCurrentSession().createQuery(getHotelListByRuleQuery);
+		query.setEntity("BCITY", rule.getBusinessCity());
+		query.setEntity("BCIRCLE", rule.getBusinessCircle());
+		return query.list();
 	}
 
 	@Override
-	public ListWrapper<HotelItem> getHotelListByString(String rule) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HotelPO> getHotelListByString(String rule) {
+		Query query = HibernateUtil.getCurrentSession().createQuery(getHotelListByString);
+		query.setEntity("STRING", rule);
+		return query.list();
 	}
 
 	@Override

@@ -20,6 +20,9 @@ import vo.AddHotelVO;
 
 public class HotelLogicServiceImpl implements HotelLogicService{
 	private HotelDO hotelDO;
+	public HotelLogicServiceImpl() {
+		hotelDO = new HotelDO();
+	}
 	@Override
 	public ListWrapper<BusinessCity> getCity() throws RemoteException {
 		return hotelDO.getCity();
