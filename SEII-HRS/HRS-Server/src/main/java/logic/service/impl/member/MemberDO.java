@@ -7,7 +7,6 @@ import data.dao.MemberDao;
 import data.dao.Impl.DaoManager;
 import info.ListWrapper;
 import po.MemberPO;
-import po.UserPO;
 import po.VIPPO;
 import resultmessage.MemberResultMessage;
 import util.DozerMappingUtil;
@@ -16,7 +15,6 @@ import vo.ManageClientVO;
 import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
 import vo.ManageWEBSalerVO;
-import vo.MemberVO;
 import vo.VIPVO;
 
 public class MemberDO {

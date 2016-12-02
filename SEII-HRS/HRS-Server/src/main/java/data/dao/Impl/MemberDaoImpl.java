@@ -55,4 +55,10 @@ public class MemberDaoImpl implements MemberDao{
 		
 	}
 
+	@Override
+	public MemberPO getInfo(long userid) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }

@@ -1,17 +1,34 @@
 package vo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ManageClientVO {
 	private long userid;
 	private String username;
 	private LocalDate birthday;
 	private String companyname;
-	public ManageClientVO(long userid, String username, LocalDate birthday, String companyname) {
-		this.userid=userid;
-		this.username=username;
-		this.birthday=birthday;
-		this.companyname=companyname;
+	private List<String> phonenumber;
+	public ManageClientVO(long userid, String username, LocalDate birthday, String companyname,
+			List<String> phonenumber) {
+		super();
+		this.userid = userid;
+		this.username = username;
+		this.birthday = birthday;
+		this.companyname = companyname;
+		this.phonenumber = phonenumber;
+	}
+	public List<String> getPhonenumber() {
+		return phonenumber;
+	}
+	public void setPhonenumber(List<String> phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+	public void addPhonenumber(String number){
+		phonenumber.add(number);
+	}
+	public void deletePhonenumber(String number){
+		phonenumber.remove(number);
 	}
 	public long getUserid() {
 		return userid;

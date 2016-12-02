@@ -8,7 +8,7 @@ import info.ListWrapper;
 import logic.service.CreditLogicService;
 import logic.service.MemberLogicService;
 import logic.service.impl.credit.CreditLogicServiceImpl;
-import logic.service.impl.member.MemerLogicServiceImpl;
+import logic.service.impl.member.MemberLogicServiceImpl;
 import resultmessage.MemberResultMessage;
 import vo.MemberVO;
 import vo.VIPVO;
@@ -16,7 +16,7 @@ import vo.VIPVO;
 public class TestMemberBL {
 	@Test
 	public void testregisterVIP() throws RemoteException {
-		MemberLogicService memberLogic=new MemerLogicServiceImpl();
+		MemberLogicService memberLogic=new MemberLogicServiceImpl();
 		CreditLogicService creditLogic=new CreditLogicServiceImpl();
 		creditLogic.excharge(1, 10000);
 		MemberResultMessage result=null;
@@ -40,7 +40,7 @@ public class TestMemberBL {
 	
 	@Test
 	public void testcancel() throws RemoteException {
-		MemberLogicService memberLogic=new MemerLogicServiceImpl();
+		MemberLogicService memberLogic=new MemberLogicServiceImpl();
 		CreditLogicService creditLogic=new CreditLogicServiceImpl();
 		MemberResultMessage result=null;	
 		result=memberLogic.cancel(1);
@@ -60,33 +60,8 @@ public class TestMemberBL {
 	}
 	
 	@Test
-	public void testgetinfo() throws RemoteException {
-		MemberLogicService memberLogic=new MemerLogicServiceImpl();
-		MemberVO testvo=new MemberVO("12345678901", "Admin");
-		memberLogic.changeInfo(testvo);
-		MemberVO resultvo=memberLogic.getInfo(1);
-		Assert.assertEquals("Right message.", "name:Admin; phone:12345678901; credit:0", resultvo.toString());
-	}
-	
-	@Test
-	public void testchangeinfo() throws RemoteException {
-		MemberLogicService memberLogic=new MemerLogicServiceImpl();
-		MemberResultMessage result=null;
-		MemberVO testvo=new MemberVO("12345678901", "None");
-		result=memberLogic.changeInfo(testvo);
-		Assert.assertEquals("Change info fail. No such ID.", MemberResultMessage.CHANGEINFO_FAIL_WORNDID, result);
-		testvo.setName("Admin");
-		result=memberLogic.changeInfo(testvo);
-		Assert.assertEquals("Change info success.", MemberResultMessage.CHANGEINFO_SUCCESS, result);
-	}
-	
-	@Test
-	public void testmanageinfo() throws RemoteException {
-		MemberLogicService memberLogic=new MemerLogicServiceImpl();
-		MemberVO testvo=new MemberVO("12345678901", "Admin");
-		memberLogic.changeInfo(testvo);
-		ListWrapper<MemberVO> resultlist=memberLogic.manageInfo();
-		MemberVO resultvo=resultlist.iterator().next();
-		Assert.assertEquals("Right message.", "name:Admin; phone:12345678901; credit:0", resultvo.toString());
+	public void testClient() throws RemoteException {
+		MemberLogicService memberlogicservice=new MemberLogicServiceImpl();
+		
 	}
 }

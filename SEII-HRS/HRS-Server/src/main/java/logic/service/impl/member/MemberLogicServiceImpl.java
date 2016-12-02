@@ -9,12 +9,11 @@ import vo.ManageClientVO;
 import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
 import vo.ManageWEBSalerVO;
-import vo.MemberVO;
 import vo.VIPVO;
 
-public class MemerLogicServiceImpl implements MemberLogicService{
+public class MemberLogicServiceImpl implements MemberLogicService{
 	private MemberDO memberDO;
-	public MemerLogicServiceImpl() {
+	public MemberLogicServiceImpl() {
 		memberDO=new MemberDO();
 	}
 	@Override
