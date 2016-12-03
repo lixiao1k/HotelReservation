@@ -13,6 +13,7 @@ import info.VIPType;
 import po.ClientMemberPO;
 import po.MemberPO;
 import po.VIPPO;
+import po.WebSalerMemberPO;
 import resultmessage.MemberResultMessage;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
@@ -270,21 +271,18 @@ public class MemberDO {
 		return DozerMappingUtil.getInstance().map(getInfo(username), ManageWEBSalerVO.class);
 	}
 	
-	public MemberResultMessage addVO (Object o) throws RemoteException {
+	public MemberResultMessage addWEBSaler(ManageWEBSalerVO vo) throws RemoteException {
+		MemberPO mpo=null;
+		mpo=members.get(vo.getUserid());
+		if(mpo!=null){
+			return MemberResultMessage.FAIL_SAMEID;
+		}
 		try{
-			MemberPO po=null;
-			if(o!=null){
-				po=DozerMappingUtil.getInstance().map(o, MemberPO.class);
-				if(po==null){
-					return MemberResultMessage.FAIL_WRONGID;
-				}else{
-					HibernateUtil.getCurrentSession().beginTransaction();
-					memberDao.add(po);
-					HibernateUtil.getCurrentSession().getTransaction().commit();
-					return MemberResultMessage.SUCCESS;
-				}
-			}else{
-				return MemberResultMessage.FAIL;
+			HibernateUtil.getCurrentSession().beginTransaction();
+			mpo=memberDao.getInfo(vo.getUserid());
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			if(mpo!=null){
+				return MemberResultMessage.FAIL_SAMEID;
 			}
 		}catch(RuntimeException e){
 			try{
@@ -294,18 +292,26 @@ public class MemberDO {
 			}
 			throw e;
 		}
-	}
-	
-	public MemberResultMessage addClient(ManageClientVO vo) throws RemoteException {
-		return addVO(vo);
-	}
-	
-	public MemberResultMessage addHotelWorker(ManageHotelWorkerVO vo) throws RemoteException {
-		return addVO(vo);
-	}
-	
-	public MemberResultMessage addWEBSaler(ManageWEBSalerVO vo) throws RemoteException {
-		return addVO(vo);
+		try{
+			MemberPO po=null;
+			po=DozerMappingUtil.getInstance().map(vo, MemberPO.class);
+			if(po==null){
+				return MemberResultMessage.FAIL_WRONGID;
+			}else{
+				HibernateUtil.getCurrentSession().beginTransaction();
+				memberDao.add(po);
+				HibernateUtil.getCurrentSession().getTransaction().commit();
+				members.put(vo.getUserid(), po);
+				return MemberResultMessage.SUCCESS;
+			}
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
 	
 	public MemberResultMessage updateVO (Object o) throws RemoteException {
