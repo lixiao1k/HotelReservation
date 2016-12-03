@@ -7,7 +7,6 @@ import po.VIPPO;
 
 public interface MemberDao {
 	public void registerVIP(VIPPO vpo);
-
 	public VIPPO getVIPInfo(long userid);
 	public MemberPO getInfo(long userid);
 	public MemberPO getInfo(String username);

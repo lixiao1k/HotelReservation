@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
-import org.hibernate.engine.HibernateIterator;
-
 import data.dao.MemberDao;
 import data.dao.Impl.DaoManager;
 import info.Cache;
@@ -132,7 +130,6 @@ public class MemberDO {
 	public MemberResultMessage cancel(long id) throws RemoteException {
 		MemberPO cachePO = null;
 		cachePO = members.get(id);
-		boolean flag = false;
 		if(cachePO!=null){
 			if(cachePO instanceof ClientMemberPO){
 				cachePO = (ClientMemberPO) cachePO;
@@ -207,9 +204,9 @@ public class MemberDO {
 		}
 	}
 
-	public MemberVO getInfo(long id) throws RemoteException {
+	public MemberVO getInfo(String username) throws RemoteException {
 		MemberPO cachePO = null;
-		cachePO = members.get(id);
+		cachePO = members.get(username);
 		if(cachePO!=null){
 			MemberVO vo = DozerMappingUtil.getInstance().map(cachePO, MemberVO.class);
 			return vo;
@@ -217,15 +214,19 @@ public class MemberDO {
 			try{
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
-				MemberPO po = memberDao.getInfo(id);
-				members.put(id, po);
-				HibernateUtil.getCurrentSession()
-								.getTransaction()
-								.commit();
-				MemberVO vo = DozerMappingUtil.getInstance().map(cachePO, MemberVO.class);
-				return vo;
+				MemberPO po = memberDao.getInfo(username);
+				if(po!=null){
+					members.put(username, po);
+					HibernateUtil.getCurrentSession()
+									.getTransaction()
+									.commit();
+					MemberVO vo = DozerMappingUtil.getInstance().map(po, MemberVO.class);
+					return vo;
+				}else{
+					return null;
+				}
 			}catch(RuntimeException e){
-				members.remove(id);
+				members.remove(username);
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
@@ -240,98 +241,130 @@ public class MemberDO {
 	}
 
 	public ManageClientVO getClient(String username) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=memberDao.getInfo(username);
-		return DozerMappingUtil.getInstance().map(po, ManageClientVO.class);
+		return DozerMappingUtil.getInstance().map(getInfo(username), ManageClientVO.class);
 	}
 	
 	public ListWrapper<ManageHotelVO> getAllHotelWorker(String hotelname) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		ListWrapper<MemberPO> polist=memberDao.manageInfo(hotelname);
-		List<ManageHotelVO> volist=null;
-		while(polist.iterator().hasNext()){
-			MemberPO po=polist.iterator().next();
-			ManageHotelVO vo=DozerMappingUtil.getInstance().map(po, ManageHotelVO.class);
-			volist.add(vo);
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			ListWrapper<MemberPO> polist=memberDao.manageInfo(hotelname);
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			List<ManageHotelVO> volist=null;
+			while(polist.iterator().hasNext()){
+				MemberPO po=polist.iterator().next();
+				ManageHotelVO vo=DozerMappingUtil.getInstance().map(po, ManageHotelVO.class);
+				volist.add(vo);
+			}
+			return new ListWrapper<ManageHotelVO>(volist);
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
 		}
-		return DozerMappingUtil.getInstance().map(volist, ListWrapper.class);
 	}
 	
 	public ManageWEBSalerVO getWEBSaler(String username) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=memberDao.getInfo(username);
-		return DozerMappingUtil.getInstance().map(po, ManageWEBSalerVO.class);
+		return DozerMappingUtil.getInstance().map(getInfo(username), ManageWEBSalerVO.class);
+	}
+	
+	public MemberResultMessage addVO (Object o) throws RemoteException {
+		try{
+			MemberPO po=null;
+			if(o!=null){
+				po=DozerMappingUtil.getInstance().map(o, MemberPO.class);
+				if(po==null){
+					return MemberResultMessage.FAIL_WRONGID;
+				}else{
+					HibernateUtil.getCurrentSession().beginTransaction();
+					memberDao.add(po);
+					HibernateUtil.getCurrentSession().getTransaction().commit();
+					return MemberResultMessage.SUCCESS;
+				}
+			}else{
+				return MemberResultMessage.FAIL;
+			}
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
 	
 	public MemberResultMessage addClient(ManageClientVO vo) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=null;
-		po=DozerMappingUtil.getInstance().map(vo, MemberPO.class);
-		memberDao.add(po);
-		return MemberResultMessage.SUCCESS;
+		return addVO(vo);
 	}
 	
 	public MemberResultMessage addHotelWorker(ManageHotelWorkerVO vo) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=null;
-		po=DozerMappingUtil.getInstance().map(vo, MemberPO.class);
-		memberDao.add(po);
-		return MemberResultMessage.SUCCESS;
+		return addVO(vo);
 	}
 	
 	public MemberResultMessage addWEBSaler(ManageWEBSalerVO vo) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=null;
-		po=DozerMappingUtil.getInstance().map(vo, MemberPO.class);
-		memberDao.add(po);
-		return MemberResultMessage.SUCCESS;
+		return addVO(vo);
+	}
+	
+	public MemberResultMessage updateVO (Object o) throws RemoteException {
+		try{
+			MemberPO po=null;
+			if(o!=null){
+				po=DozerMappingUtil.getInstance().map(o, MemberPO.class);
+				if(po==null){
+					return MemberResultMessage.FAIL_WRONGID;
+				}else{
+					HibernateUtil.getCurrentSession().beginTransaction();
+					memberDao.update(po);
+					HibernateUtil.getCurrentSession().getTransaction().commit();
+					return MemberResultMessage.SUCCESS;
+				}
+			}else{
+				return MemberResultMessage.FAIL;
+			}
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
 	
 	public MemberResultMessage updateClient(ManageClientVO vo) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=null;
-		po=DozerMappingUtil.getInstance().map(vo, MemberPO.class);
-		if(po==null){
-			return MemberResultMessage.FAIL_WRONGID;
-		}else{
-			memberDao.update(po);
-			return MemberResultMessage.SUCCESS;
-		}
+		return updateVO(vo);
 	}
 	
 	public MemberResultMessage updateHotelWorker(ManageHotelWorkerVO vo) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=null;
-		po=DozerMappingUtil.getInstance().map(vo, MemberPO.class);
-		if(po==null){
-			return MemberResultMessage.FAIL_WRONGID;
-		}else{
-			memberDao.update(po);
-			return MemberResultMessage.SUCCESS;
-		}
+		return updateVO(vo);
 	}
 	
 	public MemberResultMessage updateWEBSaler(ManageWEBSalerVO vo) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=null;
-		po=DozerMappingUtil.getInstance().map(vo, MemberPO.class);
-		if(po==null){
-			return MemberResultMessage.FAIL_WRONGID;
-		}else{
-			memberDao.update(po);
-			return MemberResultMessage.SUCCESS;
-		}
+		return updateVO(vo);
 	}
 	
 	public MemberResultMessage delete(long id) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		MemberPO po=null;
-		po=memberDao.getInfo(id);
-		if(po==null){
-			return MemberResultMessage.FAIL_WRONGID;
-		}else{
-			memberDao.delete(id);
-			return MemberResultMessage.SUCCESS;
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			MemberPO po=null;
+			po=memberDao.getInfo(id);
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			if(po==null){
+				return MemberResultMessage.FAIL_WRONGID;
+			}else{
+				memberDao.delete(id);
+				return MemberResultMessage.SUCCESS;
+			}
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
 		}
 	}
 }

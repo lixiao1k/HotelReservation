@@ -48,4 +48,52 @@
         <b>hotelName</b>
     </field>
 </mapping>
+<mapping>
+   <class-a>po.VIPPO</class-a>
+    <class-b>vo.VIPVO</class-b>
+    <field>
+        <a>id</a>
+        <b>userId</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.MemberPO</class-a>
+    <class-b>Object</class-b>
+    <field>
+        <a>mid</a>
+        <b>userid</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.MemberPO</class-a>
+    <class-b>vo.ManageClientVO</class-b>
+    <field>
+        <a>mid</a>
+        <b>userid</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.MemberPO</class-a>
+    <class-b>vo.ManageHotelVO</class-b>
+    <field>
+        <a>mid</a>
+        <b>userid</b>
+    </field>
+    <field>
+        <a>name</a>
+        <b>name</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.MemberPO</class-a>
+    <class-b>vo.ManageWEBSalerVO</class-b>
+    <field>
+        <a>mid</a>
+        <b>userid</b>
+    </field>
+    <field>
+        <a>name</a>
+        <b>name</b>
+    </field>
+</mapping>
 </mappings>
