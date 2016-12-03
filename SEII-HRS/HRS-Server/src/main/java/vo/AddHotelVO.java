@@ -28,6 +28,19 @@ public class AddHotelVO {
 	public void setDescription(String description){
 		this.description = description;
 	}
+	public AddHotelVO(String name, String description, String facility, String address, String service,
+			BusinessCircle businessCircle, BusinessCity businessCity, Rank rank, Set<HotelItemVO> items) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.facility = facility;
+		this.address = address;
+		this.service = service;
+		this.businessCircle = businessCircle;
+		this.businessCity = businessCity;
+		this.rank = rank;
+		this.items = items;
+	}
 	public void setBusinessCircle(BusinessCircle businessCircle){
 		this.businessCircle = businessCircle;
 	}
