@@ -57,6 +57,14 @@ public class HotelDO {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			ListWrapper<BusinessCity> result =  hotelDao.getAllCity();
+			if (result==null)
+				return null;
+			else{
+				Iterator<BusinessCity> it = result.iterator();
+				while(it.hasNext()){
+					it.next().getCircleIterator();
+				}
+			}
 			HibernateUtil.getCurrentSession()
 							.getTransaction()
 							.commit();

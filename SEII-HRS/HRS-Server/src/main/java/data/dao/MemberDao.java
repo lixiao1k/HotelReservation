@@ -15,4 +15,4 @@ public interface MemberDao {
 	public void add(MemberPO po);
 	public ListWrapper<MemberPO> manageInfo(String name);
 	public void delete(long userId);
-}
+}	
