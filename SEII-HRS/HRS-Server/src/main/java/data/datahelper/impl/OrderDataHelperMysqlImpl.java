@@ -13,10 +13,10 @@ import po.OrderPO;
 import util.HibernateUtil;
 
 public class OrderDataHelperMysqlImpl implements OrderDataHelper{
-	private static final String abnormalQuery = "from Order as o where o.status=ABNORMAL";
-	private static final String userQuery = "from Order as o where o.member=:MEMBER";
-	private static final String hotelQuery = "from Order as o where o.hotel=:HOTEL";
-	private static final String hotelUserQuery = "from Order as o where o.member=:MEMBER and o.hotel=:HOTEL";
+	private static final String abnormalQuery = "from OrderPO as o where o.status=ABNORMAL";
+	private static final String userQuery = "from OrderPO as o where o.member=:MEMBER";
+	private static final String hotelQuery = "from OrderPO as o where o.hotel=:HOTEL";
+	private static final String hotelUserQuery = "from OrderPO as o where o.member=:MEMBER and o.hotel=:HOTEL";
 	@Override
 	public void insert(OrderPO po) {
 		HibernateUtil.getCurrentSession()

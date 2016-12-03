@@ -15,14 +15,14 @@ import po.HotelPO;
 import util.HibernateUtil;
 
 public class HotelDataHelperMysqlImpl implements HotelDataHelper{
-	private static final String getAllCityQuery = "form BusinessCity";
+	private static final String getAllCityQuery = "from BusinessCity";
 	private static final String getHotelByCityAndCircle = 
-									"from Hotel as h where h.businessCity=:BCITY and h.businessCircle=:BCIRCLE";
+									"from HotelPO as h where h.businessCity=:BCITY and h.businessCircle=:BCIRCLE";
 	private static final String getHotelItemQuery = "from HotleItem as hi wher hi.hotel=:HOTEL and hi.room=:ROOM";
 	private static final String getHotelListByRuleQuery = 
-			"from Hotel as h where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY and";
+			"from HotelPO as h where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY and";
 	private static final String getHotelListByString = 
-			"from Hotel as h where h.name like :STRING";
+			"from HotelPO as h where h.name like :STRING";
 	@Override
 	public void insert(HotelPO po) {
 		HibernateUtil.getCurrentSession().save(po);

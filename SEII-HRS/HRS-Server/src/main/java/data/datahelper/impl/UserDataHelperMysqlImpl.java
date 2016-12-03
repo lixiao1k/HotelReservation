@@ -10,7 +10,7 @@ import po.UserPO;
 import util.HibernateUtil;
 
 public class UserDataHelperMysqlImpl implements UserDataHelper{
-	private static final String getInfoByUsername = "from user as u where u.username=:USERNAME";
+	private static final String getInfoByUsername = "from UserPO as u where u.username=:USERNAME";
 	@Override
 	public void insert(UserPO po) {
 		HibernateUtil.getCurrentSession()

@@ -30,7 +30,6 @@ public class HotelLogicServiceImpl implements HotelLogicService{
 
 	@Override
 	public ListWrapper<BasicHotelVO> getHotels(SearchHotelVO vo) throws RemoteException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

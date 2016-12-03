@@ -14,71 +14,51 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public void cancel(long userId) {
+	public VIPPO getVIPInfo(long userid) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void delete(long userId) {
+	public MemberPO getInfo(long userid) {
 		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-<<<<<<< HEAD
-	public void delete(long userId) {
-		// TODO Auto-generated method stub
-=======
-	public VIPPO getVIPInfo(long userId) {
-		// TODO 自动生成的方法存根
 		return null;
 	}
 
 	@Override
 	public MemberPO getInfo(String username) {
-		// TODO 自动生成的方法存根
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(MemberPO po) {
-		// TODO 自动生成的方法存根
->>>>>>> origin/master
+	public void cancel(long userid) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-<<<<<<< HEAD
-	public VIPPO getVIPInfo(long userId) {
-=======
-	public ListWrapper<MemberPO> manageInfo(String name) {
->>>>>>> origin/master
-		// TODO 自动生成的方法存根
-		return null;
+	public void update(MemberPO po) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-<<<<<<< HEAD
-	public void update(MemberPO po) {
-		// TODO Auto-generated method stub
-=======
 	public void add(MemberPO po) {
-		// TODO 自动生成的方法存根
->>>>>>> origin/master
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-<<<<<<< HEAD
-	public ListWrapper<MemberPO> manageInfo() {
+	public ListWrapper<MemberPO> manageInfo(String name) {
 		// TODO Auto-generated method stub
-=======
-	public MemberPO getInfo(long userid) {
-		// TODO 自动生成的方法存根
->>>>>>> origin/master
 		return null;
+	}
+
+	@Override
+	public void delete(long userId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

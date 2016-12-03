@@ -11,8 +11,8 @@ import po.MemberPO;
 import util.HibernateUtil;
 
 public class CommentDataHelperMysqlImpl implements CommentDataHelper{
-	private static final String getUserComment = "from Comment as c where c.member=:MEMBER";
-	private static final String getHotelComment = "from Comment as c where c.Hotel=:HOTEL";
+	private static final String getUserComment = "from CommentPO as c where c.member=:MEMBER";
+	private static final String getHotelComment = "from CommentPO as c where c.hotel=:HOTEL";
 	@Override
 	public void insert(CommentPO po) {
 		HibernateUtil.getCurrentSession().save(po);
@@ -22,7 +22,10 @@ public class CommentDataHelperMysqlImpl implements CommentDataHelper{
 	public List<CommentPO> getUserComment(long userId) {
 		MemberPO po = (MemberPO) HibernateUtil.getCurrentSession().get(MemberPO.class, userId);
 		Query query = HibernateUtil.getCurrentSession().createQuery(getUserComment);
-		query.setEntity("MEMBER", po);
+		if(po!=null)
+			query.setEntity("MEMBER", po);
+		else
+			return null;
 		return query.list();
 	}
 
@@ -30,7 +33,10 @@ public class CommentDataHelperMysqlImpl implements CommentDataHelper{
 	public List<CommentPO> getHotelComment(long hotelId) {
 		HotelPO po = (HotelPO) HibernateUtil.getCurrentSession().get(HotelPO.class, hotelId);
 		Query query = HibernateUtil.getCurrentSession().createQuery(getHotelComment);
-		query.setEntity("HOTEL", po);
+		if(po!=null)
+			query.setEntity("HOTEL", po);
+		else
+			return null;
 		return query.list();
 	}
 

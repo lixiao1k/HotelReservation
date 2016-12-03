@@ -16,6 +16,9 @@ public class MemberLogicServiceImpl implements MemberLogicService{
 	public MemberLogicServiceImpl() {
 		memberDO=new MemberDO();
 	}
+	public MemberLogicServiceImpl(int size){
+		memberDO=new MemberDO(size);
+	}
 	@Override
 	public MemberResultMessage registerVIP(VIPVO vo) throws RemoteException {
 		return memberDO.registerVIP(vo);

@@ -10,8 +10,8 @@ import po.StrategyPO;
 import util.HibernateUtil;
 
 public class StrategyDataHelperMysqlImpl implements StrategyDataHelper{
-	private static final String hotelStrategyList = "from Strategy as s where s.hotel=:HOTEL";
-	private static final String webStrategyList = "from Strategy as s where s.type=1";
+	private static final String hotelStrategyList = "from StrategyPO as s where s.hotel=:HOTEL";
+	private static final String webStrategyList = "from StrategyPO as s where s.type=1";
 	@Override
 	public void insert(StrategyPO po) {
 		HibernateUtil.getCurrentSession().save(po);

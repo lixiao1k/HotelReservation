@@ -22,6 +22,7 @@ import vo.ManageClientVO;
 import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
 import vo.ManageWEBSalerVO;
+import vo.MemberVO;
 import vo.VIPVO;
 
 public class MemberDO {
