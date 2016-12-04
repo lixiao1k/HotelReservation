@@ -11,7 +11,7 @@
         <property name="name" type="string">
             <column name="NAME" not-null="true"></column>
         </property>
-   		<property name="rule" type="binary">
+   		<property name="rule" type="blob">
    		    <column name="RULE" not-null="true"></column>
    		</property>
    		<many-to-one 

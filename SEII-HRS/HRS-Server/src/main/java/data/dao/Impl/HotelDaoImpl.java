@@ -97,7 +97,7 @@ public class HotelDaoImpl implements HotelDao {
 			while(it.hasNext()){
 				HotelItem hi = it.next();
 				if(hi.getRoom().getType().equals(room.getType())
-						&& hi.getDate().toString().equals(now.toString())){
+						&& hi.getDate().getDate()==now.getDate()){
 					result = hi;
 					break;
 				}
