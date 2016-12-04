@@ -13,17 +13,19 @@ import java.io.IOException;
 
 import Presentation.UserUI.ManageUserController;
 public class ManageClientController {
-	@FXML TextField searchField;
-    @FXML GridPane ClientPane;
+	@FXML  private TextField searchField;
+    @FXML  private GridPane ClientPane;
+    private String Birth="五月二十";
+    private String Company="南京大学";
 	public void Search(ActionEvent e)
 	{
-		String search=searchField.getText();
-		
-		if(search.equals("个人"))
+		String username=searchField.getText();
+		//调用Member.getAllClient接口  将username传过去 得到ManageClientVO
+		if(username.equals("个人"))
 		{
 			try {
 				
-				Parent personVIPBrowse = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/UserUI/ManagePVIPClient.fxml"));
+				Parent personVIPBrowse = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/UserUI/ManagePeVIPClient.fxml"));
 				personVIPBrowse.getProperties().put("NAME","PVIPClient" );
 				ObservableList<Node> list =ClientPane.getChildren();
 				for(Node node:list){
@@ -64,5 +66,13 @@ public class ManageClientController {
 		
 	}
 	
+	public String getBirth()
+	{
+		return Birth;//从数据库中得到birth信息
+	}
 	
+	public String getCompany()
+	{
+		return Company;//从数据库中得到company信息
+	}
 }

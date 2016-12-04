@@ -23,10 +23,26 @@
             <Insets bottom="150.0" left="50.0" />
          </GridPane.margin>
       </Label>
-      <TextField>
+      <TextField fx:id="CompanyName">
          <GridPane.margin>
             <Insets bottom="150.0" left="100.0" right="120.0" />
          </GridPane.margin>
       </TextField>
+      <Button mnemonicParsing="false" text="提交">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="300.0" top="200.0" />
+         </GridPane.margin>
+      </Button>
+      <Button mnemonicParsing="false" text="取消">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="400.0" top="200.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>

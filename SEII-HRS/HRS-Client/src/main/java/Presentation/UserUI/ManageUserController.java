@@ -14,12 +14,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public class ManageUserController implements Initializable{
 	@FXML private ChoiceBox<String> ManageTypeChoice;
 	@FXML private GridPane ManagePane;
+
+				  
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		List<String> list = new ArrayList<String>();
@@ -31,11 +35,12 @@ public class ManageUserController implements Initializable{
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				ObservableList<Node> list = ManagePane.getChildren();
-				String newNode=null;			
+				String newNode=null;
+			//	String newNode=null;			
 				if(newValue!=null){
 					switch(newValue){
 						case "客户" : 
-							newNode="ManageClient.fxml";
+							newNode="ManageClient1.fxml";
 							break;
 						case "酒店工作人员" : 
 							newNode="ManageHotelWorker.fxml";
@@ -56,7 +61,7 @@ public class ManageUserController implements Initializable{
 					FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Presentation/UserUI/"+newNode));
 					Parent newManage = loader.load();
 					newManage.getProperties().put("NAME", newValue);
-					ManagePane.add(newManage, 0,1,2,1);
+					ManagePane.add(newManage, 0,1,3,1);
 				} catch (IOException e) {
 					//日志
 					System.out.println(e.getCause()+e.getMessage());
@@ -65,7 +70,6 @@ public class ManageUserController implements Initializable{
 		});
 	}
 	
-	public GridPane getGridPane(){
-		return this.ManagePane;
-	}
+
+
 }

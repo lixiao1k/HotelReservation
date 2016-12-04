@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserUI.ManageWebSalerController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserUI.ManageWebSalerController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="768.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -17,12 +17,12 @@
    <children>
       <TextField fx:id="searchField">
          <GridPane.margin>
-            <Insets bottom="300.0" left="50.0" right="180.0" />
+            <Insets bottom="350.0" left="50.0" right="180.0" />
          </GridPane.margin>
       </TextField>
       <Button mnemonicParsing="false" onAction="#Search" text="搜索">
          <GridPane.margin>
-            <Insets bottom="300.0" left="420.0" />
+            <Insets bottom="350.0" left="420.0" />
          </GridPane.margin>
          <font>
             <Font size="18.0" />
@@ -33,12 +33,12 @@
             <Font size="18.0" />
          </font>
          <GridPane.margin>
-            <Insets bottom="200.0" left="30.0" />
+            <Insets bottom="250.0" left="30.0" />
          </GridPane.margin>
       </Label>
-      <TextField>
+      <TextField fx:id="userName">
          <GridPane.margin>
-            <Insets bottom="200.0" left="100.0" right="120.0" />
+            <Insets bottom="250.0" left="100.0" right="120.0" />
          </GridPane.margin>
       </TextField>
       <Label text="昵称：">
@@ -46,26 +46,42 @@
             <Font size="18.0" />
          </font>
          <GridPane.margin>
-            <Insets bottom="100.0" left="49.0" />
+            <Insets bottom="150.0" left="49.0" />
          </GridPane.margin>
       </Label>
-      <TextField>
+      <TextField fx:id="Name">
          <GridPane.margin>
-            <Insets bottom="100.0" left="100.0" right="120.0" />
+            <Insets bottom="150.0" left="100.0" right="120.0" />
          </GridPane.margin>
       </TextField>
       <Label text="密码：">
          <GridPane.margin>
-            <Insets left="50.0" />
+            <Insets bottom="50.0" left="50.0" />
          </GridPane.margin>
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField>
+      <TextField fx:id="password">
          <GridPane.margin>
-            <Insets left="100.0" right="120.0" />
+            <Insets bottom="50.0" left="100.0" right="120.0" />
          </GridPane.margin>
       </TextField>
+      <Button mnemonicParsing="false" onAction="#AddInfo" text="添加">
+         <GridPane.margin>
+            <Insets left="300.0" top="320.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#Commit" text="提交">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="400.0" top="320.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>
