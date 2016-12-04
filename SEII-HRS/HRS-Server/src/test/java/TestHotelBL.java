@@ -6,8 +6,6 @@ import info.ListWrapper;
 import info.Rank;
 import info.Room;
 import logic.service.HotelLogicService;
-import logic.service.ServiceFactory;
-import logic.service.impl.ServiceFactoryImpl;
 import logic.service.impl.hotel.HotelLogicServiceImpl;
 import resultmessage.HotelResultMessage;
 import vo.AddHotelResultVO;
@@ -16,6 +14,7 @@ import vo.BasicHotelVO;
 import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
 import vo.HotelItemVO;
+import vo.MaintainHotelInfoVO;
 import vo.SearchHotelVO;
 
 import java.rmi.RemoteException;
@@ -40,6 +39,7 @@ public class TestHotelBL {
 			while(itt.hasNext()){
 				System.out.print(itt.next().getName()+"  ");
 			}
+			System.out.println();
 			System.out.println("----------------------------");
 		}
 	}
@@ -49,6 +49,7 @@ public class TestHotelBL {
 		SearchHotelVO vo = new SearchHotelVO();
 		BusinessCity bc = new BusinessCity();
 		bc.setName("南京");
+		bc.setBcityId(1);
 		vo.setBusinessCity(bc);
 		ListWrapper<BasicHotelVO> list = hotel.getHotels(vo);
 		Assert.assertEquals("wrong", null, list);
@@ -65,10 +66,14 @@ public class TestHotelBL {
 		CheckInRoomInfoVO cirivo = new CheckInRoomInfoVO();
 		cirivo.setCheckInTime(new Date());
 		cirivo.setHotelId(1);
-		cirivo.setRoomNum(1);
-		cirivo.setRoom(new Room());
+		cirivo.setRoomNum(2);
+		Room room = new Room();
+		room.setRid(1);
+		room.setType("大床房");
+		cirivo.setRoom(room);
+		
 		HotelResultMessage result = hotel.roomCheckIn(cirivo);
-		Assert.assertEquals("wrong", HotelResultMessage.FAIL,result);
+		Assert.assertEquals("wrong", HotelResultMessage.SUCCESS,result);
 	}
 	@Test
 	public void testRoomCheckOut() throws RemoteException{
@@ -83,27 +88,43 @@ public class TestHotelBL {
 	public void testGetRoomInfo() throws RemoteException{
 		HotelLogicService hotel = new HotelLogicServiceImpl();
 		ListWrapper<HotelItemVO> list = hotel.getRoomInfo(1);
-		Assert.assertEquals("wrong", null,list);
+		Assert.assertNotEquals("wrong", null,list);
+		Iterator<HotelItemVO> it = list.iterator();
+		while(it.hasNext()){
+			HotelItemVO vo = it.next();
+			System.out.println(vo.getRoom().getType()+" "+vo.getDate());
+		}
 	}
 	@Test
 	public void testSetHotelInfo() throws RemoteException{
-		
+		HotelLogicService hotel = new HotelLogicServiceImpl();
+		MaintainHotelInfoVO vo = new MaintainHotelInfoVO();
+		vo.setAddress("江苏省南京市新街口224号");
+		vo.setHotelId(1);
+		HotelResultMessage result = hotel.setHotelInfo(vo);
+		Assert.assertEquals("wrong", HotelResultMessage.SUCCESS,result);
 	}
 	@Test
 	public void testAddHotel() throws RemoteException{
 		HotelLogicService hotel = new HotelLogicServiceImpl();
 		BusinessCity bc = new BusinessCity();
 		bc.setName("南京");
+		bc.setBcityId(1);
 		BusinessCircle bci = new BusinessCircle();
 		bci.setBcircleId(1);
 		bci.setName("新街口");
 		HotelItemVO hi = new HotelItemVO();
 		hi.setNum(88);
 		hi.setPrice(233);
-		hi.setRoom(new Room());
+		Room room = new Room("大床房");
+		room.setRid(1);
+		hi.setRoom(room);
 		Set<HotelItemVO> items = new HashSet<>();
 		items.add(hi);
 		AddHotelVO vo = new AddHotelVO("如家","如家酒店", "床，wifi", "江苏省南京市新街口233号", "住房，餐饮", bci,  bc, Rank.THREE, items);
+		vo.setUsername("NanjingXJKRuJia");
+		vo.setPassword("123456");
+		vo.setMemberName("小丸子");
 		AddHotelResultVO ahrv = hotel.addHotel(vo);
 		Assert.assertNotEquals("insert failed", null,ahrv);
 		System.out.println(ahrv.getResultMessage());

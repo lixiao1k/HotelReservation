@@ -6,7 +6,9 @@
     <class name="MemberPO" table="Member">
         <id name="mid" type="long">
             <column name="M_ID"></column>
-            <generator class="native"></generator>
+            <generator class="foreign">
+                <param name="property">user</param>
+            </generator>
         </id>
         <discriminator column="MEMBER_TYPE" type="string" ></discriminator>
         <property name="type" not-null="true">
@@ -18,6 +20,7 @@
   		    	<param name="type">12</param>
  		   </type>
         </property>
+        <one-to-one name="user" class="UserPO"></one-to-one>
         <property name="name" type="string">
             <column name="NAME" not-null="false"></column>
         </property>
@@ -26,10 +29,10 @@
                 <column name="CONTACT_WAY" not-null="false"></column>
             </property>
             <property name="credit" type="int">
-                <column name="CREDIT" not-null="true"></column>
+                <column name="CREDIT" not-null="false"></column>
             </property>
             <property name="vip" type="boolean">
-                <column name="VIP" not-null="true"></column>
+                <column name="VIP" not-null="false"></column>
             </property>
             <many-to-one name="vipInfo" unique="true" column="VIP_ID" class="VIPPO" not-null="false"></many-to-one>
             <set name="orders" inverse="true">

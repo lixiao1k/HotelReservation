@@ -12,6 +12,10 @@ public class Room implements Serializable{
 	private static final long serialVersionUID = -1830300546353465658L;
 	private long rid;
 	private String type;
+	public Room(){}
+	public Room(String type){
+		this.type = type;
+	}
 	public long getRid(){
 		return this.rid;
 	}

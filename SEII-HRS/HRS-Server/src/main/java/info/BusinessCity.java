@@ -24,13 +24,13 @@ public class BusinessCity {
 	private void setCircles(Set<BusinessCircle> circles){
 		this.circles = circles;
 	}
-	private long getBcityId(){
+	public long getBcityId(){
 		return this.bcityId;
 	}
 	public void setName(String name){
 		this.name = name;
 	}
-	private void setBcityId(long bcityId){
+	public void setBcityId(long bcityId){
 		this.bcityId = bcityId;
 	}
 }
