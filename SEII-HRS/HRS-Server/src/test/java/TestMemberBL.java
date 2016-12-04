@@ -70,7 +70,7 @@ public class TestMemberBL {
 		MemberResultMessage resultmessage=null;
 		LocalDate testbirth=LocalDate.of(1970, 1, 1);
 		ManageClientVO testvo=new ManageClientVO(2, "bingyuhuo", testbirth, "bingyuhuo", null);
-		memberLogic.addClient(testvo);
+		//memberLogic.addClient(testvo);
 		testvo.addPhonenumber("12345678901");
 		testvo.setUserid(-1);
 		resultmessage=memberLogic.updateClient(testvo);
@@ -85,7 +85,7 @@ public class TestMemberBL {
 		MemberResultMessage resultmessage=null;
 		AddHotelVO testhotelvo=new AddHotelVO("jiangyoujiudian", null, null, "jiangyoulu", null, null, null, null, null);
 		ManageHotelWorkerVO testvo=new ManageHotelWorkerVO(1, 3, "jiangyoujun", "jiangyou", "jiangyou");
-		memberLogic.addHotelWorker(testvo);
+		//memberLogic.addHotelWorker(testvo);
 		testvo.setUsername("jiangyoujunjun");
 		testvo.setHotelid(-1);
 		resultmessage=memberLogic.updateHotelWorker(testvo);
@@ -111,11 +111,11 @@ public class TestMemberBL {
 		MemberResultMessage resultmessage=null;
 		LocalDate testbirth=LocalDate.of(1970, 1, 1);
 		ManageClientVO testclientvo=new ManageClientVO(2, "bingyuhuo", testbirth, "bingyuhuo", null);
-		memberLogic.addClient(testclientvo);
+	//	memberLogic.addClient(testclientvo);
 		resultmessage=memberLogic.delete(2);
 		Assert.assertEquals("Fail in delete client test.", MemberResultMessage.FAIL_WRONGID, resultmessage);
 		ManageHotelWorkerVO testhotelworkervo=new ManageHotelWorkerVO(1, 3, "jiangyoujun", "jiangyou", "jiangyou");
-		memberLogic.addHotelWorker(testhotelworkervo);
+	//	memberLogic.addHotelWorker(testhotelworkervo);
 		resultmessage=memberLogic.delete(3);
 		Assert.assertEquals("Fail in delete hotelworker test.", MemberResultMessage.FAIL_WRONGID, resultmessage);
 		ManageWEBSalerVO testwebsalervo=new ManageWEBSalerVO(4, "pianzijun", "pianzi", "pianzi");

@@ -41,14 +41,6 @@ public class MemberLogicServiceImpl implements MemberLogicService{
 		return memberDO.getWEBSaler(username);
 	}
 	@Override
-	public MemberResultMessage addClient(ManageClientVO vo) throws RemoteException {
-		return memberDO.addClient(vo);
-	}
-	@Override
-	public MemberResultMessage addHotelWorker(ManageHotelWorkerVO vo) throws RemoteException {
-		return memberDO.addHotelWorker(vo);
-	}
-	@Override
 	public MemberResultMessage addWEBSaler(ManageWEBSalerVO vo) throws RemoteException {
 		return memberDO.addWEBSaler(vo);
 	}
