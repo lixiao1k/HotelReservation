@@ -28,6 +28,11 @@ public class HotelPO {
 	public HotelPO(){
 		
 	}
+	public void printRoom(){
+		for(HotelItem hi:rooms){
+			System.out.println(hi.getRoom().getType()+":"+hi.getDate());
+		}
+	}
 	public void setHotelworker(MemberPO hotelworker){
 		this.hotelworker = hotelworker;
 	}
@@ -91,7 +96,7 @@ public class HotelPO {
 	public Iterator<HotelItem> getRoom(){
 		return this.rooms.iterator();
 	}
-	private Set<HotelItem> getRooms(){
+	public Set<HotelItem> getRooms(){
 		return rooms;
 	}
 	private Set<StrategyPO> getStrategies(){

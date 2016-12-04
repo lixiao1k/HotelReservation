@@ -18,6 +18,22 @@ public class NewOrderVO {
 	private double roomPrice;
 	private long strategy;
 	private double strategyOff;
+	//for test
+	public NewOrderVO(long userId,long hotelId,boolean child,int people,String contactWay,String contactName,Date checkInTime,Date checkOutTime,Room room,int roomNum,double roomPrice,long strategy,double strategyOff){
+		this.userId = userId;
+		this.hotelId = hotelId;
+		this.child = child;
+		this.people = people;
+		this.contactWay = contactWay;
+		this.checkInTime = checkInTime;
+		this.checkOutTime = checkOutTime;
+		this.contactName = contactName;
+		this.room = room;
+		this.roomNum = roomNum;
+		this.roomPrice = roomPrice;
+		this.strategy = strategy;
+		this.strategyOff = strategyOff;
+	}
 	public String getContactWay(){
 		return contactWay;
 	}

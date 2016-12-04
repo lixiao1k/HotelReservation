@@ -32,5 +32,6 @@
   		    	<param name="type">12</param>
  		   </type>
         </property>
+        <one-to-one name="member" class="MemberPO"></one-to-one>
     </class>
 </hibernate-mapping>

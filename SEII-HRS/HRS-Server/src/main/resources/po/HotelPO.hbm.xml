@@ -59,7 +59,7 @@
             <one-to-many class="OrderPO"/>
         </set>
         <set name="rooms" inverse="true" cascade="all" lazy="true">
-            <key column="HI_ID"></key>
+            <key column="HOTEL_ID"></key>
             <one-to-many class="info.HotelItem"/>
         </set>
         <set name="strategies" inverse="true" cascade="all" lazy="true">

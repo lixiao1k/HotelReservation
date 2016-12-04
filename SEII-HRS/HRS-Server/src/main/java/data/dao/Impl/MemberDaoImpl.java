@@ -1,12 +1,17 @@
 package data.dao.Impl;
 
 import data.dao.MemberDao;
+import data.datahelper.MemberDataHelper;
+import data.datahelper.impl.DataFactory;
 import info.ListWrapper;
 import po.MemberPO;
 import po.VIPPO;
 
 public class MemberDaoImpl implements MemberDao{
-
+	private MemberDataHelper memberDataHelper;
+	public MemberDaoImpl() {
+		memberDataHelper = DataFactory.getInstance().getMemberDataHelper();
+	}
 	@Override
 	public void registerVIP(VIPPO vpo) {
 		// TODO Auto-generated method stub
@@ -45,8 +50,7 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public void add(MemberPO po) {
-		// TODO Auto-generated method stub
-		
+		memberDataHelper.insert(po);
 	}
 
 	@Override

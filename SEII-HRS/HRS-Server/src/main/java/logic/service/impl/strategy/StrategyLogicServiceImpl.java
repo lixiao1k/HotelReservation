@@ -34,7 +34,7 @@ public class StrategyLogicServiceImpl implements StrategyLogicService{
 	@Override
 	public StrategyResultVO create(StrategyVO vo) throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		return strategyDO.create(vo);
 	}
 
 	@Override

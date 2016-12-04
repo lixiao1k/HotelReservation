@@ -9,6 +9,7 @@ public class UserPO {
 	private String password;
 	private UserType type;
 	private UserStatus status;
+	private MemberPO member;
 	public UserPO(){
 		
 	}
@@ -55,5 +56,11 @@ public class UserPO {
 	}
 	public void setType(UserType type) {
 		this.type = type;
+	}
+	public MemberPO getMember() {
+		return member;
+	}
+	public void setMember(MemberPO member) {
+		this.member = member;
 	}
 }

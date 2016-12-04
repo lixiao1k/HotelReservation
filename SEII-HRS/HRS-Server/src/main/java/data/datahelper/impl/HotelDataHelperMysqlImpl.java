@@ -18,14 +18,13 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 	private static final String getAllCityQuery = "from BusinessCity";
 	private static final String getHotelByCityAndCircle = 
 									"from HotelPO as h where h.businessCity=:BCITY and h.businessCircle=:BCIRCLE";
-	private static final String getHotelItemQuery = "from HotleItem as hi wher hi.hotel=:HOTEL and hi.room=:ROOM";
+	private static final String getHotelItemQuery = "from HotelItem as hi where hi.hotel=:HOTEL and hi.room=:ROOM";
 	private static final String getHotelListByRuleQuery = 
-			"from HotelPO as h where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY and";
+			"from HotelPO as h where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY";
 	private static final String getHotelListByString = 
 			"from HotelPO as h where h.name like :STRING";
 	@Override
 	public void insert(HotelPO po) {
-		System.out.println("1");
 		HibernateUtil.getCurrentSession().save(po);
 	}
 
@@ -71,7 +70,7 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 
 	@Override
 	public List<HotelItem> getHotelItemByRoom(long hotelId,Room room) {
-		HotelPO po = (HotelPO) HibernateUtil.getCurrentSession().get(HotelPO.class, hotelId);
+		HotelPO po = (HotelPO) HibernateUtil.getCurrentSession().load(HotelPO.class, hotelId);
 		Query query = HibernateUtil.getCurrentSession().createQuery(getHotelItemQuery);
 		query.setEntity("HOTEL", po);
 		query.setEntity("ROOM", room);

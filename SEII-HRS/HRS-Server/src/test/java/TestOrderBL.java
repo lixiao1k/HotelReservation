@@ -1,12 +1,26 @@
 import java.rmi.RemoteException;
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import info.Room;
 import logic.service.OrderLogicService;
 import logic.service.impl.order.OrderLogicServiceImpl;
 import resultmessage.OrderResultMessage;
+import vo.NewOrderVO;
 
 public class TestOrderBL {
+	@Test 
+	public void testCreate() throws RemoteException{
+		OrderLogicService orderLogic = new OrderLogicServiceImpl();
+		Room room = new Room();
+		room.setRid(1);
+		room.setType("´ó´²·¿");
+		NewOrderVO vo = new NewOrderVO(1,1,false,4,"13307612344","ÃÈÐÂ",new Date(),new Date(),room,2,233,1,0.3);
+		OrderResultMessage result = orderLogic.create(vo);
+		Assert.assertEquals("wrong", OrderResultMessage.SUCCESS,result);
+	}
 	@Test
 	public void testAbnormal() throws RemoteException{
 		OrderLogicService orderLogic = new OrderLogicServiceImpl();

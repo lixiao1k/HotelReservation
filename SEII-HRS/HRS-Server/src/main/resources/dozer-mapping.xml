@@ -58,14 +58,6 @@
 </mapping>
 <mapping>
    <class-a>po.MemberPO</class-a>
-    <class-b>Object</class-b>
-    <field>
-        <a>mid</a>
-        <b>userid</b>
-    </field>
-</mapping>
-<mapping>
-   <class-a>po.MemberPO</class-a>
     <class-b>vo.ManageClientVO</class-b>
     <field>
         <a>mid</a>
@@ -96,4 +88,5 @@
         <b>name</b>
     </field>
 </mapping>
+
 </mappings>

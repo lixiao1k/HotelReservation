@@ -5,6 +5,7 @@ import info.UserType;
 public class MemberPO {
 	private String name;
 	private UserType type;
+	private UserPO user;
 	private long mid;
 	public MemberPO(){
 	}
@@ -23,7 +24,7 @@ public class MemberPO {
 	public void setUserType(UserType type){
 		this.type = type;
 	}
-	private void setMid(long mid){
+	public void setMid(long mid){
 		this.mid = mid;
 	}
 	public UserType getType() {
@@ -31,6 +32,12 @@ public class MemberPO {
 	}
 	public void setType(UserType type) {
 		this.type = type;
+	}
+	public UserPO getUser() {
+		return user;
+	}
+	public void setUser(UserPO user) {
+		this.user = user;
 	}
 
 }

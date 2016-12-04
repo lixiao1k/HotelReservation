@@ -22,6 +22,7 @@ import po.strategies.StrategyRule;
 import resultmessage.StrategyResultMessage;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
+import util.SerializeUtil;
 import util.StrategyRuleUtil;
 import vo.CreateStrategyVO;
 import vo.HotelStrategyVO;
@@ -121,7 +122,7 @@ public class StrategyDO {
 			Class<?> clazz = Class.forName(StrategyRuleUtil.getInstance().getClassName(vo.getType().getName()));
 			Constructor constructor = clazz.getConstructor(String.class);
 			StrategyRule rule = (StrategyRule) constructor.newInstance(vo.getExtraInfo());
-			po.setStrategyRule(rule);
+			po.setRule(SerializeUtil.objectToBlob(rule));
 			//…Ë÷√items
 			Iterator<StrategyItemVO> sivoIt = vo.getItems().iterator();
 			Set<StrategyItem> items = new HashSet<>();
@@ -162,9 +163,11 @@ public class StrategyDO {
 			HibernateUtil.getCurrentSession()
 							.getTransaction()
 							.commit();
+			return srvo;
 		}catch(RuntimeException | ClassNotFoundException 
 				| NoSuchMethodException | InstantiationException 
 				| IllegalAccessException | InvocationTargetException e){
+			e.printStackTrace();
 			strategies.remove(po.getId());
 			result = StrategyResultMessage.FAIL_WRONG;
 			srvo.setResultMessage(result);
@@ -187,7 +190,7 @@ public class StrategyDO {
 		while (it.hasNext()){
 			StrategyPO po = it.next();
 			HotelStrategyVO vo = DozerMappingUtil.getInstance().map(po, HotelStrategyVO.class);
-			vo.setExtraInfo(po.getRule().getInfo());
+			vo.setExtraInfo(SerializeUtil.blobToStrategyRule(po.getRule()).getInfo());
 			Set<StrategyItemVO> set = new HashSet<>();
 			Iterator<StrategyItem> siit = po.getStrategyRoom();
 			while(siit.hasNext()){
@@ -240,7 +243,7 @@ public class StrategyDO {
 			Iterator<StrategyPO> it = webList.iterator();
 			while(it.hasNext()){
 				StrategyPO po = it.next();
-				if (po.getRule().canBeApplied(vo)){
+				if (SerializeUtil.blobToStrategyRule(po.getRule()).canBeApplied(vo)){
 					tempList.add(po);
 				}
 			}

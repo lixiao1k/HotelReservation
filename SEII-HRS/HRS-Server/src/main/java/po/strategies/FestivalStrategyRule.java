@@ -5,6 +5,7 @@ import java.util.Date;
 
 import info.OrderStrategy;
 import po.OrderPO;
+import util.DateUtil;
 
 public class FestivalStrategyRule implements StrategyRule,Serializable{
 	/**
@@ -16,11 +17,12 @@ public class FestivalStrategyRule implements StrategyRule,Serializable{
 	public FestivalStrategyRule(String data) {
 		if (data==null)
 			throw new IllegalArgumentException("illegal argument");
-		String[] datas = data.split("|");
+		String[] datas = data.split("\\|");
+		System.out.println(datas[0]);
 		if (datas.length!=2)
 			throw new IllegalArgumentException("illegal argument");
-		beginTime = new Date(datas[0]);
-		endTime = new Date(datas[1]);
+		beginTime = DateUtil.transform(datas[0]);
+		endTime = DateUtil.transform(datas[1]);
 	}
 	@Override
 	public boolean canBeApplied(OrderStrategy po) {

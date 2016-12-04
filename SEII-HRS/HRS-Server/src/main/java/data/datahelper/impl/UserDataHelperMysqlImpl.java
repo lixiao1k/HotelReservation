@@ -1,5 +1,7 @@
 package data.datahelper.impl;
 
+import java.util.List;
+
 import javax.persistence.NonUniqueResultException;
 
 import org.hibernate.Query;
@@ -30,10 +32,9 @@ public class UserDataHelperMysqlImpl implements UserDataHelper{
 		Query query = HibernateUtil.getCurrentSession().createQuery(getInfoByUsername);
 		query.setString("USERNAME", username);
 		UserPO result = null;
-		try{
-			result = (UserPO)query.uniqueResult();
-		}catch(NonUniqueResultException e){
-			throw e;
+		List<UserPO> list = query.list();
+		if(list!=null&&list.size()>0){
+			result = list.get(0);
 		}
 		return result;
 	}
