@@ -58,7 +58,7 @@
 </mapping>
 <mapping>
    <class-a>po.MemberPO</class-a>
-    <class-b>Object</class-b>
+    <class-b>ManageHotelWorkerVO</class-b>
     <field>
         <a>mid</a>
         <b>userid</b>
