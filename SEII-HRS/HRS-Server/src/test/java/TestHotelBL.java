@@ -40,6 +40,7 @@ public class TestHotelBL {
 			while(itt.hasNext()){
 				System.out.print(itt.next().getName()+"  ");
 			}
+			System.out.println();
 			System.out.println("----------------------------");
 		}
 	}

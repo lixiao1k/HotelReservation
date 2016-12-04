@@ -25,6 +25,7 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 			"from HotelPO as h where h.name like :STRING";
 	@Override
 	public void insert(HotelPO po) {
+		System.out.println("1");
 		HibernateUtil.getCurrentSession().save(po);
 	}
 
