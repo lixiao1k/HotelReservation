@@ -27,7 +27,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public MemberPO getInfo(long userid) {
 		// TODO Auto-generated method stub
-		return null;
+		return memberDataHelper.getInfo(userid);
 	}
 
 	@Override

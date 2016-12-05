@@ -88,6 +88,7 @@ public class StrategyDO {
 				}
 				else{
 					strategyDao.delete(po);
+					HibernateUtil.getCurrentSession().getTransaction().commit();
 					return StrategyResultMessage.SUCCESS;
 				}
 			}catch(RuntimeException e){

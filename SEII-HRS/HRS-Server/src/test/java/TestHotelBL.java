@@ -13,8 +13,11 @@ import vo.AddHotelVO;
 import vo.BasicHotelVO;
 import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
+import vo.ExtraHotelVO;
 import vo.HotelItemVO;
 import vo.MaintainHotelInfoVO;
+import vo.MaintainRoomInfoVO;
+import vo.RoomInfoVO;
 import vo.SearchHotelVO;
 
 import java.rmi.RemoteException;
@@ -51,14 +54,53 @@ public class TestHotelBL {
 		bc.setName("南京");
 		bc.setBcityId(1);
 		vo.setBusinessCity(bc);
+		BusinessCircle bcir = new BusinessCircle();
+		bcir.setName("新街口");
+		bcir.setBcircleId(1);
+		vo.setBusinessCircle(bcir);
 		ListWrapper<BasicHotelVO> list = hotel.getHotels(vo);
-		Assert.assertEquals("wrong", null, list);
+		Assert.assertNotEquals("wrong", null, list);
+		Iterator<BasicHotelVO> it = list.iterator();
+		while(it.hasNext()){
+			BasicHotelVO bhvo = it.next();
+			System.out.println(bhvo.getHotelName());
+		}
 	}
 	@Test
 	public void testGetBookHotel() throws RemoteException{
 		HotelLogicService hotel = new HotelLogicServiceImpl();
-		ListWrapper<Long> list = hotel.getBookHotel(1);
-		Assert.assertEquals("wrong", null,list);
+		ListWrapper<Long> list = hotel.getBookHotel(2);
+		Assert.assertNotEquals("wrong", null,list);
+		Iterator<Long> it = list.iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}
+	}
+	@Test
+	public void setRoomInfo() throws RemoteException{
+		HotelLogicService hotel = new HotelLogicServiceImpl();
+		MaintainRoomInfoVO vo = new MaintainRoomInfoVO();
+		vo.setHotelId(1);
+		Set<RoomInfoVO> list = new HashSet<>();
+		RoomInfoVO rvo = new RoomInfoVO();
+		rvo.setNum(3);
+		Room room = new Room();
+		room.setRid(1);
+		room.setType("大床房");
+		rvo.setSourceType(room);
+		rvo.setTargetType(room);
+		list.add(rvo);
+		vo.setChangeInfo(list);
+		HotelResultMessage result = hotel.setRoomInfo(vo);
+		Assert.assertEquals("wrong", HotelResultMessage.SUCCESS,result);
+		
+	}
+	@Test
+	public void testGetExtraHotelDetail() throws RemoteException{
+		HotelLogicService hotel = new HotelLogicServiceImpl();
+		ExtraHotelVO vo = hotel.getExtraHotelDetail(1, 3);
+		Assert.assertNotEquals("Wrong", null,vo);
+		System.out.println(vo.getBookedOrders().size());
 	}
 	@Test
 	public void testRoomCheckIn() throws RemoteException{
@@ -81,7 +123,7 @@ public class TestHotelBL {
 		CheckOutRoomInfoVO vo = new CheckOutRoomInfoVO();
 		vo.setActualCheckOutTime(new Date());
 		vo.setOrderId(1);
-		Assert.assertEquals("wrong"	,HotelResultMessage.FAIL,hotel.roomCheckOut(vo));
+		Assert.assertEquals("wrong"	,HotelResultMessage.SUCCESS,hotel.roomCheckOut(vo));
 		
 	}
 	@Test

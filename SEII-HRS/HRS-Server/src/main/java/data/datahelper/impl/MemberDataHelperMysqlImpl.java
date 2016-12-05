@@ -11,5 +11,10 @@ public class MemberDataHelperMysqlImpl implements MemberDataHelper{
 	public void insert(MemberPO po) {
 		HibernateUtil.getCurrentSession().save(po);
 	}
+
+	@Override
+	public MemberPO getInfo(long userid) {
+		return (MemberPO) HibernateUtil.getCurrentSession().get(MemberPO.class, userid);
+	}
 	
 }

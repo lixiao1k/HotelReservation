@@ -28,7 +28,7 @@ public class StrategyLogicServiceImpl implements StrategyLogicService{
 	@Override
 	public StrategyResultMessage delete(long strategyId) throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		return strategyDO.delete(strategyId);
 	}
 
 	@Override
@@ -40,18 +40,18 @@ public class StrategyLogicServiceImpl implements StrategyLogicService{
 	@Override
 	public ListWrapper<HotelStrategyVO> getStrategyList(long hotelId) throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		return strategyDO.getStrategyList(hotelId);
 	}
 
 	@Override
 	public ListWrapper<HotelStrategyVO> getStrategyForOrder(OrderStrategy vo) throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		return strategyDO.getStrategyForOrder(vo);
 	}
 	@Override
 	public ListWrapper<String> getTypes() throws RemoteException {
 		// TODO Auto-generated method stub
-		return null;
+		return strategyDO.getTypes();
 	}
 
 }

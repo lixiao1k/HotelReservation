@@ -139,7 +139,7 @@ public class HotelDO {
 	public ExtraHotelVO getExtraHotelDetail(long hotelId, long userId) throws RemoteException {
 		HotelPO cachePO = null;
 		cachePO = hotels.get(hotelId);
-		ExtraHotelVO result = null;
+		ExtraHotelVO result = new ExtraHotelVO();
 		boolean flag = false;
 		if (cachePO==null){
 			try{
@@ -160,6 +160,7 @@ public class HotelDO {
 					}
 					result.setComments(coList);
 					ListWrapper<OrderPO> olist = DaoManager.getInstance().getOrderDao().getHotelUserOrders(hotelId, userId);
+					
 					Iterator<OrderPO> oit = olist.iterator();
 					Set<OrderVO> oList = new HashSet<>();
 					while(oit.hasNext()){
@@ -174,6 +175,7 @@ public class HotelDO {
 								.commit();
 				return result;
 			}catch(RuntimeException e){
+				e.printStackTrace();
 				hotels.remove(hotelId);
 				try{
 					HibernateUtil.getCurrentSession()
@@ -229,6 +231,7 @@ public class HotelDO {
 							.commit();
 			return new ListWrapper<Long>(result);
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
@@ -532,10 +535,12 @@ public class HotelDO {
 			HibernateUtil.getCurrentSession().getTransaction().commit();
 			return new ListWrapper<>(result);
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return null;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}
