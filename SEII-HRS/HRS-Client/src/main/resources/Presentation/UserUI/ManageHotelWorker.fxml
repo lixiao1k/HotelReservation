@@ -55,7 +55,7 @@
             <Insets bottom="220.0" left="20.0" right="20.0" />
          </GridPane.margin>
       </TableView>
-      <Button mnemonicParsing="false" text="添加" GridPane.rowIndex="1">
+      <Button mnemonicParsing="false" onAction="#Commit" text="提交" GridPane.rowIndex="1">
          <font>
             <Font size="20.0" />
          </font>
@@ -63,7 +63,7 @@
             <Insets left="300.0" top="230.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" text="提交" GridPane.rowIndex="1">
+      <Button mnemonicParsing="false" onAction="#Cancel" text="取消" GridPane.rowIndex="1">
          <font>
             <Font size="20.0" />
          </font>
