@@ -16,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import test.TestManageClientVO;
 
 public class KeepPersonInfoController implements Initializable{
 	@FXML Label IDLabel;
@@ -24,8 +25,10 @@ public class KeepPersonInfoController implements Initializable{
 	@FXML TextField companyNameTextField;
 	@FXML ComboBox<String> contactComboBox;
 	@FXML Label creditLabel;
+	TestManageClientVO testmanageclientvo = new TestManageClientVO();
 	
 	private boolean isEdit=false;
+	private long userid;
 	
 	
 	@FXML 
@@ -72,12 +75,16 @@ public class KeepPersonInfoController implements Initializable{
 		
 	}
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		// TODO Auto-generated method stub
+		nameTextField.setText(testmanageclientvo.returnManageClientVO().getUsername());
+		companyNameTextField.setText(testmanageclientvo.returnManageClientVO().getCompanyname());
+		birthdayTextField.setText(testmanageclientvo.returnManageClientVO().getBirthday().toString());
+		IDLabel.setText(Long.toString(testmanageclientvo.returnManageClientVO().getUserid()));
 		nameTextField.setEditable(false);
 		companyNameTextField.setEditable(false);
 		contactComboBox.setEditable(false);
 		birthdayTextField.setEditable(false);
-		birthdayTextField.setText("1996/11/19");
+		
 	}
-
 }

@@ -8,6 +8,6 @@ import resultmessage.CreditResultMessage;
 import vo.CreditVO;
 
 public interface CreditLogicService extends Remote{
+	public CreditResultMessage excharge(long userId, int delta);
 	public ListWrapper<CreditVO> getInfo(long userId) throws RemoteException;
-	public CreditResultMessage insert(CreditVO vo) throws RemoteException;
 }

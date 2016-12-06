@@ -17,18 +17,29 @@ import javafx.stage.Stage;
 public class RegisterMainController implements Initializable{
 	@FXML TextField usernameField;
 	@FXML PasswordField passwordField;
+	LoginMainController loginMainController;
 	@FXML 
 	protected void save(ActionEvent e) throws IOException{
 		// save logic
-		System.out.println("æ³¨å†ŒæˆåŠŸ(ç”±äºé€»è¾‘å±‚è¿˜æœªå†™ï¼Œè´¦å·ä¸å­˜å‚¨ã€‚ã€‚ã€‚è¯·ç”¨é¢„è®¾è´¦å·ç™»å½•æŸ¥çœ‹)");
+//		System.out.println("×¢²á³É¹¦(ÓÉÓÚÂß¼­²ã»¹Î´Ğ´£¬ÕËºÅ²»´æ´¢¡£¡£¡£ÇëÓÃÔ¤ÉèÕËºÅµÇÂ¼²é¿´)");
+		
+		String username = usernameField.getText();
+		String password = passwordField.getText();
+		
+		
+		
 		Parent root = FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
 		Scene scene = new Scene(root);
 		Stage login = new Stage();
 		login.setScene(scene);
-		login.setTitle("é…’åº—é¢„è®¢ç³»ç»Ÿç™»å½•");
+		login.setTitle("¾ÆµêÔ¤¶©ÏµÍ³µÇÂ¼");
 		login.show();
 		Stage register = (Stage) usernameField.getScene().getWindow();
 		register.close();
+	}
+	
+	public void setLoginController(LoginMainController loginController){
+		this.loginMainController=loginController;
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

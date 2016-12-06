@@ -1,6 +1,7 @@
 package vo;
 
 import java.util.Set;
+
 import info.StrategyType;
 
 public class HotelStrategyVO {
