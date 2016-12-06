@@ -58,7 +58,7 @@
 </mapping>
 <mapping>
    <class-a>po.MemberPO</class-a>
-    <class-b>ManageHotelWorkerVO</class-b>
+    <class-b>vo.ManageHotelWorkerVO</class-b>
     <field>
         <a>mid</a>
         <b>userid</b>

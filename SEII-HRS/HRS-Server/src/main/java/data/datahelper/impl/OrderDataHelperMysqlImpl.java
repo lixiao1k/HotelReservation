@@ -32,10 +32,8 @@ public class OrderDataHelperMysqlImpl implements OrderDataHelper{
 
 	@Override
 	public OrderPO getInfo(long orderId) {
-
 		OrderPO po = (OrderPO)HibernateUtil.getCurrentSession()
 								.get(OrderPO.class, orderId);
-	
 		return po;
 	}
 

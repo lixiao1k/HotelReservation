@@ -44,4 +44,10 @@ public class UserDataHelperMysqlImpl implements UserDataHelper{
 		HibernateUtil.getCurrentSession().update(po);
 	}
 
+	@Override
+	public void delete(long userid) {
+		UserPO po = (UserPO)HibernateUtil.getCurrentSession().get(UserPO.class, userid);
+		HibernateUtil.getCurrentSession().delete(po);
+	}
+
 }

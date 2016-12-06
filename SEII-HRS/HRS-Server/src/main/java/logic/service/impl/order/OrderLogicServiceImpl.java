@@ -70,13 +70,12 @@ public class OrderLogicServiceImpl implements OrderLogicService{
 	}
 	@Override
 	public OrderResultMessage userRevoke(long orderId) throws RemoteException {
-		// TODO Auto-generated method stub
 		return orderDO.userRevoke(orderId);
 	}
 	@Override
-	public OrderResultMessage webRevoke(long orderId) throws RemoteException {
+	public OrderResultMessage webRevoke(long orderId,int rank) throws RemoteException {
 		// TODO Auto-generated method stub
-		return orderDO.webRevoke(orderId);
+		return orderDO.webRevoke(orderId,rank);
 	}
 	
 }

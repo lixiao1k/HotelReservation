@@ -1,5 +1,5 @@
 package resultmessage;
 
 public enum HotelResultMessage {
-	SUCCESS,FAIL
+	SUCCESS,FAIL,FAIL_NOTENOUGHINFO,FAIL_WRONGID,FAIL_WRONGINFO
 }

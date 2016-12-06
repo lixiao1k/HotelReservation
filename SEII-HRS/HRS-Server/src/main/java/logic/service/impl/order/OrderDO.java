@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.management.RuntimeErrorException;
 
+import org.hibernate.Hibernate;
 import org.hibernate.engine.HibernateIterator;
 
 import data.dao.OrderDao;
@@ -17,13 +18,17 @@ import info.HotelItem;
 import info.ListWrapper;
 import info.OrderStatus;
 import info.Room;
+import info.StrategyItem;
+import po.ClientMemberPO;
 import po.HotelPO;
+import po.HotelWorkerPO;
 import po.MemberPO;
 import po.OrderPO;
 import po.StrategyPO;
 import po.UserPO;
 import resultmessage.HotelResultMessage;
 import resultmessage.OrderResultMessage;
+import util.DateUtil;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
 import vo.NewOrderVO;
@@ -192,6 +197,7 @@ public class OrderDO {
 			}
 		}
 		if (hpo==null||mpo==null||spo==null) return OrderResultMessage.FAIL_WRONGORDERINFO;
+		
 		//二次验证订单的房间信息是否属实
 		Room room = vo.getRoom();
 		Iterator<HotelItem> hoiit = hpo.getRoom();
@@ -211,11 +217,40 @@ public class OrderDO {
 		if (!roomFlag) return OrderResultMessage.FAIL_WRONGORDERINFO;
 		//设置新订单信息
 		OrderPO po = DozerMappingUtil.getInstance().map(vo, OrderPO.class);
+		if(spo.getType().getName().contains("WEB")){
+			po.setOff(spo.getOff());
+		}else{
+			Iterator<StrategyItem> siit = spo.getStrategyRoom(); 
+			while(siit.hasNext()){
+				StrategyItem si = siit.next();
+				if(si.getRoom().getType().equals(po.getRoom().getType())){
+					po.setOff(si.getOff());
+					break;
+				}
+			}
+		}
+		double price = po.getPrice();
+		if(((ClientMemberPO)mpo).getCredit()<price)
+			return OrderResultMessage.FAIL_NOTENOUGHCREDIT;
+		ListWrapper<HotelItem> hiList = DaoManager.getInstance().getHotelDao().getHotelItemByRoom(hpo.getHid(), vo.getRoom());
+		if(hiList==null)
+			return OrderResultMessage.FAIL_WRONGORDERINFO;
+		else{
+			Iterator<HotelItem> hiit = hiList.iterator();
+			while(hiit.hasNext()){
+				HotelItem hi = hiit.next();
+				if(hi.getDate().before(vo.getCheckOutTime())&&hi.getDate().after(vo.getCheckInTime())){
+					hi.setNum(hi.getNum()-vo.getRoomNum());
+					DaoManager.getInstance().getHotelDao().updateRoom(hpo.getHid(), hi);
+				}
+			}
+		}
 		po.setStatus(OrderStatus.UNEXECUTED);
 		po.setAbnormalTime(null);
 		po.setMember(mpo);
 		po.setHotel(hpo);
 		po.setStrategy(spo);
+
 		String orderNum = "SE-"+now.getDate()+po.hashCode();
 		po.setOrderId(orderNum);
 		//存储订单，开启数据库事务,同时存储到cache中
@@ -241,10 +276,48 @@ public class OrderDO {
 			throw e;
 		}
 	}
+	private OrderResultMessage extraOperation(OrderPO po,int operation,int extraOperation){
+		double[] rank = {1,0.5};
+		//revoke 数据
+		Date now = new Date();
+		Date judge = DateUtil.getBeforeDate(po.getCheckInTime(), 6);
+		Date judge2 = DateUtil.getFutureDate(po.getCheckInTime(), 6);
+		double[] sync = {-1,1,1,0,0};
+		int[] roomSync = {-1,0,1,1};
+		if(operation==4)
+			sync[4] = rank[extraOperation];
+		sync[3] = (now.before(judge))? 1:(now.before(po.getCheckInTime())? 0.5:0);
+		if(operation==3&&sync[3]==0)
+			return OrderResultMessage.FAIL_WRONGORDERINFO;
+		// abnormal额外操作
+		if (operation==1&&now.after(po.getCheckInTime())&&now.before(judge2))
+			po.setAbnormalTime(new Timestamp(System.currentTimeMillis()));
+		else 
+			return OrderResultMessage.FAIL_WRONGSTATUS;
+			MemberPO member = po.getMember();
+			((ClientMemberPO)member).setCredit((int) (((ClientMemberPO)member).getCredit()+sync[operation]*po.getPrice()));
+			DaoManager.getInstance().getMemberDao().update(member);
+		if(operation==0||operation==2||operation==3){
+			ListWrapper<HotelItem> hiList = DaoManager.getInstance().getHotelDao().getHotelItemByRoom(po.getHotel().getHid(), po.getRoom());
+			if(hiList==null)
+				return OrderResultMessage.FAIL_WRONGORDERINFO;
+			else{
+				Iterator<HotelItem> hiit = hiList.iterator();
+				while(hiit.hasNext()){
+					HotelItem hi = hiit.next();
+					if(hi.getDate().before(po.getCheckOutTime())&&hi.getDate().after(po.getCheckInTime())){
+						hi.setNum(hi.getNum()+roomSync[operation]*po.getRoomNum());
+						DaoManager.getInstance().getHotelDao().updateRoom(po.getHotel().getHid(), hi);
+					}
+				}
+			}
+		}
+		return OrderResultMessage.SUCCESS;
+	}
 	/*
 	 * 由于execute,reExecute,abnormal和cancel的方法大体相同，采用表驱动的方式,1为订单异常，2为执行，3为补执行，4为用户撤销，5为网站人员撤销
 	 */
-	private OrderResultMessage changeStatus(long orderId,int operation){
+	private OrderResultMessage changeStatus(long orderId,int operation,int extraOperation){
 		//判别订单的状态
 		OrderStatus[] judgeStatus = {OrderStatus.UNEXECUTED
 									 ,OrderStatus.UNEXECUTED
@@ -281,8 +354,12 @@ public class OrderDO {
 					if(po.getStatus()==judgeStatus[operation-1]){
 						po.setStatus(changeStatus[operation-1]);
 						//额外事务卸载这里
-						if (operation==1)
-							po.setAbnormalTime(new Timestamp(System.currentTimeMillis()));
+						OrderResultMessage temp = extraOperation(po, operation-1, extraOperation);
+						if(temp!=OrderResultMessage.SUCCESS){
+							HibernateUtil.getCurrentSession().getTransaction().rollback();
+							return temp;
+						}
+						
 						orderDao.update(po);
 						//提交事务并返回成功
 						HibernateUtil.getCurrentSession()
@@ -307,6 +384,7 @@ public class OrderDO {
 				}
 			}catch(RuntimeException e){
 				//遇到运行时相关错误则回滚事务
+				e.printStackTrace();
 				orders.remove(po.getOid());
 				try{
 					HibernateUtil.getCurrentSession()
@@ -329,8 +407,11 @@ public class OrderDO {
 				if (tempStatus==judgeStatus[operation-1]){
 					cachePO.setStatus(changeStatus[operation-1]);
 					//这里设置额外的操作
-					if (operation==1)
-						cachePO.setAbnormalTime(new Timestamp(System.currentTimeMillis()));
+					OrderResultMessage temp =extraOperation(cachePO, operation-1, extraOperation);
+					if(temp==OrderResultMessage.FAIL_WRONGORDERINFO){
+						HibernateUtil.getCurrentSession().getTransaction().rollback();
+						return temp;
+					}
 					//更新数据库和cache
 					orderDao.update(cachePO);
 					//提交事务并返回
@@ -361,19 +442,19 @@ public class OrderDO {
 		}
 	}
 	public OrderResultMessage abnormal(long orderId) {
-		return changeStatus(orderId,1);
+		return changeStatus(orderId,1,-1);
 	}
 	public OrderResultMessage userRevoke(long orderId) {
-		return changeStatus(orderId,4);
+		return changeStatus(orderId,4,-1);
 	}
 	public OrderResultMessage execute(long orderId) {
-		return changeStatus(orderId,2);
+		return changeStatus(orderId,2,-1);
 	}
 	public OrderResultMessage reExecute(long orderId) {
-		return changeStatus(orderId,3);
+		return changeStatus(orderId,3,-1);
 	}
-	public OrderResultMessage webRevoke(long orderId){
-		return changeStatus(orderId,5);
+	public OrderResultMessage webRevoke(long orderId,int rank){
+		return changeStatus(orderId,5,rank);
 	}
 
 }

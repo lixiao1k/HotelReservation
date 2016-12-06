@@ -10,16 +10,16 @@ import po.StrategyPO;
 import util.HibernateUtil;
 
 public class StrategyDataHelperMysqlImpl implements StrategyDataHelper{
-	private static final String hotelStrategyList = "from StrategyPO as s where s.hotel=:HOTEL";
-	private static final String webStrategyList = "from StrategyPO as s where s.type=1";
+	private static final String hotelStrategyList = "from StrategyPO as s where s.hotel=:HOTEL and s.status='false'";
+	private static final String webStrategyList = "from StrategyPO as s where s.type=1 and s.status='false'";
 	@Override
 	public void insert(StrategyPO po) {
 		HibernateUtil.getCurrentSession().save(po);
 	}
 
 	@Override
-	public void delete(StrategyPO po) {
-		HibernateUtil.getCurrentSession().delete(po);
+	public void update(StrategyPO po) {
+		HibernateUtil.getCurrentSession().update(po);
 	}
 
 	@Override

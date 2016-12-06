@@ -18,9 +18,23 @@ public class DateUtil {
 	        //获取一个日历实例  
 	        Calendar c = Calendar.getInstance();
 	        //设定日历的日期  
-	        c.set(year, month-1, day);
+	        c.set(year, month-1, day,0,0,0);
 	        result = c.getTime();  
 		}
+		return result;
+	}
+	//返回参数时间后隔hour个小时的Date
+	public static Date getFutureDate(Date date,int hour){
+		long time = date.getTime();
+		time+=hour*60*60*1000;
+		Date result = new Date(time);
+		return result;
+	}
+	//返回参数时间前hour小时时间
+	public static Date getBeforeDate(Date date,int hour){
+		long time = date.getTime();
+		time-=hour*60*60*1000;
+		Date result = new Date(time);
 		return result;
 	}
 }

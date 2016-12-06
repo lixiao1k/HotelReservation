@@ -9,6 +9,7 @@ import vo.ManageClientVO;
 import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
 import vo.ManageWEBSalerVO;
+import vo.MemberVO;
 import vo.VIPVO;
 
 public class MemberLogicServiceImpl implements MemberLogicService{
@@ -59,6 +60,11 @@ public class MemberLogicServiceImpl implements MemberLogicService{
 	@Override
 	public MemberResultMessage delete(long id) throws RemoteException {
 		return memberDO.delete(id);
+	}
+	@Override
+	public MemberVO getInfo(long userId) throws RemoteException {
+		// TODO Auto-generated method stub
+		return memberDO.getInfo(userId);
 	}
 
 }

@@ -17,6 +17,9 @@
         <property name="date" type="date">
             <column name="DATE" not-null="true"></column>
         </property>
+        <property name="total" type="int">
+            <column name="TOTAL" not-null="true"></column>
+        </property>
         <many-to-one 
             name="hotel"
             column="HOTEL_ID"

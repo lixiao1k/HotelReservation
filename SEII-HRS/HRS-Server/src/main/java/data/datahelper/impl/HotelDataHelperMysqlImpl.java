@@ -2,13 +2,13 @@ package data.datahelper.impl;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
 import data.datahelper.HotelDataHelper;
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
-import info.ListWrapper;
 import info.Room;
 import info.Rule;
 import po.HotelPO;
@@ -20,7 +20,8 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 									"from HotelPO as h where h.businessCity=:BCITY and h.businessCircle=:BCIRCLE";
 	private static final String getHotelItemQuery = "from HotelItem as hi where hi.hotel=:HOTEL and hi.room=:ROOM";
 	private static final String getHotelListByRuleQuery = 
-			"from HotelPO as h where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY";
+			"select h from HotelPO as h,HotelItem as hi where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY"
+			+ " and hi.hotel=h";
 	private static final String getHotelListByString = 
 			"from HotelPO as h where h.name like :STRING";
 	@Override
@@ -41,10 +42,24 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 
 	@Override
 	public List<HotelPO> getHotelListByRule(Rule rule) {
-		Query query = HibernateUtil.getCurrentSession().createQuery(getHotelListByRuleQuery);
-		query.setEntity("BCITY", rule.getBusinessCity());
-		query.setEntity("BCIRCLE", rule.getBusinessCircle());
-		return query.list();
+		StringBuilder temp = new StringBuilder(getHotelListByRuleQuery);
+		try{
+			if(rule.getCheckInTime()!=null)
+				temp.append(" and hi.date>=:beginTime");
+			if(rule.getCheckOutTime()!=null)
+				temp.append(" and hi.date<:endTime");
+			Query query = HibernateUtil.getCurrentSession().createQuery(temp.toString());
+			query.setEntity("BCITY", rule.getBusinessCity());
+			query.setEntity("BCIRCLE", rule.getBusinessCircle());
+			if(rule.getCheckInTime()!=null)
+				query.setDate("beginTime", rule.getCheckInTime());
+			if(rule.getCheckOutTime()!=null)
+				query.setDate("endTime", rule.getCheckOutTime());
+			return query.list();
+		}catch(HibernateException e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

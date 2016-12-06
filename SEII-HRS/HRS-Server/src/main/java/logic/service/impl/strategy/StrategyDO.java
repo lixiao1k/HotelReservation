@@ -57,7 +57,8 @@ public class StrategyDO {
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
 				flag = true;
-				strategyDao.delete(cachePO);
+				cachePO.setStatus(true);
+				strategyDao.update(cachePO);
 				//同时从缓存中移除
 				strategies.remove(strategyId);
 				HibernateUtil.getCurrentSession()
@@ -87,7 +88,8 @@ public class StrategyDO {
 					return StrategyResultMessage.FAIL_WRONGID;
 				}
 				else{
-					strategyDao.delete(po);
+					po.setStatus(true);
+					strategyDao.update(po);
 					HibernateUtil.getCurrentSession().getTransaction().commit();
 					return StrategyResultMessage.SUCCESS;
 				}
@@ -119,6 +121,7 @@ public class StrategyDO {
 			}
 			po = DozerMappingUtil.getInstance().map(vo, StrategyPO.class);
 			po.setHotel(hpo);
+			po.setStatus(false);
 			//使用反射机制加载具体的StrategyRule
 			Class<?> clazz = Class.forName(StrategyRuleUtil.getInstance().getClassName(vo.getType().getName()));
 			Constructor constructor = clazz.getConstructor(String.class);
@@ -223,10 +226,12 @@ public class StrategyDO {
 							.commit();
 			return result;
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return null;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}
@@ -254,10 +259,12 @@ public class StrategyDO {
 							.commit();
 			return result;
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return null;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}

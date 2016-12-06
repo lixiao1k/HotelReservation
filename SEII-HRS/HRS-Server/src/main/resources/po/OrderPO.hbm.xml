@@ -26,6 +26,9 @@
   		    	<param name="type">12</param>
  		   </type>
         </property>
+        <property name="off" type="double">
+            <column name="OFF" not-null="false" default="0.0"></column>
+        </property>
         <property name="checkInTime" type="date">
             <column name="CHECK_IN_TIME" not-null="true"></column>
         </property>
@@ -72,7 +75,7 @@
        	    column="MEMBER_ID"
        	    class="MemberPO"
        	    not-null="true"
-       	    lazy="proxy"
+       	    lazy="false"
 		/>
        	<many-to-one
        	    name="hotel"

@@ -32,7 +32,6 @@
         <mapping resource="po/VIPPO.hbm.xml"/>
 	    <mapping resource="po/HotelPO.hbm.xml"/>
 	    <mapping resource="po/UserPO.hbm.xml"/>
-	    <mapping resource="po/Role.hbm.xml"/>
 	    <mapping resource="po/CreditPO.hbm.xml"/>
 	    <mapping resource="po/CommentPO.hbm.xml"/>
 	    <mapping resource="po/StrategyPO.hbm.xml"/>

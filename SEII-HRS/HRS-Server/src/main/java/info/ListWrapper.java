@@ -36,4 +36,7 @@ public class ListWrapper<T> {
 		}
 		return false;
 	}
+	public int size(){
+		return data.size();
+	}
 }

@@ -37,6 +37,9 @@ public class MemberDO {
 		memberDao=DaoManager.getInstance().getMemberDao();
 		members = new Cache<>(size);
 	}
+	public MemberVO getInfo(long userId){
+		return null;
+	}
 	public MemberResultMessage registerVIP(VIPVO vo) throws RemoteException {
 		MemberPO cachePO = null;
 		cachePO = members.get(vo.getUserId());

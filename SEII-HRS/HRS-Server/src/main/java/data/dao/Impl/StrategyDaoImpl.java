@@ -21,8 +21,8 @@ public class StrategyDaoImpl implements StrategyDao{
 	}
 
 	@Override
-	public void delete(StrategyPO po) {
-		strategyDataHelper.delete(po);
+	public void update(StrategyPO po) {
+		strategyDataHelper.update(po);
 	}
 
 	@Override

@@ -49,6 +49,7 @@ public class HotelDaoImpl implements HotelDao {
 					hi.setNum(rpo.getNum());
 					hi.setPrice(rpo.getPrice());
 					hi.setRoom(rpo.getRoom());
+					hi.setTotal(rpo.getTotal());
 					hotelDataHelper.update(po);
 					break;
 				}

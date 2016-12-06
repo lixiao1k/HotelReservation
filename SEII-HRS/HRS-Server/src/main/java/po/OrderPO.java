@@ -9,6 +9,7 @@ import java.util.Set;
 
 import info.OrderStatus;
 import info.Room;
+import info.StrategyItem;
 import vo.OrderVO;
 /*
  * oid ´úÀíÖ÷¼ü
@@ -49,6 +50,7 @@ public class OrderPO implements Serializable{
 	private boolean child;
 	private int people;
 	private StrategyPO strategy;
+	private double off;
 	private String contactWay;
 	private String contactName;
 	public String getContactWay(){
@@ -159,5 +161,14 @@ public class OrderPO implements Serializable{
 	}
 	public void setStrategy(StrategyPO strategy){
 		this.strategy = strategy;
+	}
+	public double getPrice(){
+		return roomNum*roomPrice*off;
+	}
+	public double getOff() {
+		return off;
+	}
+	public void setOff(double off) {
+		this.off = off;
 	}
 }

@@ -10,6 +10,7 @@ public class StrategyVO {
 	private long hotelId;
 	private Set<StrategyItemVO> items;
 	private String extraInfo;
+	private double off;
 	public void setExtraInfo(String extraInfo){
 		this.extraInfo = extraInfo;
 	}
@@ -39,5 +40,14 @@ public class StrategyVO {
 	}
 	public String getExtraInfo(){
 		return extraInfo;
+	}
+	public double getOff() {
+		return off;
+	}
+	public void setOff(double off) {
+		this.off = off;
+	}
+	public void setType(StrategyType type) {
+		this.type = type;
 	}
 }

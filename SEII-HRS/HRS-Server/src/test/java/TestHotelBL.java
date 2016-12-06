@@ -19,7 +19,6 @@ import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
 import vo.RoomInfoVO;
 import vo.SearchHotelVO;
-
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashSet;
@@ -58,12 +57,14 @@ public class TestHotelBL {
 		bcir.setName("新街口");
 		bcir.setBcircleId(1);
 		vo.setBusinessCircle(bcir);
+		vo.setCheckInTime(new Date(116,11,1));
+		vo.setCheckOutTime(new Date(116,11,7));
 		ListWrapper<BasicHotelVO> list = hotel.getHotels(vo);
 		Assert.assertNotEquals("wrong", null, list);
 		Iterator<BasicHotelVO> it = list.iterator();
 		while(it.hasNext()){
 			BasicHotelVO bhvo = it.next();
-			System.out.println(bhvo.getHotelName());
+			System.out.println(bhvo.getHotelName()+" "+bhvo.getHotelId());
 		}
 	}
 	@Test
@@ -113,7 +114,6 @@ public class TestHotelBL {
 		room.setRid(1);
 		room.setType("大床房");
 		cirivo.setRoom(room);
-		
 		HotelResultMessage result = hotel.roomCheckIn(cirivo);
 		Assert.assertEquals("wrong", HotelResultMessage.SUCCESS,result);
 	}
@@ -154,13 +154,14 @@ public class TestHotelBL {
 		bc.setBcityId(1);
 		BusinessCircle bci = new BusinessCircle();
 		bci.setBcircleId(1);
-		bci.setName("新街口");
+		bci.setName("大同路");
 		HotelItemVO hi = new HotelItemVO();
 		hi.setNum(88);
 		hi.setPrice(233);
 		Room room = new Room("大床房");
 		room.setRid(1);
 		hi.setRoom(room);
+		hi.setTotal(100);
 		Set<HotelItemVO> items = new HashSet<>();
 		items.add(hi);
 		AddHotelVO vo = new AddHotelVO("如家","如家酒店", "床，wifi", "江苏省南京市新街口233号", "住房，餐饮", bci,  bc, Rank.THREE, items);

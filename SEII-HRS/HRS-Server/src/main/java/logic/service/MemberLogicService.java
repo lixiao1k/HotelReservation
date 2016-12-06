@@ -9,6 +9,7 @@ import vo.ManageClientVO;
 import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
 import vo.ManageWEBSalerVO;
+import vo.MemberVO;
 import vo.VIPVO;
 
 public interface MemberLogicService extends Remote{
@@ -22,4 +23,5 @@ public interface MemberLogicService extends Remote{
 	public MemberResultMessage updateHotelWorker(ManageHotelWorkerVO vo) throws RemoteException;
 	public MemberResultMessage updateWEBSaler(ManageWEBSalerVO vo) throws RemoteException;
 	public MemberResultMessage delete(long id) throws RemoteException;
+	public MemberVO getInfo(long userId) throws RemoteException;
 }

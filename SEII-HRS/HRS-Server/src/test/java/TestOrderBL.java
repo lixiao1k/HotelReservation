@@ -20,19 +20,15 @@ public class TestOrderBL {
 		Room room = new Room();
 		room.setRid(1);
 		room.setType("大床房");
-		NewOrderVO vo = new NewOrderVO(3,1,false,4,"13307612344","萌新",new Date(116,11,11),new Date(116, 11, 12),room,2,233,1,0.3);
+		NewOrderVO vo = new NewOrderVO(2,1,false,4,"13307612344","萌新",new Date(116,11,11),new Date(116, 11, 12),room,2,233,2,0.3);
 		OrderResultMessage result = orderLogic.create(vo);
 		Assert.assertEquals("wrong", OrderResultMessage.SUCCESS,result);
 	}
 	@Test
 	public void testAbnormal() throws RemoteException{
 		OrderLogicService orderLogic = new OrderLogicServiceImpl();
-		OrderResultMessage result = orderLogic.abnormal(1);
+		OrderResultMessage result = orderLogic.abnormal(5);
 		Assert.assertEquals("Failed in abnormal success test",OrderResultMessage.SUCCESS,result);
-		result = orderLogic.abnormal(1);
-		Assert.assertEquals("Failed in abnormal fail-status test", OrderResultMessage.FAIL_WRONGSTATUS,result);
-		result = orderLogic.abnormal(2);
-		Assert.assertEquals("Failed in abnormal fail-wrong-id test",OrderResultMessage.FAIL_WRONGID, result);
 	}
 	@Test 
 	public void testExecute() throws RemoteException{
@@ -55,13 +51,13 @@ public class TestOrderBL {
 	@Test 
 	public void testWebRevoke() throws RemoteException{
 		OrderLogicService orderLogic = new OrderLogicServiceImpl();
-		OrderResultMessage result = orderLogic.webRevoke(1);
+		OrderResultMessage result = orderLogic.webRevoke(1,0);
 		Assert.assertEquals("Failed",OrderResultMessage.SUCCESS,result);
 	}
 	@Test 
 	public void testGetUserOrder() throws RemoteException{
 		OrderLogicService orderLogic = new OrderLogicServiceImpl();
-		ListWrapper<OrderVO> result = orderLogic.getUserOrderInfo(3);
+		ListWrapper<OrderVO> result = orderLogic.getUserOrderInfo(2);
 		Assert.assertNotEquals("wrong", null,result);
 		Iterator<OrderVO> it = result.iterator();
 		while(it.hasNext()){

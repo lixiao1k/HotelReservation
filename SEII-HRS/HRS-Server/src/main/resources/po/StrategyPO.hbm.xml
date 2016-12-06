@@ -14,6 +14,12 @@
    		<property name="rule" type="blob">
    		    <column name="RULE" not-null="true"></column>
    		</property>
+   		<property name="status" type="boolean">
+   		    <column name="STATUS" not-null="true"></column>
+   		</property>
+   		<property name="off" type="double">
+   		    <column name="OFF" not-null="false" default="0.0"></column>
+   		</property>
    		<many-to-one 
    		    name="type" 
    		    column="STYPE_ID" 
@@ -33,4 +39,4 @@
    		    <one-to-many class="info.StrategyItem"/>
    		</set>
     </class>
-</hibernate-mapping>
+</hibernate-mapping> 

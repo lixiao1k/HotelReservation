@@ -18,6 +18,8 @@ public class StrategyPO {
 	private StrategyType type;
 	private Set<StrategyItem> items = new HashSet<StrategyItem>();
 	private Blob rule;
+	private boolean status;
+	private double off;
 	public long getId(){
 		return this.id;
 	}
@@ -62,5 +64,17 @@ public class StrategyPO {
 	}
 	public void setType(StrategyType type) {
 		this.type = type;
+	}
+	public boolean getStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	public double getOff() {
+		return off;
+	}
+	public void setOff(double off) {
+		this.off = off;
 	}
 }

@@ -8,10 +8,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import javax.management.RuntimeErrorException;
-
-import org.hibernate.Hibernate;
-
-import antlr.debug.NewLineListener;
 import data.dao.HotelDao;
 import data.dao.Impl.DaoManager;
 import info.BusinessCity;
@@ -42,7 +38,6 @@ import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
 import vo.OrderVO;
 import vo.RoomInfoVO;
-import vo.RoomVO;
 import vo.SearchHotelVO;
 import vo.AddHotelResultVO;
 import vo.AddHotelVO;
@@ -135,17 +130,14 @@ public class HotelDO {
 		}
 		
 	}
-
 	public ExtraHotelVO getExtraHotelDetail(long hotelId, long userId) throws RemoteException {
 		HotelPO cachePO = null;
 		cachePO = hotels.get(hotelId);
 		ExtraHotelVO result = new ExtraHotelVO();
-		boolean flag = false;
 		if (cachePO==null){
 			try{
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
-				flag = true;
 				HotelPO po = hotelDao.getInfo(hotelId);
 				if (po==null)
 					return null;
@@ -210,7 +202,6 @@ public class HotelDO {
 			return result;
 		}
 	}
-
 	public ListWrapper<Long> getBookHotel(long userId) throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession()
@@ -322,7 +313,7 @@ public class HotelDO {
 				flag = true;
 				po = hotelDao.getInfo(vo.getHotelId());
 				if (po==null)
-					return HotelResultMessage.FAIL;
+					return HotelResultMessage.FAIL_WRONGID;
 				else{
 					if(vo.getAddress()!=null)
 						po.setAddress(vo.getAddress());
@@ -407,11 +398,13 @@ public class HotelDO {
 				while(beforeIt.hasNext()){
 					HotelItem hi = beforeIt.next();
 					hi.setNum(hi.getNum()-num);
+					hi.setTotal(hi.getTotal()-num);
 					hotelDao.updateRoom(vo.getHotelId(), hi);
 				}
 				while(afterIt.hasNext()){
 					HotelItem hi = afterIt.next();
 					hi.setNum(hi.getNum()+num);
+					hi.setTotal(hi.getTotal()+num);
 					hotelDao.updateRoom(vo.getHotelId(), hi);
 				}
 			}
@@ -453,6 +446,7 @@ public class HotelDO {
 					hi.setNum(hivo.getNum());
 					hi.setRoom(hivo.getRoom());
 					hi.setPrice(hivo.getPrice());
+					hi.setTotal(hivo.getTotal());
 					hi.setDate(temp);
 					hiList.add(hi);
 					calendar.add(calendar.DATE, 1);
@@ -473,8 +467,8 @@ public class HotelDO {
 			HotelWorkerPO hwpo = new HotelWorkerPO();
 			upo.setType(UserType.HOTEL_WORKER);
 			upo.setStatus(UserStatus.OFFLINE);
-			upo.setPassword(vo.getUsername());
-			upo.setUsername(vo.getPassword());
+			upo.setPassword(vo.getPassword());
+			upo.setUsername(vo.getUsername());
 			upo.setMember(hwpo);
 			hwpo.setHotel(po);
 			hwpo.setUser(upo);
@@ -517,6 +511,7 @@ public class HotelDO {
 			HibernateUtil.getCurrentSession().beginTransaction();
 			Rule rule = DozerMappingUtil.getInstance().map(vo, Rule.class);
 			ListWrapper<HotelPO> hotels = hotelDao.getHotelListByRule(rule);
+			
 			Iterator<HotelPO> it = hotels.iterator();
 			Set<BasicHotelVO> result = new HashSet<>();
 			while(it.hasNext()){

@@ -46,7 +46,7 @@ public class TestStrategyBL {
 	@Test
 	public void testDelete() throws RemoteException{
 		StrategyLogicService strategyService = new StrategyLogicServiceImpl();
-		StrategyResultMessage result = strategyService.delete(1);
+		StrategyResultMessage result = strategyService.delete(11);
 		Assert.assertEquals("wrong", StrategyResultMessage.SUCCESS,result);
 	}
 	@Test
@@ -57,7 +57,7 @@ public class TestStrategyBL {
 		Iterator<HotelStrategyVO> it = result.iterator();
 		while(it.hasNext()){
 			HotelStrategyVO hsvo = it.next();
-			System.out.println(hsvo.getExtraInfo());
+			System.out.println(hsvo.getName());
 		}
 	}
 	@Test
