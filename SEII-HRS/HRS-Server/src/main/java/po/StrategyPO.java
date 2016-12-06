@@ -1,5 +1,6 @@
 package po;
 
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import info.StrategyItem;
 import info.StrategyType;
 import po.strategies.StrategyRule;
+import util.SerializeUtil;
 
 
 public class StrategyPO {
@@ -15,7 +17,7 @@ public class StrategyPO {
 	private HotelPO hotel;
 	private StrategyType type;
 	private Set<StrategyItem> items = new HashSet<StrategyItem>();
-	private StrategyRule rule;
+	private Blob rule;
 	public long getId(){
 		return this.id;
 	}
@@ -25,10 +27,10 @@ public class StrategyPO {
 	public HotelPO getHotel(){
 		return this.hotel;
 	}
-	public StrategyRule getRule(){
+	public Blob getRule(){
 		return rule;
 	}
-	private Set<StrategyItem> getItems(){
+	public Set<StrategyItem> getItems(){
 		return items;
 	}
 	public Iterator<StrategyItem> getStrategyRoom(){
@@ -49,10 +51,16 @@ public class StrategyPO {
 	public void setName(String name){
 		this.name = name;
 	}
-	public void setStrategyRule(StrategyRule rule){
+	public void setRule(Blob rule){
 		this.rule = rule;
 	}
 	public void setItems(Set<StrategyItem> items){
 		this.items = items;
+	}
+	public StrategyType getType() {
+		return type;
+	}
+	public void setType(StrategyType type) {
+		this.type = type;
 	}
 }

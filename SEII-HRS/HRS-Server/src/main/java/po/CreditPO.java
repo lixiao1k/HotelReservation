@@ -1,25 +1,27 @@
 package po;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class CreditPO {
-	private long userId;
-	private LocalDate date;
+	private long id;
+	private MemberPO member;
+	private Date date;
 	private int delta;
 	private int credit;
-	public CreditPO(long userId,LocalDate date,int delta,int credit){
-		this.userId = userId;
-		this.date = date;
-		this.delta = delta;
-		this.credit = credit;
+	private String reason;
+	public String getReason(){
+		return reason;
 	}
-	public String toString(){
-		return "UserId:"+userId+"; date:"+date+"; "+delta+" -> "+credit;
+	public void setReason(String reason){
+		this.reason = reason;
 	}
-	public long getUserId(){
-		return this.userId;
+	public long getId(){
+		return id;
 	}
-	public LocalDate getDate(){
+	public MemberPO getMember(){
+		return this.member;
+	}
+	public Date getDate(){
 		return this.date;
 	}
 	public int getDelta(){
@@ -27,5 +29,20 @@ public class CreditPO {
 	}
 	public int getCredit(){
 		return this.credit;
+	}
+	private void setId(long id){
+		this.id = id;
+	}
+	public void setMember(MemberPO member){
+		this.member = member;
+	}
+	public void setDate(Date date){
+		this.date = date;
+	}
+	public void setDelta(int delta){
+		this.delta = delta;
+	}
+	public void setCredit(int credit){
+		this.credit = credit;
 	}
 }

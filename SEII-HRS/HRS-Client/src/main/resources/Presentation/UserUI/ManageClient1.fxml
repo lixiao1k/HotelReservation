@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane fx:id="ClientPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserUI.ManageClientController">
+<GridPane fx:id="ClientPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserUI.ManageClientController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="116.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="306.0" minHeight="10.0" prefHeight="306.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="361.0" minHeight="10.0" prefHeight="359.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <TextField fx:id="searchField">

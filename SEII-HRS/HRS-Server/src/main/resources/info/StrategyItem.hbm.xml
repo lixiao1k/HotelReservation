@@ -14,16 +14,16 @@
         <many-to-one
             name="strategy"
             column="S_ID"
-            class="StrategyPO"
+            class="po.StrategyPO"
             not-null="true"
-            lazy="true"
+            lazy="proxy"
         />
         <many-to-one 
             name="room"
             column="ROOM_ID"
             class="Room"
             not-null="false"
-            lazy="true"
+            lazy="proxy"
         />
     </class>
 </hibernate-mapping>

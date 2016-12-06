@@ -23,13 +23,11 @@ public class UserDaoImpl implements UserDao{
 	}
 	@Override
 	public UserPO getInfo(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return userDataHelper.getInfo(username);
 	}
 	@Override
 	public void update(UserPO po) {
-		// TODO Auto-generated method stub
-		
+		userDataHelper.update(po);
 	}
 
 }

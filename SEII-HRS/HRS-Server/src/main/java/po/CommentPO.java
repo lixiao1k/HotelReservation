@@ -1,34 +1,64 @@
 package po;
 
-import java.time.LocalDate;
+import java.util.Date;
+
+import info.Room;
 
 public class CommentPO {
+	private long id;
 	private int grade;
 	private String comment;
-	private LocalDate date;
-	private long userid;
-	private long hotelId;
-    public CommentPO(int grade,String comment,long userid,long hotelId){
-    	//get time;
-    	date = LocalDate.now();
-    	this.userid = userid;
-    	this.grade = grade;
-    	this.comment = comment;
-    	this.hotelId = hotelId;
+	private Date date;
+	private MemberPO member;
+	private OrderPO order;
+	private HotelPO hotel;
+	private Room room;
+	public OrderPO getOrder(){
+		return order;
+	}
+	public long getId(){
+		return id;
+	}
+	public Room getRoom(){
+		return room;
+	}
+    public String getComment(){
+    	return comment;
+    }
+    public Date getDate(){
+    	return date;
+    }
+    public MemberPO getMember(){
+    	return member;
+    }
+    public HotelPO getHotel(){
+    	return hotel;
     }
     public int getGrade(){
     	return grade;
     }
-    public String getComment(){
-    	return comment;
+    public void setHotel(HotelPO hotel){
+    	this.hotel = hotel;
     }
-    public LocalDate getDate(){
-    	return date;
+    public void setMember(MemberPO member){
+    	this.member = member;
     }
-    public long getUserId(){
-    	return userid;
+    public void setDate(Date date){
+    	this.date = date;
     }
-    public long getHotelId(){
-    	return hotelId;
+    public void setComment(String comment){
+    	this.comment = comment;
+    }
+    public void setGrade(int grade){
+    	this.grade = grade;
+    }
+    public void setRoom(Room room){
+    	this.room = room;
+    }
+    private void setId(long id){
+    	this.id = id;
+    }
+    public void setOrder(OrderPO order){
+    	this.order = order;
     }
 }

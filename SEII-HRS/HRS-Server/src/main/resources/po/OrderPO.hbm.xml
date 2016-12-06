@@ -9,7 +9,7 @@
             <generator class="native"></generator>
         </id>
         <property name="orderId" type="string">
-            <column name="ORDER_ID" not-null="true"></column>
+            <column name="ORDER_NUM" not-null="true"></column>
         </property>
         <property name="actualCheckInTime" type="date">
             <column name="ACTUAL_CIN_TIME" not-null="false"></column>
@@ -58,28 +58,28 @@
        		column="ROOM_ID"
        		class="info.Room"
        		not-null="true"
-       		lazy="true"
+       		lazy="proxy"
        	/>
        	<many-to-one
        	    name="strategy"
        	    column="S_ID"
        	    class="StrategyPO"
        	    not-null="false"
-       	    lazy="true"
+       	    lazy="proxy"
        	/>
        	<many-to-one
        	    name="member"
        	    column="MEMBER_ID"
        	    class="MemberPO"
        	    not-null="true"
-       	    lazy="true"
+       	    lazy="proxy"
 		/>
        	<many-to-one
        	    name="hotel"
        	    column="HOTEL_ID"
        	    class="HotelPO"
        	    not-null="true"
-       	    lazy="true"
+       	    lazy="proxy"
        	/>
     </class>
 </hibernate-mapping>

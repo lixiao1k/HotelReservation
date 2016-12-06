@@ -13,6 +13,7 @@ import vo.BasicHotelVO;
 import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
 import vo.ExtraHotelVO;
+import vo.HotelItemVO;
 import vo.HotelVO;
 import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
@@ -26,7 +27,7 @@ public interface HotelLogicService extends Remote{
 	public ListWrapper<Long> getBookHotel(long userId) throws RemoteException;
 	public HotelResultMessage roomCheckIn(CheckInRoomInfoVO vo) throws RemoteException;
 	public HotelResultMessage roomCheckOut(CheckOutRoomInfoVO vo) throws RemoteException;
-	public RoomVO getRoomInfo(long hotelId) throws RemoteException;
+	public ListWrapper<HotelItemVO> getRoomInfo(long hotelId) throws RemoteException;
 	public HotelResultMessage setHotelInfo(MaintainHotelInfoVO vo) throws RemoteException;
 	public HotelResultMessage setRoomInfo(MaintainRoomInfoVO vo) throws RemoteException;
 	public AddHotelResultVO addHotel(AddHotelVO vo) throws RemoteException;

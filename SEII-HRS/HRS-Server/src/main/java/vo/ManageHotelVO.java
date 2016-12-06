@@ -1,10 +1,13 @@
 package vo;
 
+import info.BusinessCircle;
+import info.BusinessCity;
+
 public class ManageHotelVO {
 	private String hotelname;
 	private String address;
-	private String bussinesscity;
-	private String bussinesscircle;
+	private BusinessCity bussinesscity;
+	private BusinessCircle bussinesscircle;
 	private long hotelid;
 	private long userid;
 	private String username;
@@ -28,16 +31,16 @@ public class ManageHotelVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getBussinesscity() {
+	public BusinessCity getBussinesscity() {
 		return bussinesscity;
 	}
-	public void setBussinesscity(String bussinesscity) {
+	public void setBussinesscity(BusinessCity bussinesscity) {
 		this.bussinesscity = bussinesscity;
 	}
-	public String getBussinesscircle() {
+	public BusinessCircle getBussinesscircle() {
 		return bussinesscircle;
 	}
-	public void setBussinesscircle(String bussinesscircle) {
+	public void setBussinesscircle(BusinessCircle bussinesscircle) {
 		this.bussinesscircle = bussinesscircle;
 	}
 	public long getHotelid() {
@@ -70,7 +73,7 @@ public class ManageHotelVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ManageHotelVO(String hotelname, String address, String bussinesscity, String bussinesscircle, long hotelid,
+	public ManageHotelVO(String hotelname, String address, BusinessCity bussinesscity, BusinessCircle bussinesscircle, long hotelid,
 			long userid, String username, String password, String name) {
 		super();
 		this.hotelname = hotelname;

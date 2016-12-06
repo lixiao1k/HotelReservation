@@ -1,5 +1,8 @@
 package data.datahelper;
 
-public interface MemberDataHelper {
+import po.MemberPO;
 
+public interface MemberDataHelper {
+	public void insert(MemberPO po);
+	public MemberPO getInfo(long userid);
 }

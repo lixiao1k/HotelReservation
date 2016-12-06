@@ -16,6 +16,9 @@ public class MemberLogicServiceImpl implements MemberLogicService{
 	public MemberLogicServiceImpl() {
 		memberDO=new MemberDO();
 	}
+	public MemberLogicServiceImpl(int size){
+		memberDO=new MemberDO(size);
+	}
 	@Override
 	public MemberResultMessage registerVIP(VIPVO vo) throws RemoteException {
 		return memberDO.registerVIP(vo);
@@ -36,14 +39,6 @@ public class MemberLogicServiceImpl implements MemberLogicService{
 	@Override
 	public ManageWEBSalerVO getWEBSaler(String username) throws RemoteException {
 		return memberDO.getWEBSaler(username);
-	}
-	@Override
-	public MemberResultMessage addClient(ManageClientVO vo) throws RemoteException {
-		return memberDO.addClient(vo);
-	}
-	@Override
-	public MemberResultMessage addHotelWorker(ManageHotelWorkerVO vo) throws RemoteException {
-		return memberDO.addHotelWorker(vo);
 	}
 	@Override
 	public MemberResultMessage addWEBSaler(ManageWEBSalerVO vo) throws RemoteException {

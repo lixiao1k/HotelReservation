@@ -9,13 +9,16 @@ public class BusinessCircle {
 	public String getName(){
 		return this.name;
 	}
-	private long getBcircleId(){
+	public long getBcircleId(){
 		return this.bcircleId;
 	}
 	public void setName(String name){
 		this.name = name;
 	}
 	private void setBcircleid(long bcircleId){
+		this.bcircleId = bcircleId;
+	}
+	public void setBcircleId(long bcircleId) {
 		this.bcircleId = bcircleId;
 	}
 }

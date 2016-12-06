@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.management.RuntimeErrorException;
+
+import org.hibernate.engine.HibernateIterator;
+
 import data.dao.OrderDao;
 import data.dao.Impl.DaoManager;
 import info.Cache;
@@ -17,7 +20,9 @@ import info.Room;
 import po.HotelPO;
 import po.MemberPO;
 import po.OrderPO;
+import po.StrategyPO;
 import po.UserPO;
+import resultmessage.HotelResultMessage;
 import resultmessage.OrderResultMessage;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
@@ -70,13 +75,13 @@ public class OrderDO {
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return null;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}
 			throw e;
 		}
 	}
-
 
 	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId) {
 		try{
@@ -87,6 +92,7 @@ public class OrderDO {
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return null;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}
@@ -100,10 +106,12 @@ public class OrderDO {
 			HibernateUtil.getCurrentSession().beginTransaction();
 			return this.transform(orderDao.getTodayOrders());
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return null;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}
@@ -132,6 +140,7 @@ public class OrderDO {
 		Iterator cacheIt = orders.getKeys();
 		MemberPO mpo = null;
 		HotelPO hpo = null;
+		StrategyPO spo = null;
 		while(cacheIt.hasNext()){
 			long orderId;
 			//cache中的键可能非orderId
@@ -148,34 +157,41 @@ public class OrderDO {
 			if (hpo!=null&&cachePO.getHotel().getHid()==vo.getHotelId()){
 				hpo = cachePO.getHotel();
 			}
-			if (hpo!=null&&mpo!=null)
+			if (spo!=null&&cachePO.getStrategy().getId()==vo.getStrategyId()){
+				spo = cachePO.getStrategy();
+			}
+			if (hpo!=null&&mpo!=null&&spo!=null)
 				break;
 		}
 		//若找不到，则连接数据库查找
-		if (hpo==null||mpo==null){
+		if (hpo==null||mpo==null||spo==null){
 			try{
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
 				flag = true;
-			//	if (mpo==null)
-			//		mpo = DaoManager.getInstance()
-			//							.getUserDao()
-			//							.getInfo(vo.getUserId());
-			//	if (hpo==null)
-			//		hpo = DaoManager.getInstance();
-			//整个order创建事务还未完成，不提交事务				
+				if (mpo==null)
+					mpo = DaoManager.getInstance()
+										.getMemberDao()
+										.getInfo(vo.getUserId());
+				if (hpo==null)
+					hpo = DaoManager.getInstance().getHotelDao().getInfo(vo.getHotelId());
+				if (spo==null)
+					spo = DaoManager.getInstance().getStrategyDao().getInfo(vo.getStrategyId());
+			//整个order创建事务还未完成，不提交事务		
 			}catch(RuntimeException e){
+				e.printStackTrace();
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.rollback();
+					return OrderResultMessage.FAIL;
 				}catch(RuntimeErrorException ex){
 					ex.printStackTrace();
 				}
 				throw e;
 			}
 		}
-		if (hpo==null||mpo==null) return OrderResultMessage.FAIL_WRONGORDERINFO;
+		if (hpo==null||mpo==null||spo==null) return OrderResultMessage.FAIL_WRONGORDERINFO;
 		//二次验证订单的房间信息是否属实
 		Room room = vo.getRoom();
 		Iterator<HotelItem> hoiit = hpo.getRoom();
@@ -199,7 +215,8 @@ public class OrderDO {
 		po.setAbnormalTime(null);
 		po.setMember(mpo);
 		po.setHotel(hpo);
-		String orderNum = "SE-"+now;
+		po.setStrategy(spo);
+		String orderNum = "SE-"+now.getDate()+po.hashCode();
 		po.setOrderId(orderNum);
 		//存储订单，开启数据库事务,同时存储到cache中
 		try{
@@ -207,18 +224,22 @@ public class OrderDO {
 			HibernateUtil.getCurrentSession()
 							.beginTransaction();
 			orders.put(po.getOid(), po);
+			orderDao.insert(po);
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			return OrderResultMessage.SUCCESS;
 		}catch(RuntimeException e){
 			orders.remove(po.getOid());
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return OrderResultMessage.FAIL;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}
 			throw e;
 		}
-		return OrderResultMessage.SUCCESS;
 	}
 	/*
 	 * 由于execute,reExecute,abnormal和cancel的方法大体相同，采用表驱动的方式,1为订单异常，2为执行，3为补执行，4为用户撤销，5为网站人员撤销
@@ -291,6 +312,7 @@ public class OrderDO {
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.rollback();
+					return OrderResultMessage.FAIL;
 				}catch(RuntimeErrorException ex){
 					ex.printStackTrace();
 				}
@@ -330,6 +352,7 @@ public class OrderDO {
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.rollback();
+					return OrderResultMessage.FAIL;
 				}catch(RuntimeErrorException ex){
 					ex.printStackTrace();
 				}

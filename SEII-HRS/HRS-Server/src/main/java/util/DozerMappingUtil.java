@@ -26,7 +26,7 @@ public class DozerMappingUtil {
 	 */
 	private static void load(){
 		List mappingFiles = new ArrayList();
-		mappingFiles.add("dozer-mappping");
+		mappingFiles.add("dozer-mapping.xml");
 		mapper.setMappingFiles(mappingFiles);
 	}
 

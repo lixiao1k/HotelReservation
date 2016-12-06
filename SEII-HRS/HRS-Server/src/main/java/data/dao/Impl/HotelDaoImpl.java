@@ -1,11 +1,12 @@
 package data.dao.Impl;
 
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import data.dao.HotelDao;
 import data.datahelper.HotelDataHelper;
 import data.datahelper.impl.DataFactory;
-import data.datahelper.impl.HotelDataHelperMysqlImpl;
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
@@ -23,43 +24,48 @@ public class HotelDaoImpl implements HotelDao {
 	}
 	@Override
 	public void insert(HotelPO po) {
-		
+		hotelDataHelper.insert(po);
 	}
 
 	@Override
 	public void update(HotelPO po) {
-		// TODO Auto-generated method stub
-		
+		hotelDataHelper.update(po);
 	}
 
 	@Override
 	public HotelPO getInfo(long hotelId) {
-		// TODO Auto-generated method stub
-		return null;
+		return hotelDataHelper.getInfo(hotelId);
 	}
-
-	@Override
-	public ListWrapper<HotelItem> getRoom(long hotelId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public void updateRoom(long hotelId,HotelItem rpo) {
-		// TODO Auto-generated method stub
-		
+		HotelPO po = hotelDataHelper.getInfo(hotelId);
+		if(po!=null){
+			Iterator<HotelItem> it = po.getRoom();
+			while(it.hasNext()){
+				HotelItem hi = it.next();
+				if(hi.getHiId()==rpo.getHiId()){
+					hi.setDate(rpo.getDate());
+					hi.setNum(rpo.getNum());
+					hi.setPrice(rpo.getPrice());
+					hi.setRoom(rpo.getRoom());
+					hotelDataHelper.update(po);
+					break;
+				}
+			}
+		}
 	}
 
 	@Override
 	public ListWrapper<HotelPO> getHotelListByRule(Rule rule) {
-		// TODO Auto-generated method stub
-		return null;
+		List<HotelPO> list = hotelDataHelper.getHotelListByRule(rule);
+		return new ListWrapper<HotelPO>(list);
 	}
 
 	@Override
-	public ListWrapper<HotelItem> getHotelListByString(String rule) {
-		// TODO Auto-generated method stub
-		return null;
+	public ListWrapper<HotelPO> getHotelListByString(String rule) {
+		List<HotelPO> list = hotelDataHelper.getHotelListByString(rule);
+		return new ListWrapper<>(list);
 	}
 
 	@Override
@@ -77,14 +83,27 @@ public class HotelDaoImpl implements HotelDao {
 
 	@Override
 	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room) {
-		// TODO Auto-generated method stub
-		return null;
+		List<HotelItem> rooms = hotelDataHelper.getHotelItemByRoom(hotelId, room);
+		return new ListWrapper<HotelItem>(rooms);
 	}
 
 	@Override
 	public HotelItem getRoomByRid(long hotelId, Room room) {
-		// TODO Auto-generated method stub
-		return null;
+		List<HotelItem> rooms = hotelDataHelper.getHotelItemByRoom(hotelId, room);
+		HotelItem result = null;
+		Date now = new Date();
+		if(rooms!=null){
+			Iterator<HotelItem> it = rooms.iterator();
+			while(it.hasNext()){
+				HotelItem hi = it.next();
+				if(hi.getRoom().getType().equals(room.getType())
+						&& hi.getDate().getDate()==now.getDate()){
+					result = hi;
+					break;
+				}
+			}
+		}
+		return result;
 	}
 
 }

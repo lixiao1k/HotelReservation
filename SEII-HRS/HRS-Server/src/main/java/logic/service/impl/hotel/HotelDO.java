@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.Set;
 import javax.management.RuntimeErrorException;
 
+import org.hibernate.Hibernate;
+
 import antlr.debug.NewLineListener;
 import data.dao.HotelDao;
 import data.dao.Impl.DaoManager;
@@ -17,10 +19,15 @@ import info.Cache;
 import info.HotelItem;
 import info.ListWrapper;
 import info.Rule;
+import info.UserStatus;
+import info.UserType;
+import po.ClientMemberPO;
 import po.CommentPO;
 import po.HotelPO;
+import po.HotelWorkerPO;
 import po.MemberPO;
 import po.OrderPO;
+import po.UserPO;
 import resultmessage.HotelResultMessage;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
@@ -43,10 +50,27 @@ import vo.AddHotelVO;
 public class HotelDO {
 	private HotelDao hotelDao;
 	private Cache<HotelPO> hotels;
+	public HotelDO(){
+		hotelDao = DaoManager.getInstance().getHotelDao();
+		hotels = new Cache<HotelPO>(10);
+	}
+	public HotelDO(int size){
+		hotelDao = DaoManager.getInstance().getHotelDao();
+		hotels = new Cache<HotelPO>(size);
+		
+	}
 	public ListWrapper<BusinessCity> getCity() throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			ListWrapper<BusinessCity> result =  hotelDao.getAllCity();
+			if (result==null)
+				return null;
+			else{
+				Iterator<BusinessCity> it = result.iterator();
+				while(it.hasNext()){
+					it.next().getCircleIterator();
+				}
+			}
 			HibernateUtil.getCurrentSession()
 							.getTransaction()
 							.commit();
@@ -74,12 +98,13 @@ public class HotelDO {
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
 				po = hotelDao.getInfo(hotelId);
+				
 				if (po!=null){
 					rit = po.getRoom();
 					Date now = new Date();
 					while(rit.hasNext()){
 						HotelItem hi = rit.next();
-						if(hi.getDate().toString().equals(new Date().toString()))
+						if(hi.getDate().getDate()==now.getDate())
 							rooms.add(DozerMappingUtil.getInstance().map(hi, HotelItemVO.class));
 					}
 					hotels.put(hotelId, po);
@@ -114,7 +139,7 @@ public class HotelDO {
 	public ExtraHotelVO getExtraHotelDetail(long hotelId, long userId) throws RemoteException {
 		HotelPO cachePO = null;
 		cachePO = hotels.get(hotelId);
-		ExtraHotelVO result = null;
+		ExtraHotelVO result = new ExtraHotelVO();
 		boolean flag = false;
 		if (cachePO==null){
 			try{
@@ -135,6 +160,7 @@ public class HotelDO {
 					}
 					result.setComments(coList);
 					ListWrapper<OrderPO> olist = DaoManager.getInstance().getOrderDao().getHotelUserOrders(hotelId, userId);
+					
 					Iterator<OrderPO> oit = olist.iterator();
 					Set<OrderVO> oList = new HashSet<>();
 					while(oit.hasNext()){
@@ -149,6 +175,7 @@ public class HotelDO {
 								.commit();
 				return result;
 			}catch(RuntimeException e){
+				e.printStackTrace();
 				hotels.remove(hotelId);
 				try{
 					HibernateUtil.getCurrentSession()
@@ -191,7 +218,7 @@ public class HotelDO {
 			MemberPO member = DaoManager.getInstance().getMemberDao().getInfo(userId);
 			Set<Long> result = new HashSet<>();
 			if (member!=null){
-				Iterator<OrderPO> oit = member.getOrder();
+				Iterator<OrderPO> oit = ((ClientMemberPO)member).getOrder();
 				while(oit.hasNext()){
 					OrderPO opo = oit.next();
 					result.add(opo.getHotel().getHid());
@@ -204,6 +231,7 @@ public class HotelDO {
 							.commit();
 			return new ListWrapper<Long>(result);
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
@@ -219,11 +247,13 @@ public class HotelDO {
 		try{
 			HibernateUtil.getCurrentSession()
 							.beginTransaction();
+			
 			ListWrapper<HotelItem> rooms = hotelDao.getHotelItemByRoom(vo.getHotelId(), vo.getRoom());
 			Iterator<HotelItem> it = rooms.iterator();
+			
 			while(it.hasNext()){
 				HotelItem hi = it.next();
-				if(vo.getCheckInTime().compareTo(hi.getDate())==0){
+				if(vo.getCheckInTime().getDate()==hi.getDate().getDate()){
 					int num = hi.getNum();
 					num-=vo.getRoomNum();
 					hi.setNum(num);
@@ -235,6 +265,7 @@ public class HotelDO {
 							.commit();
 			return HotelResultMessage.SUCCESS;
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
@@ -429,10 +460,33 @@ public class HotelDO {
 				}
 			}
 			po.setRooms(hiList);
+			//add new ук╨е
+			UserPO newPo = DaoManager.getInstance().getUserDao().getInfo(vo.getUsername());
+			if(newPo!=null){
+				result.setHotelResultMessage(HotelResultMessage.FAIL);
+				HibernateUtil.getCurrentSession()
+								.getTransaction()
+								.commit();
+				return result;
+			}
+			UserPO upo = new UserPO();
+			HotelWorkerPO hwpo = new HotelWorkerPO();
+			upo.setType(UserType.HOTEL_WORKER);
+			upo.setStatus(UserStatus.OFFLINE);
+			upo.setPassword(vo.getUsername());
+			upo.setUsername(vo.getPassword());
+			upo.setMember(hwpo);
+			hwpo.setHotel(po);
+			hwpo.setUser(upo);
+			hwpo.setName(vo.getMemberName());
+			hwpo.setType(UserType.HOTEL_WORKER);
+			DaoManager.getInstance().getUserDao().insert(upo);
+			DaoManager.getInstance().getMemberDao().add(hwpo);
+			po.setHotelworker(hwpo);
 			hotelDao.insert(po);
 			resultMessage = HotelResultMessage.SUCCESS;
 			long hotelId = po.getHid();
-			//add new ук╨е
+			
 		
 			result.setHotelId(hotelId);
 			result.setHotelResultMessage(resultMessage);
@@ -443,6 +497,7 @@ public class HotelDO {
 							.commit();
 			return result;
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			resultMessage = HotelResultMessage.FAIL;
 			result.setHotelResultMessage(resultMessage);
 			result.setHotelWorker(null);
@@ -480,10 +535,12 @@ public class HotelDO {
 			HibernateUtil.getCurrentSession().getTransaction().commit();
 			return new ListWrapper<>(result);
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.rollback();
+				return null;
 			}catch(RuntimeErrorException ex){
 				ex.printStackTrace();
 			}

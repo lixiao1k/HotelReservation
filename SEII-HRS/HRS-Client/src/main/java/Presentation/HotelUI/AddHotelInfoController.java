@@ -27,7 +27,8 @@ public class AddHotelInfoController implements Initializable{
 @FXML TextArea summaryArea;
 @FXML TextArea institutionArea;
 @FXML TextArea serveArea;
-
+@FXML TextField hotelName;
+@FXML TextField password;
 @FXML TextField addHotelField;
 
 
@@ -37,14 +38,15 @@ private static String star=null;
   public void Submit(ActionEvent e)throws IOException
   {
 	boolean area=(summaryArea.getText().equals(""))||(institutionArea.getText().equals(""))||(serveArea.getText().equals(""));
-	boolean field=(addressField.getText().equals(""))||(companyField.getText().equals(""))||(addHotelField.getText().equals(""));
+	boolean field=(addressField.getText().equals(""))||(companyField.getText().equals(""))||(addHotelField.getText().equals("")
+			        ||hotelName.getText().equals("")||password.getText().equals(""));
    
 
 	  if(area||field)
 	  {
 		  
 		  Stage clickCheck=new Stage();
-		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/clickCheckFalse.fxml"));
+		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheckFalse.fxml"));
 		  Scene scene=new Scene(root,275,125);
 		  clickCheck.setScene(scene);
 		  clickCheck.show();
@@ -56,7 +58,7 @@ private static String star=null;
 		  //·â×°addHotelVO
 		  addHotelVO add=new addHotelVO(addressField.getText(),companyField.getText(),addHotelField.getText(),summaryArea.getText(),institutionArea.getText(),serveArea.getText(),star);
 		  Stage clickCheck=new Stage();
-		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/clickCheck.fxml"));
+		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
 		  Scene scene=new Scene(root,275,125);
 		  clickCheck.setScene(scene);
 		  clickCheck.show();

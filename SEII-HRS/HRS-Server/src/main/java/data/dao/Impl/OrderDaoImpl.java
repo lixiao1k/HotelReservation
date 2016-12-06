@@ -33,12 +33,13 @@ public class OrderDaoImpl implements OrderDao{
 	@Override
 	public ListWrapper<OrderPO> getHotelOrders(long hotelId) {
 		List<OrderPO> list = orderDataHelper.getHotelOrders(hotelId);
+	
 		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
 		return res;
 	}
 	@Override
 	public ListWrapper<OrderPO> getUserOrders(long userId) {
-		List<OrderPO> list = orderDataHelper.getHotelOrders(userId);
+		List<OrderPO> list = orderDataHelper.getUserOrders(userId);
 		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
 		return res;
 	}

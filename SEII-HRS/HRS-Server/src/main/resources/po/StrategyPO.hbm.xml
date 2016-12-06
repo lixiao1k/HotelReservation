@@ -11,13 +11,13 @@
         <property name="name" type="string">
             <column name="NAME" not-null="true"></column>
         </property>
-   		<property name="rule" type="binary">
+   		<property name="rule" type="blob">
    		    <column name="RULE" not-null="true"></column>
    		</property>
    		<many-to-one 
    		    name="type" 
    		    column="STYPE_ID" 
-   		    class="StrategyType"
+   		    class="info.StrategyType"
    		    not-null="true"
    		    lazy="false"
    		/>
@@ -26,7 +26,7 @@
    		    column="HOTEL_ID"
    		    class="HotelPO"
    		    not-null="false"
-   		    lazy="true"
+   		    lazy="proxy"
    		/>
    		<set name="items" inverse="true" cascade="all" lazy="true">
    		    <key column="SI_ID"></key>

@@ -1,6 +1,6 @@
 package po;
 
-public class HotelWorkerPO {
+public class HotelWorkerPO extends MemberPO{
 	private String name;
 	private HotelPO hotel;
 	public void setName(String name){

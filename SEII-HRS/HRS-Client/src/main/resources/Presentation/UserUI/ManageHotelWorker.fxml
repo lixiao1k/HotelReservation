@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane prefHeight="422.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserUI.ManageHotelWorkerController">
   <!-- TODO Add Nodes -->
   <children>
     <Label alignment="CENTER" prefHeight="30.0" prefWidth="62.0" text="名称：" GridPane.columnIndex="0" GridPane.rowIndex="1">
@@ -23,22 +23,22 @@
         <Insets left="50.0" top="100.0" />
       </GridPane.margin>
     </Label>
-    <TextField prefHeight="30.0" prefWidth="576.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <TextField fx:id="workerName" prefHeight="30.0" prefWidth="576.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <GridPane.margin>
         <Insets left="120.0" right="94.0" />
       </GridPane.margin>
     </TextField>
-    <TextField prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <TextField fx:id="password" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <GridPane.margin>
         <Insets left="120.0" right="94.0" top="100.0" />
       </GridPane.margin>
     </TextField>
-      <TextField>
+      <TextField fx:id="searchHotel">
          <GridPane.margin>
             <Insets left="50.0" right="180.0" />
          </GridPane.margin>
       </TextField>
-      <Button mnemonicParsing="false" text="搜索">
+      <Button mnemonicParsing="false" onAction="#Search" text="搜索">
          <GridPane.margin>
             <Insets left="410.0" />
          </GridPane.margin>
@@ -46,21 +46,37 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TableView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+      <TableView fx:id="hotelData" onMouseClicked="#show" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
         <columns>
-          <TableColumn prefWidth="75.0" text="地址" />
-          <TableColumn prefWidth="75.0" text="商圈" />
+          <TableColumn fx:id="addressCol" prefWidth="106.0" text="地址" />
+          <TableColumn fx:id="companyCol" prefWidth="257.0" text="商圈" />
         </columns>
          <GridPane.margin>
             <Insets bottom="220.0" left="20.0" right="20.0" />
          </GridPane.margin>
       </TableView>
+      <Button mnemonicParsing="false" onAction="#Commit" text="提交" GridPane.rowIndex="1">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="300.0" top="230.0" />
+         </GridPane.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#Cancel" text="取消" GridPane.rowIndex="1">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="400.0" top="230.0" />
+         </GridPane.margin>
+      </Button>
   </children>
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="768.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="376.0" minHeight="10.0" prefHeight="354.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="380.0" minHeight="10.0" prefHeight="380.0" vgrow="SOMETIMES" />
   </rowConstraints>
 </GridPane>
