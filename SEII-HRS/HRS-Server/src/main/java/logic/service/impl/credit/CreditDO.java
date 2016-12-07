@@ -2,13 +2,20 @@ package logic.service.impl.credit;
 
 import java.rmi.RemoteException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
 
 import data.dao.CreditDao;
 import data.dao.UserDao;
 import data.dao.Impl.DaoManager;
 import info.ListWrapper;
+import po.ClientMemberPO;
 import po.CreditPO;
+import po.MemberPO;
 import po.UserPO;
 import resultmessage.CreditResultMessage;
 import util.DozerMappingUtil;
@@ -17,36 +24,55 @@ import vo.CreditVO;
 
 public class CreditDO {
 	private CreditDao creditDao;
-	private UserDao userDao;
 	public CreditDO() {
 		creditDao=DaoManager.getInstance().getCreditDao();
-		userDao=DaoManager.getInstance().getUserDao();
 	}
 	public CreditResultMessage excharge(long userId, int delta) {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		UserPO upo=userDao.getInfo(userId);
-	//	if(upo.getCredit()+delta<0){
-			return CreditResultMessage.FAIL_LESSTHANZERO;
-	//	}else{
-	//		LocalDate time=LocalDate.now();
-	//		CreditPO po=new CreditPO(userId, time, delta, upo.getCredit());
-	//		creditDao.insert(po);
-	//		upo.setCredit(upo.getCredit()+delta);
-	//		userDao.update(upo);
-	//		return CreditResultMessage.SUCCESS;
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			MemberPO mpo=DaoManager.getInstance().getMemberDao().getInfo(userId);
+			if(mpo==null)
+				return CreditResultMessage.FAIL;
+			((ClientMemberPO)mpo).setCredit(((ClientMemberPO)mpo).getCredit()+100*delta);
+			CreditPO cpo = new CreditPO(mpo, new Date(), 100*delta, ((ClientMemberPO)mpo).getCredit(), "ÐÅÓÃ³äÖµ");
+			creditDao.insert(cpo);
+			DaoManager.getInstance().getMemberDao().update(mpo);
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			return CreditResultMessage.SUCCESS;
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+				return CreditResultMessage.FAIL;
+			}catch(RuntimeException ex){
+				ex.printStackTrace();
+			}
+			throw e;
 		}
-		
-	//}
+	}
 	
 	public ListWrapper<CreditVO> getInfo(long userId) throws RemoteException {
-		HibernateUtil.getCurrentSession().beginTransaction();
-		ListWrapper<CreditPO> polist=creditDao.getinfo(userId);
-		List<CreditVO> volist=null;
-		while(polist.iterator().hasNext()){
-			CreditPO po=polist.iterator().next();
-			CreditVO vo=DozerMappingUtil.getInstance().map(po,CreditVO.class);
-			volist.add(vo);
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			ListWrapper<CreditPO> polist=creditDao.getinfo(userId);
+			List<CreditVO> volist=new ArrayList<CreditVO>();
+			Iterator<CreditPO> it = polist.iterator();
+			while(it.hasNext()){
+				CreditPO po=it.next();
+				CreditVO vo=DozerMappingUtil.getInstance().map(po,CreditVO.class);
+				volist.add(vo);
+			}
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			return new ListWrapper<>(volist);
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+				return null;
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
 		}
-		return DozerMappingUtil.getInstance().map(volist, ListWrapper.class);
 	}
 }

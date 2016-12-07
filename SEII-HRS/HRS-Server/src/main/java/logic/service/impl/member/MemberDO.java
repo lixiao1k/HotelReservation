@@ -49,7 +49,35 @@ public class MemberDO {
 	}
 	
 	public MemberVO getInfo(long userId){
-		return null;
+		MemberPO cachePO = null;
+		cachePO = members.get(userId);
+		MemberVO vo = null;
+		if(cachePO!=null){
+			vo = DozerMappingUtil.getInstance().map(cachePO, MemberVO.class);
+			vo.setVIPInfo(((ClientMemberPO)cachePO).getVipInfo().toString());
+			return vo;
+		}else{
+			try{
+				HibernateUtil.getCurrentSession().beginTransaction();
+				MemberPO po = memberDao.getInfo(userId);
+				if(po==null)
+					return null;
+				vo = DozerMappingUtil.getInstance().map(po, MemberVO.class);
+				vo.setVIPInfo(((ClientMemberPO)po).getVipInfo().toString());
+				HibernateUtil.getCurrentSession().getTransaction().commit();
+				members.put(userId, po);
+				return vo;
+			}catch(RuntimeException e){
+				members.remove(userId);
+				try{
+					HibernateUtil.getCurrentSession().getTransaction().rollback();
+					return null;
+				}catch(RuntimeErrorException ex){
+					ex.printStackTrace();
+				}
+				throw e;
+			}
+		}
 	}
 	
 	public MemberResultMessage registerVIP(VIPVO vo) throws RemoteException {

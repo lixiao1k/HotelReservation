@@ -20,28 +20,21 @@ public class TestUserBL {
 		result=userLogic.login("None", "None").getResultMessage();
 		Assert.assertEquals("Login fail. No Such User.", LoginResultMessage.FAIL_NOINFO, result);
 		userLogic.logout(1);
-		result=userLogic.login("Admin", "Adminn").getResultMessage();
-		Assert.assertEquals("Login fail. Wrong password.", LoginResultMessage.FAIL_WRONG, result);
 	}
 	
 	@Test
 	public void testlogout() throws RemoteException {
-		UserLogicService userLogic=new UserLogicServiceImpl();
-		LoginResultMessage result=null;		
-		userLogic.login("Admin", "Admin");
+		UserLogicService userLogic=new UserLogicServiceImpl();	
+		LoginResultMessage result = userLogic.login("Mengxin", "Mengxin").getResultMessage();
+		Assert.assertEquals("wrong", LoginResultMessage.SUCCESS,result);
 		userLogic.logout(1);
-		result=userLogic.login("Admin", "Admin").getResultMessage();
-		Assert.assertEquals("Logout success and login.", LoginResultMessage.SUCCESS, result);
-		userLogic.logout(2);
-		result=userLogic.login("Admin", "Admin").getResultMessage();
-		Assert.assertEquals("Logout fail. Cannot login.", LoginResultMessage.FAIL_LOGGED, result);
 	}
 	
 	@Test
 	public void testregister() throws RemoteException {
 		UserLogicService userLogic=new UserLogicServiceImpl();
 		RegisterResultMessage result=null;
-		result=userLogic.register("Mengxin", "Mengxin");
+		result=userLogic.register("Mengxin2", "Mengxin2");
 		Assert.assertEquals("Register success.", RegisterResultMessage.SUCCESS, result);
 		result=userLogic.register("Mengxinxin", "Mengxinmengxinxin");
 		Assert.assertEquals("Register fail. Passwordlength too long.", RegisterResultMessage.FAIL_PASSWORDLENGTH, result);

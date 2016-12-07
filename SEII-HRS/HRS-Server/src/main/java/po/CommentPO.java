@@ -13,6 +13,7 @@ public class CommentPO {
 	private OrderPO order;
 	private HotelPO hotel;
 	private Room room;
+	private boolean hide;
 	public OrderPO getOrder(){
 		return order;
 	}
@@ -61,4 +62,10 @@ public class CommentPO {
     public void setOrder(OrderPO order){
     	this.order = order;
     }
+	public boolean isHide() {
+		return hide;
+	}
+	public void setHide(boolean hide) {
+		this.hide = hide;
+	}
 }

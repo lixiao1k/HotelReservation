@@ -1,15 +1,15 @@
 package vo;
 
 import java.util.Date;
-
 import info.Room;
 
 public class HotelCommentVO {
 	private String name;
 	private Date date;
-	private double score;
-	private String content;
+	private int grade;
+	private String comment;
 	private Room room;
+	private long hotelId;
 	private boolean hide;
 	public void setName(String name){
 		this.name = name;
@@ -17,11 +17,11 @@ public class HotelCommentVO {
 	public void setDate(Date date){
 		this.date = date;
 	}
-	public void setScore(double score){
-		this.score = score;
+	public void setGrade(int grade){
+		this.grade = grade;
 	}
-	public void setContent(String content){
-		this.content = content;
+	public void setComment(String comment){
+		this.comment = comment;
 	}
 	public void setRoom(Room room){
 		this.room = room;
@@ -35,16 +35,25 @@ public class HotelCommentVO {
 	public Date getDate(){
 		return date;
 	}
-	public double getScore(){
-		return score;
+	public int getGrade(){
+		return grade;
 	}
-	public String getContent(){
-		return content;
+	public String getComment(){
+		return comment;
 	}
 	public Room getRoom(){
 		return room;
 	}
 	public boolean isHide(){
 		return hide;
+	}
+	public long getHotelId() {
+		return hotelId;
+	}
+	public void setHotelId(long hotelId) {
+		this.hotelId = hotelId;
+	}
+	public String getName() {
+		return name;
 	}
 }

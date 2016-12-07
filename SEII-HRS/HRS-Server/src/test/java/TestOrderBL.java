@@ -20,7 +20,7 @@ public class TestOrderBL {
 		Room room = new Room();
 		room.setRid(1);
 		room.setType("大床房");
-		NewOrderVO vo = new NewOrderVO(2,1,false,4,"13307612344","萌新",new Date(116,11,11),new Date(116, 11, 12),room,2,233,2,0.3);
+		NewOrderVO vo = new NewOrderVO(2,2,false,4,"13307612344","萌新",new Date(116,11,11),new Date(116, 11, 12),room,2,233,2,0.3);
 		OrderResultMessage result = orderLogic.create(vo);
 		Assert.assertEquals("wrong", OrderResultMessage.SUCCESS,result);
 	}

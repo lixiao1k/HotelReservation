@@ -33,4 +33,11 @@ public class VIPPO {
 	public long getId(){
 		return id;
 	}
+	public String toString(){
+		if(type==VIPType.PERSON)
+			return birthday.toString();
+		else
+			return companyName;
+		
+	}
 }

@@ -8,20 +8,21 @@ import logic.service.CommentLogicService;
 import logic.service.impl.comment.CommentLogicServiceImpl;
 import resultmessage.CommentResultMessage;
 import vo.CommentVO;
+import vo.HotelCommentVO;
 
 public class TestCommentBL {
 	@Test
 	public void testgetHotelInfo() throws RemoteException {
 		CommentLogicService commentLogic=new CommentLogicServiceImpl();
-		ListWrapper<CommentVO> resultlist=commentLogic.getHotelInfo(1);
-		CommentVO result=resultlist.iterator().next();
-		Assert.assertEquals("Right message.", "1970-01-01 ∆¿¬€»À:1 ∆¿¬€æ∆µÍ:1 comment:hao grade:99", result);
+		ListWrapper<HotelCommentVO> resultlist= commentLogic.getHotelInfo(2);
+		HotelCommentVO result= resultlist.iterator().next();
+		Assert.assertNotEquals("wrong", null,result);
+		System.out.println(resultlist.size());
 	}
-	
 	@Test
 	public void testreview() throws RemoteException {
 		CommentLogicService commentLogic=new CommentLogicServiceImpl();
-		CommentVO testvo=new CommentVO(99, "hao", 1, 1);
+		CommentVO testvo=new CommentVO(99, "hao",1,1,2);
 		CommentResultMessage result=null;
 		result=commentLogic.review(testvo);
 		Assert.assertEquals("Review success.", CommentResultMessage.SUCCESS, result);

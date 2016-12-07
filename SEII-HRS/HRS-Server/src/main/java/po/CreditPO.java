@@ -12,6 +12,16 @@ public class CreditPO {
 	public String getReason(){
 		return reason;
 	}
+	public CreditPO(){
+		
+	}
+	public CreditPO(MemberPO member,Date date,int delta,int credit,String reason){
+		this.member = member;
+		this.date = date;
+		this.delta = delta;
+		this.credit = credit;
+		this.reason = reason;
+	}
 	public void setReason(String reason){
 		this.reason = reason;
 	}
