@@ -23,7 +23,6 @@ public class UserDataHelperMysqlImpl implements UserDataHelper{
 	public UserPO getInfo(long userId) {
 		UserPO po = (UserPO)HibernateUtil.getCurrentSession()
 				.get(UserPO.class, userId);
-
 		return po;
 	}
 

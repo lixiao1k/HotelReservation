@@ -8,6 +8,7 @@ public class MemberVO {
 	private String name;
 	private int credit;
 	private boolean VIPFlag;
+	private String VIPInfo;
 	private long memberId;
 	public MemberVO(String phone,String name){
 		this.phone = phone;
@@ -28,4 +29,25 @@ public class MemberVO {
 	public String getName(){ return this.name; }
 	public int getCredit(){ return this.credit; }
 	public boolean isVIP(){ return VIPFlag; }
+	public boolean isVIPFlag() {
+		return VIPFlag;
+	}
+	public void setVIPFlag(boolean vIPFlag) {
+		VIPFlag = vIPFlag;
+	}
+	public String getVIPInfo() {
+		return VIPInfo;
+	}
+	public void setVIPInfo(String vIPInfo) {
+		VIPInfo = vIPInfo;
+	}
+	public long getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(long memberId) {
+		this.memberId = memberId;
+	}
+	public void setCredit(int credit) {
+		this.credit = credit;
+	}
 }

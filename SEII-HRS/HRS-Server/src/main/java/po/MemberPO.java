@@ -12,6 +12,12 @@ public class MemberPO {
 	public long getMid(){
 		return mid;
 	}
+	public MemberPO(String name, UserType type, UserPO user) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.user = user;
+	}
 	public UserType getUserType(){
 		return type;
 	}

@@ -6,6 +6,7 @@ import info.ListWrapper;
 import logic.service.CommentLogicService;
 import resultmessage.CommentResultMessage;
 import vo.CommentVO;
+import vo.HotelCommentVO;
 
 public class CommentLogicServiceImpl implements CommentLogicService{
 	private CommentDO commentDO;
@@ -13,7 +14,7 @@ public class CommentLogicServiceImpl implements CommentLogicService{
 		commentDO=new CommentDO();
 	}
 	@Override
-	public ListWrapper<CommentVO> getHotelInfo(long hotelId) throws RemoteException {
+	public ListWrapper<HotelCommentVO> getHotelInfo(long hotelId) throws RemoteException {
 		return commentDO.getHotelInfo(hotelId);
 	}
 

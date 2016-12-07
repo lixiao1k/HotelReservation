@@ -23,7 +23,7 @@ public class ClientMemberPO extends MemberPO{
 	public Iterator<OrderPO> getOrder(){
 		return orders.iterator();
 	}
-	private Set<CommentPO> getComment(){
+	public Set<CommentPO> getComment(){
 		return comment;
 	}
 	public Iterator<CommentPO> getComments(){

@@ -20,6 +20,7 @@ import info.OrderStatus;
 import info.Room;
 import info.StrategyItem;
 import po.ClientMemberPO;
+import po.CreditPO;
 import po.HotelPO;
 import po.HotelWorkerPO;
 import po.MemberPO;
@@ -284,6 +285,7 @@ public class OrderDO {
 		Date judge2 = DateUtil.getFutureDate(po.getCheckInTime(), 6);
 		double[] sync = {-1,1,1,0,0};
 		int[] roomSync = {-1,0,1,1};
+		String[] reason ={"订单异常","执行订单","补执行订单","用户撤销订单","网站工作人员撤销订单"};
 		if(operation==4)
 			sync[4] = rank[extraOperation];
 		sync[3] = (now.before(judge))? 1:(now.before(po.getCheckInTime())? 0.5:0);
@@ -292,11 +294,14 @@ public class OrderDO {
 		// abnormal额外操作
 		if (operation==1&&now.after(po.getCheckInTime())&&now.before(judge2))
 			po.setAbnormalTime(new Timestamp(System.currentTimeMillis()));
-		else 
+		else if(operation==1&&!(now.after(po.getCheckInTime())&&now.before(judge2)))
 			return OrderResultMessage.FAIL_WRONGSTATUS;
+			double delta = sync[operation]*po.getPrice();
 			MemberPO member = po.getMember();
-			((ClientMemberPO)member).setCredit((int) (((ClientMemberPO)member).getCredit()+sync[operation]*po.getPrice()));
+			((ClientMemberPO)member).setCredit((int) (((ClientMemberPO)member).getCredit()+delta));
+			CreditPO cpo = new CreditPO(member, new Date(), (int)delta, ((ClientMemberPO)member).getCredit(), reason[operation]);
 			DaoManager.getInstance().getMemberDao().update(member);
+			DaoManager.getInstance().getCreditDao().insert(cpo);
 		if(operation==0||operation==2||operation==3){
 			ListWrapper<HotelItem> hiList = DaoManager.getInstance().getHotelDao().getHotelItemByRoom(po.getHotel().getHid(), po.getRoom());
 			if(hiList==null)

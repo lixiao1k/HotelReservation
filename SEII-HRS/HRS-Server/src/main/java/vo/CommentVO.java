@@ -1,18 +1,21 @@
 package vo;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 
 public class CommentVO {
 	private int grade;
 	private String comment;
-	private LocalDate date;
+	private Date date;
+	private long orderId;
 	private long userid;
 	private long hotelId;
-    public CommentVO(int grade,String comment,long userid,long hotelId){
+	private boolean hide;
+    public CommentVO(int grade,String comment,long userid,long hotelId,long orderId){
     	//get time;
-    	date = LocalDate.now();
+    	date = new Date();
     	this.userid = userid;
+    	this.orderId = orderId;
     	this.grade = grade;
     	this.comment = comment;
     	this.hotelId = hotelId;
@@ -23,7 +26,7 @@ public class CommentVO {
     public String getComment(){
     	return comment;
     }
-    public LocalDate getDate(){
+    public Date getDate(){
     	return date;
     }
     public long getUserId(){
@@ -35,4 +38,34 @@ public class CommentVO {
     public String toString(){
     	return date + " " + "∆¿¬€»À:"+userid+" ∆¿¬€æ∆µÍ:"+hotelId+" comment:"+comment+" grade:"+grade;
     }
+	public long getUserid() {
+		return userid;
+	}
+	public void setUserid(long userid) {
+		this.userid = userid;
+	}
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public void setHotelId(long hotelId) {
+		this.hotelId = hotelId;
+	}
+	public long getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
+	public boolean isHide() {
+		return hide;
+	}
+	public void setHide(boolean hide) {
+		this.hide = hide;
+	}
 }

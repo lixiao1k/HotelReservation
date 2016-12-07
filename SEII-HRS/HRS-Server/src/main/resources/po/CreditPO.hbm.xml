@@ -17,6 +17,9 @@
         <property name="credit" type="int">
             <column name="CREDIT"></column>
         </property>
+        <property name="reason" type="string">
+            <column name="REASON"></column>
+        </property>
         <many-to-one name="member" column="M_ID" class="MemberPO" not-null="true" lazy="proxy"></many-to-one>
     </class>
 </hibernate-mapping>

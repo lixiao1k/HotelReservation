@@ -1,5 +1,7 @@
 package data.dao.Impl;
 
+import java.util.List;
+
 import data.dao.MemberDao;
 import data.datahelper.MemberDataHelper;
 import data.datahelper.impl.DataFactory;
@@ -15,7 +17,6 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public MemberPO getInfo(long userid) {
-		// TODO Auto-generated method stub
 		return memberDataHelper.getInfo(userid);
 	}
 
@@ -36,14 +37,20 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public ListWrapper<MemberPO> manageInfo(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<MemberPO> list = memberDataHelper.getHotelWorkerInfo(name);
+		return new ListWrapper<>(list);
 	}
 
 	@Override
 	public void delete(long userId) {
 		memberDataHelper.delete(userId);
 		DataFactory.getInstance().getUserDataHelper().delete(userId);
+	}
+
+	@Override
+	public MemberPO getInfoByName(String name) {
+		// TODO Auto-generated method stub
+		return memberDataHelper.getInfoByName(name);
 	}
 
 }

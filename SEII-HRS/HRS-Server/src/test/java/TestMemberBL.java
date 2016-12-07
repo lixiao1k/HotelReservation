@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
 
-import info.ListWrapper;
 import logic.service.CreditLogicService;
 import logic.service.HotelLogicService;
 import logic.service.MemberLogicService;
@@ -14,10 +13,8 @@ import logic.service.impl.member.MemberLogicServiceImpl;
 import resultmessage.MemberResultMessage;
 import vo.AddHotelVO;
 import vo.ManageClientVO;
-import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
 import vo.ManageWEBSalerVO;
-import vo.MemberVO;
 import vo.VIPVO;
 
 public class TestMemberBL {

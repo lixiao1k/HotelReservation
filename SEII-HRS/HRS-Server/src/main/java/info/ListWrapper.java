@@ -12,6 +12,9 @@ public class ListWrapper<T> {
 			data.add((T) it.next());
 		}
 	}
+	public ListWrapper(){
+		this.data  =new HashSet<>();
+	}
 	public void add(T element){
 		data.add(element);
 	}
