@@ -63,8 +63,11 @@ public class MemberLogicServiceImpl implements MemberLogicService{
 	}
 	@Override
 	public MemberVO getInfo(long userId) throws RemoteException {
-		// TODO Auto-generated method stub
 		return memberDO.getInfo(userId);
+	}
+	@Override
+	public void setVIPscale(int scale) throws RemoteException {
+		memberDO.setVIPscale(scale);
 	}
 
 }
