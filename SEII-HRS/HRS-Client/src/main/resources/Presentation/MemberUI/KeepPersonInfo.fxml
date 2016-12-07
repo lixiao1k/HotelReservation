@@ -1,125 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MemberUI.KeepPersonInfoController">
-   <rowConstraints>
-      <RowConstraints maxHeight="188.0" minHeight="10.0" prefHeight="188.0" />
-      <RowConstraints minHeight="10.0" prefHeight="188.0" />
-      <RowConstraints minHeight="10.0" prefHeight="188.0" />
-   </rowConstraints>
-   <columnConstraints>
-      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
-      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
-      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
-   </columnConstraints>
-   <children>
-      <Label prefHeight="28.0" prefWidth="44.0" text="ID：" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="100.0" top="140.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" prefHeight="55.0" prefWidth="256.0" text="维护基本信息" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label fx:id="IDLabel" prefHeight="23.0" prefWidth="181.0" text="100120" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="150.0" top="145.0" />
-         </GridPane.margin>
-      </Label>
-      <Label prefHeight="33.0" prefWidth="89.0" text="用户名：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="150.0" top="140.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="nameTextField" maxWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets top="145.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label text="生日：" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-         <font>
-            <Font size="20.0" />
-         </font>
-         <GridPane.margin>
-            <Insets left="100.0" />
-         </GridPane.margin>
-      </Label>
-      <TextField fx:id="birthdayTextField" prefHeight="23.0" prefWidth="162.0" GridPane.columnSpan="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-         <GridPane.margin>
-            <Insets left="170.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label text="企业名称：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-         <GridPane.margin>
-            <Insets left="150.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="companyNameTextField" maxWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-      <Label text="联系方式：" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="100.0" top="10.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="contactComboBox" prefWidth="150.0" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="200.0" top="15.0" />
-         </GridPane.margin>
-      </ComboBox>
-      <Button mnemonicParsing="false" onAction="#add" text="新增" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="50.0" top="40.0" />
-         </GridPane.margin>
-      </Button>
-      <Label text="信用值：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="150.0" top="10.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="creditLabel" maxWidth="100.0" text="594" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets top="15.0" />
-         </GridPane.margin>
-      </Label>
-      <Button mnemonicParsing="false" onAction="#goCreditBrowse" text="查看信用记录" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="120.0" top="15.0" />
-         </GridPane.margin>
-      </Button>
-      <Button mnemonicParsing="false" onAction="#edit" text="编辑" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-      <Button mnemonicParsing="false" onAction="#ensure" text="确定" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-         <GridPane.margin>
-            <Insets left="100.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Button>
-   </children>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.MemberUI.KeepPersonInfoController">
+  <children>
+    <Label prefHeight="28.0" prefWidth="44.0" text="ID：" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+      <font>
+        <Font size="21.0" />
+      </font>
+      <GridPane.margin>
+        <Insets left="100.0" top="140.0" />
+      </GridPane.margin>
+    </Label>
+    <Label alignment="CENTER" prefHeight="55.0" prefWidth="256.0" text="维护基本信息" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <font>
+        <Font size="25.0" />
+      </font>
+    </Label>
+    <Label fx:id="IDLabel" prefHeight="23.0" prefWidth="181.0" text="100120" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets left="150.0" top="145.0" />
+      </GridPane.margin>
+    </Label>
+    <Label prefHeight="33.0" prefWidth="89.0" text="用户名：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+      <font>
+        <Font size="20.0" fx:id="x1" />
+      </font>
+      <GridPane.margin>
+        <Insets left="150.0" top="140.0" />
+      </GridPane.margin>
+    </Label>
+    <TextField fx:id="nameTextField" maxWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets top="145.0" />
+      </GridPane.margin>
+    </TextField>
+    <Label font="$x1" text="生日：" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <GridPane.margin>
+        <Insets left="100.0" />
+      </GridPane.margin>
+    </Label>
+    <TextField fx:id="birthdayTextField" prefHeight="23.0" prefWidth="162.0" GridPane.columnSpan="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <GridPane.margin>
+        <Insets left="170.0" />
+      </GridPane.margin>
+    </TextField>
+    <Label font="$x1" text="企业名称：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <GridPane.margin>
+        <Insets left="150.0" />
+      </GridPane.margin>
+    </Label>
+    <TextField fx:id="companyNameTextField" maxWidth="200.0" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+    <Label font="$x1" text="联系方式：" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets left="100.0" top="10.0" />
+      </GridPane.margin>
+    </Label>
+    <ComboBox fx:id="contactComboBox" prefWidth="150.0" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets left="200.0" top="15.0" />
+      </GridPane.margin>
+    </ComboBox>
+    <Button mnemonicParsing="false" onAction="#add" text="新增" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets left="50.0" top="40.0" />
+      </GridPane.margin>
+    </Button>
+    <Label font="$x1" text="信用值：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets left="150.0" top="10.0" />
+      </GridPane.margin>
+    </Label>
+    <Label fx:id="creditLabel" maxWidth="100.0" text="594" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets top="15.0" />
+      </GridPane.margin>
+    </Label>
+    <Button mnemonicParsing="false" onAction="#goCreditBrowse" text="查看信用记录" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets left="120.0" top="15.0" />
+      </GridPane.margin>
+    </Button>
+    <Button mnemonicParsing="false" onAction="#edit" text="编辑" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <font>
+        <Font size="15.0" fx:id="x2" />
+      </font>
+    </Button>
+    <Button font="$x2" mnemonicParsing="false" onAction="#ensure" text="确定" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <GridPane.margin>
+        <Insets left="100.0" />
+      </GridPane.margin>
+    </Button>
+    <Button mnemonicParsing="false" onAction="#delete" prefWidth="44.0" text="删除" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <GridPane.margin>
+        <Insets top="40.0" />
+      </GridPane.margin>
+    </Button>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+    <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="188.0" minHeight="10.0" prefHeight="188.0" />
+    <RowConstraints minHeight="10.0" prefHeight="188.0" />
+    <RowConstraints minHeight="10.0" prefHeight="188.0" />
+  </rowConstraints>
 </GridPane>

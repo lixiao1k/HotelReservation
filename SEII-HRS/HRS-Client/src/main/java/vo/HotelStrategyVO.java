@@ -1,7 +1,6 @@
 package vo;
 
 import java.util.Set;
-
 import info.StrategyType;
 
 public class HotelStrategyVO {
@@ -20,7 +19,7 @@ public class HotelStrategyVO {
 	public void setHotelId(long hotelId){
 		this.hotelId = hotelId;
 	}
-	public void setStrategyType(StrategyType type){
+	public void setType(StrategyType type){
 		this.type = type;
 	}
 	public void setItems(Set<StrategyItemVO> items){
@@ -43,5 +42,8 @@ public class HotelStrategyVO {
 	}
 	public long getId(){
 		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 }

@@ -4,7 +4,7 @@ package Presentation.HotelUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import vo.addHotelVO;
+import vo.AddHotelVO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -50,26 +50,26 @@ private static String star=null;
 		  Scene scene=new Scene(root,275,125);
 		  clickCheck.setScene(scene);
 		  clickCheck.show();
-		  //ÐÅÏ¢ÌîÐ´²»ÍêÕû
+		  //ï¿½ï¿½Ï¢ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	  }
 	  else
 	  {
 		 
-		  //·â×°addHotelVO
-		  addHotelVO add=new addHotelVO(addressField.getText(),companyField.getText(),addHotelField.getText(),summaryArea.getText(),institutionArea.getText(),serveArea.getText(),star);
+		  //ï¿½ï¿½×°addHotelVO
+		  AddHotelVO add=new AddHotelVO(addressField.getText(),companyField.getText(),addHotelField.getText(),summaryArea.getText(),institutionArea.getText(),serveArea.getText(),star);
 		  Stage clickCheck=new Stage();
 		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
 		  Scene scene=new Scene(root,275,125);
 		  clickCheck.setScene(scene);
 		  clickCheck.show();
-		  //Ìá½»³É¹¦  
-		  //´«Ò»¸öaddHotelVO
+		  //ï¿½á½»ï¿½É¹ï¿½  
+		  //ï¿½ï¿½Ò»ï¿½ï¿½addHotelVO
 	  }
 	  
   }
   
   @FXML
-  //µã»÷È¡Ïû ½«ÌîÐ´ÄÚÈÝÇå³ý
+  //ï¿½ï¿½ï¿½È¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   public void cancel(ActionEvent e)
   {
 	  addressField.clear();
@@ -84,8 +84,8 @@ private static String star=null;
 @Override
 public void initialize(URL location, ResourceBundle resources) {
 	// TODO Auto-generated method stub
-	starChoice.setItems(FXCollections.observableArrayList("ÎÞ","ÈýÐÇ¼¶","ËÄÐÇ¼¶","ÎåÐÇ¼¶","ÁùÐÇ¼¶"));
-	starChoice.setValue("ÎÞ");
+	starChoice.setItems(FXCollections.observableArrayList("ï¿½ï¿½","ï¿½ï¿½ï¿½Ç¼ï¿½","ï¿½ï¿½ï¿½Ç¼ï¿½","ï¿½ï¿½ï¿½Ç¼ï¿½","ï¿½ï¿½ï¿½Ç¼ï¿½"));
+	starChoice.setValue("ï¿½ï¿½");
 	star=(String) starChoice.getValue();
 	starChoice.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
 		@Override
