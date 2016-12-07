@@ -90,7 +90,7 @@ public class UserDO {
 	
 	//зЂВс
 	public RegisterResultMessage register(String username,String password) throws RemoteException{
-		if(password.length()>=15){
+		if(password.length()>=15||password.length()<=5){
 			return RegisterResultMessage.FAIL_PASSWORDLENGTH;
 		}
 		Iterator cacheItem=users.getKeys();
