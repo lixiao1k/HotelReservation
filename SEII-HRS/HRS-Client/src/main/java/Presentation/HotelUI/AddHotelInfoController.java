@@ -4,7 +4,7 @@ package Presentation.HotelUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import vo.addHotelVO;
+import vo.AddHotelVO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,7 +30,8 @@ public class AddHotelInfoController implements Initializable{
 @FXML TextField hotelName;
 @FXML TextField password;
 @FXML TextField addHotelField;
-
+@FXML ChoiceBox provinceChoice;
+@FXML ChoiceBox cityChoice;
 
 private static String star=null;
 
@@ -56,7 +57,7 @@ private static String star=null;
 	  {
 		 
 		  //·â×°addHotelVO
-		  addHotelVO add=new addHotelVO(addressField.getText(),companyField.getText(),addHotelField.getText(),summaryArea.getText(),institutionArea.getText(),serveArea.getText(),star);
+	//	  AddHotelVO add=new AddHotelVO(addressField.getText(),companyField.getText(),addHotelField.getText(),summaryArea.getText(),institutionArea.getText(),serveArea.getText(),star);
 		  Stage clickCheck=new Stage();
 		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
 		  Scene scene=new Scene(root,275,125);

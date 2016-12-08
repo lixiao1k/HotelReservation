@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="stratrgyPane" prefHeight="600.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.StrategyUI.StrategyController">
+<GridPane fx:id="stratrgyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.StrategyUI.StrategyController">
   <children>
     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="77.0" text="类型" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <font>
