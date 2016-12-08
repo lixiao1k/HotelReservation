@@ -1,6 +1,7 @@
 package logic.service.impl.hotel;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import info.BusinessCity;
 import info.ListWrapper;
@@ -12,16 +13,19 @@ import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
 import vo.ExtraHotelVO;
 import vo.HotelItemVO;
-import vo.HotelVO;
 import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
-import vo.RoomVO;
 import vo.SearchHotelVO;
 import vo.AddHotelVO;
 
-public class HotelLogicServiceImpl implements HotelLogicService{
+public class HotelLogicServiceImpl extends UnicastRemoteObject implements HotelLogicService {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3582538173761709513L;
 	private HotelDO hotelDO;
-	public HotelLogicServiceImpl() {
+	public HotelLogicServiceImpl() throws RemoteException {
 		hotelDO = new HotelDO();
 	}
 	@Override
@@ -42,7 +46,6 @@ public class HotelLogicServiceImpl implements HotelLogicService{
 
 	@Override
 	public ListWrapper<Long> getBookHotel(long userId) throws RemoteException {
-		// TODO Auto-generated method stub
 		return hotelDO.getBookHotel(userId);
 	}
 

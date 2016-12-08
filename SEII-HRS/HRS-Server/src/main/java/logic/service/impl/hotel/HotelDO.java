@@ -85,7 +85,7 @@ public class HotelDO {
 		HotelPO po = null;
 		Iterator<HotelItem> rit;
 		Set<HotelItemVO> rooms = new HashSet<HotelItemVO>();
-		//ËÑË÷cache
+		//ï¿½ï¿½ï¿½ï¿½cache
 		HotelPO cachePO = null;
 		cachePO = hotels.get(hotelId);
 		if (cachePO==null){
@@ -454,7 +454,7 @@ public class HotelDO {
 				}
 			}
 			po.setRooms(hiList);
-			//add new ÕËºÅ
+			//add new ï¿½Ëºï¿½
 			UserPO newPo = DaoManager.getInstance().getUserDao().getInfo(vo.getUsername());
 			if(newPo!=null){
 				result.setHotelResultMessage(HotelResultMessage.FAIL);
@@ -506,7 +506,7 @@ public class HotelDO {
 			throw e;
 		}
 	}
-	public ListWrapper<BasicHotelVO> getHotels(SearchHotelVO vo){
+	public ListWrapper<BasicHotelVO> getHotels(SearchHotelVO vo)throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			Rule rule = DozerMappingUtil.getInstance().map(vo, Rule.class);

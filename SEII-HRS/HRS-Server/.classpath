@@ -32,6 +32,5 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="G:/TACHIAGARE/slf4j-1.7.21/slf4j-nop-1.7.21.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

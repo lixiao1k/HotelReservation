@@ -1,5 +1,7 @@
 package data.dao.Impl;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import data.dao.CreditDao;
@@ -16,7 +18,7 @@ public class CreditDaoImpl implements CreditDao{
 	}
 
 	@Override
-	public ListWrapper<CreditPO> getinfo(long userId) {
+	public ListWrapper<CreditPO> getinfo(long userId) throws RemoteException {
 		List<CreditPO> list = creditDataHelper.getinfo(userId);
 		return new ListWrapper<CreditPO>(list);
 	}

@@ -35,21 +35,21 @@ public class StrategyDO {
 	private Cache<StrategyPO> strategies;
 	public StrategyDO(){
 		strategyDao = DaoManager.getInstance().getStrategyDao();
-		//Ä¬ÈÏ»º´æ20ÌõStrategyPO
+		//Ä¬ï¿½Ï»ï¿½ï¿½ï¿½20ï¿½ï¿½StrategyPO
 		strategies = new Cache<StrategyPO>(20);
 	}
 	/*
 	 * Constructor
-	 * @param cacheSize-Ö¸¶¨ÌØ¶¨µÄcacheSize
+	 * @param cacheSize-Ö¸ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½cacheSize
 	 */
 	public StrategyDO(int cacheSize){
 		strategyDao = DaoManager.getInstance().getStrategyDao();
 		strategies = new Cache<StrategyPO>(cacheSize);
 	}
 	public StrategyResultMessage delete(long strategyId) throws RemoteException {
-		//ÏÈ´ÓcacheÖÐÕÒÏàÓ¦µÄstrategy
+		//ï¿½È´ï¿½cacheï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½strategy
 		StrategyPO cachePO = null;
-		//±ê¼ÇÊÇ·ñ¿ªÆôÊÂÎñ
+		//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		boolean flag = false;
 		cachePO = strategies.get(strategyId);
 		if (cachePO!=null){
@@ -59,7 +59,7 @@ public class StrategyDO {
 				flag = true;
 				cachePO.setStatus(true);
 				strategyDao.update(cachePO);
-				//Í¬Ê±´Ó»º´æÖÐÒÆ³ý
+				//Í¬Ê±ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½
 				strategies.remove(strategyId);
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
@@ -77,7 +77,7 @@ public class StrategyDO {
 				throw e;
 			}
 		}
-		//Ã»ÕÒµ½ÔòÈ¥Êý¾Ý¿âÖÐ²éÑ¯²¢É¾³ý
+		//Ã»ï¿½Òµï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ð²ï¿½Ñ¯ï¿½ï¿½É¾ï¿½ï¿½
 		else{
 			try{
 				if (!flag)
@@ -122,12 +122,12 @@ public class StrategyDO {
 			po = DozerMappingUtil.getInstance().map(vo, StrategyPO.class);
 			po.setHotel(hpo);
 			po.setStatus(false);
-			//Ê¹ÓÃ·´Éä»úÖÆ¼ÓÔØ¾ßÌåµÄStrategyRule
+			//Ê¹ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½ï¿½StrategyRule
 			Class<?> clazz = Class.forName(StrategyRuleUtil.getInstance().getClassName(vo.getType().getName()));
 			Constructor constructor = clazz.getConstructor(String.class);
 			StrategyRule rule = (StrategyRule) constructor.newInstance(vo.getExtraInfo());
 			po.setRule(SerializeUtil.objectToBlob(rule));
-			//ÉèÖÃitems
+			//ï¿½ï¿½ï¿½ï¿½items
 			Iterator<StrategyItemVO> sivoIt = vo.getItems().iterator();
 			Set<StrategyItem> items = new HashSet<>();
 			while(sivoIt.hasNext()){
@@ -140,9 +140,9 @@ public class StrategyDO {
 			}
 			po.setItems(items);
 			strategyDao.insert(po);
-			//´æÈëcache
+			//ï¿½ï¿½ï¿½ï¿½cache
 			strategies.put(po.getId(), po);
-			//¹¹Ôì·µ»ØÐÅÏ¢
+			//ï¿½ï¿½ï¿½ì·µï¿½ï¿½ï¿½ï¿½Ï¢
 			Set<StrategyItemVO> set = new HashSet<>();
 			Iterator<StrategyItemVO> siit = vo.getItems().iterator();
 			while(siit.hasNext()){
@@ -188,7 +188,7 @@ public class StrategyDO {
 		}
 		return null;
 	}
-	private ListWrapper<HotelStrategyVO> transform(ListWrapper<StrategyPO> list){
+	private ListWrapper<HotelStrategyVO> transform(ListWrapper<StrategyPO> list)throws RemoteException {
 		Set<HotelStrategyVO> result = new HashSet<HotelStrategyVO>();
 		Iterator<StrategyPO> it = list.iterator();
 		while (it.hasNext()){
@@ -271,7 +271,7 @@ public class StrategyDO {
 			throw e;
 		}
 	}
-	public ListWrapper<String> getTypes(){
+	public ListWrapper<String> getTypes()throws RemoteException {
 		return StrategyRuleUtil.getInstance().getTypes();
 	}
 }

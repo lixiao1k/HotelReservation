@@ -15,7 +15,7 @@ public class RemoteHelper {
 	}
 	
 	/*
-	 * ³õÊ¼»¯·þÎñÆ÷£¬×¢²áÔ¶³Ì¶ÔÏó
+	 * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Ô¶ï¿½Ì¶ï¿½ï¿½ï¿½
 	 */
 	
 	private void initServer(){
@@ -25,6 +25,7 @@ public class RemoteHelper {
 			LocateRegistry.createRegistry(8888);
 			Naming.bind("rmi://localhost:8888/ServiceFactory",
 					serviceFactory);
+			System.out.println("success");
 		}catch(RemoteException e){
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
