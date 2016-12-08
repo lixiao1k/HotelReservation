@@ -1,5 +1,6 @@
 package info;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
@@ -7,7 +8,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class ListWrapper<T> extends UnicastRemoteObject{
+public class ListWrapper<T>implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -827421986026765788L;
 	private Set<T> data = new HashSet<T>();
 	public ListWrapper(Iterator<T> it)throws RemoteException{
 		while(it.hasNext()){

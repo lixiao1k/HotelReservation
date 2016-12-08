@@ -1,9 +1,14 @@
 package info;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class BusinessCircle extends UnicastRemoteObject{
+public class BusinessCircle implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9218009948134160174L;
 	private long bcircleId;
 	private String name;
 	public BusinessCircle() throws RemoteException{
