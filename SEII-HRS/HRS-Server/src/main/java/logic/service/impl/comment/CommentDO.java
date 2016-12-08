@@ -32,6 +32,8 @@ public class CommentDO {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			ListWrapper<CommentPO> polist=commentDao.getHotelComment(hotelId);
+			if(polist==null)
+				return null;
 			List<HotelCommentVO> volist = new ArrayList<HotelCommentVO>();
 			Iterator<CommentPO> it = polist.iterator();
 			while(it.hasNext()){

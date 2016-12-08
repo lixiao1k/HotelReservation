@@ -55,6 +55,8 @@ public class CreditDO {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			ListWrapper<CreditPO> polist=creditDao.getinfo(userId);
+			if(polist==null)
+				return null;
 			List<CreditVO> volist=new ArrayList<CreditVO>();
 			Iterator<CreditPO> it = polist.iterator();
 			while(it.hasNext()){

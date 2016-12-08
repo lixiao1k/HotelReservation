@@ -14,9 +14,8 @@ public class TestCreditBL {
 	public void testgetInfo() throws RemoteException {
 		CreditLogicService creditLogic=new CreditLogicServiceImpl();
 		ListWrapper<CreditVO> resultlist=creditLogic.getInfo(2);
-		CreditVO result=resultlist.iterator().next();
-		Assert.assertNotEquals("wrong", null, result);
-		System.out.println(result.toString());
+		Assert.assertNotEquals("wrong", null, resultlist);
+		System.out.println(resultlist.iterator().next().toString());
 	}
 	
 	@Test

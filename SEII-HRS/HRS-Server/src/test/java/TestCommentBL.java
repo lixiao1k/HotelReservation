@@ -15,8 +15,7 @@ public class TestCommentBL {
 	public void testgetHotelInfo() throws RemoteException {
 		CommentLogicService commentLogic=new CommentLogicServiceImpl();
 		ListWrapper<HotelCommentVO> resultlist= commentLogic.getHotelInfo(2);
-		HotelCommentVO result= resultlist.iterator().next();
-		Assert.assertNotEquals("wrong", null,result);
+		Assert.assertNotEquals("wrong", null,resultlist);
 		System.out.println(resultlist.size());
 	}
 	@Test

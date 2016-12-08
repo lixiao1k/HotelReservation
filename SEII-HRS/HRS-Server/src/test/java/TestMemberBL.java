@@ -109,7 +109,7 @@ public class TestMemberBL {
 		LocalDate testbirth=LocalDate.of(1970, 1, 1);
 		ManageClientVO testclientvo=new ManageClientVO(2, "bingyuhuo", testbirth, "bingyuhuo", null);
 	//	memberLogic.addClient(testclientvo);
-		resultmessage=memberLogic.delete(2);
+		resultmessage=memberLogic.delete(19);
 		Assert.assertEquals("Fail in delete client test.", MemberResultMessage.FAIL_WRONGID, resultmessage);
 		ManageHotelWorkerVO testhotelworkervo=new ManageHotelWorkerVO(1, 3, "jiangyoujun", "jiangyou", "jiangyou");
 	//	memberLogic.addHotelWorker(testhotelworkervo);
