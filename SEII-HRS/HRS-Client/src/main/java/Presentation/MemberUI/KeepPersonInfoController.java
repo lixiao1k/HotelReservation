@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Presentation.CreditUI.CreditBrowseController;
 import Presentation.FeedbackUI.AddContactController;
 import Presentation.MainUI.ClientMainUIController;
 import javafx.collections.FXCollections;
@@ -84,7 +85,11 @@ public class KeepPersonInfoController implements Initializable{
 	protected void goCreditBrowse(ActionEvent e){
 		try {
 			GridPane clientmain=(GridPane)IDLabel.getScene().getWindow().getScene().getRoot();
-			Parent creditBrowse = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/CreditUI/CreditBrowse.fxml"));
+			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/CreditUI/CreditBrowse.fxml"));
+			Parent creditBrowse = loader.load();
+			CreditBrowseController creditcontroller=loader.getController();
+			creditcontroller.setKeepPersonInfoController(this);
+			creditcontroller.setBaseInfo(this.userid);
 			creditBrowse.getProperties().put("NAME","CreditBrowsePane" );
 			ObservableList<Node> list =clientmain.getChildren();
 			for(Node node:list){

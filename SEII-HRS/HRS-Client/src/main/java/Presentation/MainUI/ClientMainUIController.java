@@ -23,6 +23,9 @@ public class ClientMainUIController implements Initializable{
 	@FXML Button goBrowseOrderListButton;
 	@FXML GridPane clientmain;
 	@FXML Label stateLabel;
+	private String username;
+	private long userid;
+	private LoginMainController loginmaincontroller;
 	@FXML
 	protected void goHotelList(ActionEvent e){
 		try {
@@ -108,8 +111,17 @@ public class ClientMainUIController implements Initializable{
 	public void setStateLabel(String state){
 		stateLabel.setText(state);
 	}
+	
+	public void setLoginController(LoginMainController controller){
+		this.loginmaincontroller=controller;
+	}
+    public void setBaseInfo(){
+    	this.username=loginmaincontroller.username;
+    	this.userid=loginmaincontroller.userid;
+    }
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+//		this.username=loginmaincontroller.username;
+//		this.userid=loginmaincontroller.userid;
 	}
 }

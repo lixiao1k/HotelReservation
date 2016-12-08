@@ -3,6 +3,7 @@ package Presentation.MainUI;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +13,8 @@ public class LoginMainUI extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root=FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
+		FXMLLoader loader=new FXMLLoader(getClass().getResource("LoginMainUI.fxml"));
+		Parent root=loader.load();
 		Scene scene=new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("¾ÆµêÔ¤¶©ÏµÍ³µÇÂ¼");

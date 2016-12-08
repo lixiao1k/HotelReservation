@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Presentation.MemberUI.KeepPersonInfoController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +22,9 @@ public class CreditBrowseController implements Initializable{
 	@FXML Label nameLabel;
 	@FXML Label creditLabel;
 	@FXML ListView<CreditVO> creditListView;
+	private KeepPersonInfoController keeppersoninfocontroller;
+	private String username;
+	private long userid;
 	@FXML
 	protected void goBack(ActionEvent e){
 		GridPane clientmain=(GridPane)nameLabel.getScene().getWindow().getScene().getRoot();
@@ -42,6 +46,13 @@ public class CreditBrowseController implements Initializable{
 		}
 	}
 
+	public void setKeepPersonInfoController(KeepPersonInfoController controller){
+		this.keeppersoninfocontroller=controller;
+	}
+	public void setBaseInfo(long userid){
+		this.userid=userid;
+	}
+	
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
