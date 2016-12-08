@@ -7,13 +7,10 @@ import java.util.List;
 import javax.management.RuntimeErrorException;
 
 import data.dao.MemberDao;
-import data.dao.UserDao;
 import data.dao.Impl.DaoManager;
 import info.Cache;
 import info.ListWrapper;
-import info.UserStatus;
 import info.UserType;
-import info.VIPType;
 import po.ClientMemberPO;
 import po.HotelPO;
 import po.HotelWorkerPO;
@@ -34,9 +31,8 @@ public class MemberDO {
 	private MemberDao memberDao;
 	//memberPO缓存
 	private Cache<MemberPO> members;
-	//VIP线
-	private final int VipCredit = 10000;
-	private VIPType[] vipType = {};
+	//初始VIP线
+	private int VipCredit = 10000;
 	
 	//初始化
 	public MemberDO() {
@@ -46,6 +42,10 @@ public class MemberDO {
 	public MemberDO(int size){
 		memberDao=DaoManager.getInstance().getMemberDao();
 		members = new Cache<>(size);
+	}
+	
+	public void setVIPscale(int scale) throws RemoteException {
+		VipCredit=scale;
 	}
 	
 	public MemberVO getInfo(long userId){
@@ -98,8 +98,8 @@ public class MemberDO {
 											.beginTransaction();
 							flag = true;
 							cmpo.setVip(true);
-							VIPPO vippo = DozerMappingUtil.getInstance().map(vo, VIPPO.class);
-							vippo.setType(vipType[vo.getType()]);
+							VIPPO vippo = new VIPPO(vo.getUserId(), vo.getType(), vo.getBirthday(), vo.getCompanyName());	
+							vippo.setType(vo.getType());
 							cmpo.setVipInfo(vippo);
 							members.remove(vo.getUserId());
 							members.put(vo.getUserId(), cmpo);
@@ -128,8 +128,7 @@ public class MemberDO {
 		}else{
 			try{
 				if(!flag)
-				HibernateUtil.getCurrentSession()
-								.beginTransaction();
+				HibernateUtil.getCurrentSession().beginTransaction();
 				MemberPO po = memberDao.getInfo(vo.getUserId());
 				if(po==null)
 					return MemberResultMessage.FAIL_WRONGID;
@@ -142,8 +141,8 @@ public class MemberDO {
 								return MemberResultMessage.FAIL_CREDITNOTENOUGH;
 							else{
 								((ClientMemberPO) po).setVip(true);
-								VIPPO vippo = DozerMappingUtil.getInstance().map(vo, VIPPO.class);
-								vippo.setType(vipType[vo.getType()]);
+								VIPPO vippo = new VIPPO(vo.getUserId(), vo.getType(), vo.getBirthday(), vo.getCompanyName());	
+								vippo.setType(vo.getType());
 								((ClientMemberPO) po).setVipInfo(vippo);
 								memberDao.update(po);
 								members.put(vo.getUserId(), po);
@@ -390,16 +389,33 @@ public class MemberDO {
 		}
 	}
 	
+	public String PhonetoString(List<String> list){
+		String str="";
+		for(String s:list){
+			str+=s;
+			str+=" ";
+		}
+		return str;
+	}
 	
-	public MemberResultMessage updateVO (Object o) throws RemoteException {
+	public MemberResultMessage updateClient(ManageClientVO vo) throws RemoteException {
 		try{
 			MemberPO po=null;
-			if(o!=null){
-				po=DozerMappingUtil.getInstance().map(o, MemberPO.class);
+			if(vo!=null){
+				HibernateUtil.getCurrentSession().beginTransaction();
+				po=memberDao.getInfo(vo.getUsername());
 				if(po==null){
 					return MemberResultMessage.FAIL_WRONGID;
 				}else{
-					HibernateUtil.getCurrentSession().beginTransaction();
+					UserPO upo=po.getUser();
+					ClientMemberPO cmpo=(ClientMemberPO)po;
+					VIPPO vpo=cmpo.getVipInfo();
+					vpo.setBirthday(vo.getBirthday());
+					vpo.setCompanyName(vo.getCompanyname());
+					cmpo.setVipInfo(vpo);
+					cmpo.setContactWay(PhonetoString(vo.getPhonenumber()));
+					upo.setUsername(vo.getUsername());
+					po.setUser(upo);
 					memberDao.update(po);
 					HibernateUtil.getCurrentSession().getTransaction().commit();
 					return MemberResultMessage.SUCCESS;
@@ -418,27 +434,71 @@ public class MemberDO {
 	}
 	
 	
-	public MemberResultMessage updateClient(ManageClientVO vo) throws RemoteException {
-		return updateVO(vo);
-	}
-	
 	
 	public MemberResultMessage updateHotelWorker(ManageHotelWorkerVO vo) throws RemoteException {
+		if(vo==null){
+			return MemberResultMessage.FAIL;
+		}
 		//检测密码长度
 		if(vo.getPassword().length()<=5||vo.getPassword().length()>=15){
 			return MemberResultMessage.FAIL_PASSWORDLENGTH;
-		}else{
-			return updateVO(vo);
+		}
+		try{
+			MemberPO po=null;	
+			HibernateUtil.getCurrentSession().beginTransaction();
+			po=memberDao.getInfo(vo.getUsername());
+			if(po==null){
+				return MemberResultMessage.FAIL_WRONGID;
+			}else{
+				UserPO upo=po.getUser();
+				upo.setPassword(vo.getPassword());
+				po.setUser(upo);
+				po.setName(vo.getName());				
+				memberDao.update(po);
+				HibernateUtil.getCurrentSession().getTransaction().commit();
+				return MemberResultMessage.SUCCESS;
+			}
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
 		}
 	}
 	
 	
 	public MemberResultMessage updateWEBSaler(ManageWEBSalerVO vo) throws RemoteException {
+		if(vo==null){
+			return MemberResultMessage.FAIL;
+		}
 		//检测密码长度
 		if(vo.getPassword().length()<=5||vo.getPassword().length()>=15){
 			return MemberResultMessage.FAIL_PASSWORDLENGTH;
-		}else{
-			return updateVO(vo);
+		}
+		try{
+			MemberPO po=null;			
+			HibernateUtil.getCurrentSession().beginTransaction();
+			po=memberDao.getInfo(vo.getUsername());
+			if(po==null){
+				return MemberResultMessage.FAIL_WRONGID;
+			}else{
+				UserPO upo=po.getUser();
+				upo.setPassword(vo.getPassword());
+				po.setUser(upo);
+				po.setName(vo.getName());				
+				memberDao.update(po);
+				HibernateUtil.getCurrentSession().getTransaction().commit();
+				return MemberResultMessage.SUCCESS;
+			}
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
 		}
 	}
 	
