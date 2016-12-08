@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -50,7 +51,7 @@ public class StrategyRuleUtil {
 			throw new IllegalArgumentException("wrong argument");
 		return instance.types.get(key);
 	}
-	public static ListWrapper<String> getTypes(){
+	public static ListWrapper<String> getTypes() throws RemoteException{
 		Set<String> result = instance.types.keySet();
 		return new ListWrapper<>(result);
 	}

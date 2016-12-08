@@ -1,5 +1,7 @@
 package data.dao;
 
+import java.rmi.RemoteException;
+
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
@@ -14,13 +16,13 @@ public interface HotelDao {
 	public void insert(HotelPO po);
 	public void update(HotelPO po);
 	public HotelPO getInfo(long hotelId);
-	//·µ»Ø½ñÌìµÄ·¿¼ä
+	//ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 	public HotelItem getRoomByRid(long hotelId,Room room);
 	public void updateRoom(long hotelId,HotelItem rpo);
-	public ListWrapper<HotelPO> getHotelListByRule(Rule rule);
-	public ListWrapper<HotelPO> getHotelListByString(String rule);
-	public ListWrapper<BusinessCity> getAllCity();
-	public ListWrapper<HotelPO> getHotelListByCityAndCircle(BusinessCity city,BusinessCircle circle);
-	//·µ»ØËùÓÐµÄ·¿¼ä
-	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room);
+	public ListWrapper<HotelPO> getHotelListByRule(Rule rule)throws RemoteException ;
+	public ListWrapper<HotelPO> getHotelListByString(String rule)throws RemoteException ;
+	public ListWrapper<BusinessCity> getAllCity()throws RemoteException ;
+	public ListWrapper<HotelPO> getHotelListByCityAndCircle(BusinessCity city,BusinessCircle circle)throws RemoteException ;
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ·ï¿½ï¿½ï¿½
+	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room)throws RemoteException ;
 }

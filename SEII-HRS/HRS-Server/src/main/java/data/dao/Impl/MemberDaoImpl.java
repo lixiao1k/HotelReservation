@@ -1,5 +1,6 @@
 package data.dao.Impl;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import data.dao.MemberDao;
@@ -36,7 +37,7 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public ListWrapper<MemberPO> manageInfo(String name) {
+	public ListWrapper<MemberPO> manageInfo(String name) throws RemoteException {
 		List<MemberPO> list = memberDataHelper.getHotelWorkerInfo(name);
 		return new ListWrapper<>(list);
 	}

@@ -4,7 +4,6 @@ package Presentation.HotelUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import vo.addHotelVO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -30,7 +28,8 @@ public class AddHotelInfoController implements Initializable{
 @FXML TextField hotelName;
 @FXML TextField password;
 @FXML TextField addHotelField;
-
+@FXML ChoiceBox provinceChoice;
+@FXML ChoiceBox cityChoice;
 
 private static String star=null;
 
@@ -50,26 +49,29 @@ private static String star=null;
 		  Scene scene=new Scene(root,275,125);
 		  clickCheck.setScene(scene);
 		  clickCheck.show();
-		  //ĞÅÏ¢ÌîĞ´²»ÍêÕû
+		  //é”Ÿæ–¤æ‹·æ¯é”Ÿæ–¤æ‹·å†™é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·
 	  }
 	  else
 	  {
 		 
-		  //·â×°addHotelVO
-		  addHotelVO add=new addHotelVO(addressField.getText(),companyField.getText(),addHotelField.getText(),summaryArea.getText(),institutionArea.getText(),serveArea.getText(),star);
+		  //å°è£…addHotelVO
+		  //AddHotelVO add=new AddHotelVO(addressField.getText(),companyField.getText(),addHotelField.getText(),summaryArea.getText(),institutionArea.getText(),serveArea.getText(),star);
+
+		  //é”Ÿæ–¤æ‹·è£…addHotelVO
+
 		  Stage clickCheck=new Stage();
 		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
 		  Scene scene=new Scene(root,275,125);
 		  clickCheck.setScene(scene);
 		  clickCheck.show();
-		  //Ìá½»³É¹¦  
-		  //´«Ò»¸öaddHotelVO
+		  //é”Ÿç»“äº¤é”Ÿç¼´ç™¸æ‹·  
+		  //é”Ÿæ–¤æ‹·ä¸€é”Ÿæ–¤æ‹·addHotelVO
 	  }
 	  
   }
   
   @FXML
-  //µã»÷È¡Ïû ½«ÌîĞ´ÄÚÈİÇå³ı
+  //é”Ÿæ–¤æ‹·é”Ÿé¥ºâ˜…æ‹·é”Ÿï¿½ é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·å†™é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿï¿½
   public void cancel(ActionEvent e)
   {
 	  addressField.clear();
@@ -84,8 +86,8 @@ private static String star=null;
 @Override
 public void initialize(URL location, ResourceBundle resources) {
 	// TODO Auto-generated method stub
-	starChoice.setItems(FXCollections.observableArrayList("ÎŞ","ÈıĞÇ¼¶","ËÄĞÇ¼¶","ÎåĞÇ¼¶","ÁùĞÇ¼¶"));
-	starChoice.setValue("ÎŞ");
+	starChoice.setItems(FXCollections.observableArrayList("é”Ÿæ–¤æ‹·","é”Ÿæ–¤æ‹·é”Ÿè§’ç¡·æ‹·","é”Ÿæ–¤æ‹·é”Ÿè§’ç¡·æ‹·","é”Ÿæ–¤æ‹·é”Ÿè§’ç¡·æ‹·","é”Ÿæ–¤æ‹·é”Ÿè§’ç¡·æ‹·"));
+	starChoice.setValue("é”Ÿæ–¤æ‹·");
 	star=(String) starChoice.getValue();
 	starChoice.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
 		@Override

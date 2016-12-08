@@ -7,6 +7,9 @@ import info.BusinessCity;
 import info.Rank;
 
 public class AddHotelVO {
+	private String username;
+	private String password;
+	private String memberName;
 	private String name;
 	private String description;
 	private String facility;
@@ -27,6 +30,19 @@ public class AddHotelVO {
 	}
 	public void setDescription(String description){
 		this.description = description;
+	}
+	public AddHotelVO(String name, String description, String facility, String address, String service,
+			BusinessCircle businessCircle, BusinessCity businessCity, Rank rank, Set<HotelItemVO> items) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.facility = facility;
+		this.address = address;
+		this.service = service;
+		this.businessCircle = businessCircle;
+		this.businessCity = businessCity;
+		this.rank = rank;
+		this.items = items;
 	}
 	public void setBusinessCircle(BusinessCircle businessCircle){
 		this.businessCircle = businessCircle;
@@ -69,5 +85,26 @@ public class AddHotelVO {
 	}
 	public void setItems(Set<HotelItemVO> items){
 		this.items = items;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public void setBusinessCity(BusinessCity businessCity) {
+		this.businessCity = businessCity;
 	}
 }

@@ -1,15 +1,17 @@
 package info;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class BusinessCity {
+public class BusinessCity extends UnicastRemoteObject {
 	private long bcityId;
 	private Set<BusinessCircle> circles = new HashSet<BusinessCircle>();
 	private String name;
 	
-	public BusinessCity(){
+	public BusinessCity() throws RemoteException{
 		
 	}
 	public String getName(){

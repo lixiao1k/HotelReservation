@@ -1,5 +1,6 @@
 package data.dao.Impl;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import data.dao.StrategyDao;
@@ -31,13 +32,13 @@ public class StrategyDaoImpl implements StrategyDao{
 	}
 
 	@Override
-	public ListWrapper<StrategyPO> getHotelStrategyList(long hotelId) {
+	public ListWrapper<StrategyPO> getHotelStrategyList(long hotelId) throws RemoteException {
 		List<StrategyPO> list = strategyDataHelper.getHotelStrategyList(hotelId);
 		return new ListWrapper<StrategyPO>(list);
 	}
 
 	@Override
-	public ListWrapper<StrategyPO> getWEBStrategyList() {
+	public ListWrapper<StrategyPO> getWEBStrategyList() throws RemoteException {
 		List<StrategyPO> list = strategyDataHelper.getWEBStrategyList();
 		return new ListWrapper<StrategyPO>(list);
 	}

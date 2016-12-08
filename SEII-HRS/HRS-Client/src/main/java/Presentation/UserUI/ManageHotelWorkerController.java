@@ -2,8 +2,13 @@ package Presentation.UserUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.Iterator;
 import java.util.ResourceBundle;
 
+import info.BusinessCircle;
+import info.BusinessCity;
+import info.ListWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -18,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import rmi.RemoteHelper;
 
 public class ManageHotelWorkerController implements Initializable {
 	@FXML TextField searchHotel;
@@ -33,7 +39,7 @@ public class ManageHotelWorkerController implements Initializable {
 	{
 		
 		String hotel=searchHotel.getText();
-		//µ÷ÓÃMember.getAllHotelWorker½Ó¿Ú µÃµ½info  
+		//ï¿½ï¿½ï¿½ï¿½Member.getAllHotelWorkerï¿½Ó¿ï¿½ ï¿½Ãµï¿½info  
 		ObservableList<hotelInfo> hotellist=FXCollections.observableArrayList(
 				new hotelInfo(worker[0],workerpassword[0]),
 				new hotelInfo(worker[1],workerpassword[1])
@@ -41,7 +47,7 @@ public class ManageHotelWorkerController implements Initializable {
 		addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
 		companyCol.setCellValueFactory(new PropertyValueFactory<>("company"));
 		hotelData.setItems(hotellist);
-		show();//¸ø¸Ã·½·¨¼Ó²ÎÊý °Ñworkerinfo´«¹ýÈ¥
+		show();//ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ ï¿½ï¿½workerinfoï¿½ï¿½ï¿½ï¿½È¥
 
 	}
 	
@@ -66,7 +72,7 @@ public class ManageHotelWorkerController implements Initializable {
 		{
 			String nameup=workerName.getText();
 			String passup=password.getText();
-			//×°½øManageHotelWorkerVO
+			//×°ï¿½ï¿½ManageHotelWorkerVO
 			Stage clickCheck=new Stage();
 			  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
 			  Scene scene=new Scene(root,275,125);
@@ -128,8 +134,26 @@ public class ManageHotelWorkerController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+		try {
+			System.out.println(RemoteHelper.getInstance().getServiceFactory().getHotelLogicService());
+			ListWrapper<BusinessCity> bc = RemoteHelper.getInstance().getServiceFactory().getHotelLogicService().getCity();
+			System.out.println(2);
+			if(bc==null)
+				System.out.println("wrong");
+			Iterator<BusinessCity> it = bc.iterator();
+			while(it.hasNext()){
+				BusinessCity bcc = it.next();
+				System.out.println(bcc.getName());
+				Iterator<BusinessCircle> bci = bcc.getCircleIterator();
+				while(bci.hasNext()){
+					BusinessCircle bcci = bci.next();
+					System.out.println(bcci.getName());
+				}
+				System.out.println("----------------------");
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

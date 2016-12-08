@@ -24,4 +24,5 @@ public interface MemberLogicService extends Remote{
 	public MemberResultMessage updateWEBSaler(ManageWEBSalerVO vo) throws RemoteException;
 	public MemberResultMessage delete(long id) throws RemoteException;
 	public MemberVO getInfo(long userId) throws RemoteException;
+	public void setVIPscale(int scale) throws RemoteException;
 }

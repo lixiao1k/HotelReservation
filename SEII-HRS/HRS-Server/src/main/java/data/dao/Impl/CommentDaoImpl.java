@@ -1,5 +1,6 @@
 package data.dao.Impl;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import data.dao.CommentDao;
@@ -19,13 +20,13 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public ListWrapper<CommentPO> getUserComment(long userId) {
+	public ListWrapper<CommentPO> getUserComment(long userId) throws RemoteException {
 		List<CommentPO> userComment = commentDataHelper.getUserComment(userId);
 		return new ListWrapper<CommentPO>(userComment);
 	}
 
 	@Override
-	public ListWrapper<CommentPO> getHotelComment(long hotelId) {
+	public ListWrapper<CommentPO> getHotelComment(long hotelId) throws RemoteException {
 		List<CommentPO> hotelComment = commentDataHelper.getHotelComment(hotelId);
 		return new ListWrapper<CommentPO>(hotelComment);
 	}

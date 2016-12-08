@@ -1,5 +1,6 @@
 package data.dao.Impl;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -58,32 +59,32 @@ public class HotelDaoImpl implements HotelDao {
 	}
 
 	@Override
-	public ListWrapper<HotelPO> getHotelListByRule(Rule rule) {
+	public ListWrapper<HotelPO> getHotelListByRule(Rule rule)throws RemoteException  {
 		List<HotelPO> list = hotelDataHelper.getHotelListByRule(rule);
 		return new ListWrapper<HotelPO>(list);
 	}
 
 	@Override
-	public ListWrapper<HotelPO> getHotelListByString(String rule) {
+	public ListWrapper<HotelPO> getHotelListByString(String rule) throws RemoteException {
 		List<HotelPO> list = hotelDataHelper.getHotelListByString(rule);
 		return new ListWrapper<>(list);
 	}
 
 	@Override
-	public ListWrapper<BusinessCity> getAllCity() {
+	public ListWrapper<BusinessCity> getAllCity()throws RemoteException  {
 		List<BusinessCity> list = hotelDataHelper.getAllCity();
 		return new ListWrapper<BusinessCity>(list);
 	}
 
 	@Override
-	public ListWrapper<HotelPO> getHotelListByCityAndCircle(BusinessCity city, BusinessCircle circle) {
+	public ListWrapper<HotelPO> getHotelListByCityAndCircle(BusinessCity city, BusinessCircle circle) throws RemoteException {
 		List<HotelPO> list = hotelDataHelper.getHotelListByCityAndCircle(city, circle);
-		return new ListWrapper<HotelPO>(list);
+		return new ListWrapper<HotelPO>(list) ;
 	}
 
 
 	@Override
-	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room) {
+	public ListWrapper<HotelItem> getHotelItemByRoom(long hotelId,Room room) throws RemoteException {
 		List<HotelItem> rooms = hotelDataHelper.getHotelItemByRoom(hotelId, room);
 		return new ListWrapper<HotelItem>(rooms);
 	}

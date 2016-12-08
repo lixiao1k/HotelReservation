@@ -1,5 +1,6 @@
 package data.dao.Impl;
 
+import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,26 +32,26 @@ public class OrderDaoImpl implements OrderDao{
 		return orderDataHelper.getInfo(orderId);
 	}
 	@Override
-	public ListWrapper<OrderPO> getHotelOrders(long hotelId) {
+	public ListWrapper<OrderPO> getHotelOrders(long hotelId) throws RemoteException {
 		List<OrderPO> list = orderDataHelper.getHotelOrders(hotelId);
 	
 		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
 		return res;
 	}
 	@Override
-	public ListWrapper<OrderPO> getUserOrders(long userId) {
+	public ListWrapper<OrderPO> getUserOrders(long userId) throws RemoteException {
 		List<OrderPO> list = orderDataHelper.getUserOrders(userId);
 		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
 		return res;
 	}
 	@Override
-	public ListWrapper<OrderPO> getTodayOrders() {
+	public ListWrapper<OrderPO> getTodayOrders()throws RemoteException  {
 		List<OrderPO> list = orderDataHelper.getWEBOrders();
 		ListWrapper<OrderPO> res = new ListWrapper<OrderPO>(list);
 		return res;
 	}
 	@Override
-	public ListWrapper<OrderPO> getHotelUserOrders(long hotelId, long userId) {
+	public ListWrapper<OrderPO> getHotelUserOrders(long hotelId, long userId)throws RemoteException  {
 		List<OrderPO> list = orderDataHelper.getHotelUserOrders(hotelId, userId);
 		ListWrapper<OrderPO> res = new ListWrapper<>(list);
 		return res;

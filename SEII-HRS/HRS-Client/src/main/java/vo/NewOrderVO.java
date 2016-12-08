@@ -16,8 +16,24 @@ public class NewOrderVO {
 	private Room room;
 	private int roomNum;
 	private double roomPrice;
-	private long strategy;
+	private long strategyId;
 	private double strategyOff;
+	//for test
+	public NewOrderVO(long userId,long hotelId,boolean child,int people,String contactWay,String contactName,Date checkInTime,Date checkOutTime,Room room,int roomNum,double roomPrice,long strategy,double strategyOff){
+		this.userId = userId;
+		this.hotelId = hotelId;
+		this.child = child;
+		this.people = people;
+		this.contactWay = contactWay;
+		this.checkInTime = checkInTime;
+		this.checkOutTime = checkOutTime;
+		this.contactName = contactName;
+		this.room = room;
+		this.roomNum = roomNum;
+		this.roomPrice = roomPrice;
+		this.strategyId = strategy;
+		this.strategyOff = strategyOff;
+	}
 	public String getContactWay(){
 		return contactWay;
 	}
@@ -51,8 +67,8 @@ public class NewOrderVO {
 	public double getRoomPrice(){
 		return roomPrice;
 	}
-	public long getStrategy(){
-		return strategy;
+	public long getStrategyId(){
+		return strategyId;
 	}
 	public double getStrategyOff(){
 		return strategyOff;
@@ -85,7 +101,7 @@ public class NewOrderVO {
 		this.roomPrice = roomPrice;
 	}
 	public void setStrategy(long strategy){
-		this.strategy = strategy;
+		this.strategyId = strategy;
 	}
 	public void setStrategyOff(double strategyOff){
 		this.strategyOff = strategyOff;

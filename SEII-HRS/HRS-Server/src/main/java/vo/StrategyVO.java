@@ -13,7 +13,7 @@ public class StrategyVO {
 	private double off;
 	public void setExtraInfo(String extraInfo){
 		this.extraInfo = extraInfo;
-	}
+	} 
 	public void setName(String name){
 		this.name = name;
 	}

@@ -1,5 +1,6 @@
 package logic.service.impl.order;
 
+import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
@@ -36,29 +37,29 @@ import vo.NewOrderVO;
 import vo.OrderVO;
 import vo.StrategyVO;
 /*
- * OrderÄ£¿éµÄÁìÓò¶ÔÏó£¬¾ßÌåÊµÏÖ¸÷ÖÖOrderµÄÏà¹Ø²Ù×÷
+ * OrderÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¬¾ï¿½ï¿½ï¿½Êµï¿½Ö¸ï¿½ï¿½ï¿½Orderï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
  */
 public class OrderDO {
 	private OrderDao orderDao;
-	//»º´æ´ÓÊý¾Ý¿âÖÐÈ¡³öµÄOrderPO¶ÔÏó
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½OrderPOï¿½ï¿½ï¿½ï¿½
 	private Cache<OrderPO> orders;
 	public OrderDO(){
 		orderDao = DaoManager.getInstance().getOrderDao();
-		//Ä¬ÈÏ»º´æ20ÌõOrderPO
+		//Ä¬ï¿½Ï»ï¿½ï¿½ï¿½20ï¿½ï¿½OrderPO
 		orders = new Cache<OrderPO>(20);
 	}
 	/*
 	 * Constructor
-	 * @param cacheSize-Ö¸¶¨ÌØ¶¨µÄcacheSize
+	 * @param cacheSize-Ö¸ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½cacheSize
 	 */
 	public OrderDO(int cacheSize){
 		orderDao = DaoManager.getInstance().getOrderDao();
 		orders = new Cache<OrderPO>(cacheSize);
 	}
 	/*
-	 * ÄÚ²¿×ª»¯Æ÷£¬ÓÉÓÚÈý¸ögetOrder·½·¨ÔÚÂß¼­ÉÏµÄÊµÏÖ¶¼²î²»¶à£¬¹Ê³éÀë³öÀ´
+	 * ï¿½Ú²ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½getOrderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½Ïµï¿½Êµï¿½Ö¶ï¿½ï¿½î²»ï¿½à£¬ï¿½Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
-	private ListWrapper<OrderVO> transform(ListWrapper<OrderPO> list){
+	private ListWrapper<OrderVO> transform(ListWrapper<OrderPO> list)throws RemoteException {
 		Iterator<OrderPO> it = list.iterator();
 		Set<OrderVO> set = new HashSet<OrderVO>();
 		while(it.hasNext()){
@@ -72,7 +73,7 @@ public class OrderDO {
 		}
 		return new ListWrapper<OrderVO>(set);
 	}
-	public ListWrapper<OrderVO> getUserOrderInfo(long userId) {
+	public ListWrapper<OrderVO> getUserOrderInfo(long userId) throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			return this.transform(orderDao.getUserOrders(userId));
@@ -89,7 +90,7 @@ public class OrderDO {
 		}
 	}
 
-	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId) {
+	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId) throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			return this.transform(orderDao.getHotelOrders(hotelId));
@@ -107,7 +108,7 @@ public class OrderDO {
 	}
 
 
-	public ListWrapper<OrderVO> getWEBOrderInfo() {
+	public ListWrapper<OrderVO> getWEBOrderInfo() throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			return this.transform(orderDao.getTodayOrders());
@@ -125,16 +126,16 @@ public class OrderDO {
 		}
 	}
 	/*
-	 * ´´½¨¶©µ¥
-	 * @param OrderVO ´Óview²ã´«»ØÀ´µÄ¶©µ¥±íµ¥ÐÅÏ¢
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param OrderVO ï¿½ï¿½viewï¿½ã´«ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
-	public OrderResultMessage create(NewOrderVO vo) {
-		//ËäÈ»½çÃæ²ã×öÁË¼òµ¥µÄÊý¾ÝÑéÖ¤ÅÐ¶Ï£¬ÕâÀï»¹ÊÇÒªÖØ¸´Ò»´Î£¬·ÀÖ¹Òò¶ñÒâ×¥°üÆÆ»µÊý¾Ý£¬²¢ÇÒÒª±È½çÃæ²ãÑéÖ¤Ó¦¸üÏêÏ¸
-		//ÊÂÎñ¿ªÆô±êÊ¶
+	public OrderResultMessage create(NewOrderVO vo)throws RemoteException  {
+		//ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼òµ¥µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï»¹ï¿½ï¿½Òªï¿½Ø¸ï¿½Ò»ï¿½Î£ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½×¥ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤Ó¦ï¿½ï¿½ï¿½ï¿½Ï¸
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶
 		boolean flag = false;
-		// µ±Ç°Ê±¼ä
+		// ï¿½ï¿½Ç°Ê±ï¿½ï¿½
 		Date now = new Date();
-		//¼òµ¥µÄÊý¾ÝÑéÖ¤
+		//ï¿½òµ¥µï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
 		if (!(vo.getCheckInTime().before(vo.getCheckOutTime())
 				&& vo.getCheckInTime().after(now)))
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
@@ -142,14 +143,14 @@ public class OrderDO {
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
 		else if (!(vo.getHotelId()>0&&vo.getUserId()>0))
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
-		//ÏÈ¸ù¾ÝuserIdºÍhotelId²éÑ¯cache
+		//ï¿½È¸ï¿½ï¿½ï¿½userIdï¿½ï¿½hotelIdï¿½ï¿½Ñ¯cache
 		Iterator cacheIt = orders.getKeys();
 		MemberPO mpo = null;
 		HotelPO hpo = null;
 		StrategyPO spo = null;
 		while(cacheIt.hasNext()){
 			long orderId;
-			//cacheÖÐµÄ¼ü¿ÉÄÜ·ÇorderId
+			//cacheï¿½ÐµÄ¼ï¿½ï¿½ï¿½ï¿½Ü·ï¿½orderId
 			try{
 				orderId = (long) cacheIt.next();
 			}catch(NumberFormatException e){
@@ -169,7 +170,7 @@ public class OrderDO {
 			if (hpo!=null&&mpo!=null&&spo!=null)
 				break;
 		}
-		//ÈôÕÒ²»µ½£¬ÔòÁ¬½ÓÊý¾Ý¿â²éÕÒ
+		//ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½
 		if (hpo==null||mpo==null||spo==null){
 			try{
 				HibernateUtil.getCurrentSession()
@@ -183,7 +184,7 @@ public class OrderDO {
 					hpo = DaoManager.getInstance().getHotelDao().getInfo(vo.getHotelId());
 				if (spo==null)
 					spo = DaoManager.getInstance().getStrategyDao().getInfo(vo.getStrategyId());
-			//Õû¸öorder´´½¨ÊÂÎñ»¹Î´Íê³É£¬²»Ìá½»ÊÂÎñ		
+			//ï¿½ï¿½ï¿½ï¿½orderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½ï¿½ï¿½		
 			}catch(RuntimeException e){
 				e.printStackTrace();
 				try{
@@ -199,7 +200,7 @@ public class OrderDO {
 		}
 		if (hpo==null||mpo==null||spo==null) return OrderResultMessage.FAIL_WRONGORDERINFO;
 		
-		//¶þ´ÎÑéÖ¤¶©µ¥µÄ·¿¼äÐÅÏ¢ÊÇ·ñÊôÊµ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ç·ï¿½ï¿½ï¿½Êµ
 		Room room = vo.getRoom();
 		Iterator<HotelItem> hoiit = hpo.getRoom();
 		if (room==null)
@@ -216,7 +217,7 @@ public class OrderDO {
 		    }
 		}
 		if (!roomFlag) return OrderResultMessage.FAIL_WRONGORDERINFO;
-		//ÉèÖÃÐÂ¶©µ¥ÐÅÏ¢
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		OrderPO po = DozerMappingUtil.getInstance().map(vo, OrderPO.class);
 		if(spo.getType().getName().contains("WEB")){
 			po.setOff(spo.getOff());
@@ -254,7 +255,7 @@ public class OrderDO {
 
 		String orderNum = "SE-"+now.getDate()+po.hashCode();
 		po.setOrderId(orderNum);
-		//´æ´¢¶©µ¥£¬¿ªÆôÊý¾Ý¿âÊÂÎñ,Í¬Ê±´æ´¢µ½cacheÖÐ
+		//ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½,Í¬Ê±ï¿½æ´¢ï¿½ï¿½cacheï¿½ï¿½
 		try{
 			if (!flag)
 			HibernateUtil.getCurrentSession()
@@ -277,21 +278,21 @@ public class OrderDO {
 			throw e;
 		}
 	}
-	private OrderResultMessage extraOperation(OrderPO po,int operation,int extraOperation){
+	private OrderResultMessage extraOperation(OrderPO po,int operation,int extraOperation)throws RemoteException {
 		double[] rank = {1,0.5};
-		//revoke Êý¾Ý
+		//revoke ï¿½ï¿½ï¿½ï¿½
 		Date now = new Date();
 		Date judge = DateUtil.getBeforeDate(po.getCheckInTime(), 6);
 		Date judge2 = DateUtil.getFutureDate(po.getCheckInTime(), 6);
 		double[] sync = {-1,1,1,0,0};
 		int[] roomSync = {-1,0,1,1};
-		String[] reason ={"¶©µ¥Òì³£","Ö´ÐÐ¶©µ¥","²¹Ö´ÐÐ¶©µ¥","ÓÃ»§³·Ïú¶©µ¥","ÍøÕ¾¹¤×÷ÈËÔ±³·Ïú¶©µ¥"};
+		String[] reason ={"ï¿½ï¿½ï¿½ï¿½ï¿½ì³£","Ö´ï¿½Ð¶ï¿½ï¿½ï¿½","ï¿½ï¿½Ö´ï¿½Ð¶ï¿½ï¿½ï¿½","ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"};
 		if(operation==4)
 			sync[4] = rank[extraOperation];
 		sync[3] = (now.before(judge))? 1:(now.before(po.getCheckInTime())? 0.5:0);
 		if(operation==3&&sync[3]==0)
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
-		// abnormal¶îÍâ²Ù×÷
+		// abnormalï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (operation==1&&now.after(po.getCheckInTime())&&now.before(judge2))
 			po.setAbnormalTime(new Timestamp(System.currentTimeMillis()));
 		else if(operation==1&&!(now.after(po.getCheckInTime())&&now.before(judge2)))
@@ -320,45 +321,45 @@ public class OrderDO {
 		return OrderResultMessage.SUCCESS;
 	}
 	/*
-	 * ÓÉÓÚexecute,reExecute,abnormalºÍcancelµÄ·½·¨´óÌåÏàÍ¬£¬²ÉÓÃ±íÇý¶¯µÄ·½Ê½,1Îª¶©µ¥Òì³££¬2ÎªÖ´ÐÐ£¬3Îª²¹Ö´ÐÐ£¬4ÎªÓÃ»§³·Ïú£¬5ÎªÍøÕ¾ÈËÔ±³·Ïú
+	 * ï¿½ï¿½ï¿½ï¿½execute,reExecute,abnormalï¿½ï¿½cancelï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Ê½,1Îªï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½2ÎªÖ´ï¿½Ð£ï¿½3Îªï¿½ï¿½Ö´ï¿½Ð£ï¿½4Îªï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5Îªï¿½ï¿½Õ¾ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
 	 */
-	private OrderResultMessage changeStatus(long orderId,int operation,int extraOperation){
-		//ÅÐ±ð¶©µ¥µÄ×´Ì¬
+	private OrderResultMessage changeStatus(long orderId,int operation,int extraOperation)throws RemoteException {
+		//ï¿½Ð±ð¶©µï¿½ï¿½ï¿½×´Ì¬
 		OrderStatus[] judgeStatus = {OrderStatus.UNEXECUTED
 									 ,OrderStatus.UNEXECUTED
 									 ,OrderStatus.ABNORMAL
 									 ,OrderStatus.UNEXECUTED
 									 ,OrderStatus.ABNORMAL};
-		//ÐèÒª¸ü¸ÄµÄ¶©µ¥µÄ×´Ì¬
+		//ï¿½ï¿½Òªï¿½ï¿½ï¿½ÄµÄ¶ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 		OrderStatus[] changeStatus = {OrderStatus.ABNORMAL
 									 ,OrderStatus.EXECUTED
 									 ,OrderStatus.EXECUTED
 									 ,OrderStatus.REVOKED
 									 ,OrderStatus.REVOKED};
-		//ÏÈ²éÑ¯»º´æÖÐÓÐÎÞ¸ÃOrder
+		//ï¿½È²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½Order
 		OrderPO cachePO = null;
 		try{
 			cachePO = orders.get(orderId);
 		}catch(IllegalArgumentException e){
-			System.err.println("´«Èë²ÎÊýÎª¿Õ");
+			System.err.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½");
 		}
 		boolean flag = false;
-		//Èôcache ÖÐÎÞ£¬Ôò´ÓÊý¾Ý¿âÖÐ»ñµÃ£¬²Ù×÷ºó´æÈëcache
+		//ï¿½ï¿½cache ï¿½ï¿½ï¿½Þ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½Ð»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cache
 		if (cachePO==null){
 			OrderPO po = null;
-			//¸ù¾ÝorderId»ñÈ¡orderPO
+			//ï¿½ï¿½ï¿½ï¿½orderIdï¿½ï¿½È¡orderPO
 			try{
 				HibernateUtil.getCurrentSession().beginTransaction();
 				flag = true;
 				po = orderDao.getInfo(orderId);
-				//Èç¹û·µ»ØµÄÊÇNull,ËµÃ÷Ã»ÓÐÕâ¸ö¶©µ¥£¬·µ»Ø´íÎó£¬·ñÔòÖÃÎªÏàÓ¦µÄ×´Ì¬
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½Null,Ëµï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½ï¿½ó£¬·ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ó¦ï¿½ï¿½×´Ì¬
 				if (po!=null){
-					//Ìí¼Ópoµ½cacheÖÐ
+					//ï¿½ï¿½ï¿½poï¿½ï¿½cacheï¿½ï¿½
 					orders.put(po.getOid(), po);
-					//ÅÐ¶Ï×´Ì¬ÊÇ·ñÎª¸ø¶¨µÄ×´Ì¬
+					//ï¿½Ð¶ï¿½×´Ì¬ï¿½Ç·ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
 					if(po.getStatus()==judgeStatus[operation-1]){
 						po.setStatus(changeStatus[operation-1]);
-						//¶îÍâÊÂÎñÐ¶ÔØÕâÀï
+						//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						OrderResultMessage temp = extraOperation(po, operation-1, extraOperation);
 						if(temp!=OrderResultMessage.SUCCESS){
 							HibernateUtil.getCurrentSession().getTransaction().rollback();
@@ -366,14 +367,14 @@ public class OrderDO {
 						}
 						
 						orderDao.update(po);
-						//Ìá½»ÊÂÎñ²¢·µ»Ø³É¹¦
+						//ï¿½á½»ï¿½ï¿½ï¿½ñ²¢·ï¿½ï¿½Ø³É¹ï¿½
 						HibernateUtil.getCurrentSession()
 										.getTransaction()
 										.commit();
 						return OrderResultMessage.SUCCESS;
 					}
 					else{
-						//×´Ì¬´íÎóÔò½áÊøÊÂÎñ²¢·µ»Ø´íÎó
+						//×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ²¢·ï¿½ï¿½Ø´ï¿½ï¿½ï¿½
 						HibernateUtil.getCurrentSession()
 										.getTransaction()
 										.commit();
@@ -381,14 +382,14 @@ public class OrderDO {
 					}
 				}
 				else{
-					//Ìá½»ÊÂÎñ
+					//ï¿½á½»ï¿½ï¿½ï¿½ï¿½
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.commit();
 					return OrderResultMessage.FAIL_WRONGID;
 				}
 			}catch(RuntimeException e){
-				//Óöµ½ÔËÐÐÊ±Ïà¹Ø´íÎóÔò»Ø¹öÊÂÎñ
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ø´ï¿½ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½
 				e.printStackTrace();
 				orders.remove(po.getOid());
 				try{
@@ -401,9 +402,9 @@ public class OrderDO {
 				}
 				throw e;
 			}
-		}//Èô³É¹¦ÔÚ»º´æÖÐÕÒµ½ÁË¶ÔÓ¦¶©µ¥£¬Ôò¸üÐÂ¶©µ¥²¢½«Ö®³Ö¾Ã»¯
+		}//ï¿½ï¿½ï¿½É¹ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Ë¶ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½Ö¾Ã»ï¿½
 		else{
-			//ÓÉÓÚÉæ¼°µ½Êý¾Ý¿â²Ù×÷£¬×¢Òâµ½ÕâÀïÈç¹ûÊý¾Ý¿â»Ø¹öÊ±£¬cacheÖÐµÄÊý¾ÝÒ²ÒªÏàÓ¦µÄ·¢Éú¸Ä±ä£¬ÏÈ±£´æÔ­Ê¼×´Ì¬
+			//ï¿½ï¿½ï¿½ï¿½ï¿½æ¼°ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½âµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Ø¹ï¿½Ê±ï¿½ï¿½cacheï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½Ò²Òªï¿½ï¿½Ó¦ï¿½Ä·ï¿½ï¿½ï¿½ï¿½Ä±ä£¬ï¿½È±ï¿½ï¿½ï¿½Ô­Ê¼×´Ì¬
 			OrderStatus tempStatus = cachePO.getStatus();
 			try{
 				if(!flag)
@@ -411,15 +412,15 @@ public class OrderDO {
 				
 				if (tempStatus==judgeStatus[operation-1]){
 					cachePO.setStatus(changeStatus[operation-1]);
-					//ÕâÀïÉèÖÃ¶îÍâµÄ²Ù×÷
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 					OrderResultMessage temp =extraOperation(cachePO, operation-1, extraOperation);
 					if(temp==OrderResultMessage.FAIL_WRONGORDERINFO){
 						HibernateUtil.getCurrentSession().getTransaction().rollback();
 						return temp;
 					}
-					//¸üÐÂÊý¾Ý¿âºÍcache
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½cache
 					orderDao.update(cachePO);
-					//Ìá½»ÊÂÎñ²¢·µ»Ø
+					//ï¿½á½»ï¿½ï¿½ï¿½ñ²¢·ï¿½ï¿½ï¿½
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.commit();
@@ -431,9 +432,9 @@ public class OrderDO {
 					return OrderResultMessage.FAIL_WRONGSTATUS;	
 				}
 			}catch(RuntimeException e){
-				//»Ö¸´cachePOÖÐµÄÊý¾Ý
+				//ï¿½Ö¸ï¿½cachePOï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½
 				cachePO.setStatus(tempStatus);
-				//»Ø¹öÊÂÎñ
+				//ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
@@ -446,19 +447,19 @@ public class OrderDO {
 			}
 		}
 	}
-	public OrderResultMessage abnormal(long orderId) {
+	public OrderResultMessage abnormal(long orderId)throws RemoteException  {
 		return changeStatus(orderId,1,-1);
 	}
-	public OrderResultMessage userRevoke(long orderId) {
+	public OrderResultMessage userRevoke(long orderId) throws RemoteException {
 		return changeStatus(orderId,4,-1);
 	}
-	public OrderResultMessage execute(long orderId) {
+	public OrderResultMessage execute(long orderId) throws RemoteException {
 		return changeStatus(orderId,2,-1);
 	}
-	public OrderResultMessage reExecute(long orderId) {
+	public OrderResultMessage reExecute(long orderId)throws RemoteException  {
 		return changeStatus(orderId,3,-1);
 	}
-	public OrderResultMessage webRevoke(long orderId,int rank){
+	public OrderResultMessage webRevoke(long orderId,int rank)throws RemoteException {
 		return changeStatus(orderId,5,rank);
 	}
 

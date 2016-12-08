@@ -21,6 +21,11 @@ public class ManageWEBSalerVO {
 	public String getUsername() {
 		return username;
 	}
+	@Override
+	public String toString() {
+		return "ManageWEBSalerVO [userid=" + userid + ", username=" + username + ", password=" + password + ", name="
+				+ name + "]";
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}

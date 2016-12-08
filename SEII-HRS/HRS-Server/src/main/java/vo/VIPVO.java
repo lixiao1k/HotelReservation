@@ -2,18 +2,20 @@ package vo;
 
 import java.time.LocalDate;
 
+import info.VIPType;
+
 public class VIPVO {
-	private int type;
+	private VIPType type;
 	private LocalDate birthday;
 	private long userId;
 	private String companyName;
-	public VIPVO(int type, LocalDate birthday, long userId, String companyName) {
+	public VIPVO(VIPType type, LocalDate birthday, long userId, String companyName) {
 		this.type=type;
 		this.birthday=birthday;
 		this.userId=userId;
 		this.companyName=companyName;
 	}
-	public void setType(int type){
+	public void setType(VIPType type){
 		this.type = type;
 	}
 	public void setBirthDay(LocalDate birthday){
@@ -34,7 +36,7 @@ public class VIPVO {
 	public LocalDate getBirthday(){
 		return birthday;
 	}
-	public int getType(){
+	public VIPType getType(){
 		return type;
 	}
 	
