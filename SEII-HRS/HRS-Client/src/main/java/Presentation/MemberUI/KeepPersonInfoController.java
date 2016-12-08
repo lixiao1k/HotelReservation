@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Presentation.FeedbackUI.AddContactController;
+import Presentation.MainUI.ClientMainUIController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -38,7 +39,7 @@ public class KeepPersonInfoController implements Initializable{
 	private boolean isEdit=false;
 	private long userid;
 	private ObservableList<String> contact =FXCollections.observableArrayList();
-	
+	private ClientMainUIController clientmainuicontroller;
 	
 	@FXML 
 	protected void add(ActionEvent e){
@@ -56,6 +57,8 @@ public class KeepPersonInfoController implements Initializable{
 			    // TODO Auto-generated catch block
 			    e1.printStackTrace();
 		    }
+		}else{
+			clientmainuicontroller.setStateLabel("ÇëÏÈµã»÷±à¼­°´Å¥");
 		}
 
 	}
@@ -104,13 +107,14 @@ public class KeepPersonInfoController implements Initializable{
 	//±à¼­°´Å¥µã»÷ºóÖÃÎª¿É±à¼­
 	@FXML
 	protected void edit(ActionEvent e){
+		clientmainuicontroller.setStateLabel("ÔÊÐí±à¼­");
 		isEdit=true;
 		nameTextField.setEditable(true);
 		companyNameTextField.setEditable(true);
 	}
 
 	@FXML
-	protected void ensure(ActionEvent e){
+	protected void save(ActionEvent e){
 		updateClient();
 	}
 	
@@ -141,6 +145,10 @@ public class KeepPersonInfoController implements Initializable{
 		contactComboBox.setItems(contact);
 		contactComboBox.setPromptText(contact.get(0));
 		creditLabel.setText(Integer.toString(testmembervo.returnMemberVO().getCredit()));
+	}
+	
+	public void setClientMainUIController(ClientMainUIController controller){
+		this.clientmainuicontroller=controller;
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

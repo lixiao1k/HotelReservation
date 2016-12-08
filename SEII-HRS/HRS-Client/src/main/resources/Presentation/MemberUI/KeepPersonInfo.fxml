@@ -91,7 +91,7 @@
         <Font size="15.0" fx:id="x2" />
       </font>
     </Button>
-    <Button font="$x2" mnemonicParsing="false" onAction="#ensure" text="确定" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+    <Button font="$x2" mnemonicParsing="false" onAction="#save" text="保存" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
       <GridPane.margin>
         <Insets left="100.0" />
       </GridPane.margin>

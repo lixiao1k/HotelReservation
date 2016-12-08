@@ -54,14 +54,14 @@
             <Insets top="10.0" fx:id="x2" />
           </VBox.margin>
         </Separator>
-        <Button  fx:id="goHotelListButton" mnemonicParsing="false" onAction="#goHotelList" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="搜索酒店">
+        <Button fx:id="goHotelListButton" mnemonicParsing="false" onAction="#goHotelList" prefHeight="38.0" prefWidth="117.0" styleClass="main-pane-button" text="搜索酒店">
           <VBox.margin>
             <Insets left="7.0" top="5.0" fx:id="x1" />
           </VBox.margin>
         </Button>
       </children>
     </VBox>
-    <Label text="状态栏" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <Label fx:id="stateLabel" prefWidth="157.0" text="状态栏" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
     <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2" />
     <Separator orientation="VERTICAL" prefHeight="559.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <GridPane.margin>
