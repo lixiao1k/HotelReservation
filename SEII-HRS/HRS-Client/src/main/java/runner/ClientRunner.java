@@ -4,9 +4,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-
 import Presentation.MainUI.WebManagerMainUI;
-import Presentation.MainUI.WebSalerMainUI;
 import javafx.application.Application;
 import rmi.RemoteHelper;
 

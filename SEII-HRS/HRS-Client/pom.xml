@@ -9,10 +9,17 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 </properties>
 <dependencies>
-	  	<dependency>
+<dependency>
   		<groupId>org.hibernate</groupId>
   		<artifactId>hibernate-core</artifactId>
   		<version>3.6.5.Final</version>
-  	</dependency>
+</dependency>
+  	<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
+<dependency>
+    <groupId>org.controlsfx</groupId>
+    <artifactId>controlsfx</artifactId>
+    <version>8.0.5</version>
+</dependency>
+  	
 </dependencies>
 </project>
