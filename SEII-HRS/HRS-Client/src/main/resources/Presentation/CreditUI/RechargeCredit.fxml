@@ -7,36 +7,31 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane prefHeight="564.0" prefWidth="768.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<GridPane prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.CreditUI.RechargeCreditController">
   <!-- TODO Add Nodes -->
   <children>
-    <TextField prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-      <GridPane.margin>
-        <Insets left="80.0" fx:id="x2" />
-      </GridPane.margin>
-    </TextField>
-    <Button mnemonicParsing="false" text="搜索" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <Button mnemonicParsing="false" onAction="#cancel" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="4">
       <font>
-        <Font size="17.0" fx:id="x1" />
+        <Font size="20.0" fx:id="x1" />
       </font>
       <GridPane.margin>
-        <Insets left="30.0" />
+        <Insets top="40.0" />
       </GridPane.margin>
     </Button>
-    <Label alignment="CENTER_LEFT" font="$x1" prefHeight="122.0" prefWidth="369.0" text="用户信息" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="1" />
-    <Label font="$x1" text="充值信用：" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="2" />
-    <TextField prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+    <Label alignment="CENTER_LEFT" font="$x1" prefHeight="122.0" prefWidth="369.0" text="用户ID：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="60.0" top="80.0" />
+         </GridPane.margin></Label>
+    <Label font="$x1" text="充值额度：" GridPane.columnIndex="0" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="45.0" />
+         </GridPane.margin></Label>
+    <TextField fx:id="money" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
       <GridPane.margin>
         <Insets left="170.0" right="320.0" />
       </GridPane.margin>
     </TextField>
-    <Label font="$x1" text="充值后信用：" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="3" />
-    <Label prefHeight="30.0" prefWidth="258.0" text="xxxxxxx" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3">
-      <GridPane.margin>
-        <Insets left="190.0" />
-      </GridPane.margin>
-    </Label>
-    <Button mnemonicParsing="false" text="提交" GridPane.columnIndex="0" GridPane.rowIndex="4">
+    <Button mnemonicParsing="false" onAction="#commit" text="提交" GridPane.columnIndex="0" GridPane.rowIndex="4">
       <font>
         <Font size="20.0" fx:id="x3" />
       </font>
@@ -44,11 +39,19 @@
         <Insets left="260.0" top="40.0" />
       </GridPane.margin>
     </Button>
-    <Button font="$x3" mnemonicParsing="false" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="4">
-      <GridPane.margin>
-        <Insets left="20.0" top="40.0" />
-      </GridPane.margin>
-    </Button>
+      <Label text="（充值信用=充值额度*100））" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="15.0" left="35.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userID" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="170.0" right="325.0" top="80.0" />
+         </GridPane.margin>
+      </TextField>
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="573.0" minWidth="10.0" prefWidth="369.0" />

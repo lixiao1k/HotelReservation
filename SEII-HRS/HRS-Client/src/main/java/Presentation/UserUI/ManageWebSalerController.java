@@ -9,24 +9,26 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class ManageWebSalerController {
 	@FXML private TextField searchField;
-	@FXML private TextField userName;//ÓÃ»§Ãû
-	@FXML private TextField Name;//êÇ³Æ
+	@FXML private TextField userName;//ï¿½Ã»ï¿½ï¿½ï¿½
+	@FXML private TextField Name;//ï¿½Ç³ï¿½
 	@FXML private TextField password;
-	     
+	@FXML private Button addBT;
+	@FXML private Button commitBT;
 	
 
 	public void Search(ActionEvent e)
 	{
 		String webUser=searchField.getText();
-		//µ÷ÓÃWeb.getWEBSaler·½·¨   µÃµ½WEBSalerVO
-		userName.setText("ÓÃ»§");
-		Name.setText("êÇ³Æ");
-		password.setText("ÃÜÂë");
+		//ï¿½ï¿½ï¿½ï¿½Web.getWEBSalerï¿½ï¿½ï¿½ï¿½   ï¿½Ãµï¿½WEBSalerVO
+		userName.setText("ï¿½Ã»ï¿½");
+		Name.setText("ï¿½Ç³ï¿½");
+		password.setText("ï¿½ï¿½ï¿½ï¿½");
 	}
 	
 	public void Commit()throws IOException
@@ -34,7 +36,7 @@ public class ManageWebSalerController {
 		  String userup=userName.getText();
 		  String nameup=Name.getText();
 		  String passup=password.getText();
-		  //½«¸ü¸ÄºóµÄÐÅÏ¢°ü×°ÎªÒ»¸öManageWEBSalerVO   
+		  //ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½×°ÎªÒ»ï¿½ï¿½ManageWEBSalerVO   
 		  boolean empty=userName.getText().equals("")||Name.getText().equals("")||password.getText().equals("");
 		  if(empty)
 		  {
@@ -63,7 +65,7 @@ public class ManageWebSalerController {
 			String useradd=userName.getText();
 			String nameadd=Name.getText();
 			String passadd=password.getText();
-			//½«ÐÅÏ¢°ü×°ÎªManageWEBSalerVO
+			//ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½×°ÎªManageWEBSalerVO
 			if(empty)
 			{
 				 Stage addCheck=new Stage();

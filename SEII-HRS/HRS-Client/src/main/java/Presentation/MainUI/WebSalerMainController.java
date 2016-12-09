@@ -50,8 +50,8 @@ public class WebSalerMainController {
 	}
 	@FXML protected void goRechargeCredit(ActionEvent event){
 		try {
-			Parent RechargeCredit = FXMLLoader.load(getClass().getResource("CreditUI/RechargeCredit.fxml"));
-			RechargeCredit.getProperties().put("NAME", "CancelOrder");
+			Parent RechargeCredit = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/CreditUI/RechargeCredit.fxml"));
+			RechargeCredit.getProperties().put("NAME", "RechargeCredit");
 			ObservableList<Node> list = webSalerMain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
