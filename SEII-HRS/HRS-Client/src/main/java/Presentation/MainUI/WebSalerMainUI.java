@@ -18,7 +18,7 @@ public class WebSalerMainUI extends Application{
 		Parent root = FXMLLoader.load(getClass().getResource("WebSalerMainUI.fxml"));
 		Parent NewStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/Strategy.fxml"));
 		NewStrategy.getProperties().put("NAME", "NewStrategy");
-		GridPane pane = (GridPane) root.lookup("#hotelmain");
+		GridPane pane = (GridPane) root.lookup("#webSalerMain");
 		pane.add(NewStrategy, 2, 1);
 		Scene scene = new Scene(root,900,600);
 		primaryStage.setScene(scene);
