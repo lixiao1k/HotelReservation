@@ -1,4 +1,4 @@
-package Presentation.OrderUI;
+package Presentation.StrategyUI;
 
 import java.io.IOException;
 import java.net.URL;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import Presentation.MainUI.ClientMainUIController;
-import datacontroller.DataController;
 import info.ListWrapper;
 import info.OrderStatus;
 import info.Room;
@@ -30,7 +29,7 @@ import logic.service.OrderLogicService;
 import rmi.RemoteHelper;
 import vo.OrderVO;
 
-public class ClientBrowseOrderListController implements Initializable{
+public class HotelWorkerBrowseStrategyListController implements Initializable{
 	@FXML ListView<OrderVO> orderListView;
 	@FXML ChoiceBox<String> orderType;
 	@FXML TextField searchText;
@@ -38,6 +37,7 @@ public class ClientBrowseOrderListController implements Initializable{
 	GridPane clientmain;
 	OrderLogicService orderLogic;
 	ClientMainUIController clientMainUIController;
+	private String username;
 	private long userid;
 	@FXML 
 	protected void searchInText(ActionEvent e){
@@ -46,7 +46,9 @@ public class ClientBrowseOrderListController implements Initializable{
 	
 	//基本信息
     public void setBaseInfo(){
-    	this.userid=(long)DataController.getInstance().get("UserId");
+    	this.username=clientMainUIController.getUsername();
+    	this.userid=clientMainUIController.getUserid();
+    	System.out.println(username+": "+userid);
     }
     
     //撤销未执行订单界面
@@ -71,7 +73,26 @@ public class ClientBrowseOrderListController implements Initializable{
     
     //初始化列表
     public void initListView() throws RemoteException{
-    	ListWrapper<OrderVO> volist=orderLogic.getHotelOrderInfo(userid);
+    	OrderVO vo1=new OrderVO();
+    	Room room1=new Room();
+    	room1.setType("双人房");
+    	vo1.setRoom(room1);
+    	vo1.setOrderNum("0000001");
+    	vo1.setHotelName("酱油");
+    	vo1.setCheckInTime(new Date(2016, 12, 11));
+    	vo1.setStatus(OrderStatus.UNEXECUTED);
+    	OrderVO vo2=new OrderVO();
+    	Room room2=new Room();
+    	room2.setType("单人房");
+    	vo2.setRoom(room2);
+    	vo2.setName("冰与火2");
+    	vo2.setOrderNum("0000002");
+    	vo2.setHotelName("酱油2");
+      	vo2.setCheckInTime(new Date(2016, 12, 12));
+    	List<OrderVO> list=new ArrayList<>();
+    	list.add(vo1);
+    	list.add(vo2);
+    	ListWrapper<OrderVO> volist=new ListWrapper<>(list);
     	ObservableList<OrderVO> olist=FXCollections.observableArrayList();
     	Iterator<OrderVO> it=volist.iterator();
     	while(it.hasNext()){
@@ -80,7 +101,6 @@ public class ClientBrowseOrderListController implements Initializable{
     	orderListView.setItems(olist);
     	orderListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
     		if(newValue.getStatus()==OrderStatus.UNEXECUTED){
-    			DataController.getInstance().put("OrderVO", newValue);
     			setClientCancalOrder();
     		}
         });
@@ -93,7 +113,7 @@ public class ClientBrowseOrderListController implements Initializable{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		setBaseInfo();
+		//setBaseInfo();
 		try {
 			initListView();
 		} catch (RemoteException e) {

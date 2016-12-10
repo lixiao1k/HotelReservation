@@ -110,7 +110,7 @@ public class SetHotelInfoController implements Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		if(serviceFactory==null)
+		/*if(serviceFactory==null)
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try {
 			hotelId = (long) DataController.getInstance().get("HotelId");
@@ -154,6 +154,6 @@ public class SetHotelInfoController implements Initializable{
 			businessCircle.setValue(vo.getBusinessCircle().getName());
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

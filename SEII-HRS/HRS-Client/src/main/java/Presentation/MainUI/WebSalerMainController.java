@@ -32,7 +32,7 @@ public class WebSalerMainController {
 	}
 	@FXML protected void goCancelOrder(ActionEvent event){
 		try {
-			Parent CancelOrder = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseAbnormalOrderListUI.fxml"));
+			Parent CancelOrder = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/WebSalerCancelOrder.fxml"));
 			CancelOrder.getProperties().put("NAME", "CancelOrder");
 			ObservableList<Node> list = webSalerMain.getChildren();
 			for (Node node:list){

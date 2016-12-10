@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import datacontroller.DataController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +18,8 @@ import javafx.scene.layout.GridPane;
 public class HotelWorkerMainController implements Initializable{
 	@FXML private GridPane hotelmain;
 	@FXML private Button goStrategyListButton;
+	private long hotelid;
+	
 	@FXML protected void goSetHotelInfo(ActionEvent event){
 		try {
 			Parent HotelInfo = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));
@@ -24,7 +27,7 @@ public class HotelWorkerMainController implements Initializable{
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&(value.contains("Order")||value.contains("Pane")||value.contains("List")||value.contains("Info"))){
 					list.remove(node);
 					break;
 				}
@@ -37,12 +40,12 @@ public class HotelWorkerMainController implements Initializable{
 	}
 	@FXML protected void goOrderList(ActionEvent event){
 		try {
-			Parent browseOrderList = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseOrderListUI.fxml"));
+			Parent browseOrderList = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/HotelWorkerBrowseOrderListUI.fxml"));
 			browseOrderList.getProperties().put("NAME", "browseOrderList");
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&(value.contains("Order")||value.contains("Pane")||value.contains("List")||value.contains("Info"))){
 					list.remove(node);
 					break;
 				}
@@ -57,12 +60,11 @@ public class HotelWorkerMainController implements Initializable{
 		try {
 		
 			Parent browseRoomList = FXMLLoader.load(getClass().getClassLoader().getResource("presentation/BrowseUI/BrowseRoomListUI.fxml"));
-
 			browseRoomList.getProperties().put("NAME", "browseRoomList");
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&(value.contains("Order")||value.contains("Pane")||value.contains("List")||value.contains("Info"))){
 					list.remove(node);
 					break;
 				}
@@ -82,7 +84,7 @@ public class HotelWorkerMainController implements Initializable{
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("List")||value.contains("Info"))){
+				if (value!=null&&(value.contains("Order")||value.contains("Pane")||value.contains("List")||value.contains("Info"))){
 					list.remove(node);
 					break;
 				}
@@ -95,7 +97,14 @@ public class HotelWorkerMainController implements Initializable{
 
 		//goStrategyListButton.getStyleClass().add("main-pane-button");
 	}
+	
+	//基本信息
+    public void setBaseInfo(){
+    	this.hotelid=(long)DataController.getInstance().get("HotelId");
+    }
+	
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		setBaseInfo();
+		DataController.getInstance().put("HotelId", hotelid);
 	}
 }

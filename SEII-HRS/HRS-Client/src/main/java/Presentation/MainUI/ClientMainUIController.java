@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Presentation.MemberUI.KeepPersonInfoController;
+import datacontroller.DataController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,9 +24,7 @@ public class ClientMainUIController implements Initializable{
 	@FXML Button goBrowseOrderListButton;
 	@FXML GridPane clientmain;
 	@FXML Label stateLabel;
-	private String username;
 	private long userid;
-	private LoginMainController loginmaincontroller;
 	@FXML
 	protected void goHotelList(ActionEvent e){
 		try {
@@ -41,7 +40,6 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(HotelList, 2, 1);
 		} catch (IOException e1) {
-			// log 閺冦儱绻�&&閻樿埖锟戒焦鐖�
 			e1.printStackTrace();
 		}
 	}
@@ -60,7 +58,6 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(Register, 2, 1);
 		} catch (IOException e1) {
-			// log 閺冦儱绻�&&閻樿埖锟戒焦鐖�
 			e1.printStackTrace();
 		}
 	}
@@ -83,7 +80,6 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(PersonInfo, 2, 1);
 		} catch (IOException e1) {
-			// log 閺冦儱绻�&&閻樿埖锟戒焦鐖�
 			e1.printStackTrace();
 		}
 		
@@ -103,7 +99,6 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(PersonInfo, 2, 1);
 		} catch (IOException e1) {
-			// log 閺冦儱绻�&&閻樿埖锟戒焦鐖�
 			e1.printStackTrace();
 		}
 		
@@ -112,19 +107,12 @@ public class ClientMainUIController implements Initializable{
 		stateLabel.setText(state);
 	}
 	
-	public void setLoginController(LoginMainController controller){
-		this.loginmaincontroller=controller;
-	}
     public void setBaseInfo(){
-    	this.username=loginmaincontroller.username;
-    	this.userid=loginmaincontroller.userid;
+    	this.userid=(long)DataController.getInstance().get("UserId");
     }
+    
 	public void initialize(URL location, ResourceBundle resources) {
-	}
-	public String getUsername() {
-		return username;
-	}
-	public long getUserid() {
-		return userid;
+		setBaseInfo();
+		DataController.getInstance().put("UserId", userid);
 	}
 }

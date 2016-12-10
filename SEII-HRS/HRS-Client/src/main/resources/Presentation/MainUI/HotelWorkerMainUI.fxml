@@ -33,17 +33,17 @@
     </MenuBar>
     <VBox id="main" fx:id="mainUIVBox" prefHeight="555.0" prefWidth="73.0" styleClass="mainUIVBox" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="1" GridPane.rowSpan="1">
       <children>
-        <Button alignment="CENTER_LEFT" cancelButton="false" contentDisplay="LEFT" focusTraversable="true" mnemonicParsing="false" onAction="#goSetHotelInfo" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="维护酒店信息">
+        <Button alignment="CENTER" cancelButton="false" contentDisplay="CENTER" focusTraversable="true" mnemonicParsing="false" onAction="#goSetHotelInfo" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="维护酒店信息" textAlignment="CENTER">
           <font>
-            <Font name="幼圆" size="10.0" fx:id="x1" />
+            <Font size="12.0" fx:id="x1" />
           </font>
           <VBox.margin>
             <Insets top="7.0" fx:id="x2" />
           </VBox.margin>
         </Button>
-        <Button alignment="CENTER_LEFT" font="$x1" mnemonicParsing="false" onAction="#goOrderList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="浏览订单" VBox.margin="$x2" />
-        <Button alignment="CENTER_LEFT" font="$x1" mnemonicParsing="false" onAction="#goRoomList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="更新客房" VBox.margin="$x2" />
-        <Button fx:id="goStrategyListButton" alignment="CENTER_LEFT" font="$x1" mnemonicParsing="false" onAction="#goStrategyList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="浏览策略列表" underline="false" wrapText="false" VBox.margin="$x2" />
+        <Button alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goOrderList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="浏览订单" VBox.margin="$x2" />
+        <Button alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goRoomList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="更新客房" VBox.margin="$x2" />
+        <Button fx:id="goStrategyListButton" alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goStrategyList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="浏览策略列表" underline="false" wrapText="false" VBox.margin="$x2" />
       </children>
       <GridPane.margin>
         <Insets top="10.0" />

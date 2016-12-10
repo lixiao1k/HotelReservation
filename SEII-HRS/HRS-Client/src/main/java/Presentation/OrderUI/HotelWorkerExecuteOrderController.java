@@ -15,16 +15,15 @@ import logic.service.OrderLogicService;
 import rmi.RemoteHelper;
 import vo.OrderVO;
 
-public class ClientCancelOrderController implements Initializable{
-	@FXML GridPane ClientCancelPane;
+public class HotelWorkerExecuteOrderController implements Initializable{
+	@FXML GridPane HotelWorkerExecutePane;
 	@FXML Label InfoLabel;
-	@FXML Button CancelButton;
+	@FXML Button ExecuteButton;
 	private OrderVO ovo;
 	private OrderLogicService orderLogic;
-	
 	@FXML 
-	protected void CancelOrder(ActionEvent e) throws NumberFormatException, RemoteException{
-		orderLogic.userRevoke(Long.valueOf(ovo.getOrderNum()));
+	protected void ExecuteOrder(ActionEvent e) throws NumberFormatException, RemoteException{
+		orderLogic.execute(Long.valueOf(ovo.getOrderNum()));
 	}
 	
 	public void setOrderInfo(){
