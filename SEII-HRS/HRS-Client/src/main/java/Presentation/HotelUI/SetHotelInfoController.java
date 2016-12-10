@@ -14,6 +14,9 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javax.imageio.ImageIO;
+
+import org.controlsfx.control.Notifications;
+
 import datacontroller.DataController;
 import info.BusinessCircle;
 import info.BusinessCity;
@@ -85,8 +88,12 @@ public class SetHotelInfoController implements Initializable{
 		HotelResultMessage result = null;
 		try {
 			result = serviceFactory.getHotelLogicService().setHotelInfo(vo);
+			if(result==HotelResultMessage.SUCCESS){
+				Notifications.create().title("维护酒店信息").text("更新成功！").showConfirm();
+			}
 			System.out.println(result);
 		} catch (RemoteException e1) {
+			Notifications.create().title("维护酒店信息").text("未知错误！").showError();
 			e1.printStackTrace();
 		}
 	}

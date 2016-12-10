@@ -128,9 +128,6 @@ public class HotelDO {
 		Iterator<HotelItem> rit;
 		Set<HotelItemVO> rooms = new HashSet<HotelItemVO>();
 		//����cache
-		HotelPO cachePO = null;
-		cachePO = hotels.get(hotelId);
-		if (cachePO==null){
 			try{
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
@@ -161,18 +158,7 @@ public class HotelDO {
 				}
 				throw e;
 			}
-		}else{
-			rit = cachePO.getRoom();
-			Date now = new Date();
-			while(rit.hasNext()){
-				HotelItem hi = rit.next();
-				if(DateUtil.compare(hi.getDate(), now)){
-					//System.out.println(hi.getDate());
-					rooms.add(DozerMappingUtil.getInstance().map(hi, HotelItemVO.class));
-				}
-			}
-			return new ListWrapper<>(rooms);
-		}
+		
 		
 	}
 	public ExtraHotelVO getExtraHotelDetail(long hotelId, long userId) throws RemoteException {
@@ -298,11 +284,20 @@ public class HotelDO {
 					hotelDao.updateRoom(vo.getHotelId(), hi);
 				}
 			}
+			HotelPO po = hotelDao.getInfo(vo.getHotelId());
+			Hibernate.initialize(po);
+			Set<HotelItem> roms = po.getRooms();
+			for(HotelItem hi:roms){
+				hi.getRoom();
+			}
+			hotels.remove(vo.getHotelId());
+			hotels.put(vo.getHotelId(), po);
 			HibernateUtil.getCurrentSession()
 							.getTransaction()
 							.commit();
 			return HotelResultMessage.SUCCESS;
 		}catch(RuntimeException e){
+			hotels.remove(vo.getHotelId());
 			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()

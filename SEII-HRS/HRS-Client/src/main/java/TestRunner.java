@@ -5,7 +5,6 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import Presentation.MainUI.HotelWorkerMainUI;
 import datacontroller.DataController;
 import javafx.application.Application;
 import rmi.RemoteHelper;

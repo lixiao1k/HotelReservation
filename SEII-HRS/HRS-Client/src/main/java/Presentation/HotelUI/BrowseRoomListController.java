@@ -1,18 +1,19 @@
 package Presentation.HotelUI;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.controlsfx.control.PopOver;
+import javax.management.Notification;
 
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.PopOver;
 import datacontroller.DataController;
 import info.ListWrapper;
-import info.Room;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +23,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -30,12 +30,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Window;
 import logic.service.ServiceFactory;
+import resultmessage.HotelResultMessage;
 import rmi.RemoteHelper;
+import vo.CheckInRoomInfoVO;
 import vo.HotelItemVO;
 
 public class BrowseRoomListController implements Initializable{
@@ -54,9 +55,8 @@ public class BrowseRoomListController implements Initializable{
 		
 	}
 	public void deleteItem(ActionEvent e,String type){
-
 	}
-	public void lineCheck(ActionEvent e,HotelItemVO hivo){
+	public void lineCheck(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
 		popOver.setDetached(true);
@@ -67,6 +67,17 @@ public class BrowseRoomListController implements Initializable{
 		TextField field = new TextField();
 		Button btn = new Button("确定");
 		btn.setFont(new Font("YouYuan",15));
+
+		btn.setOnAction((ActionEvent e3)->{
+			try{
+				int num = Integer.parseInt(field.getText());
+				popOver.hide();
+				lineCheckAction(hivo,num);
+			}catch(NumberFormatException e4){
+				Notifications.create().title("线下入住").text("请输入数字！").showWarning();
+				popOver.hide();
+			}
+		});
 		Button btn2 = new Button("取消");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
@@ -83,10 +94,32 @@ public class BrowseRoomListController implements Initializable{
 		pane.setMargin(field, new Insets(5,5,0,5));
 		pane.setMargin(label, new Insets(5,5,0,5));
 		popOver.setContentNode(pane);
-		popOver.show(((Node)e.getSource()),0,0);
+		popOver.show(((Node)e.getSource()),e.getScreenX(),e.getScreenY());
 	}
-	private void lineCheckAction(){
-		
+	private void lineCheckAction(HotelItemVO room,int roomNum){
+		HotelResultMessage result;
+		if(roomNum>room.getNum()){
+			Notifications.create().title("线下入住").text("请输入当前房间数以内数目！").showWarning();
+			return;
+		}
+			
+		try {
+			CheckInRoomInfoVO cirivo = new CheckInRoomInfoVO();
+			cirivo.setHotelId(hotelId);
+			cirivo.setRoom(room.getRoom());
+			cirivo.setRoomNum(roomNum);
+			cirivo.setCheckInTime(new Date());
+			result = serviceFactory.getHotelLogicService().roomCheckIn(cirivo);
+			System.out.println(result);
+			if(result==HotelResultMessage.SUCCESS){
+				room.setNum(room.getNum()-roomNum);
+				roomListViewData.add(room);
+				roomListViewData.remove(room);
+				Notifications.create().title("线下入住").text("更新成功").showConfirm();
+			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -141,13 +174,13 @@ public class BrowseRoomListController implements Initializable{
                 
                 });
                 Button lineCheck = new Button("线下入住");
-              //  lineCheck.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                lineCheck.setOnMouseClicked(new EventHandler<MouseEvent>() {
               
-             //		@Override
-			//		public void handle(MouseEvent event) {
-			//			lineCheck(event, hivo);
-			//		}
-            //    });
+             		@Override
+					public void handle(MouseEvent event) {
+						lineCheck(event, item);
+					}
+               });
                 cell.add(type, 0, 0);
                 cell.add(avaliableNum, 0, 1);
                 cell.add(price, 1, 0);

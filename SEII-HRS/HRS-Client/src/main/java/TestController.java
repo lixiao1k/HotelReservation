@@ -1,5 +1,9 @@
 
+import org.controlsfx.control.NotificationPane;
+
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,6 +18,7 @@ public class TestController extends Application{
 		Scene scene = new Scene(test);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
 	}
 	public static void main(String[] args) {
 		launch(args);
