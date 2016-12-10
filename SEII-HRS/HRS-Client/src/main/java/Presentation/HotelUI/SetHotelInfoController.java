@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.HashSet;
@@ -79,8 +80,8 @@ public class SetHotelInfoController implements Initializable{
 		vo.setDescription(description.getText());
 		vo.setService(service.getText());
 		vo.setFacility(facility.getText());
-		
-		//vo.setImage(image.getImage());
+		BufferedImage img = null;
+		vo.setImage(SwingFXUtils.fromFXImage(image.getImage(), img));
 		HotelResultMessage result = null;
 		try {
 			result = serviceFactory.getHotelLogicService().setHotelInfo(vo);
@@ -130,12 +131,13 @@ public class SetHotelInfoController implements Initializable{
 			address.setText(vo.getAddress());
 			hotelName.setText(vo.getName());
 			if(vo.getImage()!=null){
+				System.out.println(1);
 				WritableImage pic = null;
 				image.setImage(SwingFXUtils.toFXImage((BufferedImage) vo.getImage(), pic));
 			}
 			else{
 				WritableImage pic = null;
-				File file = new File("Presentation/HotelUI/DefaultHotelPic.jpg");
+				File file = new File(getClass().getResource("DefaultHotelPic.jpg").toURI());
 				Image picc = ImageIO.read(file);
 				image.setImage(SwingFXUtils.toFXImage((BufferedImage) picc, pic));
 			}
@@ -165,6 +167,9 @@ public class SetHotelInfoController implements Initializable{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

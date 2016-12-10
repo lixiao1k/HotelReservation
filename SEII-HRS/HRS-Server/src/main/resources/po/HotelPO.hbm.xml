@@ -14,7 +14,7 @@
         <property name="description" type="string">
             <column name="DESCRIPTION" not-null="false"></column>
         </property>
-        <property name="imageData" type="blob">
+        <property name="imageData" type="binary">
             <column name="IMAGE" not-null="false"></column>
         </property>
         <property name="facility" type="string">

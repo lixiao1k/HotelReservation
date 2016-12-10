@@ -69,7 +69,8 @@ public class HotelDO {
 				Hibernate.initialize(po.getBusinessCity().getCircles());
 				HotelVO result = DozerMappingUtil.getInstance().map(po, HotelVO.class);
 				if(po.getImageData()!=null)
-					result.setImage(SerializeUtil.blobToImage(po.getImageData()));
+					result.setImage(SerializeUtil.byteToImage(po.getImageData()));
+				Hibernate.initialize(po);
 				hotels.put(hotelId, po);
 				HibernateUtil.getCurrentSession().getTransaction().commit();
 				return result;
@@ -88,7 +89,7 @@ public class HotelDO {
 		else{
 			HotelVO result = DozerMappingUtil.getInstance().map(cachePO, HotelVO.class);
 			if(cachePO.getImageData()!=null)
-				result.setImage(SerializeUtil.blobToImage(cachePO.getImageData()));
+				result.setImage(SerializeUtil.byteToImage(cachePO.getImageData()));
 			return result;
 		}
 	}
@@ -201,7 +202,7 @@ public class HotelDO {
 						oList.add(ovo);
 					}
 					result.setBookedOrders(oList);
-					result.setImage(SerializeUtil.blobToImage(po.getImageData()));
+					result.setImage(SerializeUtil.byteToImage(po.getImageData()));
 				}
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
@@ -240,7 +241,7 @@ public class HotelDO {
 				}
 			}
 			result.setBookedOrders(oList);
-			result.setImage(SerializeUtil.blobToImage(po.getImageData()));
+			result.setImage(SerializeUtil.byteToImage(po.getImageData()));
 			return result;
 		}
 	}
@@ -368,7 +369,8 @@ public class HotelDO {
 					if(vo.getService()!=null)
 						po.setService(vo.getService());
 					if(vo.getImage()!=null)
-						po.setImageData(SerializeUtil.objectToBlob(vo.getImage()));
+						po.setImageData(SerializeUtil.imageToByte(vo.getImage()));
+					
 					hotelDao.update(po);
 					hotels.put(vo.getHotelId(), po);
 				}
@@ -378,6 +380,7 @@ public class HotelDO {
 				return HotelResultMessage.SUCCESS;
 			}catch(RuntimeException e){
 				hotels.remove(vo.getHotelId());
+				e.printStackTrace();
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
@@ -404,6 +407,9 @@ public class HotelDO {
 					po.setFacility(vo.getFacility());
 				if(vo.getService()!=null)
 					po.setService(vo.getService());
+				if(vo.getImage()!=null)
+					po.setImageData(SerializeUtil.imageToByte(vo.getImage()));
+				System.out.println(po.getImageData()==null);
 				hotelDao.update(po);
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
@@ -413,6 +419,7 @@ public class HotelDO {
 				return HotelResultMessage.SUCCESS;
 			}catch(RuntimeException e){
 				hotels.remove(vo.getHotelId());
+				e.printStackTrace();
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()

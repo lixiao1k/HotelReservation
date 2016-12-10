@@ -1,7 +1,14 @@
 package vo;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+import javax.imageio.ImageIO;
 
 import info.BusinessCircle;
 import info.BusinessCity;
@@ -19,7 +26,7 @@ public class HotelVO implements Serializable{
 	private String service;
 	private BusinessCircle businessCircle;
 	private BusinessCity businessCity;
-	private Image image;
+	private transient Image image;
 	public long getHid() {
 		return hid;
 	}
@@ -74,5 +81,13 @@ public class HotelVO implements Serializable{
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	
+	private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        if(image!=null)
+        	ImageIO.write((BufferedImage) image, "png", out);
+    }
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	    in.defaultReadObject();
+	    image=ImageIO.read(in);    
+	}
 }
