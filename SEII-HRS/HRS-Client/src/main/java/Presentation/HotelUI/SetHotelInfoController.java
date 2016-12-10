@@ -1,29 +1,34 @@
 package Presentation.HotelUI;
 
 import java.io.File;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
-
+import javax.imageio.ImageIO;
 import datacontroller.DataController;
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.ListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import logic.service.ServiceFactory;
 import resultmessage.HotelResultMessage;
@@ -75,7 +80,8 @@ public class SetHotelInfoController implements Initializable{
 		vo.setDescription(description.getText());
 		vo.setService(service.getText());
 		vo.setFacility(facility.getText());
-		//vo.setImage(image.getImage());
+		BufferedImage img = null;
+		vo.setImage(SwingFXUtils.fromFXImage(image.getImage(), img));
 		HotelResultMessage result = null;
 		try {
 			result = serviceFactory.getHotelLogicService().setHotelInfo(vo);
@@ -99,18 +105,20 @@ public class SetHotelInfoController implements Initializable{
 		File file = null;
 		file = fileChooser.showOpenDialog(image.getScene().getWindow());
 		if(file!=null){
-			Image pic;
+			WritableImage pic = null;
 			try {
-				pic = new Image(new FileInputStream(file));
-				image.setImage(pic);
+				Image picc = ImageIO.read(file);
+				image.setImage(SwingFXUtils.toFXImage((BufferedImage) picc, pic));
 			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		}
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*if(serviceFactory==null)
+		if(serviceFactory==null)
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try {
 			hotelId = (long) DataController.getInstance().get("HotelId");
@@ -123,11 +131,15 @@ public class SetHotelInfoController implements Initializable{
 			address.setText(vo.getAddress());
 			hotelName.setText(vo.getName());
 			if(vo.getImage()!=null){
-			//	image.setImage(vo.getImage());
+				System.out.println(1);
+				WritableImage pic = null;
+				image.setImage(SwingFXUtils.toFXImage((BufferedImage) vo.getImage(), pic));
 			}
 			else{
-				Image pic = new Image("Presentation/HotelUI/DefaultHotelPic.jpg");
-				image.setImage(pic);
+				WritableImage pic = null;
+				File file = new File(getClass().getResource("DefaultHotelPic.jpg").toURI());
+				Image picc = ImageIO.read(file);
+				image.setImage(SwingFXUtils.toFXImage((BufferedImage) picc, pic));
 			}
 			description.setText(vo.getDescription());
 			service.setText(vo.getService());
@@ -154,6 +166,12 @@ public class SetHotelInfoController implements Initializable{
 			businessCircle.setValue(vo.getBusinessCircle().getName());
 		} catch (RemoteException e) {
 			e.printStackTrace();
-		}*/
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
 	}
 }

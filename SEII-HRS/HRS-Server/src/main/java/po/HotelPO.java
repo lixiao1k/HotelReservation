@@ -23,7 +23,7 @@ public class HotelPO {
 	private double score;
 	private Rank rank;
 	private MemberPO hotelworker;
-	private Blob imageData;
+	private byte[] imageData;
 	private Set<CommentPO> comments = new HashSet<CommentPO>();
 	private Set<OrderPO> orders = new HashSet<OrderPO>();
 	private Set<HotelItem> rooms = new HashSet<HotelItem>();
@@ -141,10 +141,10 @@ public class HotelPO {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	public Blob getImageData() {
+	public byte[] getImageData() {
 		return imageData;
 	}
-	public void setImageData(Blob imageData) {
+	public void setImageData(byte[] imageData) {
 		this.imageData = imageData;
 	}
 }

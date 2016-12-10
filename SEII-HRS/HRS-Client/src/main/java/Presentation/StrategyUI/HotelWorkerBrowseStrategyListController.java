@@ -46,9 +46,7 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 	
 	//基本信息
     public void setBaseInfo(){
-    	this.username=clientMainUIController.getUsername();
-    	this.userid=clientMainUIController.getUserid();
-    	System.out.println(username+": "+userid);
+
     }
     
     //撤销未执行订单界面

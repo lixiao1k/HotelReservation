@@ -67,17 +67,6 @@ public class LoginMainController implements Initializable{
 				          &&result.getUserType()==UserType.CLIENT){
 			FXMLLoader loader=new FXMLLoader(getClass().getResource("ClientMainUI.fxml"));
 			GridPane root = (GridPane) loader.load();
-			
-		    FXMLLoader personloader=new FXMLLoader(
-					getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
-			content = personloader.load();
-			ClientMainUIController clientmaincontroller=loader.getController();
-			clientmaincontroller.setLoginController(this);
-			clientmaincontroller.setBaseInfo();
-			KeepPersonInfoController keeppersoninfocontroller=personloader.getController();
-			keeppersoninfocontroller.setClientMainUIController(loader.getController());
-			
-			content.getProperties().put("NAME", "PersonInfoPane");
 			title = "HRS-Client";
 			root.add(content, 2, 1);
 			Scene scene = new Scene(root,900,600);

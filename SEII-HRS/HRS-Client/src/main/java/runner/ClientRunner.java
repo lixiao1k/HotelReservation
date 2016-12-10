@@ -8,7 +8,6 @@ import java.rmi.RemoteException;
 import Presentation.MainUI.HotelWorkerMainUI;
 import Presentation.MainUI.LoginMainUI;
 import Presentation.MainUI.WebManagerMainUI;
-import Presentation.MainUI.WebSalerMainUI;
 import datacontroller.DataController;
 import javafx.application.Application;
 import rmi.RemoteHelper;
@@ -17,8 +16,8 @@ public class ClientRunner{
 	private RemoteHelper remoteHelper;
 	public ClientRunner(String[] args){
 		linkToServer();
-		Application.launch(LoginMainUI.class,args);
-		
+		DataController.getInstance().put("HotelId",(long)1);
+		Application.launch(HotelWorkerMainUI.class,args);
 	}
 	private void linkToServer() {
 		try {

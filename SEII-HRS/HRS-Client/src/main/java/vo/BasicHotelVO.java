@@ -1,8 +1,14 @@
 package vo;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import vo.HotelItemVO;
 import info.Rank;
@@ -21,7 +27,7 @@ public class BasicHotelVO implements Serializable{
 	private String facility;
 	private String address;
 	private String service;
-	private Image image;
+	private transient Image image;
 	public void setDescription(String description){
 		this.description = description;
 	}
@@ -81,5 +87,13 @@ public class BasicHotelVO implements Serializable{
 	}
 	public void setImage(Image image) {
 		this.image = image;
+	}
+	private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+        ImageIO.write((BufferedImage) image, "png", out);
+    }
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	    in.defaultReadObject();
+	    image=ImageIO.read(in);    
 	}
 }
