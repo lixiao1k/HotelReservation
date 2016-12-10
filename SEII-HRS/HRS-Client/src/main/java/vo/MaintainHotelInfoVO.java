@@ -1,13 +1,21 @@
 package vo;
 
-import info.BusinessCircle;
+import java.io.Serializable;
 
-public class MaintainHotelInfoVO {
+import info.BusinessCircle;
+import javafx.scene.image.Image;
+
+public class MaintainHotelInfoVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1058967707133372688L;
 	private long hotelId;
 	private String description;
 	private String facility;
 	private String address;
 	private String service;
+	private Image image;
 	private BusinessCircle circle;
 	public long getHotelId(){
 		return hotelId;
@@ -44,5 +52,14 @@ public class MaintainHotelInfoVO {
 	}
 	public void setBusinessCircle(BusinessCircle businessCircle){
 		this.circle = businessCircle;
+	}
+	public Image getImage() {
+		return image;
+	}
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	public void setCircle(BusinessCircle circle) {
+		this.circle = circle;
 	}
 }

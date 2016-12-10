@@ -30,12 +30,14 @@ import po.UserPO;
 import resultmessage.HotelResultMessage;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
+import util.SerializeUtil;
 import vo.BasicHotelVO;
 import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
 import vo.ExtraHotelVO;
 import vo.HotelCommentVO;
 import vo.HotelItemVO;
+import vo.HotelVO;
 import vo.HotelWorkerVO;
 import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
@@ -56,6 +58,40 @@ public class HotelDO {
 		hotelDao = DaoManager.getInstance().getHotelDao();
 		hotels = new Cache<HotelPO>(size);
 		
+	}
+	public HotelVO getHotelInfo(long hotelId){
+		HotelPO cachePO = null;
+		cachePO = hotels.get(hotelId);
+		if(cachePO==null){
+			try{
+				HibernateUtil.getCurrentSession().beginTransaction();
+				HotelPO po = hotelDao.getInfo(hotelId);
+				if(po==null)
+					return null;
+				Hibernate.initialize(po.getBusinessCity().getCircles());
+				HotelVO result = DozerMappingUtil.getInstance().map(po, HotelVO.class);
+				if(po.getImageData()!=null)
+					result.setImage(SerializeUtil.blobToImage(po.getImageData()));
+				hotels.put(hotelId, po);
+				HibernateUtil.getCurrentSession().getTransaction().commit();
+				return result;
+			}catch(RuntimeException e){
+				e.printStackTrace();
+				hotels.remove(hotelId);
+				try{
+					HibernateUtil.getCurrentSession().getTransaction().rollback();
+					return null;
+				}catch(RuntimeErrorException ex){
+					ex.printStackTrace();
+				}
+				throw e;
+			}
+		}
+		else{
+			HotelVO result = DozerMappingUtil.getInstance().map(cachePO, HotelVO.class);
+			result.setImage(SerializeUtil.blobToImage(cachePO.getImageData()));
+			return result;
+		}
 	}
 	public ListWrapper<BusinessCity> getCity() throws RemoteException {
 		try{
@@ -166,6 +202,7 @@ public class HotelDO {
 						oList.add(ovo);
 					}
 					result.setBookedOrders(oList);
+					result.setImage(SerializeUtil.blobToImage(po.getImageData()));
 				}
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
@@ -204,6 +241,7 @@ public class HotelDO {
 				}
 			}
 			result.setBookedOrders(oList);
+			result.setImage(SerializeUtil.blobToImage(po.getImageData()));
 			return result;
 		}
 	}
@@ -330,6 +368,8 @@ public class HotelDO {
 						po.setFacility(vo.getFacility());
 					if(vo.getService()!=null)
 						po.setService(vo.getService());
+					if(vo.getImage()!=null)
+						po.setImageData(SerializeUtil.objectToBlob(vo.getImage()));
 					hotelDao.update(po);
 					hotels.put(vo.getHotelId(), po);
 				}

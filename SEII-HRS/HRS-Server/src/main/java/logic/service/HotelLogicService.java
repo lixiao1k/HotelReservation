@@ -31,5 +31,5 @@ public interface HotelLogicService extends Remote{
 	public HotelResultMessage setHotelInfo(MaintainHotelInfoVO vo) throws RemoteException;
 	public HotelResultMessage setRoomInfo(MaintainRoomInfoVO vo) throws RemoteException;
 	public AddHotelResultVO addHotel(AddHotelVO vo) throws RemoteException;
-	
+	public HotelVO getHotelInfo(long hotelId) throws RemoteException;
 }

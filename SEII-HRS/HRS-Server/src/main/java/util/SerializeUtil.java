@@ -7,6 +7,7 @@ import java.sql.Blob;
 
 import org.hibernate.Hibernate;
 
+import javafx.scene.image.Image;
 import po.strategies.StrategyRule;
 
 public class SerializeUtil {
@@ -35,4 +36,17 @@ public class SerializeUtil {
         }  
         return null;  
     }  
+	public static Image blobToImage(Blob blob){
+		try {  
+            Object obj = null;  
+            ObjectInputStream in = new ObjectInputStream(  
+                    blob.getBinaryStream());  
+            obj = in.readObject();  
+            in.close();  
+            return (Image)obj;  
+        } catch (Exception e) {   
+            e.printStackTrace();  
+        }  
+        return null;  
+	}
 }

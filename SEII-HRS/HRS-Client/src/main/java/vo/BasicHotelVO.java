@@ -1,10 +1,17 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Set;
 
+import vo.HotelItemVO;
 import info.Rank;
+import javafx.scene.image.Image;
 
-public class BasicHotelVO {
+public class BasicHotelVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 283447768362502163L;
 	private long hotelId;
 	private String hotelName;
 	private Set<HotelItemVO> rooms;
@@ -14,6 +21,7 @@ public class BasicHotelVO {
 	private String facility;
 	private String address;
 	private String service;
+	private Image image;
 	public void setDescription(String description){
 		this.description = description;
 	}
@@ -67,5 +75,11 @@ public class BasicHotelVO {
 	}
 	public String getService(){
 		return service;
+	}
+	public Image getImage() {
+		return image;
+	}
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

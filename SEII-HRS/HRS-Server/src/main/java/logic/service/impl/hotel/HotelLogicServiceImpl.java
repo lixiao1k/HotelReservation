@@ -13,6 +13,7 @@ import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
 import vo.ExtraHotelVO;
 import vo.HotelItemVO;
+import vo.HotelVO;
 import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
 import vo.SearchHotelVO;
@@ -85,6 +86,10 @@ public class HotelLogicServiceImpl extends UnicastRemoteObject implements HotelL
 	public AddHotelResultVO addHotel(AddHotelVO vo) throws RemoteException {
 		// TODO Auto-generated method stub
 		return hotelDO.addHotel(vo);
+	}
+	@Override
+	public HotelVO getHotelInfo(long hotelId) throws RemoteException {
+		return hotelDO.getHotelInfo(hotelId);
 	}
 
 
