@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import Presentation.MemberUI.KeepPersonInfoController;
+import datacontroller.DataController;
 import info.UserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,17 +58,17 @@ public class LoginMainController implements Initializable{
 //		    }catch(NullPointerException e1){
 //		    	e1.printStackTrace();
 //		    }
-		//测试代码
 		TestLoginResultVO resultVO= new TestLoginResultVO();
 		result=resultVO.returnResultVO();
-		//测试代码
 		
 		
-		if (result.getResultMessage()==LoginResultMessage.SUCCESS
-				          &&result.getUserType()==UserType.CLIENT){
+		if (result.getResultMessage()==LoginResultMessage.SUCCESS&&result.getUserType()==UserType.CLIENT){
+			DataController.getInstance().put("UserId", (long)1);
 			FXMLLoader loader=new FXMLLoader(getClass().getResource("ClientMainUI.fxml"));
-			GridPane root = (GridPane) loader.load();
+			content = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
+			content.getProperties().put("NAME", "KeepPersonInfoPane");
 			title = "HRS-Client";
+			GridPane root = (GridPane) loader.load();
 			root.add(content, 2, 1);
 			Scene scene = new Scene(root,900,600);
 			Stage stage = new Stage();
@@ -79,8 +80,7 @@ public class LoginMainController implements Initializable{
 		}
 		
 		
-		else if (result.getResultMessage()==LoginResultMessage.SUCCESS
-				&&result.getUserType()==UserType.HOTEL_WORKER){
+		else if (result.getResultMessage()==LoginResultMessage.SUCCESS&&result.getUserType()==UserType.HOTEL_WORKER){
 			FXMLLoader loader=new FXMLLoader();
 			loader.setLocation(getClass().getResource("HotelWorkerMainUI.fxml"));
 			content = FXMLLoader.load(getClass().getResource("HotelUI/SetHotelInfo.fxml"));

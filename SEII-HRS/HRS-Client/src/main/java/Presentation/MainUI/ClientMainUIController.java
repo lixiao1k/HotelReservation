@@ -87,8 +87,8 @@ public class ClientMainUIController implements Initializable{
 	@FXML
 	protected void goBrowseOrderList(ActionEvent e){
 		try {
-			Parent PersonInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/ClientBrowseOrderListUI.fxml"));
-			PersonInfo.getProperties().put("NAME", "BrowseOrderPane");
+			Parent BrowseOrder = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/ClientBrowseOrderListUI.fxml"));
+			BrowseOrder.getProperties().put("NAME", "BrowseOrderPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
@@ -97,7 +97,7 @@ public class ClientMainUIController implements Initializable{
 					break;
 				}
 			}
-			clientmain.add(PersonInfo, 2, 1);
+			clientmain.add(BrowseOrder, 2, 1);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
