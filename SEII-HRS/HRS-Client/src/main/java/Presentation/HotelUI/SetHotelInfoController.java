@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import datacontroller.DataController;
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.ListWrapper;
@@ -74,7 +75,7 @@ public class SetHotelInfoController implements Initializable{
 		vo.setDescription(description.getText());
 		vo.setService(service.getText());
 		vo.setFacility(facility.getText());
-		vo.setImage(image.getImage());
+		//vo.setImage(image.getImage());
 		HotelResultMessage result = null;
 		try {
 			result = serviceFactory.getHotelLogicService().setHotelInfo(vo);
@@ -112,7 +113,8 @@ public class SetHotelInfoController implements Initializable{
 		if(serviceFactory==null)
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try {
-			HotelVO vo = serviceFactory.getHotelLogicService().getHotelInfo(1);
+			hotelId = (long) DataController.getInstance().get("HotelId");
+			HotelVO vo = serviceFactory.getHotelLogicService().getHotelInfo(hotelId);
 			bc = serviceFactory.getHotelLogicService().getCity();
 			if(vo==null){
 				System.out.println("wrong");
@@ -120,8 +122,9 @@ public class SetHotelInfoController implements Initializable{
 			}
 			address.setText(vo.getAddress());
 			hotelName.setText(vo.getName());
-			if(vo.getImage()!=null)
-				image.setImage(vo.getImage());
+			if(vo.getImage()!=null){
+			//	image.setImage(vo.getImage());
+			}
 			else{
 				Image pic = new Image("Presentation/HotelUI/DefaultHotelPic.jpg");
 				image.setImage(pic);
@@ -135,10 +138,16 @@ public class SetHotelInfoController implements Initializable{
 			businessCity.setItems(city);
 			businessCity.setValue(vo.getBusinessCity().getName());
 			Set<String> set = new HashSet<>();
-			Iterator<BusinessCircle> it = vo.getBusinessCity().getCircleIterator();
+			Iterator<BusinessCity> it = bc.iterator();
 			while(it.hasNext()){
-				BusinessCircle bcc = it.next();
-				set.add(bcc.getName());
+				BusinessCity bci = it.next();
+				if(bci.getName().equals(vo.getBusinessCity().getName())){
+					Set<BusinessCircle> bcirs = bci.getCircles();
+					for(BusinessCircle bcir:bcirs){
+						set.add(bcir.getName());
+					}
+					break;
+				}
 			}
 			ObservableList<String> circles = FXCollections.observableArrayList(set);
 			businessCircle.setItems(circles);

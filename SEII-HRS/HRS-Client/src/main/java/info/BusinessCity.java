@@ -22,7 +22,7 @@ public class BusinessCity implements Serializable{
 	public String getName(){
 		return this.name;
 	}
-	private Set<BusinessCircle> getCircles(){
+	public Set<BusinessCircle> getCircles(){
 		return circles;
 	}
 	public Iterator<BusinessCircle> getCircleIterator(){

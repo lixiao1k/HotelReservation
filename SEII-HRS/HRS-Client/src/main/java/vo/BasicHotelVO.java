@@ -1,11 +1,11 @@
 package vo;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.Set;
 
 import vo.HotelItemVO;
 import info.Rank;
-import javafx.scene.image.Image;
 
 public class BasicHotelVO implements Serializable{
 	/**

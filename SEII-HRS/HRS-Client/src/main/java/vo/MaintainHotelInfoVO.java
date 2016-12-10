@@ -1,9 +1,9 @@
 package vo;
 
+import java.awt.Image;
 import java.io.Serializable;
 
 import info.BusinessCircle;
-import javafx.scene.image.Image;
 
 public class MaintainHotelInfoVO implements Serializable{
 	/**

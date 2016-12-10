@@ -1,10 +1,10 @@
 package vo;
 
+import java.awt.Image;
 import java.io.Serializable;
 
 import info.BusinessCircle;
 import info.BusinessCity;
-import javafx.scene.image.Image;
 
 public class HotelVO implements Serializable{
 	/**

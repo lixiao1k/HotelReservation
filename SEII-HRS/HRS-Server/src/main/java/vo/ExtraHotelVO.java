@@ -1,8 +1,8 @@
 package vo;
 
+import java.awt.Image;
 import java.util.Set;
 
-import javafx.scene.image.Image;
 
 public class ExtraHotelVO {
 	private Set<HotelCommentVO> comments;

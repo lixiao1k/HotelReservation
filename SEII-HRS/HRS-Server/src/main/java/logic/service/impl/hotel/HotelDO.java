@@ -89,7 +89,8 @@ public class HotelDO {
 		}
 		else{
 			HotelVO result = DozerMappingUtil.getInstance().map(cachePO, HotelVO.class);
-			result.setImage(SerializeUtil.blobToImage(cachePO.getImageData()));
+			if(cachePO.getImageData()!=null)
+				result.setImage(SerializeUtil.blobToImage(cachePO.getImageData()));
 			return result;
 		}
 	}
