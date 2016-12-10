@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.Image;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,7 +8,6 @@ import java.sql.Blob;
 
 import org.hibernate.Hibernate;
 
-import javafx.scene.image.Image;
 import po.strategies.StrategyRule;
 
 public class SerializeUtil {

@@ -8,9 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import javax.management.RuntimeErrorException;
-
 import org.hibernate.Hibernate;
-
 import data.dao.HotelDao;
 import data.dao.Impl.DaoManager;
 import info.BusinessCity;

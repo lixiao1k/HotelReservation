@@ -12,7 +12,7 @@ public class TestRunner{
 	private RemoteHelper remoteHelper;
 	public TestRunner(String[] args){
 		linkToServer();
-		DataController.getInstance().put("HotelId",1);
+		DataController.getInstance().put("HotelId",(long)1);
 		Application.launch(TestController.class,args);
 		
 	}
