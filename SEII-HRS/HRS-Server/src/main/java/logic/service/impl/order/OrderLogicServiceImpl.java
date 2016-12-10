@@ -1,6 +1,7 @@
 package logic.service.impl.order;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Iterator;
 
 import javax.management.RuntimeErrorException;
@@ -18,16 +19,17 @@ import vo.NewOrderVO;
 import vo.OrderVO;
 import vo.StrategyVO;
 
-public class OrderLogicServiceImpl implements OrderLogicService{
+public class OrderLogicServiceImpl extends UnicastRemoteObject implements OrderLogicService{
+	private static final long serialVersionUID = 3582538173761709513L;
 	private OrderDO orderDO;
-	public OrderLogicServiceImpl(){
+	public OrderLogicServiceImpl() throws RemoteException {
 		orderDO = new OrderDO();
 	}
 	/*
 	 * 指定orderDO中缓存大小的构造器
 	 * @param size of orderDO's cache
 	 */
-	public OrderLogicServiceImpl(int size){
+	public OrderLogicServiceImpl(int size) throws RemoteException {
 		orderDO = new OrderDO(size);
 	}
 

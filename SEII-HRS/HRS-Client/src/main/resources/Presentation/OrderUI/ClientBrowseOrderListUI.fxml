@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="mainPane" gridLinesVisible="false" hgap="10.0" prefHeight="564.0" prefWidth="768.0" scaleX="1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.OrderUI.BrowseOrderListController">
+<GridPane fx:id="mainPane" gridLinesVisible="false" hgap="10.0" prefHeight="564.0" prefWidth="768.0" scaleX="1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.OrderUI.ClientBrowseOrderListController">
   <children>
     <Label alignment="CENTER" prefHeight="49.0" prefWidth="94.0" text="Search" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
       <font>

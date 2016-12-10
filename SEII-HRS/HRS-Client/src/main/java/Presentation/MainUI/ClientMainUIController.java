@@ -41,7 +41,7 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(HotelList, 2, 1);
 		} catch (IOException e1) {
-			// log 鏃ュ織&&鐘舵�佹爮
+			// log 閺冦儱绻�&&閻樿埖锟戒焦鐖�
 			e1.printStackTrace();
 		}
 	}
@@ -60,7 +60,7 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(Register, 2, 1);
 		} catch (IOException e1) {
-			// log 鏃ュ織&&鐘舵�佹爮
+			// log 閺冦儱绻�&&閻樿埖锟戒焦鐖�
 			e1.printStackTrace();
 		}
 	}
@@ -83,7 +83,7 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(PersonInfo, 2, 1);
 		} catch (IOException e1) {
-			// log 鏃ュ織&&鐘舵�佹爮
+			// log 閺冦儱绻�&&閻樿埖锟戒焦鐖�
 			e1.printStackTrace();
 		}
 		
@@ -91,7 +91,7 @@ public class ClientMainUIController implements Initializable{
 	@FXML
 	protected void goBrowseOrderList(ActionEvent e){
 		try {
-			Parent PersonInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/BrowseOrderListUI.fxml"));
+			Parent PersonInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/ClientBrowseOrderListUI.fxml"));
 			PersonInfo.getProperties().put("NAME", "BrowseOrderPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
@@ -103,7 +103,7 @@ public class ClientMainUIController implements Initializable{
 			}
 			clientmain.add(PersonInfo, 2, 1);
 		} catch (IOException e1) {
-			// log 鏃ュ織&&鐘舵�佹爮
+			// log 閺冦儱绻�&&閻樿埖锟戒焦鐖�
 			e1.printStackTrace();
 		}
 		
@@ -120,8 +120,11 @@ public class ClientMainUIController implements Initializable{
     	this.userid=loginmaincontroller.userid;
     }
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-//		this.username=loginmaincontroller.username;
-//		this.userid=loginmaincontroller.userid;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public long getUserid() {
+		return userid;
 	}
 }

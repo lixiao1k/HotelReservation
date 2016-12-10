@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
+import Presentation.MainUI.LoginMainUI;
 import Presentation.MainUI.WebManagerMainUI;
 import javafx.application.Application;
 import rmi.RemoteHelper;
@@ -12,7 +14,7 @@ public class ClientRunner{
 	private RemoteHelper remoteHelper;
 	public ClientRunner(String[] args){
 		linkToServer();
-		Application.launch(WebManagerMainUI.class,args);
+		Application.launch(LoginMainUI.class,args);
 		
 	}
 	private void linkToServer() {

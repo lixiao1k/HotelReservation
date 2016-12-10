@@ -116,6 +116,10 @@ public class OrderVO{
 	public void setName(String name){
 		this.name = name;
 	}
+	@Override
+	public String toString() {
+		return "¶©µ¥ºÅ£º" + orderNum + "   ¾Æµê£º" + hotelName + "   " + room.getType() +"   Ê±¼ä£º"+ checkInTime;
+	}
 	public void setRoom(Room room){
 		this.room = room;
 	}

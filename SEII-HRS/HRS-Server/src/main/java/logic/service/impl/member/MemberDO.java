@@ -2,6 +2,7 @@ package logic.service.impl.member;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.management.RuntimeErrorException;
@@ -293,8 +294,9 @@ public class MemberDO {
 			ListWrapper<MemberPO> polist=memberDao.manageInfo(hotelname);
 			HibernateUtil.getCurrentSession().getTransaction().commit();
 			List<ManageHotelVO> volist=new ArrayList<>();
-			while(polist.iterator().hasNext()){
-				MemberPO po=polist.iterator().next();
+			Iterator<MemberPO> it=polist.iterator();
+			while(it.hasNext()){
+				MemberPO po=it.next();
 				HotelWorkerPO hotelworker=(HotelWorkerPO)po;
 				HotelPO hotel=hotelworker.getHotel();
 				ManageHotelVO managehotelvo=new ManageHotelVO(hotel.getName(), hotel.getAddress(), hotel.getBusinessCity(), hotel.getBusinessCircle(), hotel.getHid(), po.getMid(), po.getUser().getUsername(), po.getUser().getPassword(), po.getName());
