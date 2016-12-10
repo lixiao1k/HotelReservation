@@ -50,7 +50,6 @@ public class LoginMainController implements Initializable{
 //		FXMLLoader loader = new FXMLLoader();
 		String title = null;
 		LoginResultVO result = null;
-		//正确代码
 //		try{
 //			UserLogicService loginservice = null;
 //		    result =loginservice.login(username, password);

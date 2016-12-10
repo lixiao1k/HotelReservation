@@ -14,7 +14,7 @@ public class WebSalerMainController {
 	@FXML private GridPane webSalerMain;
 	@FXML protected void goCreateNewStrategy(ActionEvent event){
 		try {
-			Parent NewStrategy = FXMLLoader.load(getClass().getResource("StrategyUI/Strategy.fxml"));
+			Parent NewStrategy = FXMLLoader.load(getClass().getResource("Presentation/StrategyUI/WebSalerBrowseStrategyListUI.fxml"));
 			NewStrategy.getProperties().put("NAME", "NewStrategy");
 			ObservableList<Node> list = webSalerMain.getChildren();
 			for (Node node:list){

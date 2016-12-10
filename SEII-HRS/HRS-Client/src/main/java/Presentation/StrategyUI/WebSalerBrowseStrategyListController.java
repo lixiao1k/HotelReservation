@@ -1,39 +1,29 @@
 package Presentation.StrategyUI;
 
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Presentation.MainUI.ClientMainUIController;
 import datacontroller.DataController;
 import info.ListWrapper;
-import info.OrderStatus;
-import info.Room;
-import info.StrategyType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import logic.service.OrderLogicService;
 import logic.service.StrategyLogicService;
 import rmi.RemoteHelper;
-import vo.OrderVO;
 import vo.StrategyVO;
 
-public class HotelWorkerBrowseStrategyListController implements Initializable{
+public class WebSalerBrowseStrategyListController implements Initializable{
 	@FXML ListView<StrategyVO> strategyListView;
 	@FXML ChoiceBox<String> strategyType;
 	@FXML TextField searchText;
@@ -41,13 +31,20 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 	GridPane clientmain;
 	StrategyLogicService strategyLogic;
 	private long hotelid;
+	@FXML Button addButton;
 	@FXML 
 	protected void searchInText(ActionEvent e){
 		
 	}
 	
+	@FXML 
+	protected void addStrategy(ActionEvent e){
+		
+	}
+	
 	//基本信息
     public void setBaseInfo(){
+    	DataController.getInstance().put("HotelId", (long)1);
     	hotelid=(long)DataController.getInstance().get("HotelId");
     	DataController.getInstance().put("HotelId", hotelid);
     }

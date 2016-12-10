@@ -1,27 +1,30 @@
 package logic.service.impl.strategy;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import info.ListWrapper;
 import info.OrderStrategy;
 import logic.service.StrategyLogicService;
-import logic.service.impl.order.OrderDO;
 import resultmessage.StrategyResultMessage;
 import vo.HotelStrategyVO;
-import vo.RoomVO;
 import vo.StrategyResultVO;
 import vo.StrategyVO;
 
-public class StrategyLogicServiceImpl implements StrategyLogicService{
+public class StrategyLogicServiceImpl extends UnicastRemoteObject implements StrategyLogicService{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3862734563580471202L;
 	private StrategyDO strategyDO;
-	public StrategyLogicServiceImpl(){
+	public StrategyLogicServiceImpl() throws RemoteException {
 		strategyDO = new StrategyDO();
 	}
 	/*
 	 * 指定orderDO中缓存大小的构造器
 	 * @param size of orderDO's cache
 	 */
-	public StrategyLogicServiceImpl(int size){
+	public StrategyLogicServiceImpl(int size) throws RemoteException {
 		strategyDO = new StrategyDO(size);
 	}
 

@@ -47,7 +47,8 @@ public class StrategyVO {
 	public void setOff(double off) {
 		this.off = off;
 	}
-	public void setType(StrategyType type) {
-		this.type = type;
+	@Override
+	public String toString() {
+		return name + "   æ∆µÍ£∫" + hotelId + "   ’€ø€£∫" + off;
 	}
 }

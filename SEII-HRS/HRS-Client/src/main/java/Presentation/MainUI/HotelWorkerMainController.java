@@ -34,7 +34,7 @@ public class HotelWorkerMainController implements Initializable{
 			}
 			hotelmain.add(HotelInfo, 2, 1);
 		} catch (IOException e) {
-			// log ��־&&״̬��
+			e.printStackTrace();
 		}
 		
 	}
@@ -52,14 +52,14 @@ public class HotelWorkerMainController implements Initializable{
 			}
 			hotelmain.add(browseOrderList, 2, 1);
 		} catch (IOException e) {
-			// log ��־&&״̬��
+			e.printStackTrace();
 		}
 		
 	}
 	@FXML protected void goRoomList(ActionEvent event){
 		try {
 		
-			Parent browseRoomList = FXMLLoader.load(getClass().getClassLoader().getResource("presentation/BrowseUI/BrowseRoomListUI.fxml"));
+			Parent browseRoomList = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/BrowseUI/BrowseRoomListUI.fxml"));
 			browseRoomList.getProperties().put("NAME", "browseRoomList");
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
@@ -72,14 +72,13 @@ public class HotelWorkerMainController implements Initializable{
 			
 			hotelmain.add(browseRoomList, 2, 1);
 		} catch (IOException e) {
-			// log ��־&&״̬��
-			System.out.println(e.getCause());
+			e.printStackTrace();
 		}
 		
 	}
 	@FXML protected void goStrategyList(ActionEvent event){
 		try {
-			Parent browseStrategyList = FXMLLoader.load(getClass().getResource("BrowseUI/BrowseStrategyListUI.fxml"));
+			Parent browseStrategyList = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/HotelWorkerBrowseStrategyListUI.fxml"));
 			browseStrategyList.getProperties().put("NAME", "browseStrategyList");
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
@@ -91,8 +90,7 @@ public class HotelWorkerMainController implements Initializable{
 			}
 			hotelmain.add(browseStrategyList, 2, 1);
 		} catch (IOException e) {
-			// log ��־&&״̬��
-			System.out.println(e.getCause()+e.getMessage());
+			e.printStackTrace();
 		}
 
 		//goStrategyListButton.getStyleClass().add("main-pane-button");
@@ -100,11 +98,12 @@ public class HotelWorkerMainController implements Initializable{
 	
 	//������Ϣ
     public void setBaseInfo(){
+    	DataController.getInstance().put("HotelId", (long)1);
     	this.hotelid=(long)DataController.getInstance().get("HotelId");
+    	DataController.getInstance().put("HotelId", hotelid);
     }
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		setBaseInfo();
-		DataController.getInstance().put("HotelId", hotelid);
 	}
 }
