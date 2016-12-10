@@ -8,19 +8,32 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
 public class HotelBrowseController implements Initializable{
-	@FXML TextField searchTextField;
+	@FXML TextField searchField;
 	@FXML Button hotelSearchButton;
-	@FXML ChoiceBox<String> starChoiceBox;
-	@FXML ChoiceBox<String> gradeRangeChoiceBox;
+	@FXML ComboBox businessCityBox;
+	@FXML ComboBox circleBox;
+	@FXML TableColumn hotelName;
+	@FXML TableColumn history;
+	@FXML TableColumn rank;
+	@FXML TableColumn star;
+	@FXML TableColumn roomType;
+	@FXML TableColumn leastPrice;
 	@FXML ChoiceBox<String> roomChoiceBox;
 	@FXML ListView<HotelInfo> listView;
 	
 	@FXML
-	protected void searchHotel(ActionEvent e){
+	protected void search(ActionEvent e){
+		
+	}
+	
+	public void createOrder(ActionEvent e)
+	{
 		
 	}
 	

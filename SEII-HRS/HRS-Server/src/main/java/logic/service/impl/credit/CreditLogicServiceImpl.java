@@ -1,15 +1,16 @@
 package logic.service.impl.credit;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import info.ListWrapper;
 import logic.service.CreditLogicService;
 import resultmessage.CreditResultMessage;
 import vo.CreditVO;
 
-public class CreditLogicServiceImpl implements CreditLogicService{
+public class CreditLogicServiceImpl extends UnicastRemoteObject  implements CreditLogicService{
 	CreditDO creditDO;
-	public CreditLogicServiceImpl() {
+	public CreditLogicServiceImpl() throws RemoteException {
 		creditDO=new CreditDO();
 	}
 	@Override
