@@ -1,9 +1,20 @@
 package util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
+	public static boolean compare(Date date1,Date date2){ 
+	    Calendar aCalendar = Calendar.getInstance();
+	    aCalendar.setTime(date1);
+	    int day1 = aCalendar.get(Calendar.DAY_OF_YEAR);
+	    aCalendar.setTime(date2);
+	    int day2 = aCalendar.get(Calendar.DAY_OF_YEAR);
+		int d = day2 - day1;
+		return (d==0)? true:false;
+	}
 	// date format:yyyy-mm-dd
 	public static Date transform(String date){
 		String[] data = date.split("-");

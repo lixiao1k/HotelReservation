@@ -6,10 +6,9 @@ import java.util.Map;
 public class DataController {
 	private Map<String, Object> map = new HashMap<>();
 	private static DataController instance;
-	static{
-		instance = new DataController();
-	}
 	public static DataController getInstance(){
+		if(instance==null)
+			instance = new DataController();
 		return instance;
 	}
 	public void put(String name,Object o){

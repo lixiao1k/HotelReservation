@@ -26,6 +26,7 @@ import po.MemberPO;
 import po.OrderPO;
 import po.UserPO;
 import resultmessage.HotelResultMessage;
+import util.DateUtil;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
 import util.SerializeUtil;
@@ -140,11 +141,11 @@ public class HotelDO {
 					Date now = new Date();
 					while(rit.hasNext()){
 						HotelItem hi = rit.next();
-						if(hi.getDate().getDate()==now.getDate())
+						if(DateUtil.compare(hi.getDate(), now))
 							rooms.add(DozerMappingUtil.getInstance().map(hi, HotelItemVO.class));
 					}
+					Hibernate.initialize(po);
 					hotels.put(hotelId, po);
-
 				}else
 					return null;
 				return new ListWrapper<>(rooms);
@@ -162,10 +163,13 @@ public class HotelDO {
 			}
 		}else{
 			rit = cachePO.getRoom();
+			Date now = new Date();
 			while(rit.hasNext()){
 				HotelItem hi = rit.next();
-				if(hi.getDate().toString().equals(new Date().toString()))
+				if(DateUtil.compare(hi.getDate(), now)){
+					//System.out.println(hi.getDate());
 					rooms.add(DozerMappingUtil.getInstance().map(hi, HotelItemVO.class));
+				}
 			}
 			return new ListWrapper<>(rooms);
 		}
