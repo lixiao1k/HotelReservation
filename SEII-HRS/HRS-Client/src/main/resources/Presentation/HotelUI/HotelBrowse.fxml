@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HotelUI.HotelBrowseController">
    <rowConstraints>
       <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="174.0" />
       <RowConstraints maxHeight="422.0" minHeight="10.0" prefHeight="351.0" />
@@ -45,12 +45,12 @@
             <Insets left="-110.0" right="20.0" />
          </GridPane.margin>
       </TableView>
-      <ComboBox fx:id="businessCityBox" prefWidth="150.0" promptText="城市">
+      <ComboBox fx:id="businessCityBox" onAction="#selectCity" prefWidth="150.0" promptText="城市">
          <GridPane.margin>
             <Insets left="35.0" top="145.0" />
          </GridPane.margin>
       </ComboBox>
-      <ComboBox fx:id="CircleBox" prefWidth="150.0" promptText="商圈" GridPane.columnIndex="1">
+      <ComboBox fx:id="circleBox" onAction="#selectCircle" prefWidth="150.0" promptText="商圈" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets left="10.0" right="360.0" top="145.0" />
          </GridPane.margin>
@@ -60,5 +60,30 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Button>
+      <Button mnemonicParsing="false" text="浏览详细信息" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="360.0" />
+         </GridPane.margin>
+      </Button>
+      <Label text="预计入住：" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="150.0" top="140.0" />
+         </GridPane.margin>
+      </Label>
+      <DatePicker GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="220.0" right="110.0" top="140.0" />
+         </GridPane.margin>
+      </DatePicker>
+      <Label text="预计退房：" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="380.0" top="140.0" />
+         </GridPane.margin>
+      </Label>
+      <DatePicker prefHeight="30.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <GridPane.margin>
+            <Insets left="450.0" right="30.0" top="140.0" />
+         </GridPane.margin>
+      </DatePicker>
    </children>
 </GridPane>
