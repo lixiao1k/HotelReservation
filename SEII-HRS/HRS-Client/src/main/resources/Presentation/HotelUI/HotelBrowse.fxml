@@ -70,7 +70,7 @@
             <Insets left="150.0" top="140.0" />
          </GridPane.margin>
       </Label>
-      <DatePicker GridPane.columnIndex="1">
+      <DatePicker fx:id="checkin" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets left="220.0" right="110.0" top="140.0" />
          </GridPane.margin>
@@ -80,7 +80,7 @@
             <Insets left="380.0" top="140.0" />
          </GridPane.margin>
       </Label>
-      <DatePicker prefHeight="30.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
+      <DatePicker fx:id="checkout" prefHeight="30.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <GridPane.margin>
             <Insets left="450.0" right="30.0" top="140.0" />
          </GridPane.margin>

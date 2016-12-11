@@ -11,7 +11,7 @@ public class TestRunneryp {
 	private RemoteHelper remoteHelper;
 	public TestRunneryp(String[] args){
 		linkToServer();
-		DataController.getInstance().put("HotelId",(long)1);
+		DataController.getInstance().put("UserId",(long)1);
 		Application.launch(TestControlleryp.class,args);
 		
 	}
