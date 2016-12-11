@@ -15,7 +15,7 @@ public class CompanyStrategyRule implements StrategyRule,Serializable{
 	public CompanyStrategyRule(String data) {
 		if (data==null)
 			throw new IllegalArgumentException("illegal argument!");
-		this.name = data;
+		this.name =data;
 	}
 	@Override
 	public boolean canBeApplied(OrderStrategy po) {
@@ -25,7 +25,7 @@ public class CompanyStrategyRule implements StrategyRule,Serializable{
 	}
 	@Override
 	public String getInfo() {
-		return null;
+		return name;
 	}
 
 }
