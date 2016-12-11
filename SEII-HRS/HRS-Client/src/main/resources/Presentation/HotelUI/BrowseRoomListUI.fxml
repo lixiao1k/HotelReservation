@@ -16,7 +16,7 @@
         <Insets left="10.0" right="10.0" />
       </GridPane.margin>
     </ListView>
-    <Label text="客房信息" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Label text="客房信息" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <font>
         <Font name="幼圆" size="32.0" />
       </font>

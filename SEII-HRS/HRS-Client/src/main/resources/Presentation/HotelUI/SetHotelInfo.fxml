@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="564.0" prefWidth="768.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.HotelUI.SetHotelInfoController">
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="583.0" prefWidth="755.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.HotelUI.SetHotelInfoController">
   <!-- TODO Add Nodes -->
   <children>
     <ImageView fx:id="image" fitHeight="226.25" fitWidth="301.66666666666663" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="4">
@@ -17,7 +17,7 @@
         <Insets left="25.0" />
       </GridPane.margin>
     </ImageView>
-    <Label prefHeight="29.0" prefWidth="68.0" text="酒店名" textFill="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <Label prefHeight="29.0" prefWidth="68.0" text="酒店名" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="0">
       <font>
         <Font name="幼圆" size="16.0" fx:id="x1" />
       </font>
@@ -54,30 +54,30 @@
         <Insets left="220.0" right="20.0" />
       </GridPane.margin>
     </ChoiceBox>
-    <Label font="$x1" prefHeight="30.0" prefWidth="46.0" text="城市" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="1" />
-    <Label font="$x1" text="商圈" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <Label font="$x1" prefHeight="30.0" prefWidth="46.0" text="城市" textFill="WHITE" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="1" />
+    <Label font="$x1" text="商圈" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <GridPane.margin>
         <Insets left="170.0" />
       </GridPane.margin>
     </Label>
-    <Label font="$x1" text="地址" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="2" />
+    <Label font="$x1" text="地址" textFill="WHITE" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="2" />
     <TextField fx:id="address" prefHeight="30.0" prefWidth="328.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <GridPane.margin>
         <Insets left="60.0" right="20.0" />
       </GridPane.margin>
     </TextField>
-    <Label font="$x1" text="描述" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="4" />
-    <Label font="$x1" text="设施" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="5" />
-    <Label font="$x1" text="服务" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="6" />
-    <Button fx:id="commitButton" alignment="CENTER" contentDisplay="CENTER" font="$x1" mnemonicParsing="false" onAction="#commit" prefHeight="30.0" prefWidth="118.0" text="更改" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+    <Label font="$x1" text="描述" textFill="WHITE" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="4" />
+    <Label font="$x1" text="设施" textFill="WHITE" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="5" />
+    <Label font="$x1" text="服务" textFill="WHITE" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="6" />
+    <Button id="glass-grey" fx:id="commitButton" alignment="CENTER" contentDisplay="CENTER" font="$x1" mnemonicParsing="false" onAction="#commit" prefHeight="30.0" prefWidth="118.0" text="更改" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
       <GridPane.margin>
         <Insets right="25.0" />
       </GridPane.margin>
     </Button>
-    <Button fx:id="changeImageButton" font="$x1" minHeight="22.0" mnemonicParsing="false" onAction="#changeImage" prefHeight="30.0" prefWidth="118.0" text="更改图像.." GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="3" />
+    <Button id="glass-grey" fx:id="changeImageButton" font="$x1" minHeight="22.0" mnemonicParsing="false" onAction="#changeImage" prefHeight="30.0" prefWidth="118.0" text="更改图像.." GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="3" />
     <TextArea fx:id="description" prefHeight="70.0" prefWidth="698.0" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4">
       <GridPane.margin>
-        <Insets bottom="5.0" left="60.0" right="10.0" top="5.0" fx:id="x3" />
+        <Insets bottom="5.0" left="60.0" right="20.0" top="5.0" fx:id="x3" />
       </GridPane.margin>
     </TextArea>
     <TextArea fx:id="facility" prefHeight="67.0" prefWidth="698.0" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.margin="$x3" GridPane.rowIndex="5" />
