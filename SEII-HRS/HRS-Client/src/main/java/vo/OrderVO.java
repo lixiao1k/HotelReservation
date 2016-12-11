@@ -118,6 +118,13 @@ public class OrderVO implements Serializable{
 	public void setName(String name){
 		this.name = name;
 	}
+	public String toDetailedString() {
+		return "订单号：" + orderNum + "\n订房人：" + name + "\n订单状态：" + status + "\n酒店：" + hotelName+ "\n预定时间：" + checkInTime + "\n退房时间：" + checkOutTime + "\n实际入住时间："+ actualCheckInTime + "\n实际退房时间：" + actualCheckOutTime + "\n房间：" + room.getType() + "\n房间号："+ roomNum + "\n房间价格" + roomPrice + "\n使用优惠：" + strategy + "\n折扣：" + strategyOff+ "\n总价格：" + price + "\n优惠后价格：" + priceAfterStrategy + "\n有无儿童：" + child + "\n人数："+ people + "\n联系电话：" + contactWay + "\n联系人：" + contactName;
+	}
+	@Override
+	public String toString() {
+		return "订单号：" + orderNum + "   酒店：" + hotelName + "   " + room.getType() +"   时间："+ checkInTime;
+	}
 	public void setRoom(Room room){
 		this.room = room;
 	}
