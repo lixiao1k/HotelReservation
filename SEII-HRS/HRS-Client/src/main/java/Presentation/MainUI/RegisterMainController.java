@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.Notifications;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,21 +15,50 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import logic.service.ServiceFactory;
+import resultmessage.RegisterResultMessage;
+import rmi.RemoteHelper;
 
 public class RegisterMainController implements Initializable{
-	@FXML TextField usernameField;
-	@FXML PasswordField passwordField;
-	LoginMainController loginMainController;
+	@FXML private TextField usernameField;
+	@FXML private PasswordField passwordField;
+	private ServiceFactory serviceFactory;
 	@FXML 
 	protected void save(ActionEvent e) throws IOException{
-		// save logic
-//		System.out.println("注册成功(由于逻辑层还未写，账号不存储。。。请用预设账号登录查看)");
-		
 		String username = usernameField.getText();
 		String password = passwordField.getText();
-		
-		
-		
+		if(username.equals("")||username==null){
+			Notifications.create().title("注册").text("请输入用户名").showWarning();
+			return;
+		}
+		if(password.equals("")||password==null){
+			Notifications.create().title("注册").text("请输入密码").showWarning();
+			return;
+		}
+		if(username.length()<6||username.length()>16){
+			Notifications.create().title("注册").text("用户名长度为8到15位！").showWarning();
+			return;
+		}
+		if(password.length()<6||password.length()>16){
+			Notifications.create().title("注册").text("密码长度为8到15位！").showWarning();
+			return;
+		}
+		RegisterResultMessage result = serviceFactory.getUserLogicService().register(username, password);
+		if(result==RegisterResultMessage.FAIL_USEREXIST){
+			Notifications.create().title("注册").text("用户已存在！").showWarning();
+			return;
+		}
+		if(result==RegisterResultMessage.FAIL_PASSWORDLENGTH){
+			Notifications.create().title("注册").text("密码长度不符合！").showWarning();
+			return;
+		}
+		Notifications.create().title("注册").text("注册成功！").showConfirm();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Parent root = FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
 		Scene scene = new Scene(root);
 		Stage login = new Stage();
@@ -37,13 +68,9 @@ public class RegisterMainController implements Initializable{
 		Stage register = (Stage) usernameField.getScene().getWindow();
 		register.close();
 	}
-	
-	public void setLoginController(LoginMainController loginController){
-		this.loginMainController=loginController;
-	}
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+		if(serviceFactory==null)
+			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 	}
 
 }

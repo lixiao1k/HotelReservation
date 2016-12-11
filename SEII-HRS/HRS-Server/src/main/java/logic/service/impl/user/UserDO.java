@@ -136,6 +136,7 @@ public class UserDO {
 			}else{
 				upo=new UserPO(name, pass);
 				upo.setType(UserType.CLIENT);
+				upo.setStatus(UserStatus.OFFLINE);
 				MemberPO mpo = new ClientMemberPO();
 				mpo.setUser(upo);
 				mpo.setType(UserType.CLIENT);

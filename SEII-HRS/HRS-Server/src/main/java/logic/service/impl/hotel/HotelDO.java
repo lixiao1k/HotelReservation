@@ -1,6 +1,7 @@
 package logic.service.impl.hotel;
 
 import java.rmi.RemoteException;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -26,6 +27,7 @@ import po.MemberPO;
 import po.OrderPO;
 import po.UserPO;
 import resultmessage.HotelResultMessage;
+import util.Base64Util;
 import util.DateUtil;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
@@ -517,8 +519,8 @@ public class HotelDO {
 			HotelWorkerPO hwpo = new HotelWorkerPO();
 			upo.setType(UserType.HOTEL_WORKER);
 			upo.setStatus(UserStatus.OFFLINE);
-			upo.setPassword(vo.getPassword());
-			upo.setUsername(vo.getUsername());
+			upo.setPassword(Base64Util.encode(vo.getPassword()));
+			upo.setUsername(Base64Util.encode(vo.getUsername()));
 			upo.setMember(hwpo);
 			hwpo.setHotel(po);
 			hwpo.setUser(upo);

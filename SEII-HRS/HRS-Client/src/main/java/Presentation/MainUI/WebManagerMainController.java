@@ -15,7 +15,7 @@ public class WebManagerMainController {
 	@FXML protected void goAddHotelInfo(ActionEvent event){
 		try {
 			Parent HotelInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/AddHotelInfo.fxml"));
-			HotelInfo.getProperties().put("NAME", "HotelInfo");
+			HotelInfo.getProperties().put("NAME", "AddHotelInfoPane");
 			ObservableList<Node> list = webManagerMain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
@@ -33,7 +33,7 @@ public class WebManagerMainController {
 	protected void goManageUser(ActionEvent event){
 		try {
 			Parent ManageUser = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/UserUI/ManageUser.fxml"));
-			ManageUser.getProperties().put("NAME", "ManageUser");
+			ManageUser.getProperties().put("NAME", "ManageUserPane");
 			ObservableList<Node> list = webManagerMain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");

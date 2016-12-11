@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -36,6 +37,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
 import logic.service.ServiceFactory;
 import resultmessage.HotelResultMessage;
@@ -87,7 +89,6 @@ public class BrowseRoomListController implements Initializable{
 	public void changeRoomInfo(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setDetached(true);
 		popOver.setDetachedTitle("更改房间信息");
 		GridPane pane = new GridPane();
 		Label label1 = new Label("源房间");
@@ -162,7 +163,6 @@ public class BrowseRoomListController implements Initializable{
 	public void lineCheck(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setDetached(true);
 		popOver.setDetachedTitle("线下入住信息");
 		GridPane pane = new GridPane();
 		Label label = new Label("入住数量");
@@ -255,12 +255,12 @@ public class BrowseRoomListController implements Initializable{
 
             if (item != null) {
                 GridPane cell = new GridPane();
+                cell.prefWidthProperty().bind(roomListView.widthProperty().subtract(2));
                 Label type = new Label(item.getRoom().getType());
                 type.setFont(new Font("YouYuan",20));
                 Label avaliableNum = new Label(item.getNum()+"/"+item.getTotal());
                 avaliableNum.setFont(new Font("YouYuan",8));
                 Label price = new Label(item.getPrice()+"RMB");
-                
                 price.setFont(new Font("YouYuan",13));
                 Button change = new Button("更改");
                 change.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -278,15 +278,20 @@ public class BrowseRoomListController implements Initializable{
 						lineCheck(event, item);
 					}
                });
+                change.setId("rich-blue");
+                lineCheck.setId("rich-blue");
                 cell.add(type, 0, 0);
                 cell.add(avaliableNum, 0, 1);
                 cell.add(price, 1, 0);
                 cell.add(change, 2, 0);
-                cell.add(lineCheck, 3, 0);
-                cell.setHalignment(price, HPos.RIGHT);
-                cell.setMargin(price, new Insets(2,25,2,0));
+                cell.add(lineCheck, 2, 0);
                 cell.setHalignment(lineCheck, HPos.RIGHT);
+                cell.setHgrow(lineCheck, Priority.ALWAYS);
+                cell.setHalignment(change, HPos.RIGHT);
+                cell.setHgrow(change, Priority.ALWAYS);
+                cell.setMargin(change, new Insets(2,120,2,0));
                 cell.setMargin(lineCheck, new Insets(2,10,2,0));
+                cell.setMargin(price, new Insets(2,10,2,10));
                 setGraphic(cell);
             } else {
 

@@ -1,10 +1,16 @@
 package vo;
 
+import java.io.Serializable;
+
 import info.UserType;
 import resultmessage.LoginResultMessage;
 
-public class LoginResultVO {
-    private LoginResultMessage resultMessage;
+public class LoginResultVO implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2584247491131641796L;
+	private LoginResultMessage resultMessage;
     private UserType userType;
     private long userid;
     public LoginResultVO(LoginResultMessage resultMessage,UserType userType,long userid) {

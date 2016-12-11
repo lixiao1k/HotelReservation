@@ -69,7 +69,7 @@ public class ClientMainUIController implements Initializable{
 			KeepPersonInfoController controller=loader.getController();
 			controller.setClientMainUIController(this);
 //			Parent PersonInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
-			PersonInfo.getProperties().put("NAME", "PersonInfoPane");
+			PersonInfo.getProperties().put("NAME", "KeepPersonInfoPane");
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
@@ -113,6 +113,5 @@ public class ClientMainUIController implements Initializable{
     
 	public void initialize(URL location, ResourceBundle resources) {
 		setBaseInfo();
-		DataController.getInstance().put("UserId", userid);
 	}
 }

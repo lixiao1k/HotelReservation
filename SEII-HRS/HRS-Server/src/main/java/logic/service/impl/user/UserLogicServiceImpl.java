@@ -1,15 +1,19 @@
 package logic.service.impl.user;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import logic.service.UserLogicService;
-import resultmessage.LoginResultMessage;
 import resultmessage.RegisterResultMessage;
 import vo.LoginResultVO;
 
-public class UserLogicServiceImpl implements UserLogicService{
+public class UserLogicServiceImpl extends UnicastRemoteObject implements UserLogicService{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6009433617963199447L;
 	private UserDO userDO;
-	public UserLogicServiceImpl() {
+	public UserLogicServiceImpl() throws RemoteException{
 		userDO=new UserDO(); 
 	}
 	@Override

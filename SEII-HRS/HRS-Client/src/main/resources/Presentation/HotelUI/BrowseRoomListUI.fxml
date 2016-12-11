@@ -11,7 +11,7 @@
   <!-- TODO Add Nodes -->
   <children>
     <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <ListView fx:id="roomListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <ListView fx:id="roomListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
       <GridPane.margin>
         <Insets left="10.0" right="10.0" />
       </GridPane.margin>
