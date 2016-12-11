@@ -36,6 +36,9 @@
     -fx-text-fill: black;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
+.text-field{
+	-fx-border-radius:20px;
+}
 #main-pane{
 	-fx-background-image:url("background.jpg");
 }

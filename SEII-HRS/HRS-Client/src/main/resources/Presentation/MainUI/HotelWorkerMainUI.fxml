@@ -9,7 +9,7 @@
 
 <GridPane id="main-pane" fx:id="hotelmain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.MainUI.HotelWorkerMainController">
   <children>
-    <VBox id="main" fx:id="mainUIVBox" prefHeight="555.0" prefWidth="73.0" styleClass="mainUIVBox" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="1" GridPane.rowSpan="1">
+    <VBox id="vbox" fx:id="mainUIVBox" prefHeight="555.0" prefWidth="73.0" styleClass="mainUIVBox" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="1" GridPane.rowSpan="1">
       <children>
         <Button id="mainbutton" alignment="CENTER" cancelButton="false" contentDisplay="CENTER" focusTraversable="true" mnemonicParsing="false" onAction="#goSetHotelInfo" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="维护酒店信息" textAlignment="CENTER" textFill="WHITE">
           <font>

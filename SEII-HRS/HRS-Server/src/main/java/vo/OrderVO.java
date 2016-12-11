@@ -1,5 +1,6 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,7 +10,11 @@ import info.OrderStatus;
 import info.Room;
 
 
-public class OrderVO{
+public class OrderVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4951629071046395517L;
 	private String orderNum;
 	private String name;
 	private OrderStatus status;
