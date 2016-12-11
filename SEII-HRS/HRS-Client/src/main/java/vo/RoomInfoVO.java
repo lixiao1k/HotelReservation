@@ -1,8 +1,14 @@
 package vo;
 
+import java.io.Serializable;
+
 import info.Room;
 
-public class RoomInfoVO {
+public class RoomInfoVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 906026919586169004L;
 	private Room sourceType;
 	private Room targetType;
 	private int num;

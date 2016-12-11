@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import Presentation.MainUI.HotelWorkerMainUI;
 import datacontroller.DataController;
 import javafx.application.Application;
 import rmi.RemoteHelper;
@@ -13,8 +14,8 @@ public class TestRunner{
 	private RemoteHelper remoteHelper;
 	public TestRunner(String[] args){
 		linkToServer();
-		DataController.getInstance().put("HotelId",(long)1);
-		Application.launch(TestController.class,args);
+		DataController.getInstance().put("HotelId",(long)17);
+		Application.launch(HotelWorkerMainUI.class,args);
 		
 	}
 	private void linkToServer() {

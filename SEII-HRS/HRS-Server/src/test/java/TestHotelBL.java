@@ -153,7 +153,7 @@ public class TestHotelBL {
 		bc.setName("南京");
 		bc.setBcityId(1);
 		BusinessCircle bci = new BusinessCircle();
-		bci.setBcircleId(1);
+		bci.setBcircleId(2);
 		bci.setName("大同路");
 		HotelItemVO hi = new HotelItemVO();
 		hi.setNum(88);
@@ -162,10 +162,18 @@ public class TestHotelBL {
 		room.setRid(1);
 		hi.setRoom(room);
 		hi.setTotal(100);
+		HotelItemVO hi2 = new HotelItemVO();
+		hi2.setNum(110);
+		hi2.setPrice(233);
+		Room room2 = new Room("双人房");
+		room2.setRid(2);
+		hi2.setRoom(room2);
+		hi2.setTotal(1001);
 		Set<HotelItemVO> items = new HashSet<>();
 		items.add(hi);
+		items.add(hi2);
 		AddHotelVO vo = new AddHotelVO("如家","如家酒店", "床，wifi", "江苏省南京市新街口233号", "住房，餐饮", bci,  bc, Rank.THREE, items);
-		vo.setUsername("NanjingXJKRuJia");
+		vo.setUsername("NanjingDTLRuJia");
 		vo.setPassword("123456");
 		vo.setMemberName("小丸子");
 		AddHotelResultVO ahrv = hotel.addHotel(vo);
