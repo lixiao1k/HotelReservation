@@ -10,18 +10,22 @@
 
 <GridPane fx:id="mainPane" gridLinesVisible="false" hgap="10.0" prefHeight="564.0" prefWidth="768.0" scaleX="1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.OrderUI.HotelWorkerBrowseOrderListController">
   <children>
-    <Label alignment="CENTER" prefHeight="49.0" prefWidth="94.0" text="Search" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+    <Label alignment="CENTER" prefHeight="49.0" prefWidth="94.0" text="搜索" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
       <font>
-        <Font size="25.0" fx:id="x1" />
+        <Font name="幼圆" size="25.0" fx:id="x1" />
       </font>
       <GridPane.margin>
         <Insets left="10.0" top="5.0" />
       </GridPane.margin>
     </Label>
     <TextField fx:id="searchText" prefHeight="28.0" prefWidth="381.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-    <Button mnemonicParsing="false" onAction="#searchInText" prefHeight="28.000099182128906" prefWidth="116.0" text="Search" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+    <Button mnemonicParsing="false" onAction="#searchInText" prefHeight="28.000099182128906" prefWidth="116.0" text="搜索" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+      <font>
+        <Font name="幼圆" size="12.0" />
+      </font>
+    </Button>
     <ListView fx:id="orderListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
-    <Label font="$x1" text="Type" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Label font="$x1" text="类型" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <GridPane.margin>
         <Insets left="10.0" top="5.0" />
       </GridPane.margin>

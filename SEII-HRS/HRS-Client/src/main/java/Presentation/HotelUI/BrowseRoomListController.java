@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.management.Notification;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.PopOver;
@@ -22,13 +21,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -56,7 +52,7 @@ public class BrowseRoomListController implements Initializable{
 		Room src = source.getRoom();
 		Room tar = target.getRoom();
 		if(source.getNum()<num){
-			Notifications.create().title("更改房间信息").text("输入数量有误！").showError();
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("更改房间信息").text("输入数量有误！").showError();
 			return;
 		}
 		MaintainRoomInfoVO mrivo = new MaintainRoomInfoVO();
@@ -71,7 +67,7 @@ public class BrowseRoomListController implements Initializable{
 		try{
 			HotelResultMessage result = serviceFactory.getHotelLogicService().setRoomInfo(mrivo);
 			if(result==HotelResultMessage.SUCCESS){
-				Notifications.create().title("更改房间信息").text("更改成功！").showConfirm();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("更改房间信息").text("更改成功！").showConfirm();
 				source.setNum(source.getNum()-num);
 				target.setNum(target.getNum()+num);
 				roomListViewData.remove(source);
@@ -80,10 +76,10 @@ public class BrowseRoomListController implements Initializable{
 				roomListViewData.add(target);
 			}
 			else
-				Notifications.create().title("更改房间信息").text("更改失败！").showError();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("更改房间信息").text("更改失败！").showError();
 		}catch(RemoteException e){
 			e.printStackTrace();
-			Notifications.create().title("更改房间信息").text("未知错误！").showError();
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("更改房间信息").text("未知错误！").showError();
 		}
 	}
 	public void changeRoomInfo(MouseEvent e,HotelItemVO hivo){
@@ -110,7 +106,7 @@ public class BrowseRoomListController implements Initializable{
 		btn.setOnAction((ActionEvent e2)->{
 			try{
 				if(box1.getValue()==null||box2.getValue()==null){
-					Notifications.create().title("更改房间信息").text("请选择转换房间").showWarning();
+					Notifications.create().owner(roomListView.getScene().getWindow()).title("更改房间信息").text("请选择转换房间").showWarning();
 					popOver.hide();
 					return;
 				}
@@ -125,7 +121,7 @@ public class BrowseRoomListController implements Initializable{
 				changeRoomInfoAction(hivo,target,num);
 				popOver.hide();
 			}catch(NumberFormatException e3){
-				Notifications.create().title("更改房间信息").text("输入格式错误，请输入正确格式！").showWarning();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("更改房间信息").text("输入格式错误，请输入正确格式！").showWarning();
 				popOver.hide();
 			}
 		});
@@ -177,7 +173,7 @@ public class BrowseRoomListController implements Initializable{
 				popOver.hide();
 				lineCheckAction(hivo,num);
 			}catch(NumberFormatException e4){
-				Notifications.create().title("线下入住").text("请输入数字！").showWarning();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("线下入住").text("请输入数字！").showWarning();
 				popOver.hide();
 			}
 		});
@@ -202,7 +198,7 @@ public class BrowseRoomListController implements Initializable{
 	private void lineCheckAction(HotelItemVO room,int roomNum){
 		HotelResultMessage result;
 		if(roomNum>room.getNum()){
-			Notifications.create().title("线下入住").text("请输入当前房间数以内数目！").showWarning();
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("线下入住").text("请输入当前房间数以内数目！").showWarning();
 			return;
 		}
 			
@@ -218,7 +214,7 @@ public class BrowseRoomListController implements Initializable{
 				room.setNum(room.getNum()-roomNum);
 				roomListViewData.add(room);
 				roomListViewData.remove(room);
-				Notifications.create().title("线下入住").text("更新成功").showConfirm();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("线下入住").text("更新成功").showConfirm();
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();

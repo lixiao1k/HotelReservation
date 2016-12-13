@@ -27,6 +27,14 @@
         <a>strategy.name</a>
         <b>strategy</b>
     </field>
+    <field>
+        <a>off</a>
+        <b>strategyOff</b>
+    </field>
+    <field>
+        <a>oid</a>
+        <b>orderId</b>
+    </field>
 </mapping>
 <mapping>
     <class-a>po.StrategyPO</class-a>

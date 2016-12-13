@@ -1,6 +1,7 @@
 package vo;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import info.OrderStatus;
@@ -12,6 +13,7 @@ public class OrderVO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4951629071046395517L;
+	private long orderId;
 	private String orderNum;
 	private String name;
 	private OrderStatus status;
@@ -20,6 +22,7 @@ public class OrderVO implements Serializable{
 	private Date checkOutTime;
 	private Date actualCheckInTime;
 	private Date actualCheckOutTime;
+	private Timestamp abnormalTime;
 	private Room room;
 	private int roomNum;
 	private double roomPrice;
@@ -151,5 +154,17 @@ public class OrderVO implements Serializable{
 	}
 	public void setHotelName(String hotelName){
 		this.hotelName = hotelName;
+	}
+	public Timestamp getAbnormalTime() {
+		return abnormalTime;
+	}
+	public void setAbnormalTime(Timestamp abnormalTime) {
+		this.abnormalTime = abnormalTime;
+	}
+	public long getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
 	}
 }

@@ -74,6 +74,7 @@ public class HotelDO {
 				if(po.getImageData()!=null)
 					result.setImage(SerializeUtil.byteToImage(po.getImageData()));
 				Hibernate.initialize(po);
+				Hibernate.initialize(po.getBusinessCircle());
 				hotels.put(hotelId, po);
 				HibernateUtil.getCurrentSession().getTransaction().commit();
 				return result;
