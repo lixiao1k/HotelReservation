@@ -45,12 +45,12 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 	protected void addStrategy(ActionEvent e){
     	try {
 			Parent addStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/WebSalerCreateStrategy.fxml"));
-			addStrategy.getProperties().put("NAME", "addStrategy");
+			addStrategy.getProperties().put("NAME", "addStrategyPane");
 			clientmain=(GridPane) mainPane.getScene().getWindow().getScene().getRoot();
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("Strategy")||value.contains("Order")||value.contains("Credit"))){
+				if (value!=null&&value.contains("Pane")){
 					list.remove(node);
 					break;
 				}

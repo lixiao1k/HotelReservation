@@ -55,12 +55,12 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("Strategy")||value.contains("Order")||value.contains("Credit"))){
+				if (value!=null&&value.contains("Pane")){
 					list.remove(node);
 					break;
 				}
 			}
-			clientmain.add(addStrategy, 2, 1);
+			clientmain.add(addStrategy, 3, 1);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -68,6 +68,7 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 	
 	//基本信息
     public void setBaseInfo(){
+    	DataController.getInstance().put("HotelId", (long)1);
     	hotelid=(long)DataController.getInstance().get("HotelId");
     	DataController.getInstance().put("HotelId", hotelid);
     }

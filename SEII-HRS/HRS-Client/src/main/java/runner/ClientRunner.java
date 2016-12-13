@@ -15,7 +15,7 @@ public class ClientRunner{
 	private RemoteHelper remoteHelper;
 	public ClientRunner(String[] args){
 		linkToServer();
-		Application.launch(HotelWorkerMainUI.class,args);
+		Application.launch(WebSalerMainUI.class,args);
 	}
 	private void linkToServer() {
 		try {
