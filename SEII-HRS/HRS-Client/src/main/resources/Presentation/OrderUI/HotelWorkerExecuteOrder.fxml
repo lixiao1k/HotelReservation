@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane id="Client" fx:id="HotelWorkerExecutePane" prefHeight="576.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.OrderUI.HotelWorkerExecuteOrderController">
+<GridPane id="Client" fx:id="HotelWorkerExecutePane" prefHeight="564.0" prefWidth="768.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.OrderUI.HotelWorkerExecuteOrderController">
   <children>
     <Button id="CancelButton" fx:id="ExecuteButton" mnemonicParsing="false" onAction="#ExecuteOrder" prefHeight="32.0" prefWidth="95.0" text="执行此订单" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
       <GridPane.margin>
-        <Insets bottom="6.0" right="10.0" />
+        <Insets bottom="6.0" right="100.0" />
       </GridPane.margin>
     </Button>
     <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />

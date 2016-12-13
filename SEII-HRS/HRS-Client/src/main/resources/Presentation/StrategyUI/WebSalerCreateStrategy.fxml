@@ -8,34 +8,34 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="mainPane" hgap="10.0" prefHeight="506.0" prefWidth="450.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.StrategyUI.WebSalerCreateStrategyController">
+<GridPane fx:id="mainPane" hgap="10.0" prefHeight="564.0" prefWidth="768.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.StrategyUI.WebSalerCreateStrategyController">
   <children>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="98.0" text="作用时间：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="140.0" text="作用时间：" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <font>
         <Font size="14.0" fx:id="x1" />
       </font>
       <GridPane.margin>
-        <Insets fx:id="x2" />
+        <Insets bottom="100.0" fx:id="x2" />
       </GridPane.margin>
     </Label>
     <TextField id="TimeLine" fx:id="TimeLine1" prefWidth="80.0" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="1" />
     <Button mnemonicParsing="false" onAction="#createStrategy" prefHeight="32.0" prefWidth="98.0" text="创建该策略" GridPane.columnIndex="2" GridPane.rowIndex="1">
       <GridPane.margin>
-        <Insets left="60.0" top="240.0" />
+        <Insets left="130.0" top="240.0" />
       </GridPane.margin>
     </Button>
     <Label text="-" GridPane.columnIndex="2" GridPane.margin="$x2" GridPane.rowIndex="1" />
-    <TextField fx:id="TimeLine2" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+    <TextField fx:id="TimeLine2" prefWidth="214.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
       <GridPane.margin>
-        <Insets left="16.0" right="16.0" />
+        <Insets bottom="100.0" left="16.0" right="164.0" />
       </GridPane.margin>
     </TextField>
-    <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" prefHeight="32.0" prefWidth="131.0" text="VIP商圈：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" prefHeight="18.0" prefWidth="164.0" text="VIP商圈：" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <GridPane.margin>
-        <Insets bottom="220.0" top="15.0" fx:id="x3" />
+        <Insets bottom="260.0" top="15.0" fx:id="x3" />
       </GridPane.margin>
     </Label>
-    <ChoiceBox fx:id="Circle" minHeight="16.0" prefHeight="16.0" prefWidth="149.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.margin="$x3" GridPane.rowIndex="1">
+    <ChoiceBox fx:id="Circle" minHeight="20.0" prefHeight="22.0" prefWidth="149.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.margin="$x3" GridPane.rowIndex="1">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="项 1" />
@@ -44,19 +44,25 @@
         </FXCollections>
       </items>
     </ChoiceBox>
-    <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" prefHeight="22.0" prefWidth="91.0" text="策略名：" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" prefHeight="22.0" prefWidth="149.0" text="策略名：" GridPane.columnIndex="0" GridPane.rowIndex="0" />
     <TextField id="Name" fx:id="NameLine" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="140.0" text="折扣：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+      <GridPane.margin>
+        <Insets top="40.0" fx:id="x4" />
+      </GridPane.margin>
+    </Label>
+    <TextField id="Off" fx:id="OffLine" prefWidth="200.0" GridPane.columnIndex="1" GridPane.margin="$x4" GridPane.rowIndex="1" />
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="98.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="150.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="182.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-1.0" minWidth="10.0" prefWidth="182.0" />
   </columnConstraints>
   <padding>
     <Insets bottom="10.0" top="10.0" />
   </padding>
   <rowConstraints>
-    <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="-1.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="272.0" minHeight="10.0" prefHeight="272.0" vgrow="SOMETIMES" />
   </rowConstraints>
 </GridPane>
