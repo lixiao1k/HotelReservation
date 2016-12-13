@@ -46,6 +46,26 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 		
 	}
 	
+	@FXML 
+	protected void addStrategy(ActionEvent e){
+    	try {
+			Parent addStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/HotelWorkerCreateStrategy.fxml"));
+			addStrategy.getProperties().put("NAME", "addStrategy");
+			clientmain=(GridPane) mainPane.getScene().getWindow().getScene().getRoot();
+			ObservableList<Node> list = clientmain.getChildren();
+			for (Node node:list){
+				String value = (String) node.getProperties().get("NAME");
+				if (value!=null&&(value.contains("Strategy")||value.contains("Order")||value.contains("Credit"))){
+					list.remove(node);
+					break;
+				}
+			}
+			clientmain.add(addStrategy, 2, 1);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
 	//基本信息
     public void setBaseInfo(){
     	hotelid=(long)DataController.getInstance().get("HotelId");

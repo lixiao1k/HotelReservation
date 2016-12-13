@@ -5,7 +5,9 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import Presentation.MainUI.HotelWorkerMainUI;
 import Presentation.MainUI.LoginMainUI;
+import Presentation.MainUI.WebSalerMainUI;
 import javafx.application.Application;
 import rmi.RemoteHelper;
 
@@ -13,7 +15,7 @@ public class ClientRunner{
 	private RemoteHelper remoteHelper;
 	public ClientRunner(String[] args){
 		linkToServer();
-		Application.launch(LoginMainUI.class,args);
+		Application.launch(WebSalerMainUI.class,args);
 	}
 	private void linkToServer() {
 		try {

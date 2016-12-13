@@ -1,5 +1,6 @@
 package Presentation.StrategyUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -13,7 +14,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
@@ -39,7 +43,22 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 	
 	@FXML 
 	protected void addStrategy(ActionEvent e){
-		
+    	try {
+			Parent addStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/WebSalerCreateStrategy.fxml"));
+			addStrategy.getProperties().put("NAME", "addStrategy");
+			clientmain=(GridPane) mainPane.getScene().getWindow().getScene().getRoot();
+			ObservableList<Node> list = clientmain.getChildren();
+			for (Node node:list){
+				String value = (String) node.getProperties().get("NAME");
+				if (value!=null&&(value.contains("Strategy")||value.contains("Order")||value.contains("Credit"))){
+					list.remove(node);
+					break;
+				}
+			}
+			clientmain.add(addStrategy, 2, 1);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 	//基本信息
