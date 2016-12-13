@@ -18,19 +18,26 @@ import javafx.scene.layout.GridPane;
 public class HotelWorkerMainController implements Initializable{
 	@FXML private GridPane hotelmain;
 	@FXML private Button goStrategyListButton;
-	private long hotelid;
-	
-	@FXML protected void goSetHotelInfo(ActionEvent event){
+	private long hotelId;
+	private void goToPane(int i){
+		String[] name = {"HotelInfoPane"
+						,"BrowseOrderListPane"
+						,"BrowseRoomListPane"
+						,"BrowseStrategyListPane"};
+		String[] path = {"Presentation/HotelUI/SetHotelInfo.fxml"
+						,"Presentation/OrderUI/HotelWorkerBrowseOrderListUI.fxml"
+						,"Presentation/HotelUI/BrowseRoomListUI.fxml"
+						,"Presentation/StrategyUI/HotelWorkerBrowseStrategyListUI.fxml"};
 		try {
-			Parent hotelInfo = null;
-			Object o = DataController.getInstance().get("HotelInfoPane");
+			Parent pane = null;
+			Object o = DataController.getInstance().get(name[i]);
 			if(o==null){
-				hotelInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/SetHotelInfo.fxml"));
-				hotelInfo.getProperties().put("NAME", "HotelInfoPane");
-				DataController.getInstance().put("HotelInfoPane", hotelInfo);
+				pane = FXMLLoader.load(getClass().getClassLoader().getResource(path[i]));
+				pane.getProperties().put("NAME", name[i]);
+				DataController.getInstance().put(name[i], pane);
 			}
 			else 
-				hotelInfo = (Parent) o;
+				pane = (Parent) o;
 			ObservableList<Node> list = hotelmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
@@ -39,97 +46,31 @@ public class HotelWorkerMainController implements Initializable{
 					break;
 				}
 			}
-			hotelmain.add(hotelInfo, 3, 1);
+			hotelmain.add(pane, 3, 1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
-	@FXML protected void goOrderList(ActionEvent event){
-		try {
-			Parent browseOrderList = null;
-			Object o = DataController.getInstance().get("BrowseOrderListPane");
-			if(o==null){
-				browseOrderList = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/HotelWorkerBrowseOrderListUI.fxml"));
-				browseOrderList.getProperties().put("NAME", "BrowseOrderListPane");
-				DataController.getInstance().put("BrowseOrderListPane", browseOrderList);
-			}
-			else 
-				browseOrderList = (Parent) o;
-			ObservableList<Node> list = hotelmain.getChildren();
-			for (Node node:list){
-				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&value.contains("Pane")){
-					list.remove(node);
-					break;
-				}
-			}
-			hotelmain.add(browseOrderList, 3, 1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+	@FXML protected void goSetHotelInfo(ActionEvent event){
+		goToPane(0);
+	}
+	@FXML protected void goOrderList(ActionEvent event){	
+		goToPane(1);
 	}
 	@FXML protected void goRoomList(ActionEvent event){
-		try {
-			Parent browseRoomList = null;
-			Object o = DataController.getInstance().get("BrowseRoomListPane");
-			if(o==null){
-				browseRoomList = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/BrowseRoomListUI.fxml"));
-				browseRoomList.getProperties().put("NAME", "BrowseRoomListPane");
-				DataController.getInstance().put("BrowseRoomListPane", browseRoomList);
-			}
-			else 
-				browseRoomList = (Parent) o;
-			ObservableList<Node> list = hotelmain.getChildren();
-			for (Node node:list){
-				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&value.contains("Pane")){
-					list.remove(node);
-					break;
-				}
-			}
-			hotelmain.add(browseRoomList, 3, 1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+			goToPane(2);
 	}
 	@FXML protected void goStrategyList(ActionEvent event){
-		try {
-			Parent browseStrategyList = null;
-			Object o = DataController.getInstance().get("BrowseStrategyListPane");
-			if(o==null){
-				browseStrategyList = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/HotelWorkerBrowseStrategyListUI.fxml"));
-				browseStrategyList.getProperties().put("NAME", "BrowseStrategyListPane");
-				DataController.getInstance().put("BrowseStrategyListPane", browseStrategyList);
-			}
-			else 
-				browseStrategyList = (Parent) o;
-			ObservableList<Node> list = hotelmain.getChildren();
-			for (Node node:list){
-				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&value.contains("Pane")){
-					list.remove(node);
-					break;
-				}
-			}
-			hotelmain.add(browseStrategyList, 3, 1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//goStrategyListButton.getStyleClass().add("main-pane-button");
+		goToPane(3);
 	}
-	
 	//基本信息
     public void setBaseInfo(){
-    	DataController.getInstance().put("HotelId", (long)1);
-    	this.hotelid=(long)DataController.getInstance().get("HotelId");
-    	DataController.getInstance().put("HotelId", hotelid);
+		Object o = DataController.getInstance().get("HotelId");
+		if(o!=null)
+			hotelId = (long) o;
     }
-	
 	public void initialize(URL location, ResourceBundle resources) {
-		
 		setBaseInfo();
 	}
 }

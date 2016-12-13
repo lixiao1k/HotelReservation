@@ -23,92 +23,62 @@ public class ClientMainUIController implements Initializable{
 	@FXML Button goPersonInfoButton;
 	@FXML Button goBrowseOrderListButton;
 	@FXML GridPane clientmain;
-	@FXML Label stateLabel;
-	private long userid;
-	@FXML
-	protected void goHotelList(ActionEvent e){
+	private long userId;
+	private void goToPane(int i){
+		String[] name = {"HotelListPane"
+						,"VIPRegisterPane"
+						,"KeepPersonInfoPane"
+						,"BrowseOrderPane"
+		};
+		String[] path = {"Presentation/HotelUI/HotelBrowse.fxml"
+						,"Presentation/MemberUI/Register.fxml"
+						,"Presentation/MemberUI/KeepPersonInfo.fxml"
+						,"Presentation/OrderUI/ClientBrowseOrderListUI.fxml"
+		};
 		try {
-			Parent HotelList = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/HotelBrowse.fxml"));
-			HotelList.getProperties().put("NAME", "HotelListPane");
+			Parent pane = null;
+			Object o = DataController.getInstance().get(name[i]);
+			if(o==null){
+				pane = FXMLLoader.load(getClass().getClassLoader().getResource(path[i]));
+				pane.getProperties().put("NAME", name[i]);
+				DataController.getInstance().put(name[i], pane);
+			}
+			else 
+				pane = (Parent) o;
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("Pane"))){
+				if (value!=null&&value.contains("Pane")){
 					list.remove(node);
 					break;
 				}
 			}
-			clientmain.add(HotelList, 2, 1);
-		} catch (IOException e1) {
-			e1.printStackTrace();
+			clientmain.add(pane, 3, 1);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+	}
+	@FXML
+	protected void goHotelList(ActionEvent e){
+		goToPane(0);
 	}
 	@FXML
 	protected void goVIPRegister(ActionEvent e){
-		try {
-			Parent Register = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/Register.fxml"));
-			Register.getProperties().put("NAME", "VIPRegisterPane");
-			ObservableList<Node> list = clientmain.getChildren();
-			for (Node node:list){
-				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("Pane"))){
-					list.remove(node);
-					break;
-				}
-			}
-			clientmain.add(Register, 2, 1);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		goToPane(1);
 	}
 	@FXML
 	protected void goPersonInfo(ActionEvent e){
-		try {
-			FXMLLoader loader =new FXMLLoader(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
-			Parent PersonInfo=loader.load();
-			KeepPersonInfoController controller=loader.getController();
-			controller.setClientMainUIController(this);
-//			Parent PersonInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
-			PersonInfo.getProperties().put("NAME", "KeepPersonInfoPane");
-			ObservableList<Node> list = clientmain.getChildren();
-			for (Node node:list){
-				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("Pane"))){
-					list.remove(node);
-					break;
-				}
-			}
-			clientmain.add(PersonInfo, 2, 1);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
+		goToPane(2);
 	}
 	@FXML
 	protected void goBrowseOrderList(ActionEvent e){
-		try {
-			Parent BrowseOrder = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/ClientBrowseOrderListUI.fxml"));
-			BrowseOrder.getProperties().put("NAME", "BrowseOrderPane");
-			ObservableList<Node> list = clientmain.getChildren();
-			for (Node node:list){
-				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&(value.contains("Pane"))){
-					list.remove(node);
-					break;
-				}
-			}
-			clientmain.add(BrowseOrder, 2, 1);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
+		goToPane(3);
 	}
-	public void setStateLabel(String state){
-		stateLabel.setText(state);
-	}
-	
     public void setBaseInfo(){
-    	this.userid=(long)DataController.getInstance().get("UserId");
+		Object o = DataController.getInstance().get("UserId");
+		if(o!=null)
+			userId = (long) o;
     }
     
 	public void initialize(URL location, ResourceBundle resources) {

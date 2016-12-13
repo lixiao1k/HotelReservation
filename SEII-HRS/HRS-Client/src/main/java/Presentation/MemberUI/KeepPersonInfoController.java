@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.management.Notification;
+
+import org.controlsfx.control.Notifications;
+
 import Presentation.CreditUI.CreditBrowseController;
 import Presentation.FeedbackUI.AddContactController;
 import Presentation.MainUI.ClientMainUIController;
@@ -59,7 +63,7 @@ public class KeepPersonInfoController implements Initializable{
 			    e1.printStackTrace();
 		    }
 		}else{
-			clientmainuicontroller.setStateLabel("请先点击编辑按钮");
+			Notifications.create().title("增加").text("清先编辑按钮").showWarning();
 		}
 
 	}
@@ -112,7 +116,7 @@ public class KeepPersonInfoController implements Initializable{
 	//编辑按钮点击后置为可编辑
 	@FXML
 	protected void edit(ActionEvent e){
-		clientmainuicontroller.setStateLabel("允许编辑");
+		Notifications.create().title("编辑").text("允许编辑").showConfirm();
 		isEdit=true;
 		nameTextField.setEditable(true);
 		companyNameTextField.setEditable(true);
