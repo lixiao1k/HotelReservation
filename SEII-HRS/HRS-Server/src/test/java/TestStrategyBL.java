@@ -80,11 +80,11 @@ public class TestStrategyBL {
 	@Test
 	public void testGetTypes() throws RemoteException{
 		StrategyLogicService strategyService = new StrategyLogicServiceImpl();
-		ListWrapper<String> types = strategyService.getTypes();
+		ListWrapper<StrategyType> types = strategyService.getTypes();
 		Assert.assertNotEquals("wrong", null,types);
-		Iterator<String> it = types.iterator();
+		Iterator<StrategyType> it = types.iterator();
 		while(it.hasNext()){
-			System.out.println(it.next());
+			System.out.println(it.next().getName());
 		}
 	}
 }
