@@ -7,6 +7,7 @@ import data.dao.StrategyDao;
 import data.datahelper.StrategyDataHelper;
 import data.datahelper.impl.DataFactory;
 import info.ListWrapper;
+import info.StrategyType;
 import po.StrategyPO;
 
 public class StrategyDaoImpl implements StrategyDao{
@@ -41,5 +42,10 @@ public class StrategyDaoImpl implements StrategyDao{
 	public ListWrapper<StrategyPO> getWEBStrategyList() throws RemoteException {
 		List<StrategyPO> list = strategyDataHelper.getWEBStrategyList();
 		return new ListWrapper<StrategyPO>(list);
+	}
+	@Override
+	public ListWrapper<StrategyType> getTypes() throws RemoteException {
+		List<StrategyType> list = strategyDataHelper.getTypes();
+		return new ListWrapper<StrategyType>(list);
 	}
 }
