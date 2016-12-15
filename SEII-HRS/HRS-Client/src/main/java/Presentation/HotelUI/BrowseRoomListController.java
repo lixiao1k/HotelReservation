@@ -56,7 +56,7 @@ public class BrowseRoomListController implements Initializable{
 		Room src = source.getRoom();
 		Room tar = target.getRoom();
 		if(source.getNum()<num){
-			Notifications.create().title("¸ü¸Ä·¿¼äÐÅÏ¢").text("ÊäÈëÊýÁ¿ÓÐÎó£¡").showError();
+			Notifications.create().title("ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢").text("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").showError();
 			return;
 		}
 		MaintainRoomInfoVO mrivo = new MaintainRoomInfoVO();
@@ -71,7 +71,7 @@ public class BrowseRoomListController implements Initializable{
 		try{
 			HotelResultMessage result = serviceFactory.getHotelLogicService().setRoomInfo(mrivo);
 			if(result==HotelResultMessage.SUCCESS){
-				Notifications.create().title("¸ü¸Ä·¿¼äÐÅÏ¢").text("¸ü¸Ä³É¹¦£¡").showConfirm();
+				Notifications.create().title("ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢").text("ï¿½ï¿½ï¿½Ä³É¹ï¿½ï¿½ï¿½").showConfirm();
 				source.setNum(source.getNum()-num);
 				target.setNum(target.getNum()+num);
 				roomListViewData.remove(source);
@@ -80,26 +80,26 @@ public class BrowseRoomListController implements Initializable{
 				roomListViewData.add(target);
 			}
 			else
-				Notifications.create().title("¸ü¸Ä·¿¼äÐÅÏ¢").text("¸ü¸ÄÊ§°Ü£¡").showError();
+				Notifications.create().title("ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢").text("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½").showError();
 		}catch(RemoteException e){
 			e.printStackTrace();
-			Notifications.create().title("¸ü¸Ä·¿¼äÐÅÏ¢").text("Î´Öª´íÎó£¡").showError();
+			Notifications.create().title("ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢").text("Î´Öªï¿½ï¿½ï¿½ï¿½").showError();
 		}
 	}
 	public void changeRoomInfo(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setDetachedTitle("¸ü¸Ä·¿¼äÐÅÏ¢");
+		popOver.setDetachedTitle("ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢");
 		GridPane pane = new GridPane();
-		Label label1 = new Label("Ô´·¿¼ä");
+		Label label1 = new Label("Ô´ï¿½ï¿½ï¿½ï¿½");
 		label1.setFont(new Font("YouYuan",15));
-		Label label2 = new Label("Ä¿±ê·¿¼ä");
+		Label label2 = new Label("Ä¿ï¿½ê·¿ï¿½ï¿½");
 		label2.setFont(new Font("YouYuan",15));
-		Label label3 = new Label("×ª»»ÊýÁ¿");
+		Label label3 = new Label("×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		label3.setFont(new Font("YouYuan",15));
-		Button btn = new Button("È·¶¨");
+		Button btn = new Button("È·ï¿½ï¿½");
 		btn.setFont(new Font("YouYuan",15));
-		Button btn2 = new Button("È¡Ïû");
+		Button btn2 = new Button("È¡ï¿½ï¿½");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
 			popOver.hide();
@@ -110,7 +110,7 @@ public class BrowseRoomListController implements Initializable{
 		btn.setOnAction((ActionEvent e2)->{
 			try{
 				if(box1.getValue()==null||box2.getValue()==null){
-					Notifications.create().title("¸ü¸Ä·¿¼äÐÅÏ¢").text("ÇëÑ¡Ôñ×ª»»·¿¼ä").showWarning();
+					Notifications.create().title("ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢").text("ï¿½ï¿½Ñ¡ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").showWarning();
 					popOver.hide();
 					return;
 				}
@@ -125,7 +125,7 @@ public class BrowseRoomListController implements Initializable{
 				changeRoomInfoAction(hivo,target,num);
 				popOver.hide();
 			}catch(NumberFormatException e3){
-				Notifications.create().title("¸ü¸Ä·¿¼äÐÅÏ¢").text("ÊäÈë¸ñÊ½´íÎó£¬ÇëÊäÈëÕýÈ·¸ñÊ½£¡").showWarning();
+				Notifications.create().title("ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢").text("ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê½ï¿½ï¿½").showWarning();
 				popOver.hide();
 			}
 		});
@@ -163,12 +163,12 @@ public class BrowseRoomListController implements Initializable{
 	public void lineCheck(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setDetachedTitle("ÏßÏÂÈë×¡ÐÅÏ¢");
+		popOver.setDetachedTitle("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¡ï¿½ï¿½Ï¢");
 		GridPane pane = new GridPane();
-		Label label = new Label("Èë×¡ÊýÁ¿");
+		Label label = new Label("ï¿½ï¿½×¡ï¿½ï¿½ï¿½ï¿½");
 		label.setFont(new Font("YouYuan",15));
 		TextField field = new TextField();
-		Button btn = new Button("È·¶¨");
+		Button btn = new Button("È·ï¿½ï¿½");
 		btn.setFont(new Font("YouYuan",15));
 
 		btn.setOnAction((ActionEvent e3)->{
@@ -177,11 +177,11 @@ public class BrowseRoomListController implements Initializable{
 				popOver.hide();
 				lineCheckAction(hivo,num);
 			}catch(NumberFormatException e4){
-				Notifications.create().title("ÏßÏÂÈë×¡").text("ÇëÊäÈëÊý×Ö£¡").showWarning();
+				Notifications.create().title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¡").text("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½").showWarning();
 				popOver.hide();
 			}
 		});
-		Button btn2 = new Button("È¡Ïû");
+		Button btn2 = new Button("È¡ï¿½ï¿½");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
 			popOver.hide();
@@ -202,7 +202,7 @@ public class BrowseRoomListController implements Initializable{
 	private void lineCheckAction(HotelItemVO room,int roomNum){
 		HotelResultMessage result;
 		if(roomNum>room.getNum()){
-			Notifications.create().title("ÏßÏÂÈë×¡").text("ÇëÊäÈëµ±Ç°·¿¼äÊýÒÔÄÚÊýÄ¿£¡").showWarning();
+			Notifications.create().title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¡").text("ï¿½ï¿½ï¿½ï¿½ï¿½ëµ±Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½").showWarning();
 			return;
 		}
 			
@@ -218,7 +218,7 @@ public class BrowseRoomListController implements Initializable{
 				room.setNum(room.getNum()-roomNum);
 				roomListViewData.add(room);
 				roomListViewData.remove(room);
-				Notifications.create().title("ÏßÏÂÈë×¡").text("¸üÐÂ³É¹¦").showConfirm();
+				Notifications.create().title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¡").text("ï¿½ï¿½ï¿½Â³É¹ï¿½").showConfirm();
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -262,7 +262,7 @@ public class BrowseRoomListController implements Initializable{
                 avaliableNum.setFont(new Font("YouYuan",8));
                 Label price = new Label(item.getPrice()+"RMB");
                 price.setFont(new Font("YouYuan",13));
-                Button change = new Button("¸ü¸Ä");
+                Button change = new Button("ï¿½ï¿½ï¿½ï¿½");
                 change.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 					@Override
@@ -270,7 +270,7 @@ public class BrowseRoomListController implements Initializable{
 						changeRoomInfo(event, item);
 					}
 				});
-                Button lineCheck = new Button("ÏßÏÂÈë×¡");
+                Button lineCheck = new Button("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¡");
                 lineCheck.setOnMouseClicked(new EventHandler<MouseEvent>() {
               
              		@Override
