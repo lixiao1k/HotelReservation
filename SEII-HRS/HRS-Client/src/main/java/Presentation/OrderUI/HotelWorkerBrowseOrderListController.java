@@ -28,6 +28,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import logic.service.OrderLogicService;
 import resultmessage.OrderResultMessage;
 import rmi.RemoteHelper;
