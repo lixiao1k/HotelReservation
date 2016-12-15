@@ -4,32 +4,25 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-import java.util.Set;
 
-import info.BusinessCircle;
-import info.BusinessCity;
 import info.ListWrapper;
 import info.StrategyType;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import logic.service.HotelLogicService;
 import logic.service.StrategyLogicService;
 import rmi.RemoteHelper;
 import vo.StrategyVO;
 
-public class VIPCircleController implements Initializable{
+public class FestivalController implements Initializable{
 	@FXML GridPane mainPane;
-	@FXML ChoiceBox<String> Circle;
+	@FXML TextField Time1;
+	@FXML TextField Time2;
 	@FXML TextField Name;
 	@FXML TextField Off;
 	GridPane clientmain;
 	StrategyLogicService strategyLogic;
-	HotelLogicService hotelLogic;
 	
 	@FXML 
 	protected void Create() throws RemoteException{
@@ -44,30 +37,14 @@ public class VIPCircleController implements Initializable{
 				svo.setStrategyType(type);
 				break;
 		}
-		svo.setExtraInfo(Circle.getSelectionModel().getSelectedItem());
+		svo.setExtraInfo(Time1.getText()+"|"+Time2.getText());
 		strategyLogic.create(svo);
-	}
-	
-	public void initcircle() throws RemoteException{
-		ListWrapper<BusinessCity> citylist=hotelLogic.getCity();
-		Iterator<BusinessCity> it=citylist.iterator();
-		ObservableList<String> circlelist=FXCollections.observableArrayList();
-		while(it.hasNext()){
-			BusinessCity city=it.next();
-			Set<BusinessCircle> circleset=city.getCircles();
-			for(BusinessCircle circle:circleset){
-				circlelist.add(circle.getName());
-			}
-		}
-		Circle.setItems(circlelist);
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			strategyLogic=RemoteHelper.getInstance().getServiceFactory().getStrategyLogicService();
-			hotelLogic=RemoteHelper.getInstance().getServiceFactory().getHotelLogicService();
-			initcircle();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

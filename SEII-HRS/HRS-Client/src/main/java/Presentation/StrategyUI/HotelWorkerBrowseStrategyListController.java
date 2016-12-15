@@ -4,17 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import Presentation.MainUI.ClientMainUIController;
 import datacontroller.DataController;
 import info.ListWrapper;
-import info.OrderStatus;
-import info.Room;
-import info.StrategyType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,10 +22,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import logic.service.OrderLogicService;
 import logic.service.StrategyLogicService;
 import rmi.RemoteHelper;
-import vo.OrderVO;
 import vo.StrategyVO;
 
 public class HotelWorkerBrowseStrategyListController implements Initializable{
@@ -50,7 +43,7 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 	protected void addStrategy(ActionEvent e){
     	try {
 			Parent addStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/HotelWorkerCreateStrategy.fxml"));
-			addStrategy.getProperties().put("NAME", "addStrategy");
+			addStrategy.getProperties().put("NAME", "addStrategyPane");
 			clientmain=(GridPane) mainPane.getScene().getWindow().getScene().getRoot();
 			ObservableList<Node> list = clientmain.getChildren();
 			for (Node node:list){

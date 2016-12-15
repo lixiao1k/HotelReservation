@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 
 import info.ListWrapper;
 import info.OrderStrategy;
+import info.StrategyType;
 import resultmessage.StrategyResultMessage;
 import vo.HotelStrategyVO;
 import vo.StrategyResultVO;
@@ -15,5 +16,5 @@ public interface StrategyLogicService extends Remote{
 	public StrategyResultVO create(StrategyVO vo) throws RemoteException;
 	public ListWrapper<HotelStrategyVO> getStrategyList(long hotelId) throws RemoteException;
 	public ListWrapper<HotelStrategyVO> getStrategyForOrder(OrderStrategy vo) throws RemoteException;
-	public ListWrapper<String> getTypes() throws RemoteException;
+	public ListWrapper<StrategyType> getTypes() throws RemoteException;
 }

@@ -21,7 +21,7 @@ public class WebSalerCreateStrategyController implements Initializable{
 	
 	public void initType(){
 		ObservableList<String> typelist=FXCollections.observableArrayList();
-		typelist.addAll("VIP商圈优惠策略","生日优惠策略");
+		typelist.addAll("VIP商圈优惠策略","节日优惠策略");
 		Type.setItems(typelist);
 	}
 	
@@ -29,7 +29,7 @@ public class WebSalerCreateStrategyController implements Initializable{
 	public void swift(int i){
 		String name[]={
 				"VIPCircle",
-				"Birth"};
+				"Festival"};
     	try {
 			Parent Strategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/"+name[i]+".fxml"));
 			Strategy.getProperties().put("NAME", name[i]+"Strategy");
@@ -52,7 +52,7 @@ public class WebSalerCreateStrategyController implements Initializable{
 			if(newvalue.equals("VIP商圈优惠策略")){
 				swift(0);
 			}
-			if(newvalue.equals("生日优惠策略")){
+			if(newvalue.equals("节日优惠策略")){
 				swift(1);
 			}
         });
