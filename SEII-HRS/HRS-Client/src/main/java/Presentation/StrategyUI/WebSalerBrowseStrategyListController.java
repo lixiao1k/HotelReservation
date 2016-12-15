@@ -55,7 +55,7 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 					break;
 				}
 			}
-			clientmain.add(addStrategy, 2, 1);
+			clientmain.add(addStrategy, 3, 1);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

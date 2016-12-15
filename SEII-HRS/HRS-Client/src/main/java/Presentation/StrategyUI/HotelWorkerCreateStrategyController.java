@@ -2,97 +2,73 @@ package Presentation.StrategyUI;
 
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import datacontroller.DataController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.GridPane;
-import logic.service.StrategyLogicService;
-import rmi.RemoteHelper;
-import vo.StrategyVO;
 
-public class HotelWorkerCreateStrategyController  implements Initializable{
+public class HotelWorkerCreateStrategyController implements Initializable{
 	@FXML GridPane mainPane;
-	@FXML RadioButton BirthRadio;
-	@FXML RadioButton RoomRadio;
-	@FXML RadioButton TimeRadio;
-	@FXML RadioButton CompanyRadio;
-	ToggleGroup group;
-	@FXML TextField NameLine;
-	@FXML TextField TimeLine1;
-	@FXML TextField TimeLine2;
-	@FXML TextField RoomLine;
-	@FXML TextField CompanyLine;
-	@FXML TextField OffLine;
+	@FXML ChoiceBox<String> Type;
 	GridPane clientmain;
-	long hotelid;
-	StrategyLogicService strategyLogic;
-	@FXML 
-	protected void createStrategy(ActionEvent e){
-		StrategyVO svo=new StrategyVO();
-		svo.setName(NameLine.getText());
-		svo.setHotelId((long)DataController.getInstance().get("HotelId"));
-		svo.setOff(Long.valueOf(OffLine.getText()));
-		if(BirthRadio.isSelected()){
-			svo.setExtraInfo("");
-		}
-		if(RoomRadio.isSelected()){
-			svo.setExtraInfo(RoomLine.getText());
-		}
-		if(TimeRadio.isSelected()){
-			svo.setExtraInfo(TimeLine1.getText()+"|"+TimeLine2.getText());
-		}
-		if(CompanyRadio.isSelected()){
-			svo.setExtraInfo(CompanyLine.getText());
-		}
-		try {
-			strategyLogic.create(svo);
-		} catch (RemoteException e1) {
-			e1.printStackTrace();
-		}
-		back();
+	
+	public void initType(){
+		ObservableList<String> typelist=FXCollections.observableArrayList();
+		typelist.addAll("生日优惠策略","房间预订优惠策略","合作企业优惠策略","节日优惠策略");
+		Type.setItems(typelist);
 	}
 	
-	public void back(){
+	//界面跳转
+	public void swift(int i){
+		String name[]={
+				"Birth",
+				"Room",
+				"Company",
+				"Festival"};
     	try {
-			Parent NewStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/HotelWorkerBrowseStrategyListUI.fxml"));
-			NewStrategy.getProperties().put("NAME", "NewStrategyPane");
-			clientmain=(GridPane) mainPane.getScene().getWindow().getScene().getRoot();
-			ObservableList<Node> list = clientmain.getChildren();
+			Parent Strategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/"+name[i]+".fxml"));
+			Strategy.getProperties().put("NAME", name[i]+"Strategy");
+			ObservableList<Node> list = mainPane.getChildren();
 			for (Node node:list){
 				String value = (String) node.getProperties().get("NAME");
-				if (value!=null&&value.contains("Pane")){
+				if (value!=null&&value.contains("Strategy")){
 					list.remove(node);
 					break;
 				}
 			}
-			clientmain.add(NewStrategy, 2, 1);
+			mainPane.add(Strategy, 0, 1);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
 	
+	public void addchoiceboxlistener(){
+		Type.getSelectionModel().selectedItemProperty().addListener((ov,oldvalue,newvalue)->{
+			if(newvalue.equals("生日优惠策略")){
+				swift(0);
+			}
+			if(newvalue.equals("房间预订优惠策略")){
+				swift(1);
+			}
+			if(newvalue.equals("合作企业优惠策略")){
+				swift(2);
+			}
+			if(newvalue.equals("节日优惠策略")){
+				swift(3);
+			}
+        });
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			strategyLogic=RemoteHelper.getInstance().getServiceFactory().getStrategyLogicService();
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		group=new ToggleGroup();
-		BirthRadio.setToggleGroup(group);
-		RoomRadio.setToggleGroup(group);
-		TimeRadio.setToggleGroup(group);
-		CompanyRadio.setToggleGroup(group);
+		initType();
+		addchoiceboxlistener();
 	}
 }
