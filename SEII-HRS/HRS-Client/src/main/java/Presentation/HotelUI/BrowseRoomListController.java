@@ -52,7 +52,11 @@ public class BrowseRoomListController implements Initializable{
 		Room src = source.getRoom();
 		Room tar = target.getRoom();
 		if(source.getNum()<num){
-			Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("������������").showError();
+
+			Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷").showError();
+
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷").showError();
+
 			return;
 		}
 		MaintainRoomInfoVO mrivo = new MaintainRoomInfoVO();
@@ -67,7 +71,11 @@ public class BrowseRoomListController implements Initializable{
 		try{
 			HotelResultMessage result = serviceFactory.getHotelLogicService().setRoomInfo(mrivo);
 			if(result==HotelResultMessage.SUCCESS){
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("���ĳɹ���").showConfirm();
+
+				Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟侥成癸拷锟斤拷").showConfirm();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟侥成癸拷锟斤拷").showConfirm();
+
 				source.setNum(source.getNum()-num);
 				target.setNum(target.getNum()+num);
 				roomListViewData.remove(source);
@@ -76,26 +84,29 @@ public class BrowseRoomListController implements Initializable{
 				roomListViewData.add(target);
 			}
 			else
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("����ʧ�ܣ�").showError();
+
+				Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷失锟杰ｏ拷").showError();
 		}catch(RemoteException e){
 			e.printStackTrace();
-			Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("δ֪����").showError();
+			Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("未知锟斤拷锟斤拷").showError();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷失锟杰ｏ拷").showError();
 		}
 	}
 	public void changeRoomInfo(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setTitle("���ķ�����Ϣ");
+		popOver.setTitle("更改房间信息");
 		GridPane pane = new GridPane();
-		Label label1 = new Label("Դ����");
+		Label label1 = new Label("源锟斤拷锟斤拷");
 		label1.setFont(new Font("YouYuan",15));
-		Label label2 = new Label("Ŀ�귿��");
+		Label label2 = new Label("目锟疥房锟斤拷");
 		label2.setFont(new Font("YouYuan",15));
-		Label label3 = new Label("ת������");
+		Label label3 = new Label("转锟斤拷锟斤拷锟斤拷");
 		label3.setFont(new Font("YouYuan",15));
-		Button btn = new Button("ȷ��");
+		Button btn = new Button("确锟斤拷");
 		btn.setFont(new Font("YouYuan",15));
-		Button btn2 = new Button("ȡ��");
+		Button btn2 = new Button("取锟斤拷");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
 			popOver.hide();
@@ -106,7 +117,11 @@ public class BrowseRoomListController implements Initializable{
 		btn.setOnAction((ActionEvent e2)->{
 			try{
 				if(box1.getValue()==null||box2.getValue()==null){
-					Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("��ѡ��ת������").showWarning();
+
+					Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷选锟斤拷转锟斤拷锟斤拷锟斤拷").showWarning();
+
+					Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷选锟斤拷转锟斤拷锟斤拷锟斤拷").showWarning();
+
 					popOver.hide();
 					return;
 				}
@@ -121,7 +136,11 @@ public class BrowseRoomListController implements Initializable{
 				changeRoomInfoAction(hivo,target,num);
 				popOver.hide();
 			}catch(NumberFormatException e3){
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("�����ʽ������������ȷ��ʽ��").showWarning();
+
+				Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷锟绞斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟饺凤拷锟绞斤拷锟�").showWarning();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷锟绞斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟饺凤拷锟绞斤拷锟�").showWarning();
+
 				popOver.hide();
 			}
 		});
@@ -159,12 +178,12 @@ public class BrowseRoomListController implements Initializable{
 	public void lineCheck(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setTitle("������ס��Ϣ"); 
+		popOver.setTitle("线下入住信息"); 
 		GridPane pane = new GridPane();
-		Label label = new Label("��ס����");
+		Label label = new Label("锟斤拷住锟斤拷锟斤拷");
 		label.setFont(new Font("YouYuan",15));
 		TextField field = new TextField();
-		Button btn = new Button("ȷ��");
+		Button btn = new Button("确锟斤拷");
 		btn.setFont(new Font("YouYuan",15));
 
 		btn.setOnAction((ActionEvent e3)->{
@@ -173,11 +192,15 @@ public class BrowseRoomListController implements Initializable{
 				popOver.hide();
 				lineCheckAction(hivo,num);
 			}catch(NumberFormatException e4){
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("������ס").text("���������֣�").showWarning();
+
+				Notifications.create().title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟斤拷锟斤拷锟斤拷锟街ｏ拷").showWarning();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟斤拷锟斤拷锟斤拷锟街ｏ拷").showWarning();
+
 				popOver.hide();
 			}
 		});
-		Button btn2 = new Button("ȡ��");
+		Button btn2 = new Button("取锟斤拷");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
 			popOver.hide();
@@ -198,7 +221,11 @@ public class BrowseRoomListController implements Initializable{
 	private void lineCheckAction(HotelItemVO room,int roomNum){
 		HotelResultMessage result;
 		if(roomNum>room.getNum()){
-			Notifications.create().owner(roomListView.getScene().getWindow()).title("������ס").text("�����뵱ǰ������������Ŀ��").showWarning();
+
+			Notifications.create().title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟斤拷锟诫当前锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷目锟斤拷").showWarning();
+
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟斤拷锟诫当前锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷目锟斤拷").showWarning();
+
 			return;
 		}
 			
@@ -214,7 +241,11 @@ public class BrowseRoomListController implements Initializable{
 				room.setNum(room.getNum()-roomNum);
 				roomListViewData.add(room);
 				roomListViewData.remove(room);
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("������ס").text("���³ɹ�").showConfirm();
+
+				Notifications.create().title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟铰成癸拷").showConfirm();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟铰成癸拷").showConfirm();
+
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -258,7 +289,7 @@ public class BrowseRoomListController implements Initializable{
                 avaliableNum.setFont(new Font("YouYuan",8));
                 Label price = new Label(item.getPrice()+"RMB");
                 price.setFont(new Font("YouYuan",13));
-                Button change = new Button("����");
+                Button change = new Button("锟斤拷锟斤拷");
                 change.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 					@Override
@@ -266,7 +297,7 @@ public class BrowseRoomListController implements Initializable{
 						changeRoomInfo(event, item);
 					}
 				});
-                Button lineCheck = new Button("������ס");
+                Button lineCheck = new Button("锟斤拷锟斤拷锟斤拷住");
                 lineCheck.setOnMouseClicked(new EventHandler<MouseEvent>() {
               
              		@Override

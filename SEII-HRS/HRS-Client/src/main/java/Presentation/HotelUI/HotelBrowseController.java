@@ -33,8 +33,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import logic.service.HotelLogicService;
 import logic.service.ServiceFactory;
 import rmi.RemoteHelper;
+import vo.BasicHotelVO;
 import vo.SearchHotelVO;
 
 public class HotelBrowseController implements Initializable{
@@ -58,6 +60,10 @@ public class HotelBrowseController implements Initializable{
     private BusinessCity  city;
     private BusinessCircle circle;
     private Set<BusinessCircle> setcircle;
+    private SearchHotelVO searchvo;
+    private ListWrapper<Long>  hotelid;//用户预定过的酒店
+    private HotelLogicService hotelbl;
+    private ListWrapper<BasicHotelVO>  basicHotel;
 	public void search(ActionEvent e)
 	{
 		
@@ -65,7 +71,16 @@ public class HotelBrowseController implements Initializable{
 	
 	public void search(SearchHotelVO vo)
 	{
-		System.out.println("chenggong");
+		    try {
+				basicHotel=	hotelbl.getHotels(vo);
+				
+				
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+
 	}
 	
 	public void createOrder(ActionEvent e)
@@ -139,7 +154,7 @@ public class HotelBrowseController implements Initializable{
 	public void selectCircle()
 	{
 		
-		SearchHotelVO searchvo=new SearchHotelVO();
+	
 		String selectCircle=null;
 		if(circleBox.getSelectionModel().getSelectedItem()==null)
 		{
@@ -147,13 +162,14 @@ public class HotelBrowseController implements Initializable{
 		}
 		else
 		{
-	
+
 			selectCircle=circleBox.getSelectionModel().getSelectedItem().toString();
 		    searchvo.setBusinessCity(city);
 		    for(BusinessCircle bcir:setcircle){
 		    	if(selectCircle.equals(bcir.getName()))
 		    	{
 		    		bcir.setBcircleId(1);//先自己定一个编号
+		    		circle=bcir;
 		    		circle.setBcircleId(bcir.getBcircleId());
 		    		break;
 		    	}
@@ -162,28 +178,34 @@ public class HotelBrowseController implements Initializable{
 	
 			
 		}
-		
-		
+
+			search(searchvo);  
+
+	}
+	
+	
+	public void detailCheck()
+	{
 		if(checkin.getValue()!=null)
 		{
 			LocalDate localcheckin=checkin.getValue();
+			System.out.println(localcheckin);
 			Instant instant = localcheckin.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
-	        Date  checkintime=new Date();
-	              checkintime.from(instant);
+	        Date  checkintime=Date.from(instant);
+	          
 	              searchvo.setCheckInTime(checkintime);
 		}
-
 		
 		if(checkout.getValue()!=null)
 		{
 			LocalDate localcheckout=checkout.getValue();
 	        Instant instantout=localcheckout.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
-	        Date  checkouttime=new Date();
-	        	  checkouttime.from(instantout);
+	        Date  checkouttime=Date.from(instantout);
+	        	
 	        	  searchvo.setCheckOutTime(checkouttime);
 		}
-
-			search(searchvo);  
+		
+		search(searchvo);
 
 	}
 	
@@ -192,7 +214,10 @@ public class HotelBrowseController implements Initializable{
 		if(serviceFactory==null)
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try {
+			searchvo=new SearchHotelVO();
 			userid=(long)DataController.getInstance().get("UserId");
+			hotelbl=serviceFactory.getHotelLogicService();
+			hotelid=hotelbl.getBookHotel(userid);//得到用户预定的酒店历史
 			bc = serviceFactory.getHotelLogicService().getCity();
 			Set<String> set = new HashSet<>();//得到全部城市信息
 
