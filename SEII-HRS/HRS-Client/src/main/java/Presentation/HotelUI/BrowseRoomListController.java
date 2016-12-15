@@ -85,7 +85,7 @@ public class BrowseRoomListController implements Initializable{
 	public void changeRoomInfo(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setDetachedTitle("更改房间信息");
+		popOver.setTitle("更改房间信息");
 		GridPane pane = new GridPane();
 		Label label1 = new Label("源房间");
 		label1.setFont(new Font("YouYuan",15));
@@ -159,7 +159,7 @@ public class BrowseRoomListController implements Initializable{
 	public void lineCheck(MouseEvent e,HotelItemVO hivo){
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setDetachedTitle("线下入住信息");
+		popOver.setTitle("线下入住信息"); 
 		GridPane pane = new GridPane();
 		Label label = new Label("入住数量");
 		label.setFont(new Font("YouYuan",15));

@@ -40,7 +40,7 @@ public class OrderListCell extends ListCell<OrderVO>{
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
 		popOver.setAutoHide(true);
-		popOver.setDetachedTitle("订单");
+		popOver.setTitle("订单");
 		BorderPane mainPane = new BorderPane();
 		GridPane basicPane = new GridPane();
 		Label name = new Label("下订单人:  "+item.getName());
