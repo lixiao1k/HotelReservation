@@ -15,8 +15,8 @@ public class TestRunner{
 	private RemoteHelper remoteHelper;
 	public TestRunner(String[] args){
 		linkToServer();
-		DataController.getInstance().put("HotelId",(long)17);
-		Application.launch(LoginMainUI.class,args);
+		DataController.getInstance().put("HotelId",(long)1);
+		Application.launch(HotelWorkerMainUI.class,args);
 		
 	}
 	private void linkToServer() {

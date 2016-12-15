@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import info.ListWrapper;
 import info.OrderStrategy;
+import info.StrategyType;
 import logic.service.StrategyLogicService;
 import resultmessage.StrategyResultMessage;
 import vo.HotelStrategyVO;
@@ -52,7 +53,7 @@ public class StrategyLogicServiceImpl extends UnicastRemoteObject implements Str
 		return strategyDO.getStrategyForOrder(vo);
 	}
 	@Override
-	public ListWrapper<String> getTypes() throws RemoteException {
+	public ListWrapper<StrategyType> getTypes() throws RemoteException {
 		// TODO Auto-generated method stub
 		return strategyDO.getTypes();
 	}

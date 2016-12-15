@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.management.Notification;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.PopOver;
@@ -22,13 +21,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -56,7 +52,11 @@ public class BrowseRoomListController implements Initializable{
 		Room src = source.getRoom();
 		Room tar = target.getRoom();
 		if(source.getNum()<num){
+
 			Notifications.create().title("���ķ�����Ϣ").text("������������").showError();
+
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("������������").showError();
+
 			return;
 		}
 		MaintainRoomInfoVO mrivo = new MaintainRoomInfoVO();
@@ -71,7 +71,11 @@ public class BrowseRoomListController implements Initializable{
 		try{
 			HotelResultMessage result = serviceFactory.getHotelLogicService().setRoomInfo(mrivo);
 			if(result==HotelResultMessage.SUCCESS){
+
 				Notifications.create().title("���ķ�����Ϣ").text("���ĳɹ���").showConfirm();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("���ĳɹ���").showConfirm();
+
 				source.setNum(source.getNum()-num);
 				target.setNum(target.getNum()+num);
 				roomListViewData.remove(source);
@@ -80,10 +84,13 @@ public class BrowseRoomListController implements Initializable{
 				roomListViewData.add(target);
 			}
 			else
+
 				Notifications.create().title("���ķ�����Ϣ").text("����ʧ�ܣ�").showError();
 		}catch(RemoteException e){
 			e.printStackTrace();
 			Notifications.create().title("���ķ�����Ϣ").text("δ֪����").showError();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("����ʧ�ܣ�").showError();
 		}
 	}
 	public void changeRoomInfo(MouseEvent e,HotelItemVO hivo){
@@ -110,7 +117,11 @@ public class BrowseRoomListController implements Initializable{
 		btn.setOnAction((ActionEvent e2)->{
 			try{
 				if(box1.getValue()==null||box2.getValue()==null){
+
 					Notifications.create().title("���ķ�����Ϣ").text("��ѡ��ת������").showWarning();
+
+					Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("��ѡ��ת������").showWarning();
+
 					popOver.hide();
 					return;
 				}
@@ -125,7 +136,11 @@ public class BrowseRoomListController implements Initializable{
 				changeRoomInfoAction(hivo,target,num);
 				popOver.hide();
 			}catch(NumberFormatException e3){
+
 				Notifications.create().title("���ķ�����Ϣ").text("�����ʽ������������ȷ��ʽ��").showWarning();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("���ķ�����Ϣ").text("�����ʽ������������ȷ��ʽ��").showWarning();
+
 				popOver.hide();
 			}
 		});
@@ -177,7 +192,11 @@ public class BrowseRoomListController implements Initializable{
 				popOver.hide();
 				lineCheckAction(hivo,num);
 			}catch(NumberFormatException e4){
+
 				Notifications.create().title("������ס").text("���������֣�").showWarning();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("������ס").text("���������֣�").showWarning();
+
 				popOver.hide();
 			}
 		});
@@ -202,7 +221,11 @@ public class BrowseRoomListController implements Initializable{
 	private void lineCheckAction(HotelItemVO room,int roomNum){
 		HotelResultMessage result;
 		if(roomNum>room.getNum()){
+
 			Notifications.create().title("������ס").text("�����뵱ǰ������������Ŀ��").showWarning();
+
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("������ס").text("�����뵱ǰ������������Ŀ��").showWarning();
+
 			return;
 		}
 			
@@ -218,7 +241,11 @@ public class BrowseRoomListController implements Initializable{
 				room.setNum(room.getNum()-roomNum);
 				roomListViewData.add(room);
 				roomListViewData.remove(room);
+
 				Notifications.create().title("������ס").text("���³ɹ�").showConfirm();
+
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("������ס").text("���³ɹ�").showConfirm();
+
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();

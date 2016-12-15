@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CommentController">
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.OrderUI.CommentController">
    <rowConstraints>
       <RowConstraints maxHeight="141.0" minHeight="58.0" prefHeight="67.0" />
       <RowConstraints maxHeight="224.0" minHeight="95.0" prefHeight="122.0" />
@@ -30,7 +30,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ComboBox fx:id="degreeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox fx:id="degreeComboBox" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <Label alignment="TOP_RIGHT" prefHeight="139.0" prefWidth="197.0" text="订单评价:" GridPane.rowIndex="2">
          <font>
             <Font size="18.0" />

@@ -88,11 +88,11 @@ public class SetHotelInfoController implements Initializable{
 		try {
 			result = serviceFactory.getHotelLogicService().setHotelInfo(vo);
 			if(result==HotelResultMessage.SUCCESS){
-				Notifications.create().title("维护酒店信息").text("更新成功！").showConfirm();
+				Notifications.create().owner(hotelName.getScene().getWindow()).title("维护酒店信息").text("更新成功！").showConfirm();
 			}
 			System.out.println(result);
 		} catch (RemoteException e1) {
-			Notifications.create().title("维护酒店信息").text("未知错误！").showError();
+			Notifications.create().owner(hotelName.getScene().getWindow()).title("维护酒店信息").text("未知错误！").showError();
 			e1.printStackTrace();
 		}
 	}
@@ -124,7 +124,7 @@ public class SetHotelInfoController implements Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*if(serviceFactory==null)
+		if(serviceFactory==null)
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try {
 			hotelId = (long) DataController.getInstance().get("HotelId");
@@ -178,6 +178,6 @@ public class SetHotelInfoController implements Initializable{
 		} catch (URISyntaxException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
-		}*/
+		}
 	}
 }

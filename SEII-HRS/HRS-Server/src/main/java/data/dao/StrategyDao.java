@@ -3,6 +3,7 @@ package data.dao;
 import java.rmi.RemoteException;
 
 import info.ListWrapper;
+import info.StrategyType;
 import po.StrategyPO;
 
 public interface StrategyDao {
@@ -11,4 +12,5 @@ public interface StrategyDao {
 	public StrategyPO getInfo(long strategyId);
 	public ListWrapper<StrategyPO> getHotelStrategyList(long hotelId)throws RemoteException ;
 	public ListWrapper<StrategyPO> getWEBStrategyList()throws RemoteException ;
+	public ListWrapper<StrategyType> getTypes() throws RemoteException;
 }

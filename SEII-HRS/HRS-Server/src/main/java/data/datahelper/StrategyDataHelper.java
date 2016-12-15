@@ -2,6 +2,7 @@ package data.datahelper;
 
 import java.util.List;
 
+import info.StrategyType;
 import po.StrategyPO;
 
 public interface StrategyDataHelper {
@@ -10,4 +11,5 @@ public interface StrategyDataHelper {
 	public StrategyPO getInfo(long strategyId);
 	public List<StrategyPO> getHotelStrategyList(long hotelId);
 	public List<StrategyPO> getWEBStrategyList();
+	public List<StrategyType> getTypes();
 }
