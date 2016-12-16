@@ -64,11 +64,13 @@ public class MemberDO {
 				if(po==null)
 					return null;
 				vo = DozerMappingUtil.getInstance().map(po, MemberVO.class);
-				vo.setVIPInfo(((ClientMemberPO)po).getVipInfo().toString());
+				if(((ClientMemberPO)po).getVipInfo()!=null)
+					vo.setVIPInfo(((ClientMemberPO)po).getVipInfo().toString());
 				HibernateUtil.getCurrentSession().getTransaction().commit();
 				members.put(userId, po);
 				return vo;
 			}catch(RuntimeException e){
+				e.printStackTrace();
 				members.remove(userId);
 				try{
 					HibernateUtil.getCurrentSession().getTransaction().rollback();

@@ -73,7 +73,7 @@ public class KeepPersonInfoController implements Initializable{
 			    e1.printStackTrace();
 		    }
 		}else{
-			Notifications.create().title("����").text("���ȵ���༭��ť").showWarning();
+			Notifications.create().title("锟斤拷锟斤拷").text("锟斤拷锟饺碉拷锟斤拷嗉拷锟脚�").showWarning();
 		}
 
 	}
@@ -124,10 +124,10 @@ public class KeepPersonInfoController implements Initializable{
 		
 	}
 	
-	//�༭��ť�������Ϊ�ɱ༭
+	//锟洁辑锟斤拷钮锟斤拷锟斤拷锟斤拷锟轿拷杀嗉�
 	@FXML
 	protected void edit(ActionEvent e){
-		Notifications.create().title("�༭").text("����༭").showConfirm();
+		Notifications.create().title("锟洁辑").text("锟斤拷锟斤拷嗉�").showConfirm();
 		isEdit=true;
 		nameTextField.setEditable(true);
 		companyNameTextField.setEditable(true);
@@ -150,7 +150,7 @@ public class KeepPersonInfoController implements Initializable{
 //		this.phonenumber.add(phoneNumber);
 		this.contact.add(phoneNumber);
 	}
-	//�洢�û���Ϣ
+	//锟芥储锟矫伙拷锟斤拷息
 	private void updateClient(){
 		
 		
