@@ -116,6 +116,7 @@ public class HotelDO {
 							.commit();
 			return result;
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
