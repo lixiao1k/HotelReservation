@@ -10,8 +10,8 @@ import java.util.Set;
 import org.controlsfx.control.ListSelectionView;
 
 import datacontroller.DataController;
-import info.Room;
 import info.ListWrapper;
+import info.Room;
 import info.StrategyType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,10 +26,11 @@ import vo.HotelItemVO;
 import vo.StrategyItemVO;
 import vo.StrategyVO;
 
-public class BirthController implements Initializable{
+public class CompanyController implements Initializable{
 	@FXML GridPane mainPane;
 	@FXML TextField Name;
 	@FXML TextField Off;
+	@FXML TextField Company;
 	GridPane clientmain;
 	StrategyLogicService strategyLogic;
 	HotelLogicService hotelLogic;
@@ -47,11 +48,11 @@ public class BirthController implements Initializable{
 		Iterator<StrategyType> it=typelist.iterator();
 		while(it.hasNext()){
 			StrategyType type=it.next();
-			if(type.getName().equals("Birth"))
+			if(type.getName().equals("Company"))
 				svo.setStrategyType(type);
 				break;
 		}
-		svo.setExtraInfo("");
+		svo.setExtraInfo(Company.getText());
 		ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
 		Set<StrategyItemVO> voset=new HashSet<>();
 		ObservableList<Room> targetlist=Room.getTargetItems();

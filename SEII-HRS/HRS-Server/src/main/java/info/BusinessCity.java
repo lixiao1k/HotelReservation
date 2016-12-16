@@ -28,7 +28,7 @@ public class BusinessCity implements Serializable{
 	public Iterator<BusinessCircle> getCircleIterator(){
 		return circles.iterator();
 	}
-	private void setCircles(Set<BusinessCircle> circles){
+	public void setCircles(Set<BusinessCircle> circles){
 		this.circles = circles;
 	}
 	public long getBcityId(){

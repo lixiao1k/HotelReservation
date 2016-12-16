@@ -1,40 +1,48 @@
 package vo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ManageClientVO {
+public class ManageClientVO implements Serializable {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8256851516544145211L;
 	private long userid;
 	private String username;
 	private LocalDate birthday;
 	private String companyname;
-	private List<String> phonenumber;
+	private String phone;
 	public ManageClientVO(long userid, String username, LocalDate birthday, String companyname,
-			List<String> phonenumber) {
+			String phonenumber) {
 		super();
 		this.userid = userid;
 		this.username = username;
 		this.birthday = birthday;
 		this.companyname = companyname;
-		this.phonenumber = phonenumber;
+		this.phone = phonenumber;
 	}
-	public List<String> getPhonenumber() {
-		return phonenumber;
+	public ManageClientVO(){
+		
 	}
-	public void setPhonenumber(List<String> phonenumber) {
-		this.phonenumber = phonenumber;
+	public String getPhonenumber() {
+		return phone;
 	}
-	public void addPhonenumber(String number){
-		phonenumber.add(number);
+	public void setPhonenumber(String phonenumber) {
+		this.phone = phonenumber;
 	}
+//	public void addPhonenumber(String number){
+//		phonenumber.add(number);
+//	}
 	@Override
 	public String toString() {
 		return "ManageClientVO [userid=" + userid + ", username=" + username + ", birthday=" + birthday
-				+ ", companyname=" + companyname + ", phonenumber=" + phonenumber + "]";
+				+ ", companyname=" + companyname + ", phonenumber=" + phone + "]";
 	}
-	public void deletePhonenumber(String number){
-		phonenumber.remove(number);
-	}
+//	public void deletePhonenumber(String number){
+//		phonenumber.remove(number);
+//	}
 	public long getUserid() {
 		return userid;
 	}

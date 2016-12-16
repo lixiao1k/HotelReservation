@@ -53,8 +53,11 @@ import org.controlsfx.control.PopOver;
 public class HotelBrowseController implements Initializable{
 	@FXML TextField searchField;
 	@FXML Button hotelSearchButton;
+
 	@FXML ComboBox<String> businessCityBox;
 	@FXML ComboBox<String> circleBox;
+
+
 
 	@FXML ChoiceBox<String> roomChoiceBox;
 	@FXML ListView<BasicHotelVO> hotelListView;
@@ -67,7 +70,7 @@ public class HotelBrowseController implements Initializable{
     private BusinessCircle circle;
     private Set<BusinessCircle> setcircle;
     private SearchHotelVO searchvo;
-    private ListWrapper<Long>  hotelid;//用户预定过的酒店
+    private ListWrapper<Long>  hotelid;//鐢ㄦ埛棰勫畾杩囩殑閰掑簵
     private HotelLogicService hotelbl;
     private ListWrapper<BasicHotelVO>  basicHotel;
     private ObservableList<BasicHotelVO> hotelListViewData;
@@ -79,7 +82,7 @@ public class HotelBrowseController implements Initializable{
 	public void search(SearchHotelVO vo)
 	{
 		    try {
-				basicHotel=	hotelbl.getHotels(vo);//根据搜索内容返回一个酒店List
+				basicHotel=	hotelbl.getHotels(vo);//鏍规嵁鎼滅储鍐呭杩斿洖涓�涓厭搴桳ist
 				List<BasicHotelVO> hotels = new ArrayList<BasicHotelVO>();
 				Iterator<BasicHotelVO> it=basicHotel.iterator();
 				while(it.hasNext()){
@@ -109,11 +112,11 @@ public class HotelBrowseController implements Initializable{
 				{
 	                GridPane cell = new GridPane();
 	                cell.prefWidthProperty().bind(hotelListView.widthProperty().subtract(2));
-	                Label hotelName = new Label(item.getHotelName()+"/"+item.getScore());//得到酒店名称和评分
+	                Label hotelName = new Label(item.getHotelName()+"/"+item.getScore());//寰楀埌閰掑簵鍚嶇О鍜岃瘎鍒�
 	                hotelName.setFont(new Font("YouYuan",20));
 	                Label star=new Label(item.getRank().toString());
 	                star.setFont(new Font("YouYuan",20));
-	                long theHotelID=item.getHotelId();//得到这家酒店的ID
+	                long theHotelID=item.getHotelId();//寰楀埌杩欏閰掑簵鐨処D
 	                boolean flag=false;
 	                try {
 						Iterator<Long> it=hotelid.iterator();
@@ -160,7 +163,7 @@ public class HotelBrowseController implements Initializable{
 	                Label least=new Label(leastPrice+"("+leastType+")");
 	                Button createOrder=new  Button("下订单");
 	                createOrder.setFont(new Font("Youyuan",20));
-	                //为下订单添加界面
+	                //涓轰笅璁㈠崟娣诲姞鐣岄潰
 	                createOrder.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	                    
 	             		@Override
@@ -193,7 +196,10 @@ public class HotelBrowseController implements Initializable{
 	{
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
+
 		popOver.setTitle("下订单");
+
+
 		GridPane pane=new GridPane();
 		
 		
@@ -207,7 +213,7 @@ public class HotelBrowseController implements Initializable{
 			it = bc.iterator();
 			String selectCity=businessCityBox.getSelectionModel().getSelectedItem().toString();
 				   
-		    Set<String> circle=new HashSet<>();//得到城市对应全部商圈信息
+		    Set<String> circle=new HashSet<>();//寰楀埌鍩庡競瀵瑰簲鍏ㄩ儴鍟嗗湀淇℃伅
 			while(it.hasNext())
 			{
 				BusinessCity bci=it.next();
@@ -250,6 +256,7 @@ public class HotelBrowseController implements Initializable{
 		{
 
 			System.out.println("啥也没有");
+
 		}
 		else
 		{
@@ -260,7 +267,7 @@ public class HotelBrowseController implements Initializable{
 		    for(BusinessCircle bcir:setcircle){
 		    	if(selectCircle.equals(bcir.getName()))
 		    	{
-		    		bcir.setBcircleId(1);//先自己定一个编号
+		    		bcir.setBcircleId(1);//鍏堣嚜宸卞畾涓�涓紪鍙�
 		    		circle=bcir;
 		    		circle.setBcircleId(bcir.getBcircleId());
 		    		break;
@@ -309,9 +316,9 @@ public class HotelBrowseController implements Initializable{
 			searchvo=new SearchHotelVO();
 			userid=(long)DataController.getInstance().get("UserId");
 			hotelbl=serviceFactory.getHotelLogicService();
-			hotelid=hotelbl.getBookHotel(userid);//得到用户预定的酒店历史
+			hotelid=hotelbl.getBookHotel(userid);//寰楀埌鐢ㄦ埛棰勫畾鐨勯厭搴楀巻鍙�
 			bc = serviceFactory.getHotelLogicService().getCity();
-			Set<String> set = new HashSet<>();//得到全部城市信息
+			Set<String> set = new HashSet<>();//寰楀埌鍏ㄩ儴鍩庡競淇℃伅
 
 			Iterator<BusinessCity> it = bc.iterator();
 			while(it.hasNext())

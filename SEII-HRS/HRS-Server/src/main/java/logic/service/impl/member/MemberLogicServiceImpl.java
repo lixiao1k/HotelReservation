@@ -1,6 +1,7 @@
 package logic.service.impl.member;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import info.ListWrapper;
 import logic.service.MemberLogicService;
@@ -12,12 +13,16 @@ import vo.ManageWEBSalerVO;
 import vo.MemberVO;
 import vo.VIPVO;
 
-public class MemberLogicServiceImpl implements MemberLogicService{
+public class MemberLogicServiceImpl extends UnicastRemoteObject implements MemberLogicService{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3051828411249225643L;
 	private MemberDO memberDO;
-	public MemberLogicServiceImpl() {
+	public MemberLogicServiceImpl() throws RemoteException {
 		memberDO=new MemberDO();
 	}
-	public MemberLogicServiceImpl(int size){
+	public MemberLogicServiceImpl(int size) throws RemoteException{
 		memberDO=new MemberDO(size);
 	}
 	@Override

@@ -64,11 +64,13 @@ public class MemberDO {
 				if(po==null)
 					return null;
 				vo = DozerMappingUtil.getInstance().map(po, MemberVO.class);
-				vo.setVIPInfo(((ClientMemberPO)po).getVipInfo().toString());
+				if(((ClientMemberPO)po).getVipInfo()!=null)
+					vo.setVIPInfo(((ClientMemberPO)po).getVipInfo().toString());
 				HibernateUtil.getCurrentSession().getTransaction().commit();
 				members.put(userId, po);
 				return vo;
 			}catch(RuntimeException e){
+				e.printStackTrace();
 				members.remove(userId);
 				try{
 					HibernateUtil.getCurrentSession().getTransaction().rollback();
@@ -391,13 +393,8 @@ public class MemberDO {
 		}
 	}
 	
-	public String PhonetoString(List<String> list){
-		String str="";
-		for(String s:list){
-			str+=s;
-			str+=" ";
-		}
-		return str;
+	public String PhonetoString(String string){
+		return string;
 	}
 	
 	public MemberResultMessage updateClient(ManageClientVO vo) throws RemoteException {
@@ -415,7 +412,7 @@ public class MemberDO {
 					vpo.setBirthday(vo.getBirthday());
 					vpo.setCompanyName(vo.getCompanyname());
 					cmpo.setVipInfo(vpo);
-					cmpo.setContactWay(PhonetoString(vo.getPhonenumber()));
+					cmpo.setContactWay(vo.getPhonenumber());
 					upo.setUsername(vo.getUsername());
 					po.setUser(upo);
 					memberDao.update(po);

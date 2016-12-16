@@ -50,7 +50,7 @@ public class KeepPersonInfoController implements Initializable{
 	private long userid;
 	private String username;
 	private int credit;
-	private List<String> phonenumber;
+	private String phone;
 	private MemberVO membervo;
 	private ManageClientVO clientvo;
 	private ObservableList<String> contact =FXCollections.observableArrayList();
@@ -73,23 +73,23 @@ public class KeepPersonInfoController implements Initializable{
 			    e1.printStackTrace();
 		    }
 		}else{
-			Notifications.create().title("����").text("���ȵ���༭��ť").showWarning();
+			Notifications.create().title("閿熸枻鎷烽敓鏂ゆ嫹").text("閿熸枻鎷烽敓楗虹鎷烽敓鏂ゆ嫹鍡夘叏鎷烽敓鑴氾拷").showWarning();
 		}
 
 	}
 	@FXML
 	protected void delete(ActionEvent e){
-		try{
-			if(isEdit&&contact.size()!=0){
-				phonenumber.remove(contactComboBox.getValue());
-		        contact.remove(contactComboBox.getValue());		
-		        contactComboBox.setItems(contact);
-		        contactComboBox.setPromptText(contact.get(0));
-		    }
-		}catch(IndexOutOfBoundsException er){
-			contactComboBox.setPromptText("No Contact");
-			
-		}
+//		try{
+//			if(isEdit&&contact.size()!=0){
+//				phonenumber.remove(contactComboBox.getValue());
+//		        contact.remove(contactComboBox.getValue());		
+//		        contactComboBox.setItems(contact);
+//		        contactComboBox.setPromptText(contact.get(0));
+//		    }
+//		}catch(IndexOutOfBoundsException er){
+//			contactComboBox.setPromptText("No Contact");
+//			
+//		}
 
 
 	}
@@ -124,10 +124,10 @@ public class KeepPersonInfoController implements Initializable{
 		
 	}
 	
-	//�༭��ť�������Ϊ�ɱ༭
+	//閿熸磥杈戦敓鏂ゆ嫹閽敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿熻娇顏庢嫹鏉�鍡夛拷
 	@FXML
 	protected void edit(ActionEvent e){
-		Notifications.create().title("�༭").text("�����༭").showConfirm();
+		Notifications.create().title("閿熸磥杈�").text("閿熸枻鎷烽敓鏂ゆ嫹鍡夛拷").showConfirm();
 		isEdit=true;
 		nameTextField.setEditable(true);
 		companyNameTextField.setEditable(true);
@@ -139,9 +139,9 @@ public class KeepPersonInfoController implements Initializable{
 	}
 	
 	private void comboinitial(){
-		for(String temp:phonenumber){
-			contact.add(temp);
-		}
+//		for(String temp:phonenumber){
+//			contact.add(temp);
+//		}
 		
 	}
 	
@@ -150,7 +150,7 @@ public class KeepPersonInfoController implements Initializable{
 //		this.phonenumber.add(phoneNumber);
 		this.contact.add(phoneNumber);
 	}
-	//�洢�û���Ϣ
+	//閿熻姤鍌ㄩ敓鐭紮鎷烽敓鏂ゆ嫹鎭�
 	private void updateClient(){
 		
 		
@@ -174,17 +174,16 @@ public class KeepPersonInfoController implements Initializable{
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try{
 			userid=(long) DataController.getInstance().get("UserId");
-			membervo=serviceFactory.getMemberLogicService().getInfo(userid);
+			membervo=serviceFactory.getMemberLogicService().getInfo((long)2);
 			username=membervo.getName();
 			credit=membervo.getCredit();
 			clientvo=serviceFactory.getMemberLogicService().getClient(username);
-			phonenumber =clientvo.getPhonenumber();
+			phone =clientvo.getPhonenumber();
 		updateView();
 		IDLabel.setText(Long.toString(userid));
 		nameTextField.setEditable(false);
 		companyNameTextField.setEditable(false);
 		contactComboBox.setEditable(false);
-		System.out.println("getj");
 		birthdayTextField.setEditable(false);
 		}catch (RemoteException e) {
 			e.printStackTrace();
