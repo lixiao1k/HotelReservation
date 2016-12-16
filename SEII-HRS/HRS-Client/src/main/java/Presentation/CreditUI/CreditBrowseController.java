@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import Presentation.MemberUI.KeepPersonInfoController;
+import datacontroller.DataController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import logic.service.ServiceFactory;
 import vo.CreditVO;
 
 public class CreditBrowseController implements Initializable{
@@ -28,37 +30,39 @@ public class CreditBrowseController implements Initializable{
 	@FXML Label nameLabel;
 	@FXML Label creditLabel;
 	@FXML ListView<CreditVO> creditListView;
-	KeepPersonInfoController keeppersoninfocontroller;
-	String username;
-	long userid;
-	ObservableList<CreditVO> creditListViewData;
-	@FXML
-	protected void goBack(ActionEvent e){
-		GridPane clientmain=(GridPane)nameLabel.getScene().getWindow().getScene().getRoot();
-		try {
-			Parent PersonInfo =FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
-			PersonInfo.getProperties().put("NAME","PersonInfoPane");
-			ObservableList<Node> list = clientmain.getChildren();
-			for(Node node:list){
-				String value=(String)node.getProperties().get("NAME");
-				if(value!=null&&value.contains("Pane")){
-					list.remove(node);
-					break;
-				}
-			}
-			clientmain.add(PersonInfo, 2, 1);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-
-	public void setKeepPersonInfoController(KeepPersonInfoController controller){
-		this.keeppersoninfocontroller=controller;
-	}
-	public void setBaseInfo(long userid){
-		this.userid=userid;
-	}
+//	KeepPersonInfoController keeppersoninfocontroller;
+	private String username;
+	private long userid;
+	private ObservableList<CreditVO> creditListViewData;
+	private ServiceFactory serviceFactory;
+	
+//	@FXML
+//	protected void goBack(ActionEvent e){
+//		GridPane clientmain=(GridPane)nameLabel.getScene().getWindow().getScene().getRoot();
+//		try {
+//			Parent PersonInfo =FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
+//			PersonInfo.getProperties().put("NAME","PersonInfoPane");
+//			ObservableList<Node> list = clientmain.getChildren();
+//			for(Node node:list){
+//				String value=(String)node.getProperties().get("NAME");
+//				if(value!=null&&value.contains("Pane")){
+//					list.remove(node);
+//					break;
+//				}
+//			}
+//			clientmain.add(PersonInfo, 2, 1);
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//	}
+//
+//	public void setKeepPersonInfoController(KeepPersonInfoController controller){
+//		this.keeppersoninfocontroller=controller;
+//	}
+//	public void setBaseInfo(long userid){
+//		this.userid=userid;
+//	}
 	private void initialListViewData(Iterator<CreditVO> iterator){
 		while(iterator.hasNext()){
 			creditListViewData.add(iterator.next());
@@ -66,6 +70,7 @@ public class CreditBrowseController implements Initializable{
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		userid=(long)DataController.getInstance().get("UserId");
 		creditListViewData=FXCollections.observableArrayList();
 	    LocalDate date=LocalDate.now();
 		CreditVO credit1=new CreditVO(151250084, date, 26, 398);
@@ -96,7 +101,7 @@ public class CreditBrowseController implements Initializable{
 				}else{
 					delta.setTextFill(Color.BLACK);
 				}
-				Label credit=new Label("ÐÅÓÃ×ÜÖµ:"+Integer.toString(item.getCredit()));
+				Label credit=new Label("ä¿¡ç”¨æ€»å€¼:"+Integer.toString(item.getCredit()));
 				credit.setFont(new Font("KaiTi_GB2312",20));
 				credit.setPrefWidth(200);
 				cell.add(id, 0, 0);
