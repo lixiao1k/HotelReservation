@@ -21,6 +21,7 @@ import po.VIPPO;
 import resultmessage.MemberResultMessage;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
+import vo.BasicMemberVO;
 import vo.ManageClientVO;
 import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
@@ -396,6 +397,35 @@ public class MemberDO {
 	
 	public String PhonetoString(String string){
 		return string;
+	}
+	
+	public MemberResultMessage changeInfo(BasicMemberVO vo) throws RemoteException {
+		try{
+			MemberPO po=null;
+			if(vo!=null){
+				HibernateUtil.getCurrentSession().beginTransaction();
+				po=memberDao.getInfo(vo.getUserid());
+				if(po==null){
+					return MemberResultMessage.FAIL_WRONGID;
+				}else{
+					ClientMemberPO cmpo=(ClientMemberPO)po;
+					cmpo.setContactWay(vo.getPhonenumber());
+					po.setName(vo.getName());
+					memberDao.update(po);
+					HibernateUtil.getCurrentSession().getTransaction().commit();
+					return MemberResultMessage.SUCCESS;
+				}
+			}else{
+				return MemberResultMessage.FAIL;
+			}
+		}catch(RuntimeException e){
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
 	}
 	
 	public MemberResultMessage updateClient(ManageClientVO vo) throws RemoteException {

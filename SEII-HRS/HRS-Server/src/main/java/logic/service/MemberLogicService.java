@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 
 import info.ListWrapper;
 import resultmessage.MemberResultMessage;
+import vo.BasicMemberVO;
 import vo.ManageClientVO;
 import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
@@ -19,6 +20,7 @@ public interface MemberLogicService extends Remote{
 	public ListWrapper<ManageHotelVO> getAllHotelWorker(String hotelname) throws RemoteException;
 	public ManageWEBSalerVO getWEBSaler(String username) throws RemoteException;
 	public MemberResultMessage addWEBSaler(ManageWEBSalerVO vo) throws RemoteException;
+	public MemberResultMessage changeInfo(BasicMemberVO vo) throws RemoteException;
 	public MemberResultMessage updateClient(ManageClientVO vo) throws RemoteException;
 	public MemberResultMessage updateHotelWorker(ManageHotelWorkerVO vo) throws RemoteException;
 	public MemberResultMessage updateWEBSaler(ManageWEBSalerVO vo) throws RemoteException;

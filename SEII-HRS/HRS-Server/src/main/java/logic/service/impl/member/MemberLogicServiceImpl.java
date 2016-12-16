@@ -6,6 +6,7 @@ import java.rmi.server.UnicastRemoteObject;
 import info.ListWrapper;
 import logic.service.MemberLogicService;
 import resultmessage.MemberResultMessage;
+import vo.BasicMemberVO;
 import vo.ManageClientVO;
 import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
@@ -73,6 +74,10 @@ public class MemberLogicServiceImpl extends UnicastRemoteObject implements Membe
 	@Override
 	public void setVIPscale(int scale) throws RemoteException {
 		memberDO.setVIPscale(scale);
+	}
+	@Override
+	public MemberResultMessage changeInfo(BasicMemberVO vo) throws RemoteException {
+		return memberDO.changeInfo(vo);
 	}
 
 }
