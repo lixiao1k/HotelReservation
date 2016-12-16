@@ -1,5 +1,5 @@
 package resultmessage;
 
 public enum CommentResultMessage {
-	SUCCESS,FAIL
+	SUCCESS,FAIL,FAIL_HAVEREVIEWED
 }

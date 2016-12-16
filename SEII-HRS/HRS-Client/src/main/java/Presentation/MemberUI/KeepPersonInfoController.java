@@ -18,7 +18,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import logic.service.ServiceFactory;
+import resultmessage.MemberResultMessage;
 import rmi.RemoteHelper;
+import vo.BasicMemberVO;
 import vo.MemberVO;
 
 public class KeepPersonInfoController implements Initializable{
@@ -59,25 +61,26 @@ public class KeepPersonInfoController implements Initializable{
 			e1.printStackTrace();
 		}
 	}
-	
 	@FXML
 	protected void edit(ActionEvent e){
 		Notifications.create().title("提示").text("可以编辑").showConfirm();
 		nameTextField.setEditable(true);
 		phoneTextField.setEditable(true);
 	}
-
 	@FXML
-	protected void save(ActionEvent e){
-		
+	protected void save(ActionEvent e) throws RemoteException{
 		updateClient();
 		nameTextField.setEditable(false);
 		phoneTextField.setEditable(false);
 	}
-	
-	private void updateClient(){
-		
-		
+	private void updateClient() throws RemoteException{
+		BasicMemberVO vo =new BasicMemberVO(userid, phoneTextField.getText(), nameTextField.getText());
+		MemberResultMessage result=serviceFactory.getMemberLogicService().changeInfo(vo);
+		if(result==MemberResultMessage.SUCCESS){
+		    Notifications.create().title("提示").text("保存成功").showConfirm();
+		}else{
+			Notifications.create().title("提示").text("保存失败").showConfirm();
+		}
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
