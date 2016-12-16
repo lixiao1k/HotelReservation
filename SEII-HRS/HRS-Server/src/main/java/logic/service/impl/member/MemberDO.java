@@ -55,7 +55,8 @@ public class MemberDO {
 		MemberVO vo = null;
 		if(cachePO!=null){
 			vo = DozerMappingUtil.getInstance().map(cachePO, MemberVO.class);
-			vo.setVIPInfo(((ClientMemberPO)cachePO).getVipInfo().toString());
+			if(((ClientMemberPO)cachePO).getVipInfo()!=null)
+				vo.setVIPInfo(((ClientMemberPO)cachePO).getVipInfo().toString());
 			return vo;
 		}else{
 			try{
