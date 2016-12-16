@@ -11,5 +11,12 @@
             <property name="name" type="string">
                 <column name="NAME" not-null="true"></column>
             </property>
+            <many-to-one
+       	    	 name="bcity"
+       	   		 column="BCITY_ID"
+       	   		 class="info.BusinessCity"
+       	   		 not-null="true"
+       	   		 lazy="false"
+       		/>
         </class>
     </hibernate-mapping>

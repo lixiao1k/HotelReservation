@@ -7,7 +7,10 @@ import info.BusinessCircle;
 import info.BusinessCity;
 
 public class SearchHotelVO implements Serializable{
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5266158635794187956L;
 	private BusinessCity businessCity;
 	private BusinessCircle businessCircle;
 	private Date checkInTime;

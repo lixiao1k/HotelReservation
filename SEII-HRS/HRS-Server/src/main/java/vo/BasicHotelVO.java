@@ -89,7 +89,8 @@ public class BasicHotelVO implements Serializable{
 	}
 	private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
-        ImageIO.write((BufferedImage) image, "png", out);
+        if(image!=null)
+        	ImageIO.write((BufferedImage) image, "png", out);
     }
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 	    in.defaultReadObject();

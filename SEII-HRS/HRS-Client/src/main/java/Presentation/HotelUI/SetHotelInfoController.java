@@ -124,7 +124,7 @@ public class SetHotelInfoController implements Initializable{
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		/*if(serviceFactory==null)
+		if(serviceFactory==null)
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try {
 			hotelId = (long) DataController.getInstance().get("HotelId");
@@ -178,6 +178,6 @@ public class SetHotelInfoController implements Initializable{
 		} catch (URISyntaxException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
-		}*/
+		}
 	}
 }

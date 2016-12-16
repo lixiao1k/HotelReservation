@@ -11,8 +11,8 @@
         <property name="name" type="string">
             <column name="NAME" not-null="true"></column>
         </property>
-        <set name="circles" inverse="true" cascade="all" lazy="true">
-            <key column="BCIRCLE_ID"></key>
+        <set name="circles" inverse="true" cascade="all" lazy="false">
+            <key column="BCITY_ID"></key>
             <one-to-many class="info.BusinessCircle"/>
         </set>
     </class>

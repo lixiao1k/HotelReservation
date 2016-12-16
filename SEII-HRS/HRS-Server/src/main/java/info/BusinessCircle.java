@@ -10,6 +10,7 @@ public class BusinessCircle implements Serializable{
 	 */
 	private static final long serialVersionUID = 9218009948134160174L;
 	private long bcircleId;
+	private BusinessCity bcity;
 	private String name;
 	public BusinessCircle() throws RemoteException{
 		
@@ -28,5 +29,11 @@ public class BusinessCircle implements Serializable{
 	}
 	public void setBcircleId(long bcircleId) {
 		this.bcircleId = bcircleId;
+	}
+	public BusinessCity getBcity() {
+		return bcity;
+	}
+	public void setBcity(BusinessCity bcity) {
+		this.bcity = bcity;
 	}
 }

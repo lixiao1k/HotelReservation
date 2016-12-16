@@ -86,6 +86,7 @@ public class HotelBrowseController implements Initializable{
 		    	}
 				basicHotel=	hotelbl.getHotels(vo);//根据searchvo返回搜索到的酒店信息
 				List<BasicHotelVO> hotels = new ArrayList<BasicHotelVO>();
+				System.out.println(basicHotel.size());
 				Iterator<BasicHotelVO> it=basicHotel.iterator();
 				while(it.hasNext()){
 					BasicHotelVO  bihvo = it.next();
@@ -277,8 +278,6 @@ public class HotelBrowseController implements Initializable{
 		}
 		    searchvo.setBusinessCircle(circle);
 			search(searchvo);  
-
-			
 		}
 
 		

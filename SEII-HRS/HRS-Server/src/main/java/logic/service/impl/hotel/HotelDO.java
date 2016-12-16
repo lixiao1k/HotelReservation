@@ -12,6 +12,7 @@ import javax.management.RuntimeErrorException;
 import org.hibernate.Hibernate;
 import data.dao.HotelDao;
 import data.dao.Impl.DaoManager;
+import info.BusinessCircle;
 import info.BusinessCity;
 import info.Cache;
 import info.HotelItem;
@@ -108,7 +109,10 @@ public class HotelDO {
 				while(it.hasNext()){
 					BusinessCity bc = it.next();
 					bc.getBcityId();
-					bc.getCircleIterator().next().getName();
+					Iterator<BusinessCircle> bit = bc.getCircleIterator();
+					System.out.println(bc.getCircles().size());
+					while(bit.hasNext())
+						bit.next().getName();
 				}
 			}
 			HibernateUtil.getCurrentSession()
@@ -567,7 +571,7 @@ public class HotelDO {
 			ListWrapper<HotelPO> hotels = hotelDao.getHotelListByRule(rule);
 			
 			Iterator<HotelPO> it = hotels.iterator();
-			Set<BasicHotelVO> result = new HashSet<>();
+			ListWrapper<BasicHotelVO> result = new ListWrapper<>();
 			while(it.hasNext()){
 				HotelPO po = it.next();
 				BasicHotelVO bhvo = DozerMappingUtil.getInstance().map(po, BasicHotelVO.class);
@@ -582,7 +586,8 @@ public class HotelDO {
 				result.add(bhvo);
 			}
 			HibernateUtil.getCurrentSession().getTransaction().commit();
-			return new ListWrapper<>(result);
+			System.out.println(result.size());
+			return result;
 		}catch(RuntimeException e){
 			e.printStackTrace();
 			try{

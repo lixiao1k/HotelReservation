@@ -96,4 +96,5 @@ public class BasicHotelVO implements Serializable{
 	    in.defaultReadObject();
 	    image=ImageIO.read(in);    
 	}
+	
 }
