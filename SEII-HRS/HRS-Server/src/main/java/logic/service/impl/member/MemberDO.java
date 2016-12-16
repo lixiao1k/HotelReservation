@@ -393,13 +393,8 @@ public class MemberDO {
 		}
 	}
 	
-	public String PhonetoString(List<String> list){
-		String str="";
-		for(String s:list){
-			str+=s;
-			str+=" ";
-		}
-		return str;
+	public String PhonetoString(String string){
+		return string;
 	}
 	
 	public MemberResultMessage updateClient(ManageClientVO vo) throws RemoteException {
