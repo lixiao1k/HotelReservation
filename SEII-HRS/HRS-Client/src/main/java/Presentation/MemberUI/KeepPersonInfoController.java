@@ -174,7 +174,7 @@ public class KeepPersonInfoController implements Initializable{
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try{
 			userid=(long) DataController.getInstance().get("UserId");
-			membervo=serviceFactory.getMemberLogicService().getInfo((long)3);
+			membervo=serviceFactory.getMemberLogicService().getInfo((long)2);
 			username=membervo.getName();
 			credit=membervo.getCredit();
 			clientvo=serviceFactory.getMemberLogicService().getClient(username);

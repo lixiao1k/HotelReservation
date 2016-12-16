@@ -417,7 +417,7 @@ public class MemberDO {
 					vpo.setBirthday(vo.getBirthday());
 					vpo.setCompanyName(vo.getCompanyname());
 					cmpo.setVipInfo(vpo);
-					cmpo.setContactWay(PhonetoString(vo.getPhonenumber()));
+					cmpo.setContactWay(vo.getPhonenumber());
 					upo.setUsername(vo.getUsername());
 					po.setUser(upo);
 					memberDao.update(po);

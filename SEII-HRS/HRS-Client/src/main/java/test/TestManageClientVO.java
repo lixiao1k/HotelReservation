@@ -13,10 +13,10 @@ public class TestManageClientVO {
     	long userid =151250084;
     	String username="Shelton Lee";
     	String companyname="Nanjing University";
-    	List<String> phonenumber=new ArrayList<String>();
-    	phonenumber.add("15951921161");
-    	phonenumber.add("15250625482");
+    	//List<String> phonenumber=new ArrayList<String>();
+    	//phonenumber.add("15951921161");
+    	//phonenumber.add("15250625482");
     	
-    	return new ManageClientVO(userid, username, birthday, companyname, phonenumber);
+    	return new ManageClientVO(userid, username, birthday, companyname, "15951921161");
     }
 }
