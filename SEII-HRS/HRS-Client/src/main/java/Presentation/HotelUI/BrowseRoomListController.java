@@ -267,6 +267,7 @@ public class BrowseRoomListController implements Initializable{
 				HotelItemVO hivo = it.next();
 				rooms.add(hivo);
 			}
+			
 			roomListViewData = FXCollections.observableArrayList(rooms);
 			roomListView.setCellFactory(e -> new RoomListCell());
 			roomListView.setItems(roomListViewData);

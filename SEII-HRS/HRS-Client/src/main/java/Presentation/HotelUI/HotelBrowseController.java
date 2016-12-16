@@ -6,9 +6,11 @@ import java.rmi.RemoteException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ import info.ListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,29 +32,32 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import logic.service.HotelLogicService;
 import logic.service.ServiceFactory;
 import rmi.RemoteHelper;
 import vo.BasicHotelVO;
+import vo.HotelItemVO;
 import vo.SearchHotelVO;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.PopOver;
+
 
 public class HotelBrowseController implements Initializable{
 	@FXML TextField searchField;
 	@FXML Button hotelSearchButton;
 	@FXML ComboBox businessCityBox;
 	@FXML ComboBox circleBox;
-	@FXML TableColumn hotelName;
-	@FXML TableColumn history;
-	@FXML TableColumn rank;
-	@FXML TableColumn star;
-	@FXML TableColumn roomType;
-	@FXML TableColumn leastPrice;
+
 	@FXML ChoiceBox<String> roomChoiceBox;
-	@FXML ListView<HotelInfo> listView;
+	@FXML ListView<BasicHotelVO> hotelListView;
 	@FXML DatePicker checkin;
 	@FXML DatePicker checkout;
 	private ServiceFactory serviceFactory;
@@ -64,6 +70,7 @@ public class HotelBrowseController implements Initializable{
     private ListWrapper<Long>  hotelid;//用户预定过的酒店
     private HotelLogicService hotelbl;
     private ListWrapper<BasicHotelVO>  basicHotel;
+    private ObservableList<BasicHotelVO> hotelListViewData;
 	public void search(ActionEvent e)
 	{
 		
@@ -72,8 +79,17 @@ public class HotelBrowseController implements Initializable{
 	public void search(SearchHotelVO vo)
 	{
 		    try {
-				basicHotel=	hotelbl.getHotels(vo);
-				
+				basicHotel=	hotelbl.getHotels(vo);//根据搜索内容返回一个酒店List
+				List<BasicHotelVO> hotels = new ArrayList<BasicHotelVO>();
+				Iterator<BasicHotelVO> it=basicHotel.iterator();
+				while(it.hasNext()){
+					BasicHotelVO  bihvo = it.next();
+					hotels.add(bihvo);
+				}
+				System.out.println("ssss");
+				hotelListViewData=FXCollections.observableArrayList(hotels);
+				hotelListView.setCellFactory(e->new hotelListCell());
+				hotelListView.setItems(hotelListViewData);
 				
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
@@ -83,29 +99,101 @@ public class HotelBrowseController implements Initializable{
 
 	}
 	
-	public void createOrder(ActionEvent e)
-	{
-		try {
-			GridPane clientmain=(GridPane)searchField.getScene().getWindow().getScene().getRoot();
-			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/OrderUI/CreateOrder.fxml"));
-			Parent createOrder = loader.load();
-//			CreditBrowseController creditcontroller=loader.getController();
-//			creditcontroller.setKeepPersonInfoController(this);
-//			creditcontroller.setBaseInfo(this.userid);
-			createOrder.getProperties().put("NAME","CreateOrderPane" );
-			ObservableList<Node> list =clientmain.getChildren();
-			for(Node node:list){
-				String value=(String)node.getProperties().get("NAME");
-				if(value!=null&&value.contains("Pane")){
-					list.remove(node);
-					break;
+	class hotelListCell extends ListCell<BasicHotelVO>{
+			public void updateItem(BasicHotelVO item,boolean empty)
+			{
+				super.updateItem(item, empty);
+				
+				if(item!=null)
+				{
+	                GridPane cell = new GridPane();
+	                cell.prefWidthProperty().bind(hotelListView.widthProperty().subtract(2));
+	                Label hotelName = new Label(item.getHotelName()+"/"+item.getScore());//得到酒店名称和评分
+	                hotelName.setFont(new Font("YouYuan",20));
+	                Label star=new Label(item.getRank().toString());
+	                star.setFont(new Font("YouYuan",20));
+	                long theHotelID=item.getHotelId();//得到这家酒店的ID
+	                boolean flag=false;
+	                try {
+						Iterator<Long> it=hotelid.iterator();
+						
+						while(it.hasNext())
+						{
+							if(theHotelID==it.next())
+							{
+							flag=true;
+							}
+							else
+							{
+
+							}
+						}
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	               Label history=new Label();
+	                if(flag)
+	                {
+	                	history.setText("预定过");
+	                	history.setFont(new Font("Youyuan",20));
+	          
+	                }
+	                else
+	                {
+	                	history.setText("    ");
+	                	
+	                }
+	                Set<HotelItemVO> hotIt=item.getRooms();
+	                double leastPrice=1000000;
+	                String leastType=null;
+	                for(HotelItemVO  htlVO:hotIt)
+	                {
+	                	if(htlVO.getPrice()<leastPrice)
+	                	{
+	                		leastPrice=htlVO.getPrice();
+	                		leastType=htlVO.getRoom().getType();
+	                	}
+	                }
+	                
+	                Label least=new Label(leastPrice+"("+leastType+")");
+	                Button createOrder=new  Button("下订单");
+	                createOrder.setFont(new Font("Youyuan",20));
+	                //为下订单添加界面
+	                createOrder.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	                    
+	             		@Override
+						public void handle(MouseEvent event) {
+							createOrder(event, item);
+						}
+	               });
+	                
+	                
+	                
+	                cell.add(hotelName, 0, 0);
+	                cell.add(star, 1, 0);
+	                cell.add(history, 2, 0);
+	                cell.add(least, 3, 0);
+	                cell.add(createOrder, 4, 0);
+	                setGraphic(cell);
+				}
+				else
+				{
+					setGraphic(null);
+					System.out.println("meiyou");
 				}
 			}
-			clientmain.add(createOrder, 2, 1);
-			} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+		
+		
+	}
+	
+	public void createOrder(MouseEvent e,BasicHotelVO item)
+	{
+		PopOver popOver = new PopOver();
+		popOver.setDetachable(false);
+		popOver.setDetachedTitle("下订单");
+		GridPane pane=new GridPane();
 		
 		
 	}
@@ -158,7 +246,7 @@ public class HotelBrowseController implements Initializable{
 		String selectCircle=null;
 		if(circleBox.getSelectionModel().getSelectedItem()==null)
 		{
-			
+			System.out.println("啥也没有");
 		}
 		else
 		{
@@ -175,12 +263,12 @@ public class HotelBrowseController implements Initializable{
 		    	}
 		}
 		    searchvo.setBusinessCircle(circle);
-	
+			search(searchvo);  
+
 			
 		}
 
-			search(searchvo);  
-
+		
 	}
 	
 	
@@ -231,7 +319,6 @@ public class HotelBrowseController implements Initializable{
 			
 			businessCityBox.getItems().addAll(cities);
 			
-
 			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block

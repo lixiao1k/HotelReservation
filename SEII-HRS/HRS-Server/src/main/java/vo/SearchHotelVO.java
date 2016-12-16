@@ -1,11 +1,14 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import info.BusinessCircle;
 import info.BusinessCity;
 
-public class SearchHotelVO {
+public class SearchHotelVO implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	private BusinessCity businessCity;
 	private BusinessCircle businessCircle;
 	private Date checkInTime;
