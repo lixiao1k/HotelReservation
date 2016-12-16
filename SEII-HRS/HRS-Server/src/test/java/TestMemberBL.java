@@ -80,9 +80,7 @@ public class TestMemberBL {
 		MemberLogicService memberLogic=new MemberLogicServiceImpl();
 		MemberResultMessage resultmessage=null;
 		LocalDate testbirth=LocalDate.of(1970, 1, 1);
-		List<String> phone=new ArrayList<>();
-		ManageClientVO testvo=new ManageClientVO(2, "bingyuhuo22", testbirth, "bingyuhuo", phone);
-		testvo.addPhonenumber("12345678901");
+		ManageClientVO testvo=new ManageClientVO(2, "bingyuhuo22", testbirth, "bingyuhuo", "12345678901");
 		testvo.setUserid(-1);
 		resultmessage=memberLogic.updateClient(testvo);
 		Assert.assertEquals("Fail in client wrong ID test.", MemberResultMessage.FAIL_WRONGID, resultmessage);
