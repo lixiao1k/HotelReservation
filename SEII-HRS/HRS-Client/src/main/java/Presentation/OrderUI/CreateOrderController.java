@@ -63,12 +63,15 @@ public class CreateOrderController implements Initializable{
 		 //住客姓名
 		    String customer=null;
 		    customer=customerName.getText();
+		    neworder.setContactName(customer);
 		 //手机号码
 		    String contact=null;
 		    contact=phoneNumber.getText();
+		    neworder.setContactWay(contact);
 		 //预计入住人数
 		    int people=0;
 		    people=Integer.parseInt(peopleNum.getText());
+		    neworder.setPeople(people);
 		 //是否有儿童
 		    boolean child=false;
 		    if(Ifchild.isSelected())
@@ -76,7 +79,7 @@ public class CreateOrderController implements Initializable{
 		    	child=true;
 
 		    }
-		
+		    neworder.setChild(child);
 		
 
 		
@@ -86,10 +89,10 @@ public class CreateOrderController implements Initializable{
     @FXML
 	public void setRoom()
 	{
-		   int num=0;
+		  int num=0;
 		   num=roomNumBox.getSelectionModel().getSelectedItem();
 		   roomNumBox.setValue(num);
-		   System.out.println(num);
+		  
 		   neworder.setPeople(num);
 	}
 	
@@ -101,7 +104,7 @@ public class CreateOrderController implements Initializable{
 		LocalDate localcheckin=checkIntime.getValue();
 		Instant instant = localcheckin.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
         Date  checkintime=Date.from(instant);
-	
+	  
 	//退房时间
 	    LocalDate localcheckout=checkOuttime.getValue();
 	    		instant=localcheckout.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
@@ -123,7 +126,7 @@ public class CreateOrderController implements Initializable{
 				Iterator<HotelStrategyVO> it;
 				it=liststrategy.iterator();
 				Set<StrategyItemVO> hotelstrategySet;
-				String roomType=(String)DataController.getInstance().get("selectRoomType");
+				String roomType=(String)DataController.getInstance().get("selectRoomType");//得到所选酒店房型
 				String strategyName="  ";
 				double leastPrice=1000000;
 				boolean flag=false;//标记该酒店有无优惠信息
@@ -175,6 +178,8 @@ public class CreateOrderController implements Initializable{
 				e.printStackTrace();
 			}
 		   
+			   
+			   
 	    
     }
     
