@@ -53,8 +53,8 @@ import org.controlsfx.control.PopOver;
 public class HotelBrowseController implements Initializable{
 	@FXML TextField searchField;
 	@FXML Button hotelSearchButton;
-	@FXML ComboBox businessCityBox;
-	@FXML ComboBox circleBox;
+	@FXML ComboBox<String> businessCityBox;
+	@FXML ComboBox<String> circleBox;
 
 	@FXML ChoiceBox<String> roomChoiceBox;
 	@FXML ListView<BasicHotelVO> hotelListView;
@@ -90,7 +90,8 @@ public class HotelBrowseController implements Initializable{
 				hotelListViewData=FXCollections.observableArrayList(hotels);
 				hotelListView.setCellFactory(e->new hotelListCell());
 				hotelListView.setItems(hotelListViewData);
-				
+				Object o=(Object)hotelListView.getSelectionModel().getSelectedItem().getHotelId();//得到选中的酒店的id
+				DataController.getInstance().put("selectHotel", o);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -192,7 +193,7 @@ public class HotelBrowseController implements Initializable{
 	{
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
-		popOver.setDetachedTitle("下订单");
+		popOver.setTitle("下订单");
 		GridPane pane=new GridPane();
 		
 		
@@ -213,6 +214,7 @@ public class HotelBrowseController implements Initializable{
 				if(bci.getName().equals(selectCity))
 				{
 					city=bci;
+					System.out.println(city.toString());
 					Set<BusinessCircle> bcirs = bci.getCircles();
 										setcircle=bcirs;
 					for(BusinessCircle bcir:bcirs){
@@ -246,12 +248,14 @@ public class HotelBrowseController implements Initializable{
 		String selectCircle=null;
 		if(circleBox.getSelectionModel().getSelectedItem()==null)
 		{
+
 			System.out.println("啥也没有");
 		}
 		else
 		{
 
 			selectCircle=circleBox.getSelectionModel().getSelectedItem().toString();
+			System.out.println(selectCircle);
 		    searchvo.setBusinessCity(city);
 		    for(BusinessCircle bcir:setcircle){
 		    	if(selectCircle.equals(bcir.getName()))

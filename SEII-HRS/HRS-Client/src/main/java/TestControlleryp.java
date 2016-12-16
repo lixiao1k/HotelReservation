@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 public class TestControlleryp extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Hello world");
-		Parent test = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/HotelBrowse.fxml"));
+		Parent test = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/CreateOrder.fxml"));
 		Scene scene = new Scene(test);
 		primaryStage.setScene(scene);
 		primaryStage.show();

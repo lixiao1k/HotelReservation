@@ -10,7 +10,7 @@ public class NewOrderVO {
 	private boolean child;
 	private int people;
 	private String contactWay;
-	private String contactName;
+	private String contactName;//住客姓名
 	private Date checkInTime;
 	private Date checkOutTime;
 	private Room room;
