@@ -1,7 +1,9 @@
 package Presentation.MemberUI;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,6 +15,7 @@ import org.controlsfx.control.Notifications;
 import Presentation.CreditUI.CreditBrowseController;
 import Presentation.FeedbackUI.AddContactController;
 import Presentation.MainUI.ClientMainUIController;
+import datacontroller.DataController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,21 +30,29 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import logic.service.ServiceFactory;
+import rmi.RemoteHelper;
 import test.TestManageClientVO;
 import test.TestMemberVO;
+import vo.ManageClientVO;
+import vo.MemberVO;
 
 public class KeepPersonInfoController implements Initializable{
+
 	@FXML Label IDLabel;
 	@FXML TextField nameTextField;
 	@FXML TextField birthdayTextField;
 	@FXML TextField companyNameTextField;
 	@FXML ComboBox<String> contactComboBox;
 	@FXML Label creditLabel;
-	TestManageClientVO testmanageclientvo = new TestManageClientVO();
-	TestMemberVO testmembervo =new TestMemberVO();
-	
+	private ServiceFactory serviceFactory;
 	private boolean isEdit=false;
 	private long userid;
+	private String username;
+	private int credit;
+	private List<String> phonenumber;
+	private MemberVO membervo;
+	private ManageClientVO clientvo;
 	private ObservableList<String> contact =FXCollections.observableArrayList();
 	private ClientMainUIController clientmainuicontroller;
 	
@@ -62,7 +73,7 @@ public class KeepPersonInfoController implements Initializable{
 			    e1.printStackTrace();
 		    }
 		}else{
-			Notifications.create().title("增加").text("清先编辑按钮").showWarning();
+			Notifications.create().title("增加").text("请先点击编辑按钮").showWarning();
 		}
 
 	}
@@ -70,6 +81,7 @@ public class KeepPersonInfoController implements Initializable{
 	protected void delete(ActionEvent e){
 		try{
 			if(isEdit&&contact.size()!=0){
+				phonenumber.remove(contactComboBox.getValue());
 		        contact.remove(contactComboBox.getValue());		
 		        contactComboBox.setItems(contact);
 		        contactComboBox.setPromptText(contact.get(0));
@@ -127,15 +139,15 @@ public class KeepPersonInfoController implements Initializable{
 	}
 	
 	private void comboinitial(){
-		List<String> contactOfList =new ArrayList<String>();
-		contactOfList=testmanageclientvo.returnManageClientVO().getPhonenumber();
-		for(String temp:contactOfList){
+		for(String temp:phonenumber){
 			contact.add(temp);
 		}
 		
 	}
 	
 	public void addPhoneNumber(String phoneNumber){
+		System.out.println("get");
+//		this.phonenumber.add(phoneNumber);
 		this.contact.add(phoneNumber);
 	}
 	//存储用户信息
@@ -144,15 +156,13 @@ public class KeepPersonInfoController implements Initializable{
 		
 	}
 	private void updateView(){
-		nameTextField.setText(testmanageclientvo.returnManageClientVO().getUsername());
-		companyNameTextField.setText(testmanageclientvo.returnManageClientVO().getCompanyname());
-		birthdayTextField.setText(testmanageclientvo.returnManageClientVO().getBirthday().toString());
+		nameTextField.setText(username);
+		companyNameTextField.setText(clientvo.getCompanyname());
+		birthdayTextField.setText(clientvo.getBirthday().toString());
 		comboinitial();
 		contactComboBox.setItems(contact);
-		contactComboBox.setItems(contact);
-		contactComboBox.setItems(contact);
 		contactComboBox.setPromptText(contact.get(0));
-		creditLabel.setText(Integer.toString(testmembervo.returnMemberVO().getCredit()));
+		creditLabel.setText(Integer.toString(credit));
 	}
 	
 	public void setClientMainUIController(ClientMainUIController controller){
@@ -160,11 +170,26 @@ public class KeepPersonInfoController implements Initializable{
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+		if(serviceFactory==null)
+			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
+		try{
+			userid=(long) DataController.getInstance().get("UserId");
+			membervo=serviceFactory.getMemberLogicService().getInfo(userid);
+			username=membervo.getName();
+			credit=membervo.getCredit();
+			clientvo=serviceFactory.getMemberLogicService().getClient(username);
+			phonenumber =clientvo.getPhonenumber();
 		updateView();
-		IDLabel.setText(Long.toString(testmanageclientvo.returnManageClientVO().getUserid()));
+		IDLabel.setText(Long.toString(userid));
 		nameTextField.setEditable(false);
 		companyNameTextField.setEditable(false);
 		contactComboBox.setEditable(false);
+		System.out.println("getj");
 		birthdayTextField.setEditable(false);
+		}catch (RemoteException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

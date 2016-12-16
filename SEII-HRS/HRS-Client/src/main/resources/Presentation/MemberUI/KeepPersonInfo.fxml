@@ -22,7 +22,7 @@
         <Font size="25.0" />
       </font>
     </Label>
-    <Label fx:id="IDLabel" prefHeight="23.0" prefWidth="181.0" text="100120" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+    <Label fx:id="IDLabel" prefHeight="23.0" prefWidth="181.0"  GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="TOP">
       <GridPane.margin>
         <Insets left="150.0" top="145.0" />
       </GridPane.margin>
@@ -76,7 +76,7 @@
         <Insets left="150.0" top="10.0" />
       </GridPane.margin>
     </Label>
-    <Label fx:id="creditLabel" maxWidth="100.0" text="594" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+    <Label fx:id="creditLabel" maxWidth="100.0"  GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
       <GridPane.margin>
         <Insets top="15.0" />
       </GridPane.margin>

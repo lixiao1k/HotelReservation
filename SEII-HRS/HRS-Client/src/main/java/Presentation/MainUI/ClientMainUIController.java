@@ -53,7 +53,7 @@ public class ClientMainUIController implements Initializable{
 					break;
 				}
 			}
-			clientmain.add(pane, 3, 1);
+			clientmain.add(pane, 2, 1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -83,5 +83,6 @@ public class ClientMainUIController implements Initializable{
     
 	public void initialize(URL location, ResourceBundle resources) {
 		setBaseInfo();
+		goToPane(2);
 	}
 }
