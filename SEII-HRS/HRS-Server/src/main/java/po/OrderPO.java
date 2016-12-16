@@ -163,7 +163,7 @@ public class OrderPO implements Serializable{
 		this.strategy = strategy;
 	}
 	public double getPrice(){
-		return roomNum*roomPrice*off;
+		return roomNum*roomPrice*off*((checkOutTime.getTime()-checkInTime.getTime())/(3600*24*1000));
 	}
 	public double getOff() {
 		return off;
