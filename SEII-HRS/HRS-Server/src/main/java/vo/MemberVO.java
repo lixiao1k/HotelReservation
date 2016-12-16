@@ -15,8 +15,6 @@ public class MemberVO {
 		this.name = name;
 		this.credit = 0;
 		this.VIPFlag = false;
-		Random rnd = new Random();
-		this.memberId = rnd.nextLong();
 	}
 	public String toString(){
 		return "name:"+this.name+"; phone:"+this.phone+"; credit:"+this.credit;

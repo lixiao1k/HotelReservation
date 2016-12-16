@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import data.dao.HotelDao;
+import data.dao.Impl.DaoManager;
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.ListWrapper;
@@ -8,6 +10,7 @@ import info.Room;
 import logic.service.HotelLogicService;
 import logic.service.impl.hotel.HotelLogicServiceImpl;
 import resultmessage.HotelResultMessage;
+import util.HibernateUtil;
 import vo.AddHotelResultVO;
 import vo.AddHotelVO;
 import vo.BasicHotelVO;
@@ -43,6 +46,43 @@ public class TestHotelBL {
 			}
 			System.out.println();
 			System.out.println("----------------------------");
+		}
+	}
+	@Test 
+	public void testAddCityAndCircle() throws RemoteException{
+		try{
+
+			HibernateUtil.getCurrentSession().beginTransaction();
+			BusinessCity bc1 = new BusinessCity();
+			bc1.setName("南京");
+			BusinessCircle bcir1 = new BusinessCircle();
+			bcir1.setName("新街口");
+			BusinessCircle bcir2 = new BusinessCircle();
+			bcir2.setName("苜蓿园");
+			Set<BusinessCircle> set = new HashSet<>();
+			set.add(bcir1);
+			set.add(bcir2);
+			bc1.setCircles(set);
+			BusinessCity bc2 = new BusinessCity();
+			bc2.setName("北京");
+			BusinessCircle bcir3 = new BusinessCircle();
+			bcir3.setName("五道口");
+			BusinessCircle bcir4 = new BusinessCircle();
+			bcir4.setName("崇文门");
+			Set<BusinessCircle> set2 = new HashSet<>();
+			set2.add(bcir3);
+			set2.add(bcir4);
+			bc2.setCircles(set2);
+			HibernateUtil.getCurrentSession().save(bc1);
+			HibernateUtil.getCurrentSession().save(bc2);
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+			}catch(RuntimeException ex){
+				ex.printStackTrace();
+			}
 		}
 	}
 	@Test
