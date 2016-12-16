@@ -10,8 +10,8 @@ import java.util.Set;
 import org.controlsfx.control.ListSelectionView;
 
 import datacontroller.DataController;
-import info.Room;
 import info.ListWrapper;
+import info.Room;
 import info.StrategyType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,8 +26,10 @@ import vo.HotelItemVO;
 import vo.StrategyItemVO;
 import vo.StrategyVO;
 
-public class BirthController implements Initializable{
+public class HotelFestivalController implements Initializable{
 	@FXML GridPane mainPane;
+	@FXML TextField Time1;
+	@FXML TextField Time2;
 	@FXML TextField Name;
 	@FXML TextField Off;
 	GridPane clientmain;
@@ -40,18 +42,17 @@ public class BirthController implements Initializable{
 	protected void Create() throws RemoteException{
 		StrategyVO svo=new StrategyVO();
 		svo.setName(Name.getText());
-		svo.setHotelId(hotelid);
 		double off=Double.valueOf(Off.getText());
 		svo.setOff(off);
 		ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
 		Iterator<StrategyType> it=typelist.iterator();
 		while(it.hasNext()){
 			StrategyType type=it.next();
-			if(type.getName().equals("Birth"))
+			if(type.getName().equals("HotelFestival"))
 				svo.setStrategyType(type);
 				break;
 		}
-		svo.setExtraInfo("");
+		svo.setExtraInfo(Time1.getText()+"|"+Time2.getText());
 		ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
 		Set<StrategyItemVO> voset=new HashSet<>();
 		ObservableList<Room> targetlist=Room.getTargetItems();

@@ -31,7 +31,7 @@ public class HotelWorkerCreateStrategyController implements Initializable{
 				"Birth",
 				"Room",
 				"Company",
-				"Festival"};
+				"HotelFestival"};
     	try {
 			Parent Strategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/"+name[i]+".fxml"));
 			Strategy.getProperties().put("NAME", name[i]+"Strategy");
