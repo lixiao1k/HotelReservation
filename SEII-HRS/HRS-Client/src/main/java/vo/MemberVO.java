@@ -10,7 +10,7 @@ public class MemberVO implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1399439245557015318L;
+	private static final long serialVersionUID =1303786503704861339L;
 	private String phone;
 	private String name;
 	private int credit;
