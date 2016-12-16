@@ -32,7 +32,7 @@ public class ClientMainUIController implements Initializable{
 		};
 		String[] path = {"Presentation/HotelUI/HotelBrowse.fxml"
 						,"Presentation/MemberUI/Register.fxml"
-						,"Presentation/MemberUI/KeepPersonInfo.fxml"
+						,"Presentation/MemberUI/PersonInfo.fxml"
 						,"Presentation/OrderUI/ClientBrowseOrderListUI.fxml"
 		};
 		try {
