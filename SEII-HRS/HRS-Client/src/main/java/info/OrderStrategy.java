@@ -1,8 +1,13 @@
 package info;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class OrderStrategy {
+public class OrderStrategy implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8118008012122407612L;
 	private long userId;
 	private long hotelId;
 	private String companyName;

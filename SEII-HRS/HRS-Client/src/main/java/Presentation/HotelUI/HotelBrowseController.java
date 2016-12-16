@@ -57,8 +57,6 @@ public class HotelBrowseController implements Initializable{
 	@FXML ComboBox<String> businessCityBox;
 	@FXML ComboBox<String> circleBox;
 
-
-
 	@FXML ChoiceBox<String> roomChoiceBox;
 	@FXML ListView<BasicHotelVO> hotelListView;
 	@FXML DatePicker checkin;
@@ -70,7 +68,7 @@ public class HotelBrowseController implements Initializable{
     private BusinessCircle circle;
     private Set<BusinessCircle> setcircle;
     private SearchHotelVO searchvo;
-    private ListWrapper<Long>  hotelid;//鐢ㄦ埛棰勫畾杩囩殑閰掑簵
+    private ListWrapper<Long>  hotelid;//预定过的酒店ID
     private HotelLogicService hotelbl;
     private ListWrapper<BasicHotelVO>  basicHotel;
     private ObservableList<BasicHotelVO> hotelListViewData;
@@ -82,7 +80,11 @@ public class HotelBrowseController implements Initializable{
 	public void search(SearchHotelVO vo)
 	{
 		    try {
-				basicHotel=	hotelbl.getHotels(vo);//鏍规嵁鎼滅储鍐呭杩斿洖涓�涓厭搴桳ist
+		    	if(vo==null)
+		    	{
+		    		System.out.println("vo有问题");
+		    	}
+				basicHotel=	hotelbl.getHotels(vo);//根据searchvo返回搜索到的酒店信息
 				List<BasicHotelVO> hotels = new ArrayList<BasicHotelVO>();
 				Iterator<BasicHotelVO> it=basicHotel.iterator();
 				while(it.hasNext()){
@@ -93,8 +95,8 @@ public class HotelBrowseController implements Initializable{
 				hotelListViewData=FXCollections.observableArrayList(hotels);
 				hotelListView.setCellFactory(e->new hotelListCell());
 				hotelListView.setItems(hotelListViewData);
-				Object o=(Object)hotelListView.getSelectionModel().getSelectedItem().getHotelId();//得到选中的酒店的id
-				DataController.getInstance().put("selectHotel", o);
+			//	Object o=(Object)hotelListView.getSelectionModel().getSelectedItem().getHotelId();//得到选中的酒店的id
+			//	DataController.getInstance().put("selectHotel", o);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -112,11 +114,11 @@ public class HotelBrowseController implements Initializable{
 				{
 	                GridPane cell = new GridPane();
 	                cell.prefWidthProperty().bind(hotelListView.widthProperty().subtract(2));
-	                Label hotelName = new Label(item.getHotelName()+"/"+item.getScore());//寰楀埌閰掑簵鍚嶇О鍜岃瘎鍒�
+	                Label hotelName = new Label(item.getHotelName()+"/"+item.getScore());//酒店名称+评分
 	                hotelName.setFont(new Font("YouYuan",20));
 	                Label star=new Label(item.getRank().toString());
 	                star.setFont(new Font("YouYuan",20));
-	                long theHotelID=item.getHotelId();//寰楀埌杩欏閰掑簵鐨処D
+	                long theHotelID=item.getHotelId();//得到ID
 	                boolean flag=false;
 	                try {
 						Iterator<Long> it=hotelid.iterator();
@@ -267,7 +269,7 @@ public class HotelBrowseController implements Initializable{
 		    for(BusinessCircle bcir:setcircle){
 		    	if(selectCircle.equals(bcir.getName()))
 		    	{
-		    		bcir.setBcircleId(1);//鍏堣嚜宸卞畾涓�涓紪鍙�
+		    		bcir.setBcircleId(1);//先自己设一个id
 		    		circle=bcir;
 		    		circle.setBcircleId(bcir.getBcircleId());
 		    		break;
@@ -316,7 +318,7 @@ public class HotelBrowseController implements Initializable{
 			searchvo=new SearchHotelVO();
 			userid=(long)DataController.getInstance().get("UserId");
 			hotelbl=serviceFactory.getHotelLogicService();
-			hotelid=hotelbl.getBookHotel(userid);//寰楀埌鐢ㄦ埛棰勫畾鐨勯厭搴楀巻鍙�
+			hotelid=hotelbl.getBookHotel(userid);//得到预定历史
 			bc = serviceFactory.getHotelLogicService().getCity();
 			Set<String> set = new HashSet<>();//寰楀埌鍏ㄩ儴鍩庡競淇℃伅
 

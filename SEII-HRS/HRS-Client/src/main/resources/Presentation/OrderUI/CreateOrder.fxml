@@ -53,11 +53,6 @@
             <Insets left="20.0" top="60.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="roomNumField" maxWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="80.0" top="58.0" />
-         </GridPane.margin>
-      </TextField>
       <Label text="住客姓名：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="20.0" top="100.0" />
@@ -122,14 +117,14 @@
             <Insets bottom="115.0" left="75.0" right="350.0" />
          </GridPane.margin>
       </DatePicker>
-      <DatePicker fx:id="checkOuttime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <DatePicker fx:id="checkOuttime" onAction="#checkStrategy" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="115.0" left="220.0" right="200.0" />
          </GridPane.margin>
       </DatePicker>
       <ComboBox fx:id="roomNumBox" onAction="#setRoom" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
-            <Insets bottom="28.0" left="130.0" right="400.0" />
+            <Insets bottom="28.0" left="90.0" right="400.0" />
          </GridPane.margin>
       </ComboBox>
       <Label text="订单总价格" GridPane.rowIndex="4">
