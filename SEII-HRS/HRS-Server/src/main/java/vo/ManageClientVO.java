@@ -1,9 +1,14 @@
 package vo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ManageClientVO {
+public class ManageClientVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8256851516544145211L;
 	private long userid;
 	private String username;
 	private LocalDate birthday;
@@ -17,6 +22,9 @@ public class ManageClientVO {
 		this.birthday = birthday;
 		this.companyname = companyname;
 		this.phonenumber = phonenumber;
+	}
+	public ManageClientVO(){
+		
 	}
 	public List<String> getPhonenumber() {
 		return phonenumber;

@@ -73,7 +73,7 @@ public class KeepPersonInfoController implements Initializable{
 			    e1.printStackTrace();
 		    }
 		}else{
-			Notifications.create().title("Ôö¼Ó").text("ÇëÏÈµã»÷±à¼­°´Å¥").showWarning();
+			Notifications.create().title("ï¿½ï¿½ï¿½ï¿½").text("ï¿½ï¿½ï¿½Èµï¿½ï¿½ï¿½à¼­ï¿½ï¿½Å¥").showWarning();
 		}
 
 	}
@@ -124,10 +124,10 @@ public class KeepPersonInfoController implements Initializable{
 		
 	}
 	
-	//±à¼­°´Å¥µã»÷ºóÖÃÎª¿É±à¼­
+	//ï¿½à¼­ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½É±à¼­
 	@FXML
 	protected void edit(ActionEvent e){
-		Notifications.create().title("±à¼­").text("ÔÊÐí±à¼­").showConfirm();
+		Notifications.create().title("ï¿½à¼­").text("ï¿½ï¿½ï¿½ï¿½à¼­").showConfirm();
 		isEdit=true;
 		nameTextField.setEditable(true);
 		companyNameTextField.setEditable(true);
@@ -150,7 +150,7 @@ public class KeepPersonInfoController implements Initializable{
 //		this.phonenumber.add(phoneNumber);
 		this.contact.add(phoneNumber);
 	}
-	//´æ´¢ÓÃ»§ÐÅÏ¢
+	//ï¿½æ´¢ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
 	private void updateClient(){
 		
 		
@@ -174,7 +174,7 @@ public class KeepPersonInfoController implements Initializable{
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		try{
 			userid=(long) DataController.getInstance().get("UserId");
-			membervo=serviceFactory.getMemberLogicService().getInfo(userid);
+			membervo=serviceFactory.getMemberLogicService().getInfo((long)3);
 			username=membervo.getName();
 			credit=membervo.getCredit();
 			clientvo=serviceFactory.getMemberLogicService().getClient(username);
@@ -184,7 +184,6 @@ public class KeepPersonInfoController implements Initializable{
 		nameTextField.setEditable(false);
 		companyNameTextField.setEditable(false);
 		contactComboBox.setEditable(false);
-		System.out.println("getj");
 		birthdayTextField.setEditable(false);
 		}catch (RemoteException e) {
 			e.printStackTrace();

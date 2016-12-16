@@ -1,9 +1,15 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class MemberVO {
+public class MemberVO implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1303786503704861339L;
 	private String phone;
 	private String name;
 	private int credit;
@@ -15,6 +21,9 @@ public class MemberVO {
 		this.name = name;
 		this.credit = 0;
 		this.VIPFlag = false;
+	}
+	public MemberVO(){
+		
 	}
 	public String toString(){
 		return "name:"+this.name+"; phone:"+this.phone+"; credit:"+this.credit;

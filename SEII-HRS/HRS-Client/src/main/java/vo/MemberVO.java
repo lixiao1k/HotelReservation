@@ -1,9 +1,16 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Random;
 
+import logic.service.ServiceFactory;
 
-public class MemberVO {
+
+public class MemberVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1399439245557015318L;
 	private String phone;
 	private String name;
 	private int credit;
@@ -16,6 +23,9 @@ public class MemberVO {
 		this.VIPFlag = false;
 		Random rnd = new Random();
 		this.memberId = rnd.nextLong();
+	}
+	public MemberVO(){
+		
 	}
 	public String toString(){
 		return "name:"+this.name+"; phone:"+this.phone+"; credit:"+this.credit;
