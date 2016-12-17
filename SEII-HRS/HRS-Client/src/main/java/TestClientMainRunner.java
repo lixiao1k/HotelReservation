@@ -13,7 +13,7 @@ public class TestClientMainRunner {
     private RemoteHelper remoteHelper;
     public TestClientMainRunner(String[] args){
     	linkToService();
-    	DataController.getInstance().put("UserId", (long)3);
+    	DataController.getInstance().put("UserId", (long)2);
     	Application.launch(ClientMainUI.class,args);
     }
     private void linkToService(){
