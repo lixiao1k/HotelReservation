@@ -16,6 +16,7 @@ import java.util.Set;
 import datacontroller.DataController;
 import info.ListWrapper;
 import info.OrderStrategy;
+import info.Room;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -55,6 +56,7 @@ public class CreateOrderController implements Initializable{
 	private ListWrapper<HotelStrategyVO> liststrategy;
 	private NewOrderVO  neworder;
 	private HotelLogicService  hotellogic;
+	private  double leastPrice;
 	public void commit()
 	{
 		
@@ -83,7 +85,10 @@ public class CreateOrderController implements Initializable{
 		    }
 		    neworder.setChild(child);
 		
-
+		    double totalNum=0;
+		    totalNum=neworder.getRoomNum()*leastPrice;
+		    neworder.setRoomPrice(totalNum);
+		    totalMoney.setText(String.valueOf(totalNum));
 		
 	}
 
@@ -91,11 +96,11 @@ public class CreateOrderController implements Initializable{
     @FXML
 	public void setRoom()
 	{
-		  int num=0;
+		   int num=0;
 		   num=roomNumBox.getSelectionModel().getSelectedItem();
 		   roomNumBox.setValue(num);
 		  
-		   neworder.setPeople(num);
+		   neworder.setRoomNum(num);
 	}
 	
     public void checkStrategy()
@@ -136,12 +141,20 @@ public class CreateOrderController implements Initializable{
 				
 				Set<StrategyItemVO> hotelstrategySet;
 				String roomType=(String)DataController.getInstance().get("selectRoomType");//得到所选酒店房型
+				Room roominfo=null;
+				roominfo.setType(roomType);
+				
+				
+				System.out.println(roominfo.getType());
+				
+				
+				neworder.setRoom(roominfo);
 			    hotellogic=serviceFactory.getHotelLogicService();
 			    hotelitemList=hotellogic.getRoomInfo(hotelid);
 			    
 			    Iterator<HotelItemVO> ithotel;
 			    ithotel=hotelitemList.iterator();
-			    double leastPrice=10000;
+			    
 			    //遍历酒店房间类型得到房间初始价格
 			    while(ithotel.hasNext())
 			    {
@@ -164,17 +177,23 @@ public class CreateOrderController implements Initializable{
 					//所选酒店有优惠
 					if(hotelid==hotelstrategyvo.getHotelId())
 					{
-						flag=true;
+						
 						hotelstrategySet=hotelstrategyvo.getItems();
 						
 						for(StrategyItemVO  sta:hotelstrategySet)
 						{
+							
+							//所选房间类型有优惠
 							if(roomType.equals(sta.getRoom().getType()))
 							{
+								neworder.setStrategy(hotelstrategyvo.getId());//设置strategyid
+								flag=true;
 								if(sta.getPriceAfter()<leastPrice)
 								{
 									leastPrice=sta.getPriceAfter();
 									offinfo=sta.getOff();
+									neworder.setStrategyOff(offinfo);
+									
 								}
 							}
 						}
@@ -187,7 +206,7 @@ public class CreateOrderController implements Initializable{
 				if(flag)
 				{
 					strategyType.setText(strategyName);
-					neworder.setStrategyOff(offinfo);
+					
 					
 				}
 				else
