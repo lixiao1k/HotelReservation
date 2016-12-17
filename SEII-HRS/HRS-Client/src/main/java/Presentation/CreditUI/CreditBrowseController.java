@@ -2,12 +2,14 @@ package Presentation.CreditUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 
 import Presentation.MemberUI.KeepPersonInfoController;
 import datacontroller.DataController;
+import info.ListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import logic.service.ServiceFactory;
+import rmi.RemoteHelper;
 import vo.CreditVO;
 
 public class CreditBrowseController implements Initializable{
@@ -35,6 +38,8 @@ public class CreditBrowseController implements Initializable{
 	private long userid;
 	private ObservableList<CreditVO> creditListViewData;
 	private ServiceFactory serviceFactory;
+//	private CreditVO vo;
+	private Iterator<CreditVO> it;
 	
 //	@FXML
 //	protected void goBack(ActionEvent e){
@@ -70,15 +75,34 @@ public class CreditBrowseController implements Initializable{
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		userid=(long)DataController.getInstance().get("UserId");
-		creditListViewData=FXCollections.observableArrayList();
-	    LocalDate date=LocalDate.now();
-		CreditVO credit1=new CreditVO(151250084, date, 26, 398);
-		CreditVO credit2=new CreditVO(151250086, date, -26, 226);
-		creditListViewData.add(credit1);
-		creditListViewData.add(credit2);
-		creditListView.setCellFactory(e->new CreditListCell());
-		creditListView.setItems(creditListViewData);
+		if(serviceFactory==null)
+			serviceFactory=RemoteHelper.getInstance().getServiceFactory();
+		try{
+			userid=(long)DataController.getInstance().get("UserId");
+			ListWrapper<CreditVO> list=serviceFactory.getCreditLogicService().getInfo(userid);
+			System.out.println(userid);
+			if(list==null){
+				System.out.println("null");
+			}
+			if(list.iterator()==null){
+				System.out.println("listnull");
+			}
+			it=list.iterator();
+			creditListViewData=FXCollections.observableArrayList();
+			initialListViewData(it);
+//		    LocalDate date=LocalDate.now();
+//			CreditVO credit1=new CreditVO(151250084, date, 26, 398);
+//			CreditVO credit2=new CreditVO(151250086, date, -26, 226);
+//			creditListViewData.add(credit1);
+//			creditListViewData.add(credit2);
+			creditListView.setCellFactory(e->new CreditListCell());
+			creditListView.setItems(creditListViewData);
+		}catch(RemoteException e){
+			e.printStackTrace();
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+
 	}
 	class CreditListCell extends ListCell<CreditVO>{
 		public void updateItem(CreditVO item,boolean empty){

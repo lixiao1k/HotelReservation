@@ -1,9 +1,14 @@
 package vo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class CreditVO {
+public class CreditVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5574650565997514653L;
 	private long userId;
 	private LocalDate date;
 	private int delta;
@@ -13,6 +18,9 @@ public class CreditVO {
 		this.date = date;
 		this.delta = delta;
 		this.credit = credit;
+	}
+	public CreditVO(){
+		
 	}
 	public String toString(){
 		return "UserId:"+userId+"; date:"+date+"; "+delta+" -> "+credit;

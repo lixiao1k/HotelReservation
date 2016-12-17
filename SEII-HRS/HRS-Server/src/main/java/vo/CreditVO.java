@@ -1,9 +1,14 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class CreditVO {
+public class CreditVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5574650565997514653L;
 	private long userId;
 	private Date date;
 	private int delta;

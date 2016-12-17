@@ -13,7 +13,7 @@ public class RechargeCreditController {
 	
 	CreditLogicService credit;
 	
-	public void commit()
+	public void commit() throws RemoteException
 	{
 		long userid=Long.parseLong(userID.getText());
 		int delta=Integer.parseInt(money.getText());
