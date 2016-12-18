@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import logic.service.MemberLogicService;
 import logic.service.ServiceFactory;
 import rmi.RemoteHelper;
+import vo.ManageClientVO;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +20,7 @@ import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 import Presentation.UserUI.ManageUserController;
+import datacontroller.DataController;
 public class ManageClientController implements Initializable{
 	@FXML  private TextField searchField;
     @FXML  private GridPane ClientPane;
@@ -26,17 +28,19 @@ public class ManageClientController implements Initializable{
     private String Company="�Ͼ���ѧ";
     private ServiceFactory servicefactory;
     private MemberLogicService memberlogic;
+    private ManageClientVO clientvo;
 	public void Search(ActionEvent e)
 	{
 		String username=searchField.getText();
 		try {
 			memberlogic=servicefactory.getMemberLogicService();
-			
+			clientvo=memberlogic.getClient(username);
+			setBaseinfo();
 		} catch (RemoteException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		if(username.equals("����"))
+		if(clientvo.getCompanyname()!=null)
 		{
 			try {
 				
@@ -91,6 +95,11 @@ public class ManageClientController implements Initializable{
 		return Company;//�����ݿ��еõ�company��Ϣ
 	}
 
+	public void setBaseinfo()
+	{
+		DataController.getInstance().put("searchClient", clientvo);
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -99,6 +108,7 @@ public class ManageClientController implements Initializable{
 			servicefactory=RemoteHelper.getInstance().getServiceFactory();
 			
 		}
+		
 		
 	}
 }

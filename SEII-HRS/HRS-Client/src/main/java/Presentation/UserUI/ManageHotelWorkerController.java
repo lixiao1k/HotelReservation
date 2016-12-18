@@ -126,11 +126,8 @@ public class ManageHotelWorkerController implements Initializable {
 		boolean empty=workerName.getText().equals("")||password.getText().equals("");
 		if(empty)
 		{
-			 Stage clickCheck=new Stage();
-			  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheckFalse.fxml"));
-			  Scene scene=new Scene(root,275,125);
-			  clickCheck.setScene(scene);
-			  clickCheck.show();
+			Notifications.create().owner(searchHotel.getScene().getWindow()).title("错误信息").text("填写内容不能为空").showError();
+
 		}
 		else
 		{
