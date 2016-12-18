@@ -28,6 +28,7 @@ import logic.service.HotelLogicService;
 import logic.service.ServiceFactory;
 import logic.service.StrategyLogicService;
 import rmi.RemoteHelper;
+import vo.BasicHotelVO;
 import vo.HotelItemVO;
 import vo.HotelStrategyVO;
 import vo.NewOrderVO;
@@ -141,14 +142,24 @@ public class CreateOrderController implements Initializable{
 				
 				Set<StrategyItemVO> hotelstrategySet;
 				String roomType=(String)DataController.getInstance().get("selectRoomType");//得到所选酒店房型
-				Room roominfo=null;
-				roominfo.setType(roomType);
 				
 				
-				System.out.println(roominfo.getType());
+				Object o=DataController.getInstance().get("selectHotel");//得到所选酒店的基本信息
+				BasicHotelVO bhvo=(BasicHotelVO)o;
+				
+				Set<HotelItemVO> hotelroom=bhvo.getRooms();
+				for(HotelItemVO hivo:hotelroom)
+				{
+					if(hivo.getRoom().getType()==roomType)
+					{
+						
+						neworder.setRoom(hivo.getRoom());//给订单传房间信息
+					}
+				}
+			
 				
 				
-				neworder.setRoom(roominfo);
+		
 			    hotellogic=serviceFactory.getHotelLogicService();
 			    hotelitemList=hotellogic.getRoomInfo(hotelid);
 			    
@@ -245,11 +256,13 @@ public class CreateOrderController implements Initializable{
 		Object o=DataController.getInstance().get("UserId");
 		userid=(long)o;
 		DataController.getInstance().put("UserId", (Object)userid);
-		o=DataController.getInstance().get("selectHotel");
+	
+
 		//hotelid=(long)o;
 		//DataController.getInstance().put("selectHotel", (Object)hotelid);
 		neworder.setUserId(userid);
 		neworder.setHotelId(hotelid);
+
 		roomNumBox.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
 		
 		

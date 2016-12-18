@@ -176,7 +176,7 @@ public class HotelBrowseController implements Initializable{
 	               });
 	                
 	                
-	                
+	                //差setmagin
 	                cell.add(hotelName, 0, 0);
 	                cell.add(star, 1, 0);
 	                cell.add(history, 2, 0);
@@ -195,6 +195,7 @@ public class HotelBrowseController implements Initializable{
 		
 	}
 	
+	//差一个popover界面
 	public void createOrder(MouseEvent e,BasicHotelVO item)
 	{
 		PopOver popOver = new PopOver();
@@ -208,6 +209,23 @@ public class HotelBrowseController implements Initializable{
 		
 	}
 	
+	//浏览酒店详细信息
+	public void goHotelDetail()
+	{
+		//没选中酒店
+		if(hotelListView.getSelectionModel().getSelectedItem()==null)
+		{
+			
+		}
+		else
+		{
+			BasicHotelVO selecthotel;
+			selecthotel=hotelListView.getSelectionModel().getSelectedItem();
+			DataController.getInstance().put("selectHotel", selecthotel);
+			
+		}
+		
+	}
 	
 	public void selectCity()
 	{
