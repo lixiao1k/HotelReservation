@@ -112,10 +112,11 @@ public class StrategyDO {
 		StrategyResultMessage result = null;
 		StrategyPO po = null;
 		try{
+			
 			HibernateUtil.getCurrentSession()
 							.beginTransaction();
 			HotelPO hpo = DaoManager.getInstance().getHotelDao().getInfo(vo.getHotelId());
-			if (hpo==null){
+			if (hpo==null&&vo.getHotelId()!=-1){
 				result = StrategyResultMessage.FAIL_WRONGINFO;
 				srvo.setResultMessage(result);
 				return srvo;
@@ -129,6 +130,7 @@ public class StrategyDO {
 			StrategyRule rule = (StrategyRule) constructor.newInstance(vo.getExtraInfo());
 			po.setRule(SerializeUtil.objectToBlob(rule));
 			//锟斤拷锟斤拷items
+			if(vo.getHotelId()!=-1){
 			Iterator<StrategyItemVO> sivoIt = vo.getItems().iterator();
 			Set<StrategyItem> items = new HashSet<>();
 			while(sivoIt.hasNext()){
@@ -140,11 +142,14 @@ public class StrategyDO {
 				items.add(si);
 			}
 			po.setItems(items);
+			}
 			strategyDao.insert(po);
 			//锟斤拷锟斤拷cache
 			strategies.put(po.getId(), po);
 			//锟斤拷锟届返锟斤拷锟斤拷息
-			Set<StrategyItemVO> set = new HashSet<>();
+			Set<StrategyItemVO> set = null;
+			if(vo.getHotelId()!=-1){
+			set = new HashSet<>();
 			Iterator<StrategyItemVO> siit = vo.getItems().iterator();
 			while(siit.hasNext()){
 				StrategyItemVO si = siit.next();
@@ -158,6 +163,7 @@ public class StrategyDO {
 				sivo.setRoom(si.getRoom());
 				sivo.setPriceAfter(before*si.getOff());
 				set.add(sivo);
+			}
 			}
 			CreateStrategyVO csvo = new CreateStrategyVO();
 			csvo.setItems(set);
