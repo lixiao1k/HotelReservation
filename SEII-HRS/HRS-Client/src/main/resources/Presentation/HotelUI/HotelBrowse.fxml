@@ -67,6 +67,6 @@
             <Insets left="-110.0" right="30.0" top="10.0" />
          </GridPane.margin>
       </ListView>
-      <Button mnemonicParsing="false" text="浏览详细信息" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#goHotelDetail" text="浏览详细信息" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    </children>
 </GridPane>

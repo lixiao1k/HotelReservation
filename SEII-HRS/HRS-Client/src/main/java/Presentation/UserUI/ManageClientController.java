@@ -4,24 +4,43 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import logic.service.MemberLogicService;
+import logic.service.ServiceFactory;
+import rmi.RemoteHelper;
+import vo.ManageClientVO;
 
 import java.io.IOException;
+import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ResourceBundle;
 
 import Presentation.UserUI.ManageUserController;
-public class ManageClientController {
+import datacontroller.DataController;
+public class ManageClientController implements Initializable{
 	@FXML  private TextField searchField;
     @FXML  private GridPane ClientPane;
-    private String Birth="五月二十";
-    private String Company="南京大学";
+    private String Birth="锟斤拷锟铰讹拷十";
+    private String Company="锟较撅拷锟斤拷学";
+    private ServiceFactory servicefactory;
+    private MemberLogicService memberlogic;
+    private ManageClientVO clientvo;
 	public void Search(ActionEvent e)
 	{
 		String username=searchField.getText();
-		//调用Member.getAllClient接口  将username传过去 得到ManageClientVO
-		if(username.equals("个人"))
+		try {
+			memberlogic=servicefactory.getMemberLogicService();
+			clientvo=memberlogic.getClient(username);
+			setBaseinfo();
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		if(clientvo.getCompanyname()!=null)
 		{
 			try {
 				
@@ -68,11 +87,28 @@ public class ManageClientController {
 	
 	public String getBirth()
 	{
-		return Birth;//从数据库中得到birth信息
+		return Birth;//锟斤拷锟斤拷锟捷匡拷锟叫得碉拷birth锟斤拷息
 	}
 	
 	public String getCompany()
 	{
-		return Company;//从数据库中得到company信息
+		return Company;//锟斤拷锟斤拷锟捷匡拷锟叫得碉拷company锟斤拷息
+	}
+
+	public void setBaseinfo()
+	{
+		DataController.getInstance().put("searchClient", clientvo);
+	}
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		if(servicefactory==null)
+		{
+			servicefactory=RemoteHelper.getInstance().getServiceFactory();
+			
+		}
+		
+		
 	}
 }

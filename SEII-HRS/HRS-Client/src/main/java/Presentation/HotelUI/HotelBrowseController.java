@@ -26,6 +26,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -74,6 +75,10 @@ public class HotelBrowseController implements Initializable{
     private ObservableList<BasicHotelVO> hotelListViewData;
 	public void search(ActionEvent e)
 	{
+		String searchinfo=searchField.getText();
+		
+		
+		
 		
 	}
 	
@@ -166,7 +171,7 @@ public class HotelBrowseController implements Initializable{
 	                Label least=new Label(leastPrice+"("+leastType+")");
 	                Button createOrder=new  Button("下订单");
 	                createOrder.setFont(new Font("Youyuan",20));
-	                //涓轰笅璁㈠崟娣诲姞鐣岄潰
+	                //给下订单按钮加popover界面
 	                createOrder.setOnMouseClicked(new EventHandler<MouseEvent>() {
 	                    
 	             		@Override
@@ -176,7 +181,8 @@ public class HotelBrowseController implements Initializable{
 	               });
 	                
 	                
-	                
+	                //差setmagin
+	                cell.setHalignment(createOrder, HPos.RIGHT);
 	                cell.add(hotelName, 0, 0);
 	                cell.add(star, 1, 0);
 	                cell.add(history, 2, 0);
@@ -195,6 +201,7 @@ public class HotelBrowseController implements Initializable{
 		
 	}
 	
+	//差一个popover界面
 	public void createOrder(MouseEvent e,BasicHotelVO item)
 	{
 		PopOver popOver = new PopOver();
@@ -208,6 +215,40 @@ public class HotelBrowseController implements Initializable{
 		
 	}
 	
+	//浏览酒店详细信息
+	public void goHotelDetail()
+	{
+		//没选中酒店
+		if(hotelListView.getSelectionModel().getSelectedItem()==null)
+		{
+			
+		}
+		else
+		{
+			BasicHotelVO selecthotel;
+			selecthotel=hotelListView.getSelectionModel().getSelectedItem();
+			DataController.getInstance().put("selectHotel", selecthotel);
+			GridPane client=(GridPane)searchField.getScene().getWindow().getScene().getRoot();
+			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/HotelUI/HotelDetailedInfo.fxml"));
+			try {
+				Parent hoteldetailBrowse = loader.load();
+				hoteldetailBrowse.getProperties().put("NAME","HoteldetailPane" );
+				ObservableList<Node> list =client.getChildren();
+				for(Node node:list){
+					String value=(String)node.getProperties().get("NAME");
+					if(value!=null&&value.contains("Pane")){
+						list.remove(node);
+						break;
+					}
+				}
+				client.add(hoteldetailBrowse, 2, 1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	
 	public void selectCity()
 	{
