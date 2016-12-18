@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.CreditUI.CreditBrowseController">
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="188.0" />
+      <RowConstraints minHeight="10.0" prefHeight="188.0" />
+      <RowConstraints minHeight="10.0" prefHeight="188.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+   </columnConstraints>
+   <children>
+      <Label fx:id="nameLabel" alignment="CENTER" prefHeight="15.0" prefWidth="101.0" text="小咚" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Label text="信用值：" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="creditLabel" text="395" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets left="80.0" />
+         </GridPane.margin>
+      </Label>
+      <ListView fx:id="creditListView" maxWidth="800.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
+         <GridPane.margin>
+            <Insets bottom="20.0" left="100.0" right="100.0" top="10.0" />
+         </GridPane.margin>
+      </ListView>
+   </children>
+</GridPane>

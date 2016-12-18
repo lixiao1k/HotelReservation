@@ -1,0 +1,7 @@
+测试用例在 test/java/main下
+连接数据库的用户名与密码于resource文件夹中hibernate.cfg.xml中配置
+请先建立hibernate_test数据库以测试
+
+由于项目重构。。原集成测试中的桩与驱动及mock见SEII-HRU-CLIENT
+
+功能测试用例集见相应doc

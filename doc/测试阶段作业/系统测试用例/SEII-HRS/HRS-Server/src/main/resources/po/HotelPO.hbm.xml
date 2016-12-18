@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="po">
+    <class name="HotelPO" table="Hotel">
+        <id name="hid" type="long">
+           <column name="HOTEL_ID"></column>
+           <generator class="native"></generator>
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" not-null="true"></column>
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" not-null="false"></column>
+        </property>
+        <property name="imageData" type="binary">
+            <column name="IMAGE" not-null="false"></column>
+        </property>
+        <property name="facility" type="string">
+            <column name="FACILITY" not-null="false"></column>
+        </property>
+        <property name="address" type="string">
+            <column name="ADDRESS" not-null="false"></column>
+        </property>
+        <property name="service" type="string">
+            <column name="SERVICE" not-null="false"></column>
+        </property>
+    	<property name="score" type="double">
+    	    <column name="SCORE" not-null="false"></column>
+    	</property>
+    	 <property name="rank" not-null="false">
+   			<type name="org.hibernate.type.EnumType">
+    			<param name="enumClass">info.Rank</param>
+   				 <!--
+    			 12为java.sql.Types.VARCHAR常量值，即保存枚举的字面值到数据库。如果不指定type参数，保存枚举的索引值(从0开始)到数据库
+    			 -->
+  		    	<param name="type">12</param>
+ 		   </type>
+        </property>
+        <one-to-one name="hotelworker" class="po.HotelWorkerPO" cascade="all" property-ref="hotel"></one-to-one>
+        <many-to-one 
+            name="businessCity"
+            column="BCITY_ID"
+            class="info.BusinessCity"
+            not-null="true"
+            lazy="proxy"
+        />
+         <many-to-one 
+            name="businessCircle"
+            column="BCIRCLE_ID"
+            class="info.BusinessCircle"
+            not-null="true"
+            lazy="proxy"
+        />
+        <set name="comments" inverse="true" cascade="all" lazy="true">
+            <key column="COMMENT_ID"></key>
+            <one-to-many class="CommentPO"/>
+        </set>
+        <set name="orders" inverse="true" cascade="all" lazy="true">
+            <key column="ORDER_ID"></key>
+            <one-to-many class="OrderPO"/>
+        </set>
+        <set name="rooms" inverse="true" cascade="all" lazy="true">
+            <key column="HOTEL_ID"></key>
+            <one-to-many class="info.HotelItem"/>
+        </set>
+        <set name="strategies" inverse="true" cascade="all" lazy="true">
+            <key column="S_ID"></key>
+            <one-to-many class="StrategyPO"/>
+        </set>
+    </class>
+</hibernate-mapping>
