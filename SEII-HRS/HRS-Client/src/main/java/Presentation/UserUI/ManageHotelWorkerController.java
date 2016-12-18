@@ -3,8 +3,12 @@ package Presentation.UserUI;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.Notifications;
 
 import info.BusinessCircle;
 import info.BusinessCity;
@@ -18,38 +22,97 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import logic.service.HotelLogicService;
+import logic.service.MemberLogicService;
+import logic.service.ServiceFactory;
+import resultmessage.MemberResultMessage;
 import rmi.RemoteHelper;
+import vo.BasicHotelVO;
+import vo.ManageHotelVO;
+import vo.ManageHotelWorkerVO;
 
 public class ManageHotelWorkerController implements Initializable {
 	@FXML TextField searchHotel;
-	@FXML TableView<hotelInfo> hotelData;
+	@FXML ListView<ManageHotelVO> hotellist;
 	@FXML TextField workerName;
 	@FXML TextField password;
 	@FXML TableColumn addressCol;
 	@FXML TableColumn companyCol;
-	
+	private ServiceFactory servicefactory;
+	private MemberLogicService memberlogic;
+	private ListWrapper<ManageHotelVO> allhotel;
+	private ObservableList<ManageHotelVO>hotelData;
 	String[] worker={"xiaoa","xiao b"};
 	String[] workerpassword={"sss","sdasd"};
 	public void Search()
 	{
 		
 		String hotel=searchHotel.getText();
-		//����Member.getAllHotelWorker�ӿ� �õ�info  
-		ObservableList<hotelInfo> hotellist=FXCollections.observableArrayList(
+		try {
+			memberlogic=servicefactory.getMemberLogicService();
+			allhotel=memberlogic.getAllHotelWorker(hotel);//得到相同名字的全部酒店信息
+			List<ManageHotelVO> hotels = new ArrayList<ManageHotelVO>();
+			Iterator<ManageHotelVO> it;
+			it=allhotel.iterator();
+			while(it.hasNext())
+			{
+				hotels.add(it.next());
+			}
+			hotelData=FXCollections.observableArrayList(hotels);
+			hotellist.setCellFactory(e->new hotellistCell());
+			hotellist.setItems(hotelData);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	/*	ObservableList<hotelInfo> hotellist=FXCollections.observableArrayList(
 				new hotelInfo(worker[0],workerpassword[0]),
 				new hotelInfo(worker[1],workerpassword[1])
 				);
 		addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
 		companyCol.setCellValueFactory(new PropertyValueFactory<>("company"));
-		hotelData.setItems(hotellist);
-		show();//���÷����Ӳ��� ��workerinfo����ȥ
+		hotelData.setItems(hotellist);*/
+		show();
 
+	}
+	
+	class hotellistCell extends ListCell<ManageHotelVO>
+	{
+		public void updateItem(ManageHotelVO item,boolean empty)
+		{
+			super.updateItem(item, empty);
+			if(item!=null)
+			{
+				GridPane cell=new GridPane();
+			     cell.prefWidthProperty().bind(hotellist.widthProperty().subtract(2));
+			     Label address=new Label(item.getBussinesscity().getName());//得到城市名称
+			     address.setFont(new Font("Youyuan",20));
+			     Label circle=new Label(item.getBussinesscircle().getName());//得到商圈名称
+			     circle.setFont(new Font("Youyuan",20));
+			     Label hotelName=new Label(item.getHotelname());//得到酒店名称
+			     hotelName.setFont(new Font("Youyuan",20));
+			     
+			     cell.add(address,0,0);
+			     cell.add(circle, 1, 0);
+			     cell.add(hotelName, 2, 0);
+			     setGraphic(cell);
+			}
+			else
+			{
+				setGraphic(null);
+			}
+		}
 	}
 	
 	public void Cancel()
@@ -71,35 +134,52 @@ public class ManageHotelWorkerController implements Initializable {
 		}
 		else
 		{
+			ManageHotelVO vo;
+			ManageHotelWorkerVO commitvo=null;
+			vo=hotellist.getSelectionModel().getSelectedItem();
+			long hotelid=vo.getHotelid();
+			commitvo.setHotelid(hotelid);
 			String nameup=workerName.getText();
+			commitvo.setName(nameup);
 			String passup=password.getText();
-			//װ��ManageHotelWorkerVO
-			Stage clickCheck=new Stage();
-			  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
-			  Scene scene=new Scene(root,275,125);
-			  clickCheck.setScene(scene);
-			  clickCheck.show();
-			  workerName.clear();
-			  password.clear();
+			commitvo.setPassword(passup);
+			if(MemberResultMessage.SUCCESS==memberlogic.updateHotelWorker(commitvo))
+			{
+				Stage clickCheck=new Stage();
+				  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
+				  Scene scene=new Scene(root,275,125);
+				  clickCheck.setScene(scene);
+				  clickCheck.show();
+				  workerName.clear();
+				  password.clear();
+			}
+			else if(MemberResultMessage.FAIL_PASSWORDLENGTH==memberlogic.updateHotelWorker(commitvo))
+			{
+				Notifications.create().owner(searchHotel.getScene().getWindow()).title("错误信息").text("密码不符合格式").showError();
+				
+			}
+			
+	
 		}
 	}
 	
 	public void show()
 	{
-		int num=hotelData.getSelectionModel().getSelectedIndex();
-			if(num==-1)
+		 	ManageHotelVO selecvo;
+		 	selecvo=hotellist.getSelectionModel().getSelectedItem();
+			if(selecvo==null)
 			{
 				
 			}
 			else
 			{
-				workerName.setText(worker[num]);
-				password.setText(workerpassword[num]);
+				workerName.setText(selecvo.getName());
+				password.setText(selecvo.getPassword());
 			}
 	
 	
 	}
-	public static class hotelInfo
+/*	public static class hotelInfo
 	{
 		private SimpleStringProperty address;
 		private SimpleStringProperty company;
@@ -130,30 +210,14 @@ public class ManageHotelWorkerController implements Initializable {
 		{
 			company.set(com);
 		}
-	}
+	}*/
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			System.out.println(RemoteHelper.getInstance().getServiceFactory().getHotelLogicService());
-			ListWrapper<BusinessCity> bc = RemoteHelper.getInstance().getServiceFactory().getHotelLogicService().getCity();
-			System.out.println(2);
-			if(bc==null)
-				System.out.println("wrong");
-			Iterator<BusinessCity> it = bc.iterator();
-			while(it.hasNext()){
-				BusinessCity bcc = it.next();
-				System.out.println(bcc.getName());
-				Iterator<BusinessCircle> bci = bcc.getCircleIterator();
-				while(bci.hasNext()){
-					BusinessCircle bcci = bci.next();
-					System.out.println(bcci.getName());
-				}
-				System.out.println("----------------------");
-			}
-		} catch (RemoteException e) {
-			e.printStackTrace();
+		if(servicefactory==null)
+		{
+			servicefactory=RemoteHelper.getInstance().getServiceFactory();
 		}
 		
 	}
