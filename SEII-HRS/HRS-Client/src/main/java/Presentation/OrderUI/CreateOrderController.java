@@ -24,6 +24,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import logic.service.HotelLogicService;
 import logic.service.ServiceFactory;
 import logic.service.StrategyLogicService;
@@ -49,6 +50,7 @@ public class CreateOrderController implements Initializable{
 	@FXML Label orderDes;
 	@FXML Label lateCheck;
 	@FXML TextField peopleNum;
+	@FXML GridPane mainPane;
 	private long userid;
 	private long hotelid;
 	private ServiceFactory  serviceFactory;
@@ -256,7 +258,8 @@ public class CreateOrderController implements Initializable{
 		Object o=DataController.getInstance().get("UserId");
 		userid=(long)o;
 		DataController.getInstance().put("UserId", (Object)userid);
-	
+		
+		DataController.getInstance().put("creatOrderPane", mainPane);// for hotelbrowse's popover
 
 		//hotelid=(long)o;
 		//DataController.getInstance().put("selectHotel", (Object)hotelid);

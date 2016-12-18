@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HotelUI.HotelBrowseController">
+<GridPane fx:id="mainPane" prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HotelUI.HotelBrowseController">
    <rowConstraints>
       <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="174.0" />
       <RowConstraints maxHeight="422.0" minHeight="10.0" prefHeight="351.0" />
@@ -21,45 +21,45 @@
    <children>
       <TextField fx:id="searchField" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="90.0" right="100.0" top="1.0" />
+            <Insets bottom="20.0" left="90.0" right="100.0" top="1.0" />
          </GridPane.margin></TextField>
       <Button mnemonicParsing="false" onAction="#search" text="搜索" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="380.0" />
+            <Insets bottom="20.0" left="380.0" />
          </GridPane.margin></Button>
       <Label opacity="0.17" prefHeight="15.0" prefWidth="132.0" text="城市、商圈、酒店名称" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="100.0" />
+            <Insets bottom="20.0" left="100.0" />
          </GridPane.margin>
       </Label>
       <ComboBox fx:id="businessCityBox" onAction="#selectCity" prefWidth="150.0" promptText="城市">
          <GridPane.margin>
-            <Insets left="35.0" top="145.0" />
+            <Insets bottom="90.0" left="35.0" top="145.0" />
          </GridPane.margin>
       </ComboBox>
       <ComboBox fx:id="circleBox" onAction="#selectCircle" prefWidth="150.0" promptText="商圈" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="10.0" right="360.0" top="145.0" />
+            <Insets bottom="90.0" left="10.0" right="360.0" top="145.0" />
          </GridPane.margin>
       </ComboBox>
       <Label text="预计入住：" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="150.0" top="140.0" />
+            <Insets bottom="85.0" left="150.0" top="140.0" />
          </GridPane.margin>
       </Label>
       <DatePicker fx:id="checkin" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="220.0" right="110.0" top="140.0" />
+            <Insets bottom="85.0" left="220.0" right="110.0" top="140.0" />
          </GridPane.margin>
       </DatePicker>
       <Label text="预计退房：" GridPane.columnIndex="1">
          <GridPane.margin>
-            <Insets left="380.0" top="140.0" />
+            <Insets bottom="85.0" left="380.0" top="140.0" />
          </GridPane.margin>
       </Label>
       <DatePicker fx:id="checkout" onAction="#detailCheck" prefHeight="30.0" prefWidth="162.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
          <GridPane.margin>
-            <Insets left="450.0" right="30.0" top="140.0" />
+            <Insets bottom="85.0" left="450.0" right="30.0" top="140.0" />
          </GridPane.margin>
       </DatePicker>
       <ListView fx:id="hotelListView" prefHeight="351.0" prefWidth="661.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
@@ -68,5 +68,33 @@
          </GridPane.margin>
       </ListView>
       <Button mnemonicParsing="false" onAction="#goHotelDetail" text="浏览详细信息" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-   </children>
+      <Label text="限定条件:" GridPane.columnSpan="2">
+         <GridPane.margin>
+            <Insets left="10.0" top="150.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="18.0" />
+         </font>
+         </Label>
+      <ChoiceBox fx:id="limitStar" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <GridPane.margin>
+            <Insets left="-50.0" top="145.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <ChoiceBox fx:id="limitRank" prefWidth="150.0" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="120.0" top="145.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <ChoiceBox fx:id="limitPrice" prefWidth="150.0" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="290.0" top="145.0" />
+         </GridPane.margin>
+      </ChoiceBox>
+      <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <GridPane.margin>
+            <Insets left="-120.0" right="20.0" top="100.0" />
+         </GridPane.margin>
+      </Separator>
+         </children>
 </GridPane>

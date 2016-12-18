@@ -27,9 +27,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -47,6 +49,8 @@ import rmi.RemoteHelper;
 import vo.BasicHotelVO;
 import vo.HotelItemVO;
 import vo.SearchHotelVO;
+
+import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.PopOver;
 
@@ -54,14 +58,17 @@ import org.controlsfx.control.PopOver;
 public class HotelBrowseController implements Initializable{
 	@FXML TextField searchField;
 	@FXML Button hotelSearchButton;
-
+	@FXML GridPane mainPane;
 	@FXML ComboBox<String> businessCityBox;
 	@FXML ComboBox<String> circleBox;
-
+	@FXML CheckComboBox<String> limitBox;
 	@FXML ChoiceBox<String> roomChoiceBox;
 	@FXML ListView<BasicHotelVO> hotelListView;
 	@FXML DatePicker checkin;
 	@FXML DatePicker checkout;
+	@FXML ChoiceBox<String> limitStar;
+	@FXML ChoiceBox<String> limitRank;
+	@FXML ChoiceBox<String> limitPrice;
 	private ServiceFactory serviceFactory;
 	private ListWrapper<BusinessCity> bc;
 	private long userid;
@@ -73,12 +80,22 @@ public class HotelBrowseController implements Initializable{
     private HotelLogicService hotelbl;
     private ListWrapper<BasicHotelVO>  basicHotel;
     private ObservableList<BasicHotelVO> hotelListViewData;
+    private ObservableList<String> limitStarList;//为checkcomboBox设置限制条件
+    private ObservableList<String> limitRankList;
+    private ObservableList<String> limitPriceList;
+    
 	public void search(ActionEvent e)
 	{
 		String searchinfo=searchField.getText();
 		
 		
 		
+	}
+	
+	
+	//用组合限制条件搜索
+	public void searchInChoice()
+	{
 		
 	}
 	
@@ -101,6 +118,10 @@ public class HotelBrowseController implements Initializable{
 				hotelListViewData=FXCollections.observableArrayList(hotels);
 				hotelListView.setCellFactory(e->new hotelListCell());
 				hotelListView.setItems(hotelListViewData);
+				
+				
+				
+				
 			//	Object o=(Object)hotelListView.getSelectionModel().getSelectedItem().getHotelId();//得到选中的酒店的id
 			//	DataController.getInstance().put("selectHotel", o);
 			} catch (RemoteException e) {
@@ -209,9 +230,9 @@ public class HotelBrowseController implements Initializable{
 
 		popOver.setTitle("下订单");
 
-
-		GridPane pane=new GridPane();
-		
+		GridPane pane=(GridPane)DataController.getInstance().get("creatOrderPane");
+		popOver.setContentNode(pane);
+		popOver.show(((Node)e.getSource()),e.getScreenX(),e.getScreenY());
 		
 	}
 	
@@ -372,6 +393,35 @@ public class HotelBrowseController implements Initializable{
 			
 			businessCityBox.getItems().addAll(cities);
 			
+			
+		/*	limitList=FXCollections.observableArrayList();
+			limitList.add("星级");
+			limitList.add("评分");
+			limitList.add("房间价格");
+			limitBox=new CheckComboBox(limitList);
+
+			mainPane.add(limitBox, 0, 0);
+			mainPane.setMargin(limitBox, new Insets(150,0,0,150));*/
+			limitStarList=FXCollections.observableArrayList();
+			limitStarList.add("三星级(及以下)");
+			limitStarList.add("四星级");
+			limitStarList.add("五星级");
+			limitStar.setItems(limitStarList);
+			limitStar.setValue("三星级(及以下)");
+			
+			limitRankList=FXCollections.observableArrayList();
+			limitRankList.add("4.0~5.0");
+			limitRankList.add("3.0~4.0");
+			limitRankList.add("3.0以下");
+			limitRank.setItems(limitRankList);
+			limitRank.setValue("4.0~5.0");
+			
+			limitPriceList=FXCollections.observableArrayList();
+			limitPriceList.add("200元以下");
+			limitPriceList.add("200~500");
+			limitPriceList.add("500元以上");
+			limitPrice.setItems(limitPriceList);
+			limitPrice.setValue("200元以下");
 			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
