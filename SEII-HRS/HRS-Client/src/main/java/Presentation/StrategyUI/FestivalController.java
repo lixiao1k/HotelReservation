@@ -30,27 +30,41 @@ public class FestivalController implements Initializable{
 	@FXML 
 	protected void Create() throws RemoteException{
 		StrategyVO svo=new StrategyVO();
-		svo.setName(Name.getText());
-		svo.setOff(Double.valueOf(Off.getText()));
-		ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
-		Iterator<StrategyType> it=typelist.iterator();
-		while(it.hasNext()){
-			StrategyType type=it.next();
-			if(type.getName().equals("VIPCircle"))
-				svo.setStrategyType(type);
-				break;
-		}
-		svo.setExtraInfo(Time1.getText()+"|"+Time2.getText());
-		svo.setHotelId(-1);
-		StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
-		if(m==StrategyResultMessage.SUCCESS){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
-		}
-		if(m==StrategyResultMessage.FAIL_WRONGINFO){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
-		}
-		if(m==StrategyResultMessage.FAIL_WRONG){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
+		if(Name.getText().equals("")){//检测名字
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入策略名").showWarning();
+		}else{
+			svo.setName(Name.getText());
+			double off=0;
+			if(Off.getText().equals("")){//检测折扣
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入折扣").showWarning();
+			}else{
+				off=Double.valueOf(Off.getText());
+				svo.setOff(off);
+				if(Time1.getText().equals("")||Time2.getText().equals("")){//检测时间
+					Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入时间").showWarning();
+				}else{
+					svo.setExtraInfo(Time1.getText()+"|"+Time2.getText());
+					svo.setHotelId(-1);
+					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+					Iterator<StrategyType> it=typelist.iterator();
+					while(it.hasNext()){
+						StrategyType type=it.next();
+						if(type.getName().equals("Festival"))
+							svo.setStrategyType(type);
+							break;
+					}
+					StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
+					if(m==StrategyResultMessage.SUCCESS){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
+					}
+					if(m==StrategyResultMessage.FAIL_WRONGINFO){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
+					}
+					if(m==StrategyResultMessage.FAIL_WRONG){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
+					}
+				}
+			}
 		}
 	}
 	
