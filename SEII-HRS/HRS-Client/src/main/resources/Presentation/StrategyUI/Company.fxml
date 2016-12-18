@@ -10,7 +10,7 @@
 
 <GridPane fx:id="mainPane" hgap="10.0" maxHeight="430.0" minHeight="430.0" prefHeight="430.0" prefWidth="768.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.StrategyUI.CompanyController">
   <children>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="87.0" text="折扣：" GridPane.columnIndex="0" GridPane.rowIndex="3">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="87.0" text="折扣：" textFill="RED" GridPane.columnIndex="0" GridPane.rowIndex="3">
       <font>
         <Font size="14.0" fx:id="x1" />
       </font>
@@ -23,12 +23,12 @@
         <Insets left="130.0" fx:id="x3" />
       </GridPane.margin>
     </TextField>
-    <Button mnemonicParsing="false" onAction="#Create" prefHeight="34.0001220703125" prefWidth="88.0" text="生成策略" GridPane.columnIndex="0" GridPane.rowIndex="4">
+    <Button mnemonicParsing="false" onAction="#Create" prefHeight="34.0001220703125" prefWidth="88.0" text="生成策略" textFill="RED" GridPane.columnIndex="0" GridPane.rowIndex="4">
       <GridPane.margin>
         <Insets left="600.0" top="30.0" />
       </GridPane.margin>
     </Button>
-    <Label font="$x1" prefHeight="34.0" prefWidth="88.0" text="策略名：" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Label font="$x1" prefHeight="34.0" prefWidth="88.0" text="策略名：" textFill="RED" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <GridPane.margin>
         <Insets left="50.0" fx:id="x2" />
       </GridPane.margin>
@@ -38,7 +38,7 @@
         <Insets left="130.0" fx:id="x3" />
       </GridPane.margin>
     </TextField>
-    <Label font="$x1" prefHeight="27.0" prefWidth="88.0" text="合作企业：" GridPane.columnIndex="0" GridPane.rowIndex="2">
+    <Label font="$x1" prefHeight="27.0" prefWidth="88.0" text="合作企业：" textFill="RED" GridPane.columnIndex="0" GridPane.rowIndex="2">
       <GridPane.margin>
         <Insets left="35.0" />
       </GridPane.margin>

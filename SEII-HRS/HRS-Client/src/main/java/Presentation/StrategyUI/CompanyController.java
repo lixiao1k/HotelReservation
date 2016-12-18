@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.controlsfx.control.ListSelectionView;
+import org.controlsfx.control.Notifications;
 
 import datacontroller.DataController;
 import info.ListWrapper;
@@ -17,10 +18,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import logic.service.HotelLogicService;
 import logic.service.StrategyLogicService;
+import resultmessage.StrategyResultMessage;
 import rmi.RemoteHelper;
 import vo.HotelItemVO;
 import vo.StrategyItemVO;
@@ -71,7 +76,16 @@ public class CompanyController implements Initializable{
 			}
 		}
 		svo.setItems(voset);
-		strategyLogic.create(svo);
+		StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
+		if(m==StrategyResultMessage.SUCCESS){
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
+		}
+		if(m==StrategyResultMessage.FAIL_WRONGINFO){
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
+		}
+		if(m==StrategyResultMessage.FAIL_WRONG){
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
+		}
 	}
 	
 	public void initlistsev() throws RemoteException{
@@ -84,6 +98,15 @@ public class CompanyController implements Initializable{
 			sourcelist.add(room);
 		}
 		Room.setSourceItems(sourcelist);
+		Room.setSourceItems(sourcelist);
+		Label sourceheader=new Label("所有房间：");
+		sourceheader.setFont(new Font(14));
+		sourceheader.setTextFill(Color.RED);
+		Room.setSourceHeader(sourceheader);
+		Label targetheader=new Label("使用策略的房间：");
+		targetheader.setFont(new Font(14));
+		targetheader.setTextFill(Color.RED);
+		Room.setTargetHeader(targetheader);
 		mainPane.add(Room, 0, 1);
 	}
 	

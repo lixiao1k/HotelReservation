@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.controlsfx.control.Notifications;
+
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.ListWrapper;
@@ -19,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import logic.service.HotelLogicService;
 import logic.service.StrategyLogicService;
+import resultmessage.StrategyResultMessage;
 import rmi.RemoteHelper;
 import vo.StrategyVO;
 
@@ -45,7 +48,17 @@ public class VIPCircleController implements Initializable{
 				break;
 		}
 		svo.setExtraInfo(Circle.getSelectionModel().getSelectedItem());
-		strategyLogic.create(svo);
+		svo.setHotelId(-1);
+		StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
+		if(m==StrategyResultMessage.SUCCESS){
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
+		}
+		if(m==StrategyResultMessage.FAIL_WRONGINFO){
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
+		}
+		if(m==StrategyResultMessage.FAIL_WRONG){
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
+		}
 	}
 	
 	public void initcircle() throws RemoteException{

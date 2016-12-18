@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.controlsfx.control.ListSelectionView;
+import org.controlsfx.control.Notifications;
 
 import datacontroller.DataController;
 import info.Room;
@@ -17,10 +18,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import logic.service.HotelLogicService;
 import logic.service.StrategyLogicService;
+import resultmessage.StrategyResultMessage;
 import rmi.RemoteHelper;
 import vo.HotelItemVO;
 import vo.StrategyItemVO;
@@ -39,38 +44,60 @@ public class BirthController implements Initializable{
 	@FXML 
 	protected void Create() throws RemoteException{
 		StrategyVO svo=new StrategyVO();
-		svo.setName(Name.getText());
-		svo.setHotelId(hotelid);
-		double off=Double.valueOf(Off.getText());
-		svo.setOff(off);
-		ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
-		Iterator<StrategyType> it=typelist.iterator();
-		while(it.hasNext()){
-			StrategyType type=it.next();
-			if(type.getName().equals("Birth"))
-				svo.setStrategyType(type);
-				break;
+		if(Name.getText().equals("")){
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入策略名").showWarning();
+		}else{
+			svo.setName(Name.getText());
 		}
-		svo.setExtraInfo("");
-		ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
-		Set<StrategyItemVO> voset=new HashSet<>();
-		ObservableList<Room> targetlist=Room.getTargetItems();
-		for(Room room:targetlist){
-			Iterator<HotelItemVO> itt=volist.iterator();
-			while(itt.hasNext()){
-				HotelItemVO hvo=itt.next();
-				if(hvo.getRoom().getRid()==room.getRid()){
-					StrategyItemVO sivo=new StrategyItemVO();
-					sivo.setRoom(room);
-					sivo.setPriceBefore(hvo.getPrice());
-					sivo.setOff(off);
-					sivo.setPriceAfter(hvo.getPrice()*(1-off));
-					voset.add(sivo);
+		svo.setHotelId(hotelid);
+		double off=0;
+		if(Off.getText().equals("")){
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入折扣").showWarning();
+		}else{
+			off=Double.valueOf(Off.getText());
+			svo.setOff(off);
+			ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+			Iterator<StrategyType> it=typelist.iterator();
+			while(it.hasNext()){
+				StrategyType type=it.next();
+				if(type.getName().equals("Birth"))
+					svo.setStrategyType(type);
+					break;
+			}
+			svo.setExtraInfo("");
+			ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
+			Set<StrategyItemVO> voset=new HashSet<>();
+			ObservableList<Room> targetlist=Room.getTargetItems();
+			if(targetlist.isEmpty()){
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请选择房间").showWarning();
+			}else{
+				for(Room room:targetlist){
+					Iterator<HotelItemVO> itt=volist.iterator();
+					while(itt.hasNext()){
+						HotelItemVO hvo=itt.next();
+						if(hvo.getRoom().getRid()==room.getRid()){
+							StrategyItemVO sivo=new StrategyItemVO();
+							sivo.setRoom(room);
+							sivo.setPriceBefore(hvo.getPrice());
+							sivo.setOff(off);
+							sivo.setPriceAfter(hvo.getPrice()*(1-off));
+							voset.add(sivo);
+						}
+					}
+				}
+				svo.setItems(voset);
+				StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
+				if(m==StrategyResultMessage.SUCCESS){
+					Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
+				}
+				if(m==StrategyResultMessage.FAIL_WRONGINFO){
+					Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
+				}
+				if(m==StrategyResultMessage.FAIL_WRONG){
+					Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
 				}
 			}
 		}
-		svo.setItems(voset);
-		strategyLogic.create(svo);
 	}
 	
 	public void initlistsev() throws RemoteException{
@@ -83,6 +110,14 @@ public class BirthController implements Initializable{
 			sourcelist.add(room);
 		}
 		Room.setSourceItems(sourcelist);
+		Label sourceheader=new Label("所有房间：");
+		sourceheader.setFont(new Font(14));
+		sourceheader.setTextFill(Color.RED);
+		Room.setSourceHeader(sourceheader);
+		Label targetheader=new Label("使用策略的房间：");
+		targetheader.setFont(new Font(14));
+		targetheader.setTextFill(Color.RED);
+		Room.setTargetHeader(targetheader);
 		mainPane.add(Room, 0, 1);
 	}
 	

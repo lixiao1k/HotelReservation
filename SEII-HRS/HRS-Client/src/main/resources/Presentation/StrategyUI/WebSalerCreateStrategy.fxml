@@ -22,7 +22,7 @@
         <Insets bottom="30.0" left="120.0" />
       </GridPane.margin>
     </ChoiceBox>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="149.0" text="策略类型：" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="149.0" text="策略类型：" textFill="RED" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <font>
         <Font size="14.0" fx:id="x1" />
       </font>
