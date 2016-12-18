@@ -25,31 +25,35 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="197.0" text="订单评分:" GridPane.rowIndex="1">
+      <Label alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="83.0" text="订单评分:" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font size="18.0" />
          </font>
+         <GridPane.margin>
+            <Insets left="140.0" />
+         </GridPane.margin>
       </Label>
-      <ComboBox fx:id="degreeComboBox" prefWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label alignment="TOP_RIGHT" prefHeight="139.0" prefWidth="197.0" text="订单评价:" GridPane.rowIndex="2">
+      <ComboBox fx:id="degreeComboBox" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+      <Label alignment="TOP_RIGHT" prefHeight="38.0" prefWidth="82.0" text="订单评价:" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <font>
             <Font size="18.0" />
          </font>
+         <GridPane.margin>
+            <Insets left="140.0" top="65.0" />
+         </GridPane.margin>
       </Label>
-      <TextField fx:id="commentTextField" prefHeight="203.0" prefWidth="491.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets right="35.0" top="58.0" />
-         </GridPane.margin>
-      </TextField>
-      <CheckBox fx:id="annoyCheckBox" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="21.0" prefWidth="91.0" text="匿名评价" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets bottom="50.0" left="160.0" />
-         </GridPane.margin>
-      </CheckBox>
-      <Button mnemonicParsing="false" onAction="#save" prefHeight="37.0" prefWidth="61.0" text="提交" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <Button mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="55.0" text="提交" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets left="160.0" top="25.0" />
          </GridPane.margin>
       </Button>
+      <TextArea maxHeight="100.0" maxWidth="400.0" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets top="65.0" />
+         </GridPane.margin>
+      </TextArea>
    </children>
 </GridPane>

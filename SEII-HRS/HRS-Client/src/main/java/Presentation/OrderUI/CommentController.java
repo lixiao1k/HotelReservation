@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 public class CommentController implements Initializable{
     @FXML ComboBox<String> degreeComboBox;
     @FXML TextField commentTextField;
-    @FXML CheckBox annoyCheckBox;
     ObservableList<String> degreeData=FXCollections.observableArrayList("1","2","3","4","5");
     @FXML
     protected void save(ActionEvent e){
