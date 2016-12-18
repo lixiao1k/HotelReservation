@@ -109,10 +109,10 @@ public class CreditBrowseController implements Initializable{
 			super.updateItem(item, empty);
 			if(item!=null){
 				GridPane cell=new GridPane();
-				Label id=new Label("ID:"+Long.toString(item.getUserId()));
-				id.setFont(new Font("KaiTi_GB2312",15));
-				id.setPrefWidth(150);
-				id.setPrefHeight(50);
+//				Label id=new Label("ID:"+Long.toString(item.);
+//				id.setFont(new Font("KaiTi_GB2312",15));
+//				id.setPrefWidth(150);
+//				id.setPrefHeight(50);
 				Label time=new Label(item.getDate().toString());
 				time.setFont(new Font("KaiTi_GB2312",15));
 				Label delta=new Label(Integer.toString(item.getDelta()));
@@ -128,10 +128,10 @@ public class CreditBrowseController implements Initializable{
 				Label credit=new Label("信用总值:"+Integer.toString(item.getCredit()));
 				credit.setFont(new Font("KaiTi_GB2312",20));
 				credit.setPrefWidth(200);
-				cell.add(id, 0, 0);
-				cell.add(time,3,0);
-				cell.add(delta, 1, 0);
-				cell.add(credit, 2, 0);
+//				cell.add(id, 0, 0);
+				cell.add(time,2,0);
+				cell.add(delta, 0, 0);
+				cell.add(credit, 1, 0);
 				setGraphic(cell);
 			}else{
 				setGraphic(null);
