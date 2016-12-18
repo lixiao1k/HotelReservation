@@ -1,4 +1,4 @@
-package data.dao.Impl;
+package data.dao.impl;
 
 import data.dao.CommentDao;
 import data.dao.CreditDao;

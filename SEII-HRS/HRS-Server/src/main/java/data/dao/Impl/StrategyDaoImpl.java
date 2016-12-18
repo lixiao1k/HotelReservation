@@ -1,4 +1,4 @@
-package data.dao.Impl;
+package data.dao.impl;
 
 import java.rmi.RemoteException;
 import java.util.List;
