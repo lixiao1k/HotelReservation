@@ -37,27 +37,39 @@ public class VIPCircleController implements Initializable{
 	@FXML 
 	protected void Create() throws RemoteException{
 		StrategyVO svo=new StrategyVO();
-		svo.setName(Name.getText());
-		svo.setOff(Double.valueOf(Off.getText()));
-		ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
-		Iterator<StrategyType> it=typelist.iterator();
-		while(it.hasNext()){
-			StrategyType type=it.next();
-			if(type.getName().equals("VIPCircle"))
-				svo.setStrategyType(type);
-				break;
-		}
-		svo.setExtraInfo(Circle.getSelectionModel().getSelectedItem());
-		svo.setHotelId(-1);
-		StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
-		if(m==StrategyResultMessage.SUCCESS){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
-		}
-		if(m==StrategyResultMessage.FAIL_WRONGINFO){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
-		}
-		if(m==StrategyResultMessage.FAIL_WRONG){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
+		if(Name.getText().equals("")){//检测名字
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入策略名").showWarning();
+		}else{
+			svo.setName(Name.getText());
+			double off=0;
+			if(Off.getText().equals("")){//检测折扣
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入折扣").showWarning();
+			}else{
+				off=Double.valueOf(Off.getText());
+				svo.setOff(off);
+				if(Circle.getSelectionModel().isEmpty()){
+					svo.setExtraInfo(Circle.getSelectionModel().getSelectedItem());
+					svo.setHotelId(-1);
+					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+					Iterator<StrategyType> it=typelist.iterator();
+					while(it.hasNext()){
+						StrategyType type=it.next();
+						if(type.getName().equals("VIPCircle"))
+							svo.setStrategyType(type);
+							break;
+					}
+					StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
+					if(m==StrategyResultMessage.SUCCESS){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
+					}
+					if(m==StrategyResultMessage.FAIL_WRONGINFO){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
+					}
+					if(m==StrategyResultMessage.FAIL_WRONG){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
+					}
+				}
+			}
 		}
 	}
 	

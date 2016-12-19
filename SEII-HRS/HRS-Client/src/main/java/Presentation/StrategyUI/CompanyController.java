@@ -45,46 +45,60 @@ public class CompanyController implements Initializable{
 	@FXML 
 	protected void Create() throws RemoteException{
 		StrategyVO svo=new StrategyVO();
-		svo.setName(Name.getText());
-		svo.setHotelId(hotelid);
-		double off=Double.valueOf(Off.getText());
-		svo.setOff(off);
-		ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
-		Iterator<StrategyType> it=typelist.iterator();
-		while(it.hasNext()){
-			StrategyType type=it.next();
-			if(type.getName().equals("Company"))
-				svo.setStrategyType(type);
-				break;
-		}
-		svo.setExtraInfo(Company.getText());
-		ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
-		Set<StrategyItemVO> voset=new HashSet<>();
-		ObservableList<Room> targetlist=Room.getTargetItems();
-		for(Room room:targetlist){
-			Iterator<HotelItemVO> itt=volist.iterator();
-			while(itt.hasNext()){
-				HotelItemVO hvo=itt.next();
-				if(hvo.getRoom().getRid()==room.getRid()){
-					StrategyItemVO sivo=new StrategyItemVO();
-					sivo.setRoom(room);
-					sivo.setPriceBefore(hvo.getPrice());
-					sivo.setOff(off);
-					sivo.setPriceAfter(hvo.getPrice()*(1-off));
-					voset.add(sivo);
+		if(Name.getText().equals("")){//检测名字
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入策略名").showWarning();
+		}else{
+			svo.setName(Name.getText());
+			double off=0;
+			if(Off.getText().equals("")){//检测折扣
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入折扣").showWarning();
+			}else{
+				off=Double.valueOf(Off.getText());
+				svo.setOff(off);
+				if(Company.getText().equals("")){//检测企业
+					Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入合作企业").showWarning();
+				}else{
+					svo.setExtraInfo(Company.getText());
+					svo.setHotelId(hotelid);
+					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+					Iterator<StrategyType> it=typelist.iterator();
+					while(it.hasNext()){
+						StrategyType type=it.next();
+						if(type.getName().equals("Company"))
+							svo.setStrategyType(type);
+							break;
+					}
+					
+					ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
+					Set<StrategyItemVO> voset=new HashSet<>();
+					ObservableList<Room> targetlist=Room.getTargetItems();
+					for(Room room:targetlist){
+						Iterator<HotelItemVO> itt=volist.iterator();
+						while(itt.hasNext()){
+							HotelItemVO hvo=itt.next();
+							if(hvo.getRoom().getRid()==room.getRid()){
+								StrategyItemVO sivo=new StrategyItemVO();
+								sivo.setRoom(room);
+								sivo.setPriceBefore(hvo.getPrice());
+								sivo.setOff(off);
+								sivo.setPriceAfter(hvo.getPrice()*(1-off));
+								voset.add(sivo);
+							}
+						}
+					}
+					svo.setItems(voset);
+					StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
+					if(m==StrategyResultMessage.SUCCESS){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
+					}
+					if(m==StrategyResultMessage.FAIL_WRONGINFO){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
+					}
+					if(m==StrategyResultMessage.FAIL_WRONG){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
+					}
 				}
 			}
-		}
-		svo.setItems(voset);
-		StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
-		if(m==StrategyResultMessage.SUCCESS){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
-		}
-		if(m==StrategyResultMessage.FAIL_WRONGINFO){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
-		}
-		if(m==StrategyResultMessage.FAIL_WRONG){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
 		}
 	}
 	

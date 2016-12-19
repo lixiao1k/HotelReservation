@@ -13,12 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class CommentController implements Initializable{
     @FXML ComboBox<String> degreeComboBox;
-    @FXML TextField commentTextField;
-    @FXML CheckBox annoyCheckBox;
+    @FXML TextArea commentTextArea;
     ObservableList<String> degreeData=FXCollections.observableArrayList("1","2","3","4","5");
     @FXML
     protected void save(ActionEvent e){

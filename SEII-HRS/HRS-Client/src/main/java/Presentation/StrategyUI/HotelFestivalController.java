@@ -2,10 +2,8 @@ package Presentation.StrategyUI;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import org.controlsfx.control.ListSelectionView;
 import org.controlsfx.control.Notifications;
@@ -28,7 +26,6 @@ import logic.service.StrategyLogicService;
 import resultmessage.StrategyResultMessage;
 import rmi.RemoteHelper;
 import vo.HotelItemVO;
-import vo.StrategyItemVO;
 import vo.StrategyVO;
 
 public class HotelFestivalController implements Initializable{
@@ -46,45 +43,41 @@ public class HotelFestivalController implements Initializable{
 	@FXML 
 	protected void Create() throws RemoteException{
 		StrategyVO svo=new StrategyVO();
-		svo.setName(Name.getText());
-		double off=Double.valueOf(Off.getText());
-		svo.setOff(off);
-		ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
-		Iterator<StrategyType> it=typelist.iterator();
-		while(it.hasNext()){
-			StrategyType type=it.next();
-			if(type.getName().equals("HotelFestival"))
-				svo.setStrategyType(type);
-				break;
-		}
-		svo.setExtraInfo(Time1.getText()+"|"+Time2.getText());
-		ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
-		Set<StrategyItemVO> voset=new HashSet<>();
-		ObservableList<Room> targetlist=Room.getTargetItems();
-		for(Room room:targetlist){
-			Iterator<HotelItemVO> itt=volist.iterator();
-			while(itt.hasNext()){
-				HotelItemVO hvo=itt.next();
-				if(hvo.getRoom().getRid()==room.getRid()){
-					StrategyItemVO sivo=new StrategyItemVO();
-					sivo.setRoom(room);
-					sivo.setPriceBefore(hvo.getPrice());
-					sivo.setOff(off);
-					sivo.setPriceAfter(hvo.getPrice()*(1-off));
-					voset.add(sivo);
+		if(Name.getText().equals("")){//检测名字
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入策略名").showWarning();
+		}else{
+			svo.setName(Name.getText());
+			double off=0;
+			if(Off.getText().equals("")){//检测折扣
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入折扣").showWarning();
+			}else{
+				off=Double.valueOf(Off.getText());
+				svo.setOff(off);
+				if(Time1.getText().equals("")||Time2.getText().equals("")){//检测时间
+					Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入时间").showWarning();
+				}else{
+					svo.setExtraInfo(Time1.getText()+"|"+Time2.getText());
+					svo.setHotelId(hotelid);
+					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+					Iterator<StrategyType> it=typelist.iterator();
+					while(it.hasNext()){
+						StrategyType type=it.next();
+						if(type.getName().equals("HotelFestival"))
+							svo.setStrategyType(type);
+							break;
+					}
+					StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
+					if(m==StrategyResultMessage.SUCCESS){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
+					}
+					if(m==StrategyResultMessage.FAIL_WRONGINFO){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
+					}
+					if(m==StrategyResultMessage.FAIL_WRONG){
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
+					}
 				}
 			}
-		}
-		svo.setItems(voset);
-		StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
-		if(m==StrategyResultMessage.SUCCESS){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();
-		}
-		if(m==StrategyResultMessage.FAIL_WRONGINFO){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！不存在此酒店！").showWarning();
-		}
-		if(m==StrategyResultMessage.FAIL_WRONG){
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建失败！未知错误！").showWarning();
 		}
 	}
 	
