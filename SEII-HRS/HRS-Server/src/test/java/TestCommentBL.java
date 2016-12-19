@@ -21,7 +21,7 @@ public class TestCommentBL {
 	@Test
 	public void testreview() throws RemoteException {
 		CommentLogicService commentLogic=new CommentLogicServiceImpl();
-		CommentVO testvo=new CommentVO(99, "hao",1,1,2);
+		CommentVO testvo=new CommentVO(99, "hao",1,1,3);
 		CommentResultMessage result=null;
 		result=commentLogic.review(testvo);
 		Assert.assertEquals("Review success.", CommentResultMessage.SUCCESS, result);
