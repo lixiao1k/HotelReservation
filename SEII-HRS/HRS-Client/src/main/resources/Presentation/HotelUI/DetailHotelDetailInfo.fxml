@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="245.0" prefWidth="763.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.HotelUI.DetailHotelDetailInfoController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="酒店描述">
+          <fill>
+            <RadialGradient fx:value="radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 100.0px 100.0px, radius 200.0px, 0xff0000ff 0.0%, 0x0000ffff 30.0%, 0x000000ff 100.0%)" fx:id="x1" />
+          </fill>
+          <font>
+            <Font name="幼圆" size="20.0" fx:id="x2" />
+          </font>
+          <VBox.margin>
+            <Insets left="5.0" top="5.0" fx:id="x3" />
+          </VBox.margin>
+        </Text>
+        <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="750.0">
+          <font>
+            <Font size="15.0" fx:id="x4" />
+          </font>
+          <VBox.margin>
+            <Insets bottom="3.0" left="5.0" top="3.0" fx:id="x5" />
+          </VBox.margin>
+        </Text>
+        <Separator prefWidth="200.0">
+          <VBox.margin>
+            <Insets left="5.0" />
+          </VBox.margin>
+        </Separator>
+        <Text fill="$x1" font="$x2" strokeType="OUTSIDE" strokeWidth="0.0" text="酒店设施" VBox.margin="$x3" />
+        <Text fx:id="facility" font="$x4" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="750.0" VBox.margin="$x5" />
+        <Separator prefWidth="200.0" />
+        <Text fill="$x1" font="$x2" strokeType="OUTSIDE" strokeWidth="0.0" text="酒店服务" VBox.margin="$x3" />
+        <Text fx:id="service" font="$x4" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="750.0" VBox.margin="$x5" />
+      </children>
+    </VBox>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>

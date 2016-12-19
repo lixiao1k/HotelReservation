@@ -17,4 +17,15 @@ public class DataController {
 	public Object get(String name){
 		return map.get(name);
 	}
+	public void remove(String name){
+		map.remove(name);
+	}
+	public void putAndUpdate(String name,Object o){
+		Object temp = map.get(name);
+		if(temp!=null){
+			map.remove(name);
+			map.put(name, o);
+		}else
+			map.put(name, o);
+	}
 }

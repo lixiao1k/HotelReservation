@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="60.0" prefWidth="755.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <children>
+    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <children>
+        <Label fx:id="pic" prefHeight="50.0" prefWidth="50.0" text="Label">
+          <HBox.margin>
+            <Insets left="9.0" right="2.0" top="5.0" />
+          </HBox.margin>
+        </Label>
+        <VBox fx:id="rankVBox" prefHeight="60.0" prefWidth="156.0">
+          <children>
+            <Text fx:id="name" fill="#7266ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="156.0">
+              <font>
+                <Font size="15.0" fx:id="x1" />
+              </font>
+            </Text>
+          </children>
+        </VBox>
+        <Separator orientation="VERTICAL" prefHeight="200.0" />
+        <VBox prefHeight="60.0" prefWidth="536.9998779296875">
+          <children>
+            <Text fx:id="room" fill="GREY" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+              <font>
+                <Font size="12.0" />
+              </font>
+              <VBox.margin>
+                <Insets left="4.0" top="2.0" fx:id="x2" />
+              </VBox.margin>
+            </Text>
+            <Text fx:id="content" fill="BLACK" font="$x1" strokeType="OUTSIDE" strokeWidth="0.0" text="content" wrappingWidth="532.0" VBox.margin="$x2" />
+            <Text fx:id="date" fill="#9f9f9f" strokeType="OUTSIDE" strokeWidth="0.0" text="date">
+              <VBox.margin>
+                <Insets left="4.0" top="2.0" fx:id="x2" />
+              </VBox.margin>
+            </Text>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>

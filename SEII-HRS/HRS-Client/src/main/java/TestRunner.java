@@ -20,7 +20,7 @@ public class TestRunner{
 		linkToServer();
 		DataController.getInstance().put("HotelId",(long)1);
 		DataController.getInstance().put("UserId", (long)2);
-		Application.launch(ClientMainUI.class,args);
+		Application.launch(TestController.class,args);
 		
 	}
 	private void linkToServer() {

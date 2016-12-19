@@ -137,7 +137,6 @@ public class SetHotelInfoController implements Initializable{
 			address.setText(vo.getAddress());
 			hotelName.setText(vo.getName());
 			if(vo.getImage()!=null){
-				System.out.println(1);
 				WritableImage pic = null;
 				image.setImage(SwingFXUtils.toFXImage((BufferedImage) vo.getImage(), pic));
 			}
