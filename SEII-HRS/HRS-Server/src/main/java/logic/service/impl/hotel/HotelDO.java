@@ -32,6 +32,7 @@ import util.Base64Util;
 import util.DateUtil;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
+import util.ScoreUtil;
 import util.SerializeUtil;
 import vo.BasicHotelVO;
 import vo.CheckInRoomInfoVO;
@@ -535,6 +536,7 @@ public class HotelDO {
 			DaoManager.getInstance().getUserDao().insert(upo);
 			DaoManager.getInstance().getMemberDao().add(hwpo);
 			po.setHotelworker(hwpo);
+			po.setScore(ScoreUtil.calculate(po));
 			hotelDao.insert(po);
 			resultMessage = HotelResultMessage.SUCCESS;
 			long hotelId = po.getHid();

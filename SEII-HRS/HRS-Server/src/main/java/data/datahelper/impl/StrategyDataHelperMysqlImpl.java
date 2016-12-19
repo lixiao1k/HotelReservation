@@ -45,7 +45,7 @@ public class StrategyDataHelperMysqlImpl implements StrategyDataHelper{
 
 	@Override
 	public List<StrategyType> getTypes() {
-		Query query = HibernateUtil.getCurrentSession().createQuery(webStrategyList);
+		Query query = HibernateUtil.getCurrentSession().createQuery(getTypesList);
 		return query.list();
 	}
 

@@ -20,6 +20,7 @@ import resultmessage.CommentResultMessage;
 import resultmessage.OrderResultMessage;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
+import util.ScoreUtil;
 import vo.CommentVO;
 import vo.HotelCommentVO;
 
@@ -66,6 +67,8 @@ public class CommentDO {
 			OrderPO opo = (OrderPO) HibernateUtil.getCurrentSession().load(OrderPO.class, vo.getOrderId());
 			if(mpo==null||opo==null)
 				return CommentResultMessage.FAIL;
+			if(opo.isCommented()) 
+				return CommentResultMessage.FAIL;
 			po.setHotel(opo.getHotel());
 			po.setMember(mpo);
 			po.setOrder(opo);
@@ -73,6 +76,8 @@ public class CommentDO {
 			opo.setCommented(true);
 			commentDao.insert(po);
 			HibernateUtil.getCurrentSession().update(opo);
+			opo.getHotel().setScore(ScoreUtil.calculate(opo.getHotel()));
+			HibernateUtil.getCurrentSession().update(opo.getHotel());
 			HibernateUtil.getCurrentSession().getTransaction().commit();
 			return CommentResultMessage.SUCCESS;
 		}catch(RuntimeException e){

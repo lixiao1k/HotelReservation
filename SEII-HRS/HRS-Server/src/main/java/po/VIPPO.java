@@ -28,6 +28,9 @@ public class VIPPO {
 		this.birthday = birthday;
 		this.companyName = companyName;
 	}
+	public VIPPO(){
+		
+	}
 	public VIPType getType(){
 		return type;
 	}

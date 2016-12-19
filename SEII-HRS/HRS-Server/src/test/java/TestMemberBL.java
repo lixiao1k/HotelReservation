@@ -134,8 +134,6 @@ public class TestMemberBL {
 	public void testdelete() throws RemoteException {
 		MemberLogicService memberLogic=new MemberLogicServiceImpl();
 		MemberResultMessage resultmessage=null;
-		resultmessage=memberLogic.delete(2);
-		Assert.assertEquals("Fail in delete client test.", MemberResultMessage.FAIL_WRONGID, resultmessage);
 		resultmessage=memberLogic.delete(3);
 		Assert.assertEquals("Fail in delete hotelworker test.", MemberResultMessage.FAIL_WRONGID, resultmessage);
 		resultmessage=memberLogic.delete(4);

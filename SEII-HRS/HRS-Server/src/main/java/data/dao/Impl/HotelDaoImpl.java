@@ -15,6 +15,7 @@ import info.ListWrapper;
 import info.Room;
 import info.Rule;
 import po.HotelPO;
+import util.DateUtil;
 
 public class HotelDaoImpl implements HotelDao {
 	private HotelDataHelper hotelDataHelper;
@@ -99,7 +100,7 @@ public class HotelDaoImpl implements HotelDao {
 			while(it.hasNext()){
 				HotelItem hi = it.next();
 				if(hi.getRoom().getType().equals(room.getType())
-						&& hi.getDate().getDate()==now.getDate()){
+						&& DateUtil.compare(hi.getDate(), now)){
 					result = hi;
 					break;
 				}

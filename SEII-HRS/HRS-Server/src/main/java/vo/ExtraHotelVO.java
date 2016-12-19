@@ -5,12 +5,17 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
 
 
-public class ExtraHotelVO {
+public class ExtraHotelVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5036552919500748451L;
 	private Set<HotelCommentVO> comments;
 	private Set<OrderVO> bookedOrders;
 	private transient Image image;
@@ -34,7 +39,8 @@ public class ExtraHotelVO {
 	}
 	private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
-        ImageIO.write((BufferedImage) image, "png", out);
+        if(image!=null)
+        	ImageIO.write((BufferedImage) image, "png", out);
     }
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 	    in.defaultReadObject();

@@ -39,7 +39,7 @@ public class HotelPO {
 	public void setHotelworker(MemberPO hotelworker){
 		this.hotelworker = hotelworker;
 	}
-	private void setStrategies(Set<StrategyPO> strategies){
+	public void setStrategies(Set<StrategyPO> strategies){
 		this.strategies = strategies;
 	}
 	public void setFacility(String facility){
@@ -93,7 +93,7 @@ public class HotelPO {
 	public Iterator<OrderPO> getOrder(){
 		return orders.iterator();
 	}
-	private Set<OrderPO> getOrders(){
+	public Set<OrderPO> getOrders(){
 		return orders;
 	}
 	public Iterator<HotelItem> getRoom(){
@@ -102,7 +102,7 @@ public class HotelPO {
 	public Set<HotelItem> getRooms(){
 		return rooms;
 	}
-	private Set<StrategyPO> getStrategies(){
+	public Set<StrategyPO> getStrategies(){
 		return strategies;
 	}
 	public Iterator<StrategyPO> getStrategyIterator(){
@@ -132,7 +132,7 @@ public class HotelPO {
 	public Iterator<CommentPO> getComment(){
 		return comments.iterator();
 	}
-	private Set<CommentPO> getComments(){
+	public Set<CommentPO> getComments(){
 		return comments;
 	}
 	public void setBusinessCity(BusinessCity businessCity) {

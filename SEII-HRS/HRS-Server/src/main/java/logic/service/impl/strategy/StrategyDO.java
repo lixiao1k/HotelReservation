@@ -211,13 +211,15 @@ public class StrategyDO {
 				HotelItem hi = DaoManager.getInstance()
 											.getHotelDao()
 											.getRoomByRid(po.getHotel().getHid(), si.getRoom());
-				double before = hi.getPrice();
-				StrategyItemVO sivo = new StrategyItemVO();
-				sivo.setPriceBefore(before);
-				sivo.setOff(si.getOff());
-				sivo.setRoom(si.getRoom());
-				sivo.setPriceAfter(before*si.getOff());
-				set.add(sivo);
+				if(hi!=null){
+					double before = hi.getPrice();
+					StrategyItemVO sivo = new StrategyItemVO();
+					sivo.setPriceBefore(before);
+					sivo.setOff(si.getOff());
+					sivo.setRoom(si.getRoom());
+					sivo.setPriceAfter(before*si.getOff());
+					set.add(sivo);
+				}
 			}
 			vo.setItems(set);
 			result.add(vo);
