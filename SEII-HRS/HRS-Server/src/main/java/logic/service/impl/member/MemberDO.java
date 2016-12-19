@@ -103,17 +103,19 @@ public class MemberDO {
 											.beginTransaction();
 							flag = true;
 							cmpo.setVip(true);
-							VIPPO vippo = new VIPPO(vo.getUserId(), vo.getType(), vo.getBirthday(), vo.getCompanyName());	
+							VIPPO vippo = new VIPPO( vo.getType(), vo.getBirthday(), vo.getCompanyName());	
 							vippo.setType(vo.getType());
 							cmpo.setVipInfo(vippo);
 							members.remove(vo.getUserId());
 							members.put(vo.getUserId(), cmpo);
+							HibernateUtil.getCurrentSession().save(vippo);
 							memberDao.update(cmpo);
 							HibernateUtil.getCurrentSession()
 											.getTransaction()
 											.commit();
 							return MemberResultMessage.SUCCESS;
 						}catch(RuntimeException e){
+							e.printStackTrace();
 							members.remove(vo.getUserId());
 							try{
 								HibernateUtil.getCurrentSession()
@@ -146,9 +148,10 @@ public class MemberDO {
 								return MemberResultMessage.FAIL_CREDITNOTENOUGH;
 							else{
 								((ClientMemberPO) po).setVip(true);
-								VIPPO vippo = new VIPPO(vo.getUserId(), vo.getType(), vo.getBirthday(), vo.getCompanyName());	
+								VIPPO vippo = new VIPPO(vo.getType(), vo.getBirthday(), vo.getCompanyName());	
 								vippo.setType(vo.getType());
 								((ClientMemberPO) po).setVipInfo(vippo);
+								HibernateUtil.getCurrentSession().save(vippo);
 								memberDao.update(po);
 								members.put(vo.getUserId(), po);
 								HibernateUtil.getCurrentSession()
@@ -161,6 +164,7 @@ public class MemberDO {
 						return MemberResultMessage.FAIL_WRONGID;
 				}
 			}catch(RuntimeException e){
+				e.printStackTrace();
 				members.remove(vo.getUserId());
 				try{
 					HibernateUtil.getCurrentSession()

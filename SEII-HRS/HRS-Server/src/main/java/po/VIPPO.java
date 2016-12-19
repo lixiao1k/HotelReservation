@@ -1,18 +1,19 @@
 package po;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import info.VIPType;
 
 public class VIPPO {
 	private long id;
 	private VIPType type;
-	private LocalDate birthday;
+	private Date birthday;
 	private String companyName;
 	public void setCompanyName(String companyName){
 		this.companyName = companyName;
 	}
-	public void setBirthday(LocalDate birthday){
+	public void setBirthday(Date birthday){
 		this.birthday = birthday;
 	}
 	public void setType(VIPType type){
@@ -21,9 +22,8 @@ public class VIPPO {
 	private void setId(long id){
 		this.id = id;
 	}
-	public VIPPO(long id, VIPType type, LocalDate birthday, String companyName) {
+	public VIPPO(VIPType type, Date birthday, String companyName) {
 		super();
-		this.id = id;
 		this.type = type;
 		this.birthday = birthday;
 		this.companyName = companyName;
@@ -34,7 +34,7 @@ public class VIPPO {
 	public VIPType getType(){
 		return type;
 	}
-	public LocalDate getBirthday(){
+	public Date getBirthday(){
 		return birthday;
 	}
 	public String getCompanyName(){

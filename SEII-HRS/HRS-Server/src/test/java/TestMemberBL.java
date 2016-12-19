@@ -22,6 +22,7 @@ import logic.service.impl.hotel.HotelLogicServiceImpl;
 import logic.service.impl.member.MemberLogicServiceImpl;
 import logic.service.impl.user.UserLogicServiceImpl;
 import resultmessage.MemberResultMessage;
+import util.DateUtil;
 import vo.AddHotelVO;
 import vo.HotelItemVO;
 import vo.ManageClientVO;
@@ -40,7 +41,7 @@ public class TestMemberBL {
 		MemberResultMessage result=null;
 		VIPVO testvo=null;
 		LocalDate time=LocalDate.of(1970, 1, 1);
-		testvo=new VIPVO(VIPType.PERSON, time, 2, "bingyuhuo");
+		testvo=new VIPVO(VIPType.PERSON, DateUtil.localDateToDate(time), 2, "bingyuhuo");
 		result=memberLogic.registerVIP(testvo);
 		result=memberLogic.registerVIP(testvo);
 		Assert.assertEquals("Fail in registerVIP alreadyVIP test.", MemberResultMessage.FAIL_ALREADYVIP, result);
@@ -66,7 +67,7 @@ public class TestMemberBL {
 		Assert.assertEquals("Fail in cancelVIP not VIP test.", MemberResultMessage.FAIL_NOTVIP, result);
 		VIPVO testvo=null;
 		LocalDate time=LocalDate.of(1970, 1, 1);
-		testvo=new VIPVO(VIPType.PERSON, time, 1, "bingyuhuo");
+		testvo=new VIPVO(VIPType.PERSON, DateUtil.localDateToDate(time), 1, "bingyuhuo");
 		creditLogic.excharge(1, 100);
 		memberLogic.registerVIP(testvo);
 		result=memberLogic.cancel(1);
@@ -80,7 +81,7 @@ public class TestMemberBL {
 		MemberLogicService memberLogic=new MemberLogicServiceImpl();
 		MemberResultMessage resultmessage=null;
 		LocalDate testbirth=LocalDate.of(1970, 1, 1);
-		ManageClientVO testvo=new ManageClientVO(2, "bingyuhuo22", testbirth, "bingyuhuo", "12345678901");
+		ManageClientVO testvo=new ManageClientVO(2, "bingyuhuo22",  DateUtil.localDateToDate(testbirth), "bingyuhuo", "12345678901");
 		testvo.setUserid(-1);
 		resultmessage=memberLogic.updateClient(testvo);
 		Assert.assertEquals("Fail in client wrong ID test.", MemberResultMessage.FAIL_WRONGID, resultmessage);
