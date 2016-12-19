@@ -10,37 +10,23 @@
 
 <GridPane fx:id="mainPane" gridLinesVisible="false" hgap="10.0" prefHeight="564.0" prefWidth="768.0" scaleX="1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.StrategyUI.WebSalerBrowseStrategyListController">
   <children>
-    <Label alignment="CENTER" prefHeight="49.0" prefWidth="94.0" text="Search" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+    <Label alignment="CENTER" prefHeight="49.0" prefWidth="143.0" text="搜索策略名关键字：" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
       <font>
-        <Font size="25.0" fx:id="x1" />
+        <Font size="14.0" fx:id="x1" />
       </font>
       <GridPane.margin>
         <Insets left="10.0" top="5.0" />
       </GridPane.margin>
     </Label>
     <TextField fx:id="searchText" prefHeight="28.0" prefWidth="381.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-    <Button mnemonicParsing="false" onAction="#searchInText" prefHeight="28.000099182128906" prefWidth="116.0" text="Search" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+    <Button font="$x1" mnemonicParsing="false" onAction="#searchInText" prefHeight="28.000099182128906" prefWidth="116.0" text="搜索" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
     <ListView id="orderListView" fx:id="strategyListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
-    <Label font="$x1" text="Type" GridPane.columnIndex="0" GridPane.rowIndex="0">
-      <GridPane.margin>
-        <Insets left="10.0" top="5.0" />
-      </GridPane.margin>
-    </Label>
-    <ChoiceBox id="orderType" fx:id="strategyType" prefHeight="29.0" prefWidth="112.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-      <items>
-        <FXCollections fx:factory="observableArrayList">
-          <String fx:value="项 1" />
-          <String fx:value="项 2" />
-          <String fx:value="项 3" />
-        </FXCollections>
-      </items>
-    </ChoiceBox>
     <Button id="add" fx:id="addButton" mnemonicParsing="false" onAction="#addStrategy" prefHeight="28.0" prefWidth="94.00009999999747" text="增加策略" GridPane.columnIndex="4" GridPane.rowIndex="2" />
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="73.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="124.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="124.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="50.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="198.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="293.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="0.0" prefWidth="94.0" />
   </columnConstraints>

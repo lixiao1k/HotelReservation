@@ -17,4 +17,5 @@ public interface StrategyLogicService extends Remote{
 	public ListWrapper<HotelStrategyVO> getStrategyList(long hotelId) throws RemoteException;
 	public ListWrapper<HotelStrategyVO> getStrategyForOrder(OrderStrategy vo) throws RemoteException;
 	public ListWrapper<StrategyType> getTypes() throws RemoteException;
+	public ListWrapper<HotelStrategyVO> getWEBStrategyList() throws RemoteException;
 }

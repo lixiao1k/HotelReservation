@@ -3,10 +3,10 @@ package Presentation.StrategyUI;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.Notifications;
 
 import datacontroller.DataController;
 import info.ListWrapper;
@@ -16,29 +16,101 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import logic.service.StrategyLogicService;
+import resultmessage.StrategyResultMessage;
 import rmi.RemoteHelper;
+import vo.HotelStrategyVO;
 import vo.StrategyVO;
 
 public class WebSalerBrowseStrategyListController implements Initializable{
 	@FXML ListView<StrategyVO> strategyListView;
-	@FXML ChoiceBox<String> strategyType;
 	@FXML TextField searchText;
 	@FXML GridPane mainPane;
 	GridPane clientmain;
 	StrategyLogicService strategyLogic;
 	private long hotelid;
+	ObservableList<StrategyVO> olist;
+	ObservableList<StrategyVO> selist;
 	@FXML Button addButton;
 	@FXML 
 	protected void searchInText(ActionEvent e){
-		
+		if(selist==null){
+			selist=FXCollections.observableArrayList();
+			String key=searchText.getText();
+			if(key.equals("")){
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("ËÑË÷²ßÂÔ").text("ËÑË÷Ê§°Ü£¡ÇëÊäÈë¹Ø¼ü×Ö£¡").showWarning();
+			}
+			for(StrategyVO vo:olist){
+				if(vo.getName().contains(key)){
+					selist.add(vo);
+				}
+			}
+		   	strategyListView.setItems(selist);
+		}else{
+			selist.clear();
+			String key=searchText.getText();
+			if(key.equals("")){
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("ËÑË÷²ßÂÔ").text("ËÑË÷Ê§°Ü£¡ÇëÊäÈë¹Ø¼ü×Ö£¡").showWarning();
+			}
+			for(StrategyVO vo:olist){
+				if(vo.getName().contains(key)){
+					selist.add(vo);
+				}
+			}
+		   	strategyListView.setItems(selist);
+		}
+	}
+	
+	public void delete(StrategyVO vo, ActionEvent e){
+		try {
+			StrategyResultMessage m=strategyLogic.delete(vo.getId());
+			if(m==StrategyResultMessage.SUCCESS){
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ý²ßÂÔ").text("É¾³ý³É¹¦£¡").showConfirm();
+			}
+			if(m==StrategyResultMessage.FAIL_WRONGID){
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ý²ßÂÔ").text("É¾³ýÊ§°Ü£¡²»´æÔÚ´Ë²ßÂÔ£¡").showWarning();
+			}
+			if(m==StrategyResultMessage.FAIL_WRONG){
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ý²ßÂÔ").text("É¾³ýÊ§°Ü£¡Î´Öª´íÎó£¡").showWarning();
+			}
+		} catch (Exception e1) {
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ý²ßÂÔ").text("É¾³ýÊ§°Ü£¡Î´Öª´íÎó£¡").showWarning();
+			e1.printStackTrace();
+		}
+	}
+	
+	class StrategyCell extends ListCell<StrategyVO>{
+		public void updateItem(StrategyVO item, boolean empty) {
+			super.updateItem(item, empty);
+			if(item!=null){
+				GridPane gridPane=new GridPane();
+				Label Info=new Label();
+				Info.setText(item.toString());
+				Button Del=new Button("É¾³ý");
+				Del.setOnAction((ActionEvent e)->{
+					delete(item,e);
+				});
+				gridPane.add(Info, 0, 0);
+				gridPane.add(Del, 2, 0,1, 2);
+				gridPane.setHalignment(Del, HPos.RIGHT);
+				gridPane.setHgrow(Del, Priority.ALWAYS);
+				gridPane.setMargin(Del, new Insets(2,10,2,0));
+				setGraphic(gridPane);
+			}else{
+				setGraphic(null);
+			}
+		}
 	}
 	
 	@FXML 
@@ -70,27 +142,23 @@ public class WebSalerBrowseStrategyListController implements Initializable{
     
     //³õÊ¼»¯ÁÐ±í
     public void initListView() throws RemoteException{
-    	List<StrategyVO> list=new ArrayList<>();
-    	StrategyVO vo1=new StrategyVO();
-    	vo1.setName("Ë«Ê®Ò»ÓÅ»Ý");
-    	vo1.setHotelId(1);
-    	vo1.setOff(0.3);
-    	list.add(vo1);
-    	StrategyVO vo2=new StrategyVO();
-    	vo2.setName("Ë«Ê®¶þÓÅ»Ý");
-    	vo2.setHotelId(2);
-    	vo2.setOff(0.2);
-    	list.add(vo2);
-    	ListWrapper<StrategyVO> volist=new ListWrapper<>(list);
-    	ObservableList<StrategyVO> olist=FXCollections.observableArrayList();
-    	Iterator<StrategyVO> it=volist.iterator();
+    	ListWrapper<HotelStrategyVO> volist=strategyLogic.getWEBStrategyList();
+    	olist=FXCollections.observableArrayList();
+    	Iterator<HotelStrategyVO> it=volist.iterator();
     	while(it.hasNext()){
-    		olist.add(it.next());
+    		HotelStrategyVO hsvo=it.next();
+    		StrategyVO svo=new StrategyVO();
+    		svo.setExtraInfo(hsvo.getExtraInfo());
+    		svo.setHotelId(hsvo.getHotelId());
+    		svo.setId(hsvo.getId());
+    		svo.setItems(hsvo.getItems());
+    		svo.setName(hsvo.getName());
+    		svo.setOff(hsvo.getOff());
+    		svo.setStrategyType(hsvo.getType());
+    		olist.add(svo);
     	}
     	strategyListView.setItems(olist);
-    	strategyListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-    		
-        });
+    	strategyListView.setCellFactory(e -> new StrategyCell());
     }
 	
 	@Override

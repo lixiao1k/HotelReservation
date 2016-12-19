@@ -10,6 +10,7 @@ public class StrategyVO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4951629071046395517L;
+	private long id;
 	private StrategyType type;
 	private String name;
 	private long hotelId;
@@ -54,5 +55,11 @@ public class StrategyVO implements Serializable{
 	}
 	public void setType(StrategyType type) {
 		this.type = type;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 }
