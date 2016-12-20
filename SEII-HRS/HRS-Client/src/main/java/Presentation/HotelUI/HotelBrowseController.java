@@ -19,6 +19,8 @@ import datacontroller.DataController;
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.ListWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,19 +58,19 @@ import org.controlsfx.control.PopOver;
 
 
 public class HotelBrowseController implements Initializable{
-	@FXML TextField searchField;
-	@FXML Button hotelSearchButton;
-	@FXML GridPane mainPane;
-	@FXML ComboBox<String> businessCityBox;
-	@FXML ComboBox<String> circleBox;
-	@FXML CheckComboBox<String> limitBox;
-	@FXML ChoiceBox<String> roomChoiceBox;
-	@FXML ListView<BasicHotelVO> hotelListView;
-	@FXML DatePicker checkin;
-	@FXML DatePicker checkout;
-	@FXML ChoiceBox<String> limitStar;
-	@FXML ChoiceBox<String> limitRank;
-	@FXML ChoiceBox<String> limitPrice;
+	@FXML private TextField searchField;
+	@FXML private Button hotelSearchButton;
+	@FXML private GridPane mainPane;
+	@FXML private ComboBox<String> businessCityBox;
+	@FXML private ComboBox<String> circleBox;
+	@FXML private CheckComboBox<String> limitBox;
+	@FXML private ChoiceBox<String> roomChoiceBox;
+	@FXML private ListView<BasicHotelVO> hotelListView;
+	@FXML private DatePicker checkin;
+	@FXML private DatePicker checkout;
+	@FXML private ChoiceBox<String> limitStar;
+	@FXML private ChoiceBox<String> limitRank;
+	@FXML private ChoiceBox<String> limitPrice;
 	private ServiceFactory serviceFactory;
 	private ListWrapper<BusinessCity> bc;
 	private long userid;
@@ -94,8 +96,19 @@ public class HotelBrowseController implements Initializable{
 	
 	
 	//用组合限制条件搜索
-	public void searchInChoice()
+	public void searchInChoice(String value)
 	{
+		if(hotelListViewData==null)
+			return;
+		if(value==null)
+			return;
+		else
+		{
+			String star=limitStar.getSelectionModel().getSelectedItem();
+			String rank=limitRank.getSelectionModel().getSelectedItem();
+			String price=limitPrice.getSelectionModel().getSelectedItem();
+			
+		}
 		
 	}
 	
@@ -119,7 +132,29 @@ public class HotelBrowseController implements Initializable{
 				hotelListView.setCellFactory(e->new hotelListCell());
 				hotelListView.setItems(hotelListViewData);
 				
-				
+		    	limitStar.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+						searchInChoice(newValue);
+					}
+				});
+		    	
+		    	limitRank.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+						searchInChoice(newValue);
+					}
+				});
+		    	
+		    	limitPrice.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+					@Override
+					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+						searchInChoice(newValue);
+					}
+				});
 				
 				
 			//	Object o=(Object)hotelListView.getSelectionModel().getSelectedItem().getHotelId();//得到选中的酒店的id

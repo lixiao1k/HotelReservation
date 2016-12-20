@@ -37,20 +37,20 @@ import vo.OrderVO;
 import vo.StrategyItemVO;
 
 public class CreateOrderController implements Initializable{
-	@FXML DatePicker checkIntime;
-	@FXML DatePicker checkOuttime;
+	@FXML private DatePicker checkIntime;
+	@FXML private DatePicker checkOuttime;
 
-	@FXML ComboBox<Integer> roomNumBox;
-	@FXML TextField customerName;
-	@FXML TextField phoneNumber;
+	@FXML private ComboBox<Integer> roomNumBox;
+	@FXML private TextField customerName;
+	@FXML private TextField phoneNumber;
 	
-	@FXML CheckBox Ifchild;
-	@FXML Label strategyType;
-	@FXML Label totalMoney;
-	@FXML Label orderDes;
-	@FXML Label lateCheck;
-	@FXML TextField peopleNum;
-	@FXML GridPane mainPane;
+	@FXML private CheckBox Ifchild;
+	@FXML private Label strategyType;
+	@FXML private Label totalMoney;
+	@FXML private Label orderDes;
+	@FXML private Label lateCheck;
+	@FXML private TextField peopleNum;
+	@FXML private GridPane mainPane;
 	private long userid;
 	private long hotelid;
 	private ServiceFactory  serviceFactory;
