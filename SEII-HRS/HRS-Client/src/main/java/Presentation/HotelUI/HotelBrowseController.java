@@ -250,10 +250,10 @@ public class HotelBrowseController implements Initializable{
 			selecthotel=hotelListView.getSelectionModel().getSelectedItem();
 			DataController.getInstance().put("selectHotel", selecthotel);
 			GridPane client=(GridPane)searchField.getScene().getWindow().getScene().getRoot();
-			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/HotelUI/HotelDetailedInfo.fxml"));
+			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/HotelUI/DetailHotelInfo.fxml"));
 			try {
 				Parent hoteldetailBrowse = loader.load();
-				hoteldetailBrowse.getProperties().put("NAME","HoteldetailPane" );
+				hoteldetailBrowse.getProperties().put("NAME","HotelDetailPane" );
 				ObservableList<Node> list =client.getChildren();
 				for(Node node:list){
 					String value=(String)node.getProperties().get("NAME");
@@ -262,7 +262,7 @@ public class HotelBrowseController implements Initializable{
 						break;
 					}
 				}
-				client.add(hoteldetailBrowse, 2, 1);
+				client.add(hoteldetailBrowse, 3, 1);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

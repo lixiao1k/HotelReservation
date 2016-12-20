@@ -197,6 +197,10 @@ public class HotelDO {
 					while(oit.hasNext()){
 						OrderPO opo = oit.next();
 						OrderVO ovo = DozerMappingUtil.getInstance().map(opo, OrderVO.class);
+						double price = ovo.getRoomPrice()*ovo.getRoomNum();
+						double priceAfterStrategy = price*ovo.getStrategyOff();
+						ovo.setPrice(price);
+						ovo.setPriceAfterStrategy(priceAfterStrategy);
 						oList.add(ovo);
 					}
 					result.setBookedOrders(oList);
@@ -242,6 +246,10 @@ public class HotelDO {
 				OrderPO opo = oit.next();
 				if (opo.getMember().getMid()==userId){
 					OrderVO ovo = DozerMappingUtil.getInstance().map(opo, OrderVO.class);
+					double price = ovo.getRoomPrice()*ovo.getRoomNum();
+					double priceAfterStrategy = price*ovo.getStrategyOff();
+					ovo.setPrice(price);
+					ovo.setPriceAfterStrategy(priceAfterStrategy);
 					oList.add(ovo);
 				}
 			}

@@ -5,6 +5,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import Presentation.HotelUI.DetailHotelInfoController;
 import Presentation.MainUI.ClientMainUI;
 import Presentation.MainUI.HotelWorkerMainUI;
 import Presentation.MainUI.LoginMainUI;
