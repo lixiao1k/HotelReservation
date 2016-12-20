@@ -497,7 +497,7 @@ public class HotelBrowseController implements Initializable{
 		{
 			BasicHotelVO selecthotel;
 			selecthotel=hotelListView.getSelectionModel().getSelectedItem();
-			DataController.getInstance().put("selectHotel", selecthotel);
+			DataController.getInstance().putAndUpdate("selectHotel", selecthotel);
 			GridPane client=(GridPane)searchField.getScene().getWindow().getScene().getRoot();
 			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/HotelUI/DetailHotelInfo.fxml"));
 			try {

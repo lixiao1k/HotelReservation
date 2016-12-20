@@ -1,6 +1,7 @@
 package Presentation.OrderUI;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
@@ -17,8 +18,12 @@ import datacontroller.DataController;
 import info.ListWrapper;
 import info.OrderStrategy;
 import info.Room;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -26,6 +31,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import logic.service.HotelLogicService;
+import logic.service.OrderLogicService;
 import logic.service.ServiceFactory;
 import logic.service.StrategyLogicService;
 import rmi.RemoteHelper;
@@ -59,8 +65,9 @@ public class CreateOrderController implements Initializable{
 	private ListWrapper<HotelStrategyVO> liststrategy;
 	private NewOrderVO  neworder;
 	private HotelLogicService  hotellogic;
+	private OrderLogicService orderLogic;
 	private  double leastPrice;
-	public void commit()
+	public void commit() throws IOException
 	{
 		
 		    
@@ -93,6 +100,28 @@ public class CreateOrderController implements Initializable{
 		    neworder.setRoomPrice(totalNum);
 		    totalMoney.setText(String.valueOf(totalNum));
 		
+		    try {
+				orderLogic=serviceFactory.getOrderLogicService();
+		    	orderLogic.create(neworder);
+		    	GridPane client=(GridPane)peopleNum.getScene().getWindow().getScene().getRoot();
+				FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/OrderUI/ClientBrowseOrderListUI.fxml"));
+				
+				Parent hoteldetailBrowse = loader.load();
+				hoteldetailBrowse.getProperties().put("NAME","HotelDetailPane" );
+				ObservableList<Node> list =client.getChildren();
+				for(Node node:list){
+					String value=(String)node.getProperties().get("NAME");
+					if(value!=null&&value.contains("Pane")){
+						list.remove(node);
+						break;
+					}
+				}
+				client.add(hoteldetailBrowse, 3, 1);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
 	}
 
 
@@ -257,11 +286,12 @@ public class CreateOrderController implements Initializable{
 		neworder=new NewOrderVO();
 		Object o=DataController.getInstance().get("UserId");
 		userid=(long)o;
-		DataController.getInstance().put("UserId", (Object)userid);
+		DataController.getInstance().putAndUpdate("UserId", (Object)userid);
 		
-		DataController.getInstance().put("creatOrderPane", mainPane);// for hotelbrowse's popover
+		DataController.getInstance().putAndUpdate("creatOrderPane", mainPane);// for hotelbrowse's popover
 
-		//hotelid=(long)o;
+		o=DataController.getInstance().get("HotelID");
+		hotelid=(long)o;
 		//DataController.getInstance().put("selectHotel", (Object)hotelid);
 		neworder.setUserId(userid);
 		neworder.setHotelId(hotelid);

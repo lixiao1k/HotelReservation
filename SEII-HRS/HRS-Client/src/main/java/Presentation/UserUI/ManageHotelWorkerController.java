@@ -42,12 +42,12 @@ import vo.ManageHotelVO;
 import vo.ManageHotelWorkerVO;
 
 public class ManageHotelWorkerController implements Initializable {
-	@FXML TextField searchHotel;
-	@FXML ListView<ManageHotelVO> hotellist;
-	@FXML TextField workerName;
-	@FXML TextField password;
-	@FXML TableColumn addressCol;
-	@FXML TableColumn companyCol;
+	@FXML private TextField searchHotel;
+	@FXML private ListView<ManageHotelVO> hotellist;
+	@FXML private TextField workerName;
+	@FXML private TextField password;
+	@FXML private TableColumn addressCol;
+	@FXML private TableColumn companyCol;
 	private ServiceFactory servicefactory;
 	private MemberLogicService memberlogic;
 	private ListWrapper<ManageHotelVO> allhotel;
