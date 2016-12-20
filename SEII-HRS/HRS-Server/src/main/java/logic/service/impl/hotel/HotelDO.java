@@ -182,7 +182,6 @@ public class HotelDO {
 				if (po==null)
 					return null;
 				else{
-					hotels.put(hotelId, po);
 					Iterator<CommentPO> coit = po.getComment();
 					Set<HotelCommentVO> coList = new HashSet<>();
 					while(coit.hasNext()){
@@ -202,10 +201,17 @@ public class HotelDO {
 					}
 					result.setBookedOrders(oList);
 					result.setImage(SerializeUtil.byteToImage(po.getImageData()));
+					Hibernate.initialize(po);
+					Hibernate.initialize(po.getComments());
+					Hibernate.initialize(po.getOrders());
+					Hibernate.initialize(po.getRooms());
 				}
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.commit();
+				if(po!=null){
+					hotels.put(hotelId, po);
+				}
 				return result;
 			}catch(RuntimeException e){
 				e.printStackTrace();

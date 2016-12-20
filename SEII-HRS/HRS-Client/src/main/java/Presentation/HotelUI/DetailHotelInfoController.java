@@ -6,9 +6,12 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
+
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.Rating;
 import org.controlsfx.control.SegmentedButton;
@@ -228,7 +231,8 @@ public class DetailHotelInfoController implements Initializable{
 		vo3.add(orderVO);
 		ObservableList<OrderVO> olist = FXCollections.observableArrayList(vo3);
 		DataController.getInstance().putAndUpdate("OrderData", olist);
-		DataController.getInstance().putAndUpdate("Root", root.getScene().getWindow().getScene().getRoot());
+		userId = 2;
+		//DataController.getInstance().putAndUpdate("Root", root.getScene().getWindow().getScene().getRoot());
 	}
 	private void initialInfo() throws RemoteException{
 		if(hotel==null)
@@ -257,6 +261,18 @@ public class DetailHotelInfoController implements Initializable{
 			hotel.setAddress("江苏省南京市");
 			hotel.setHotelName("如家");
 			hotel.setScore(75.222222);
+			hotel.setHotelId(1);
+			Room room = new Room();
+			room.setType("大床房");
+			HotelItemVO hivo = new HotelItemVO();
+			hivo.setDate(new Date());
+			hivo.setNum(200);
+			hivo.setTotal(344);
+			hivo.setPrice(36.7);
+			hivo.setRoom(room);
+			Set<HotelItemVO> rooms = new HashSet<>();
+			rooms.add(hivo);
+			hotel.setRooms(rooms);
 			//
 			setBaseInfo();
 			initialInfo();

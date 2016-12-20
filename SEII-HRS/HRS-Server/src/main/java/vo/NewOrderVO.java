@@ -19,7 +19,7 @@ public class NewOrderVO {
 	private long strategyId;
 	private double strategyOff;
 	//for test
-	/*public NewOrderVO(long userId,long hotelId,boolean child,int people,String contactWay,String contactName,Date checkInTime,Date checkOutTime,Room room,int roomNum,double roomPrice,long strategy,double strategyOff){
+	public NewOrderVO(long userId,long hotelId,boolean child,int people,String contactWay,String contactName,Date checkInTime,Date checkOutTime,Room room,int roomNum,double roomPrice,long strategy,double strategyOff){
 		this.userId = userId;
 		this.hotelId = hotelId;
 		this.child = child;
@@ -33,7 +33,7 @@ public class NewOrderVO {
 		this.roomPrice = roomPrice;
 		this.strategyId = strategy;
 		this.strategyOff = strategyOff;
-	}*/
+	}
 	public String getContactWay(){
 		return contactWay;
 	}

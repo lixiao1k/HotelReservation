@@ -54,7 +54,6 @@ public class DetailHotelOrderInfoController implements Initializable{
 			return;
 		}
 		orderData = (ObservableList<OrderVO>)o;
-		System.out.println(1);
 		orderListView.setItems(orderData);
 		orderListView.setCellFactory(e->new HotelOrderInfoClientListCell());
     	ObservableList<String> t = FXCollections.observableArrayList(otypes);

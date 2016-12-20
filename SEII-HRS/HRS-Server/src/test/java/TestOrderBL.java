@@ -19,10 +19,10 @@ public class TestOrderBL {
 		OrderLogicService orderLogic = new OrderLogicServiceImpl();
 		Room room = new Room();
 		room.setRid(1);
-		room.setType("ï¿½ó´²·ï¿½");
-	//	NewOrderVO vo = new NewOrderVO(2,2,false,4,"13307612344","ï¿½ï¿½ï¿½ï¿½",new Date(116,11,11),new Date(116, 11, 12),room,2,233,2,0.3);
-	//	OrderResultMessage result = orderLogic.create(vo);
-	//	Assert.assertEquals("wrong", OrderResultMessage.SUCCESS,result);
+		room.setType("´ó´²·¿");
+		NewOrderVO vo = new NewOrderVO(2,1,false,4,"13307612344","ï¿½ï¿½ï¿½ï¿½",new Date(116,11,25),new Date(116, 11, 30),room,2,233,2,0.3);
+		OrderResultMessage result = orderLogic.create(vo);
+		Assert.assertEquals("wrong", OrderResultMessage.SUCCESS,result);
 	}
 	@Test
 	public void testAbnormal() throws RemoteException{

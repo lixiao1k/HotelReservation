@@ -54,11 +54,11 @@
             lazy="proxy"
         />
         <set name="comments" inverse="true" cascade="all" lazy="true">
-            <key column="COMMENT_ID"></key>
+            <key column="HOTEL_ID"></key>
             <one-to-many class="CommentPO"/>
         </set>
-        <set name="orders" inverse="true" cascade="all" lazy="true">
-            <key column="ORDER_ID"></key>
+        <set name="orders" inverse="true" cascade="all" lazy="false">
+            <key column="HOTEL_ID"></key>
             <one-to-many class="OrderPO"/>
         </set>
         <set name="rooms" inverse="true" cascade="all" lazy="true">
@@ -66,7 +66,7 @@
             <one-to-many class="info.HotelItem"/>
         </set>
         <set name="strategies" inverse="true" cascade="all" lazy="true">
-            <key column="S_ID"></key>
+            <key column="HOTEL_ID"></key>
             <one-to-many class="StrategyPO"/>
         </set>
     </class>
