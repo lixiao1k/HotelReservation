@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,11 +8,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-
-<GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Presentation.MemberUI.KeepPersonInfoController">
+<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MemberUI.KeepPersonInfoController">
    <rowConstraints>
-      <RowConstraints minHeight="10.0" prefHeight="188.0" />
-      <RowConstraints minHeight="10.0" prefHeight="188.0" />
+      <RowConstraints maxHeight="182.0" minHeight="10.0" prefHeight="176.0" />
+      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="200.0" />
       <RowConstraints minHeight="10.0" prefHeight="188.0" />
    </rowConstraints>
    <columnConstraints>
@@ -20,17 +20,17 @@
       <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
    </columnConstraints>
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" text="维护基本信息" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" text="维护基本信息" textFill="#f8f6f6" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Label text="ID：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Label text="ID：" textFill="#fffbfb" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="idLabel" text="*********" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <Label fx:id="idLabel" text="*********" textFill="#fffafa" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="50.0" top="5.0" />
          </GridPane.margin>
@@ -38,7 +38,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label text="用户名：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <Label text="用户名：" textFill="#f2c6c6" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
@@ -48,7 +48,7 @@
             <Insets left="100.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="联系方式：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      <Label text="联系方式：" textFill="#fffafa" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font size="20.0" />
          </font>
@@ -58,7 +58,7 @@
             <Insets left="100.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="信用值：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <Label text="信用值：" textFill="#f8f5f5" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="65.0" />
          </GridPane.margin>
@@ -66,7 +66,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="creditLabel" text="********" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <Label fx:id="creditLabel" text="********" textFill="#f8f3f3" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="100.0" top="70.0" />
          </GridPane.margin>
@@ -78,6 +78,9 @@
          <GridPane.margin>
             <Insets left="100.0" top="30.0" />
          </GridPane.margin>
+         <effect>
+            <Bloom threshold="0.89" />
+         </effect>
       </Button>
       <Button mnemonicParsing="false" onAction="#edit" text="编辑" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <GridPane.margin>
