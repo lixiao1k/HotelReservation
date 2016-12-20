@@ -52,10 +52,7 @@ public class BrowseRoomListController implements Initializable{
 		Room src = source.getRoom();
 		Room tar = target.getRoom();
 		if(source.getNum()<num){
-
-			Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷").showError();
-
-			Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷").showError();
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("更新客房").text("请输入正确的数量！").showError();
 
 			return;
 		}
@@ -71,11 +68,7 @@ public class BrowseRoomListController implements Initializable{
 		try{
 			HotelResultMessage result = serviceFactory.getHotelLogicService().setRoomInfo(mrivo);
 			if(result==HotelResultMessage.SUCCESS){
-
-				Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟侥成癸拷锟斤拷").showConfirm();
-
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟侥成癸拷锟斤拷").showConfirm();
-
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("更新客房").text("更新客房成功！").showConfirm();
 				source.setNum(source.getNum()-num);
 				target.setNum(target.getNum()+num);
 				roomListViewData.remove(source);
@@ -85,10 +78,10 @@ public class BrowseRoomListController implements Initializable{
 			}
 			else
 
-				Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷失锟杰ｏ拷").showError();
+				Notifications.create().title("更新客房").text("更新失败！").showError();
 		}catch(RemoteException e){
 			e.printStackTrace();
-			Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("未知锟斤拷锟斤拷").showError();
+			Notifications.create().title("更新客房").text("未知错误").showError();
 
 				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷失锟杰ｏ拷").showError();
 		}
@@ -98,16 +91,18 @@ public class BrowseRoomListController implements Initializable{
 		popOver.setDetachable(false);
 		popOver.setTitle("更改房间信息");
 		GridPane pane = new GridPane();
-		Label label1 = new Label("源锟斤拷锟斤拷");
+		Label label1 = new Label("源房间");
 		label1.setFont(new Font("YouYuan",15));
-		Label label2 = new Label("目锟疥房锟斤拷");
+		Label label2 = new Label("目标房间");
 		label2.setFont(new Font("YouYuan",15));
-		Label label3 = new Label("转锟斤拷锟斤拷锟斤拷");
+		Label label3 = new Label("转换数量");
 		label3.setFont(new Font("YouYuan",15));
-		Button btn = new Button("确锟斤拷");
+		Button btn = new Button("确认");
 		btn.setFont(new Font("YouYuan",15));
-		Button btn2 = new Button("取锟斤拷");
+		Button btn2 = new Button("取消");
 		btn2.setFont(new Font("YouYuan",15));
+		btn.setId("green-button");
+		btn2.setId("red-button");
 		btn2.setOnAction((ActionEvent e2)->{
 			popOver.hide();
 		});
@@ -117,10 +112,7 @@ public class BrowseRoomListController implements Initializable{
 		btn.setOnAction((ActionEvent e2)->{
 			try{
 				if(box1.getValue()==null||box2.getValue()==null){
-
-					Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷选锟斤拷转锟斤拷锟斤拷锟斤拷").showWarning();
-
-					Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷选锟斤拷转锟斤拷锟斤拷锟斤拷").showWarning();
+					Notifications.create().owner(roomListView.getScene().getWindow()).title("更新客房").text("请选择房间！").showWarning();
 
 					popOver.hide();
 					return;
@@ -136,10 +128,7 @@ public class BrowseRoomListController implements Initializable{
 				changeRoomInfoAction(hivo,target,num);
 				popOver.hide();
 			}catch(NumberFormatException e3){
-
-				Notifications.create().title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷锟绞斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟饺凤拷锟绞斤拷锟�").showWarning();
-
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷锟绞斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟饺凤拷锟绞斤拷锟�").showWarning();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("更新客房").text("请输入正确的客房数量！").showWarning();
 
 				popOver.hide();
 			}
@@ -166,7 +155,7 @@ public class BrowseRoomListController implements Initializable{
 		pane.setHalignment(btn, HPos.RIGHT);
 		pane.setMargin(btn, new Insets(5,5,5,0));
 		pane.setHalignment(btn2, HPos.RIGHT);
-		pane.setMargin(btn2, new Insets(5,65,5,0));
+		pane.setMargin(btn2, new Insets(5,90,5,0));
 		pane.setMargin(field, new Insets(5,5,0,5));
 		pane.setMargin(label1, new Insets(5,5,0,5));
 		pane.setMargin(label2, new Insets(5,5,0,5));
@@ -180,10 +169,11 @@ public class BrowseRoomListController implements Initializable{
 		popOver.setDetachable(false);
 		popOver.setTitle("线下入住信息"); 
 		GridPane pane = new GridPane();
-		Label label = new Label("锟斤拷住锟斤拷锟斤拷");
+		Label label = new Label("线下入住数量");
 		label.setFont(new Font("YouYuan",15));
 		TextField field = new TextField();
-		Button btn = new Button("确锟斤拷");
+		Button btn = new Button("确认");
+		btn.setId("green-button");
 		btn.setFont(new Font("YouYuan",15));
 
 		btn.setOnAction((ActionEvent e3)->{
@@ -192,15 +182,12 @@ public class BrowseRoomListController implements Initializable{
 				popOver.hide();
 				lineCheckAction(hivo,num);
 			}catch(NumberFormatException e4){
-
-				Notifications.create().title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟斤拷锟斤拷锟斤拷锟街ｏ拷").showWarning();
-
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟斤拷锟斤拷锟斤拷锟街ｏ拷").showWarning();
-
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("线下入住").text("输入格式有误！").showWarning();
 				popOver.hide();
 			}
 		});
-		Button btn2 = new Button("取锟斤拷");
+		Button btn2 = new Button("取消");
+		btn2.setId("red-button");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
 			popOver.hide();
@@ -212,7 +199,7 @@ public class BrowseRoomListController implements Initializable{
 		pane.setHalignment(btn, HPos.RIGHT);
 		pane.setMargin(btn, new Insets(5,5,5,0));
 		pane.setHalignment(btn2, HPos.RIGHT);
-		pane.setMargin(btn2, new Insets(5,65,5,0));
+		pane.setMargin(btn2, new Insets(5,90,5,0));
 		pane.setMargin(field, new Insets(5,5,0,5));
 		pane.setMargin(label, new Insets(5,5,0,5));
 		popOver.setContentNode(pane);
@@ -221,10 +208,7 @@ public class BrowseRoomListController implements Initializable{
 	private void lineCheckAction(HotelItemVO room,int roomNum){
 		HotelResultMessage result;
 		if(roomNum>room.getNum()){
-
-			Notifications.create().title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟斤拷锟诫当前锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷目锟斤拷").showWarning();
-
-			Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟斤拷锟诫当前锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷目锟斤拷").showWarning();
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("线下入住").text("线下入住失败！请输入正确的数量！").showWarning();
 
 			return;
 		}
@@ -241,10 +225,7 @@ public class BrowseRoomListController implements Initializable{
 				room.setNum(room.getNum()-roomNum);
 				roomListViewData.add(room);
 				roomListViewData.remove(room);
-
-				Notifications.create().title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟铰成癸拷").showConfirm();
-
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟斤拷锟斤拷住").text("锟斤拷锟铰成癸拷").showConfirm();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("线下入住").text("操作成功").showConfirm();
 
 			}
 		} catch (RemoteException e) {
@@ -290,7 +271,7 @@ public class BrowseRoomListController implements Initializable{
                 avaliableNum.setFont(new Font("YouYuan",8));
                 Label price = new Label(item.getPrice()+"RMB");
                 price.setFont(new Font("YouYuan",13));
-                Button change = new Button("锟斤拷锟斤拷");
+                Button change = new Button("更新客房");
                 change.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 					@Override
@@ -298,7 +279,7 @@ public class BrowseRoomListController implements Initializable{
 						changeRoomInfo(event, item);
 					}
 				});
-                Button lineCheck = new Button("锟斤拷锟斤拷锟斤拷住");
+                Button lineCheck = new Button("线下入住");
                 lineCheck.setOnMouseClicked(new EventHandler<MouseEvent>() {
               
              		@Override

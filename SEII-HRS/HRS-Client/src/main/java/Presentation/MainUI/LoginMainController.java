@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import org.controlsfx.control.Notifications;
 import datacontroller.DataController;
 import info.UserType;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -42,6 +45,19 @@ public class LoginMainController implements Initializable{
 	}
 	@FXML
 	protected void login(ActionEvent e) throws IOException {
+		Task<Void> sleep = new Task<Void>() {
+
+			@Override
+			protected Void call() throws Exception {
+				try {
+                    Thread.sleep(1200);
+                } catch (InterruptedException e) {
+                }
+                return null;
+			}
+		};
+		ProgressStage waitStage = new ProgressStage(sleep,(Stage)usernameField.getScene().getWindow(), "µÇÂ¼ÖÐ...");
+		waitStage.show();
 		String username = usernameField.getText();
 	    String password = passwordField.getText();
 	    String[] titles = {"HRS-Client","HRS-HotelWorker","HRS-WebSaler","HRS-WebManager"};
@@ -84,6 +100,7 @@ public class LoginMainController implements Initializable{
 		stage.setScene(scene);
 		stage.show();
 		Stage login = (Stage) usernameField.getScene().getWindow();
+		waitStage.close();
 		login.close();
 	}
 	public void initialize(URL location, ResourceBundle resources) {

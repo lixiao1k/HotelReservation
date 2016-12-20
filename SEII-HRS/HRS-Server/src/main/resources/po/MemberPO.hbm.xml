@@ -36,11 +36,11 @@
             </property>
             <many-to-one name="vipInfo" unique="true" column="VIP_ID" class="VIPPO" not-null="false"></many-to-one>
             <set name="orders" inverse="true">
-                <key column="ORDER_ID"></key>
+                <key column="M_ID"></key>
                 <one-to-many class="OrderPO"/>
             </set>
             <set name="comment" inverse="true">
-                <key column="COMMENT_ID"></key>
+                <key column="M_ID"></key>
                 <one-to-many class="CommentPO"/>
             </set>
         </subclass>

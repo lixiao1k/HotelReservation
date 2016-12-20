@@ -16,6 +16,7 @@ public class LoginMainUI extends Application {
 		FXMLLoader loader=new FXMLLoader(getClass().getResource("LoginMainUI.fxml"));
 		Parent root=loader.load();
 		Scene scene=new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("¾ÆµêÔ¤¶©ÏµÍ³µÇÂ¼");
 		primaryStage.show();
