@@ -102,3 +102,6 @@
 #loginpane{
 	-fx-background-image: url("bg.png");
 }
+#hotel-detail-pane{
+	-fx-background-color: #FFFFFF;
+}
