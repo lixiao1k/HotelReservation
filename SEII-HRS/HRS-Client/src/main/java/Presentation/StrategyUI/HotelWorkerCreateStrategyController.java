@@ -49,6 +49,7 @@ public class HotelWorkerCreateStrategyController implements Initializable{
 		}
 	}
 	
+	//增加监听
 	public void addchoiceboxlistener(){
 		Type.getSelectionModel().selectedItemProperty().addListener((ov,oldvalue,newvalue)->{
 			if(newvalue.equals("生日优惠策略")){

@@ -47,6 +47,7 @@ public class WebSalerCreateStrategyController implements Initializable{
 		}
 	}
 	
+	//增加监听
 	public void addchoiceboxlistener(){
 		Type.getSelectionModel().selectedItemProperty().addListener((ov,oldvalue,newvalue)->{
 			if(newvalue.equals("VIP商圈优惠策略")){

@@ -22,12 +22,22 @@
     <Button font="$x1" mnemonicParsing="false" onAction="#searchInText" prefHeight="28.000099182128906" prefWidth="116.0" text="搜索" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
     <ListView id="orderListView" fx:id="strategyListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="5" GridPane.rowIndex="1" />
     <Button id="add" fx:id="addButton" mnemonicParsing="false" onAction="#addStrategy" prefHeight="28.0" prefWidth="94.00009999999747" text="增加策略" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+    <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" prefHeight="28.0" prefWidth="117.0" text="策略类型：" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <ChoiceBox id="Tyoe" fx:id="Type" prefWidth="136.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="项 1" />
+          <String fx:value="项 2" />
+          <String fx:value="项 3" />
+        </FXCollections>
+      </items>
+    </ChoiceBox>
   </children>
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="73.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="50.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="198.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="293.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="117.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="136.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="305.0" minWidth="10.0" prefWidth="165.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="538.0" minWidth="10.0" prefWidth="196.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="0.0" prefWidth="94.0" />
   </columnConstraints>
   <padding>

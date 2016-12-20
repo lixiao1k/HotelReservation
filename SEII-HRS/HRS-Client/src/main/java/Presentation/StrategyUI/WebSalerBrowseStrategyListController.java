@@ -21,6 +21,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -37,12 +38,11 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 	@FXML ListView<StrategyVO> strategyListView;
 	@FXML TextField searchText;
 	@FXML GridPane mainPane;
+	@FXML ChoiceBox<String> Type;
 	GridPane clientmain;
 	StrategyLogicService strategyLogic;
-	private long hotelid;
 	ObservableList<StrategyVO> olist;
 	ObservableList<StrategyVO> selist;
-	@FXML Button addButton;
 	@FXML 
 	protected void searchInText(ActionEvent e){
 		if(selist==null){
@@ -133,12 +133,56 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 		}
 	}
 	
-	//基本信息
-    public void setBaseInfo(){
-    	DataController.getInstance().put("HotelId", (long)1);
-    	hotelid=(long)DataController.getInstance().get("HotelId");
-    	DataController.getInstance().put("HotelId", hotelid);
+	   //初始化类型
+    public void initType(){
+		ObservableList<String> typelist=FXCollections.observableArrayList();
+		typelist.addAll("生日优惠策略","房间预订优惠策略","合作企业优惠策略","节日优惠策略");
+		Type.setItems(typelist);
     }
+    
+    //类型搜索
+    public void swift(int i){
+		String name[]={
+				"Birth",
+				"Room",
+				"Company",
+				"HotelFestival"};
+		if(selist==null){
+			selist=FXCollections.observableArrayList();
+			for(StrategyVO vo:olist){
+				if(vo.getType().getName().equals(name[i])){
+					selist.add(vo);
+				}
+			}
+			strategyListView.setItems(selist);
+		}else{
+			selist.clear();
+			for(StrategyVO vo:olist){
+				if(vo.getType().getName().equals(name[i])){
+					selist.add(vo);
+				}
+			}
+			strategyListView.setItems(selist);
+		}
+    }
+    
+    //增加监听
+	public void addchoiceboxlistener(){
+		Type.getSelectionModel().selectedItemProperty().addListener((ov,oldvalue,newvalue)->{
+			if(newvalue.equals("生日优惠策略")){
+				swift(0);
+			}
+			if(newvalue.equals("房间预订优惠策略")){
+				swift(1);
+			}
+			if(newvalue.equals("合作企业优惠策略")){
+				swift(2);
+			}
+			if(newvalue.equals("节日优惠策略")){
+				swift(3);
+			}
+        });
+	}
     
     //初始化列表
     public void initListView() throws RemoteException{
@@ -168,7 +212,8 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		setBaseInfo();
+		initType();
+		addchoiceboxlistener();
 		try {
 			initListView();
 		} catch (RemoteException e) {
