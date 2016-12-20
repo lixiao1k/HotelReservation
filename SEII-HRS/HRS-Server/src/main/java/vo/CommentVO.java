@@ -1,9 +1,14 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class CommentVO {
+public class CommentVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5856041160505967577L;
 	private int grade;
 	private String comment;
 	private Date date;
@@ -19,6 +24,9 @@ public class CommentVO {
     	this.grade = grade;
     	this.comment = comment;
     	this.hotelId = hotelId;
+    }
+    public CommentVO(){
+    	
     }
     public int getGrade(){
     	return grade;

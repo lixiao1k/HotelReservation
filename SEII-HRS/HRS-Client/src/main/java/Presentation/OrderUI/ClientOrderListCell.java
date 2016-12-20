@@ -140,7 +140,12 @@ public class ClientOrderListCell extends ListCell<OrderVO>{
 			if(item.getStatus()==OrderStatus.EXECUTED&&!item.isCommented()){
 				review.setOnAction((ActionEvent e)->{
 					Object o =DataController.getInstance().get("ClientOrderController");
-					((ClientBrowseOrderListController) o).review(item,e);
+					try {
+						((ClientBrowseOrderListController) o).review(item,e);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				});
 				gridPane.add(review, 2, 0,1,2);
 				gridPane.setHalignment(review, HPos.RIGHT);
