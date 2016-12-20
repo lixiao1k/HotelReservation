@@ -44,6 +44,7 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 	public List<HotelPO> getHotelListByRule(Rule rule) {
 		StringBuilder temp = new StringBuilder(getHotelListByRuleQuery);
 		try{
+			System.out.println(rule.getBusinessCircle().getBcircleId());
 			if(rule.getCheckInTime()!=null)
 				temp.append(" and hi.date>=:beginTime");
 			if(rule.getCheckOutTime()!=null)

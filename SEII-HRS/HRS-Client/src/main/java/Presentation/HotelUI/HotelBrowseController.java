@@ -100,7 +100,7 @@ public class HotelBrowseController implements Initializable{
 	public void search(ActionEvent e)
 	{
 		String searchinfo=searchField.getText();
-		String[] aimhotel=searchinfo.split("");
+		String[] aimhotel=searchinfo.split(" ");
 		Map<BasicHotelVO,Integer>map=new HashMap<>();
 		List<BasicHotelVO> hotelstextlimit = new ArrayList<BasicHotelVO>();
 		try {
@@ -581,7 +581,6 @@ public class HotelBrowseController implements Initializable{
 		    for(BusinessCircle bcir:setcircle){
 		    	if(selectCircle.equals(bcir.getName()))
 		    	{
-		    		bcir.setBcircleId(1);//先自己设一个id
 		    		circle=bcir;
 		    		circle.setBcircleId(bcir.getBcircleId());
 		    		break;

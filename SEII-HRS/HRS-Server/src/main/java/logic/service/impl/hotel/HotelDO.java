@@ -585,7 +585,7 @@ public class HotelDO {
 			HibernateUtil.getCurrentSession().beginTransaction();
 			Rule rule = DozerMappingUtil.getInstance().map(vo, Rule.class);
 			ListWrapper<HotelPO> hotels = hotelDao.getHotelListByRule(rule);
-			
+			System.out.println(hotels.size()+"dddd");
 			Iterator<HotelPO> it = hotels.iterator();
 			ListWrapper<BasicHotelVO> result = new ListWrapper<>();
 			while(it.hasNext()){

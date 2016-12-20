@@ -182,7 +182,6 @@ public class DetailHotelInfoController implements Initializable{
 		commentListView.getProperties().put("NAME", "Data");
 		roomListView.getProperties().put("NAME", "Data");
 		if(hotel.getImage()==null){
-			System.out.println(1);
 			Image image = new Image(getClass().getClassLoader().getResourceAsStream("Presentation/HotelUI/DefaultHotelPic.jpg"));
 			imageView.setImage(image);
 		}else{
