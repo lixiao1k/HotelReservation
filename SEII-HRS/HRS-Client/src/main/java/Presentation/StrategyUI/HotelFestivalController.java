@@ -16,6 +16,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -30,8 +32,8 @@ import vo.StrategyVO;
 
 public class HotelFestivalController implements Initializable{
 	@FXML GridPane mainPane;
-	@FXML TextField Time1;
-	@FXML TextField Time2;
+	DatePicker Time1;
+	DatePicker Time2;
 	@FXML TextField Name;
 	@FXML TextField Off;
 	GridPane clientmain;
@@ -53,10 +55,10 @@ public class HotelFestivalController implements Initializable{
 			}else{
 				off=Double.valueOf(Off.getText());
 				svo.setOff(off);
-				if(Time1.getText().equals("")||Time2.getText().equals("")){//检测时间
+				if(Time1.getValue()==null||Time2.getValue()==null){//检测时间
 					Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请输入时间").showWarning();
 				}else{
-					svo.setExtraInfo(Time1.getText()+"|"+Time2.getText());
+					svo.setExtraInfo(Time1.getValue()+"|"+Time2.getValue());
 					svo.setHotelId(hotelid);
 					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
 					Iterator<StrategyType> it=typelist.iterator();
@@ -108,6 +110,19 @@ public class HotelFestivalController implements Initializable{
 		DataController.getInstance().put("HotelId", hotelid);
 	}
 	
+	public void initpicker(){
+		Time1=new DatePicker();
+		Time1.setPrefWidth(138);
+		Time1.setMaxWidth(148);
+		mainPane.add(Time1, 0, 2);
+		mainPane.setMargin(Time1, new Insets(0, 0, 0, 130));
+		Time2=new DatePicker();
+		Time2.setPrefWidth(138);
+		Time2.setMaxWidth(148);
+		mainPane.add(Time2, 0, 2);
+		mainPane.setMargin(Time2, new Insets(0, 0, 0, 320));
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setBaseInfo();
@@ -118,5 +133,6 @@ public class HotelFestivalController implements Initializable{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		initpicker();
 	}
 }
