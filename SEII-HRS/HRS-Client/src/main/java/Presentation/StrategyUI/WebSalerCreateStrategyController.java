@@ -25,6 +25,26 @@ public class WebSalerCreateStrategyController implements Initializable{
 		Type.setItems(typelist);
 	}
 	
+	@FXML
+	protected void Back(){
+	   	try {
+				Parent browseStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/WebSalerBrowseStrategyListUI.fxml"));
+				browseStrategy.getProperties().put("NAME", "BrowseStrategyPane");
+				clientmain=(GridPane) mainPane.getScene().getWindow().getScene().getRoot();
+				ObservableList<Node> list = clientmain.getChildren();
+				for (Node node:list){
+					String value = (String) node.getProperties().get("NAME");
+					if (value!=null&&value.contains("Pane")){
+						list.remove(node);
+						break;
+					}
+				}
+				clientmain.add(browseStrategy, 3, 1);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+	}
+	
 	//½çÃæÌø×ª
 	public void swift(int i){
 		String name[]={

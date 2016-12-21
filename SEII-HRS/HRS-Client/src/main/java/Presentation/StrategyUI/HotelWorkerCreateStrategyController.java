@@ -19,6 +19,26 @@ public class HotelWorkerCreateStrategyController implements Initializable{
 	@FXML ChoiceBox<String> Type;
 	GridPane clientmain;
 	
+	@FXML
+	protected void Back(){
+	   	try {
+				Parent browseStrategy = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/StrategyUI/HotelWorkerBrowseStrategyListUI.fxml"));
+				browseStrategy.getProperties().put("NAME", "BrowseStrategyPane");
+				clientmain=(GridPane) mainPane.getScene().getWindow().getScene().getRoot();
+				ObservableList<Node> list = clientmain.getChildren();
+				for (Node node:list){
+					String value = (String) node.getProperties().get("NAME");
+					if (value!=null&&value.contains("Pane")){
+						list.remove(node);
+						break;
+					}
+				}
+				clientmain.add(browseStrategy, 3, 1);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+	}
+	
 	public void initType(){
 		ObservableList<String> typelist=FXCollections.observableArrayList();
 		typelist.addAll("生日优惠策略","房间预订优惠策略","合作企业优惠策略","节日优惠策略");
