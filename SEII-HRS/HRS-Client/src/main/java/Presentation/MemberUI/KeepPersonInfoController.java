@@ -25,7 +25,6 @@ import vo.MemberVO;
 
 public class KeepPersonInfoController implements Initializable{
 
-	@FXML Label idLabel;
 	@FXML TextField nameTextField;
 	@FXML TextField phoneTextField;
 	@FXML Label creditLabel;
@@ -40,7 +39,7 @@ public class KeepPersonInfoController implements Initializable{
 	@FXML
 	protected void goCreditBrowse(ActionEvent e){
 		try {
-			GridPane clientmain=(GridPane)idLabel.getScene().getWindow().getScene().getRoot();
+			GridPane clientmain=(GridPane)nameTextField.getScene().getWindow().getScene().getRoot();
 			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/CreditUI/CreditBrowse.fxml"));
 			Parent creditBrowse = loader.load();
 //			CreditBrowseController creditcontroller=loader.getController();
@@ -93,8 +92,7 @@ public class KeepPersonInfoController implements Initializable{
 			credit=membervo.getCredit();
 			phone=membervo.getPhone();
 		    nameTextField.setText(username);
-		    phoneTextField.setText(phone);
-		    idLabel.setText(Long.toString(userid));		
+		    phoneTextField.setText(phone);	
 		    creditLabel.setText(Integer.toString(credit));
 		    nameTextField.setEditable(false);
 		    phoneTextField.setEditable(false);

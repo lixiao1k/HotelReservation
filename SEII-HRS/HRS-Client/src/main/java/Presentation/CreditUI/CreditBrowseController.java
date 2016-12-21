@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -109,6 +110,8 @@ public class CreditBrowseController implements Initializable{
 			super.updateItem(item, empty);
 			if(item!=null){
 				GridPane cell=new GridPane();
+				final Tooltip tooltip=new Tooltip();
+				tooltip.setText(item.getReason());
 //				Label id=new Label("ID:"+Long.toString(item.);
 //				id.setFont(new Font("KaiTi_GB2312",15));
 //				id.setPrefWidth(150);
@@ -118,6 +121,7 @@ public class CreditBrowseController implements Initializable{
 				Label delta=new Label(Integer.toString(item.getDelta()));
 				delta.setFont(new Font("KaiTi_GB2312", 20));
 				delta.setPrefWidth(100);
+				delta.setTooltip(tooltip);
 				if(item.getDelta()>0){
 					delta.setTextFill(Color.GREEN);
 				}else if(item.getDelta()<0){
@@ -125,7 +129,7 @@ public class CreditBrowseController implements Initializable{
 				}else{
 					delta.setTextFill(Color.BLACK);
 				}
-				Label credit=new Label("信用总值:"+Integer.toString(item.getCredit()));
+				Label credit=new Label("淇＄敤鎬诲��:"+Integer.toString(item.getCredit()));
 				credit.setFont(new Font("KaiTi_GB2312",20));
 				credit.setPrefWidth(200);
 //				cell.add(id, 0, 0);

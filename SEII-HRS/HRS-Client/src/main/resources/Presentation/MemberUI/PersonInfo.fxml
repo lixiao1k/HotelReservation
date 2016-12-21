@@ -20,22 +20,9 @@
       <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
    </columnConstraints>
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" text="维护基本信息" textFill="#f8f6f6" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" text="维护基本信息" textFill="#f8f6f6" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
          <font>
             <Font size="36.0" />
-         </font>
-      </Label>
-      <Label text="ID：" textFill="#fffbfb" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="idLabel" text="*********" textFill="#fffafa" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
-         <GridPane.margin>
-            <Insets left="50.0" top="5.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="18.0" />
          </font>
       </Label>
       <Label text="用户名：" textFill="#f2c6c6" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
