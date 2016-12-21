@@ -512,6 +512,7 @@ public class HotelBrowseController implements Initializable{
 					}
 				}
 				client.add(hoteldetailBrowse, 3, 1);
+				DataController.getInstance().putAndUpdate("HotelBrowsePane", this);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -574,7 +575,6 @@ public class HotelBrowseController implements Initializable{
 		}
 		else
 		{
-
 			selectCircle=circleBox.getSelectionModel().getSelectedItem().toString();
 			System.out.println(selectCircle);
 		    searchvo.setBusinessCity(city);

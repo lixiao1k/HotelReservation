@@ -10,10 +10,13 @@
 <VBox id="loginpane" prefHeight="465.0" prefWidth="415.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.MainUI.LoginMainController">
   <!-- TODO Add Nodes -->
   <children>
-    <Label id="logo" alignment="CENTER" prefHeight="100.0" prefWidth="415.0" text="">
+    <Label id="logo" alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="415.0" text="">
       <font>
         <Font size="20.0" />
       </font>
+      <graphic>
+        <Button id="x-button" minHeight="17.625" minWidth="14.0" mnemonicParsing="false" onAction="#exit" prefHeight="19.0" prefWidth="19.0" text="Button" />
+      </graphic>
       <VBox.margin>
         <Insets top="4.0" />
       </VBox.margin>
@@ -31,13 +34,13 @@
             <Font name="幼圆" size="16.0" fx:id="x1" />
           </font>
         </Text>
-        <TextField fx:id="usernameField" prefHeight="28.0" prefWidth="272.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="usernameField" prefHeight="28.0" prefWidth="272.0" promptText="Your username" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <GridPane.margin>
             <Insets left="10.0" right="10.0" fx:id="x2" />
           </GridPane.margin>
         </TextField>
         <Text fill="WHITE" font="$x1" strokeType="OUTSIDE" strokeWidth="0.0" text="密码" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <PasswordField fx:id="passwordField" prefHeight="28.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="2" />
+        <PasswordField fx:id="passwordField" prefHeight="28.0" prefWidth="200.0" promptText="Your Password" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="2" />
         <Button id="orange-button" mnemonicParsing="false" onAction="#login" prefHeight="28.0" prefWidth="81.0" text="登录" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
           <GridPane.margin>
             <Insets right="20.0" top="20.0" />

@@ -78,9 +78,11 @@ public class OrderDataHelperMysqlImpl implements OrderDataHelper{
 		Session session = HibernateUtil.getCurrentSession();
 		Query query = session.createQuery(hotelUserQuery);
 		HotelPO hotel = (HotelPO) HibernateUtil.getCurrentSession().get(HotelPO.class	, hotelId);
-		query.setEntity("HOTEL", hotel);
+		if(hotel!=null)
+			query.setEntity("HOTEL", hotel);
 		MemberPO member = (MemberPO) HibernateUtil.getCurrentSession().get(MemberPO.class	, userId);
-		query.setEntity("MEMBER", member);
+		if(member!=null)
+			query.setEntity("MEMBER", member);
 		List<OrderPO> list = query.list();
 		return list;
 	}

@@ -5,12 +5,15 @@ import java.util.Iterator;
 
 import javax.management.RuntimeErrorException;
 
+import org.hibernate.Hibernate;
+
 import data.dao.UserDao;
 import data.dao.impl.DaoManager;
 import info.Cache;
 import info.UserStatus;
 import info.UserType;
 import po.ClientMemberPO;
+import po.HotelWorkerPO;
 import po.MemberPO;
 import po.UserPO;
 import resultmessage.LoginResultMessage;
@@ -35,57 +38,72 @@ public class UserDO {
 	
 	//µÇÂ½
 	public LoginResultVO login(String username,String password) throws RemoteException{
-		Iterator cacheItem=users.getKeys();
-		UserPO upo=null;
-		LoginResultVO lrvo=new LoginResultVO(null, null, 0);
-		String name = Base64Util.encode(username);
-		String pass = Base64Util.encode(password);
-		boolean flag = false;
-		while(cacheItem.hasNext()){
-			long userid=(long)cacheItem.next();
-			UserPO cachePO=users.get(userid);
-			if(upo==null&&cachePO.getUsername().equals(name)){
-				upo=cachePO;
+		try{
+			Iterator cacheItem=users.getKeys();
+			UserPO upo=null;
+			LoginResultVO lrvo=new LoginResultVO(null, null, 0);
+			String name = Base64Util.encode(username);
+			String pass = Base64Util.encode(password);
+			boolean flag = false;
+			while(cacheItem.hasNext()){
+				long userid=(long)cacheItem.next();
+				UserPO cachePO=users.get(userid);
+				if(upo==null&&cachePO.getUsername().equals(name)){
+					upo=cachePO;
+				}
+				if(upo!=null){
+					break;
+				}
 			}
-			if(upo!=null){
-				break;
+			if(upo==null){
+				HibernateUtil.getCurrentSession().beginTransaction();
+				flag = true;
+				upo=userDao.getInfo(name);
 			}
-		}
-		if(upo==null){
-			HibernateUtil.getCurrentSession().beginTransaction();
-			flag = true;
-			upo=userDao.getInfo(name);
-		}
-		if(upo==null){
-			lrvo.setLoginResultMessage(LoginResultMessage.FAIL_NOINFO);
-			if(flag)
-				HibernateUtil.getCurrentSession().getTransaction().commit();
-			return lrvo;
-		}else if(upo.getStatus()==UserStatus.ONLINE){
-			lrvo.setLoginResultMessage(LoginResultMessage.FAIL_LOGGED);
-			if(flag)
-				HibernateUtil.getCurrentSession().getTransaction().commit();
-			return lrvo;
-		}else{
-			if(upo.getPassword().equals(pass)){
-				upo.setStatus(UserStatus.ONLINE);
-				users.put(upo.getUid(), upo);
-				if(!flag)
-					HibernateUtil.getCurrentSession().beginTransaction();
-				userDao.update(upo);
-				lrvo.setLoginResultMessage(LoginResultMessage.SUCCESS);
-				lrvo.setUserType(upo.getType());
-				lrvo.setUserID(upo.getUid());
+			if(upo==null){
+				lrvo.setLoginResultMessage(LoginResultMessage.FAIL_NOINFO);
+				if(flag)
+					HibernateUtil.getCurrentSession().getTransaction().commit();
+				return lrvo;
+			}else if(upo.getStatus()==UserStatus.ONLINE){
+				lrvo.setLoginResultMessage(LoginResultMessage.FAIL_LOGGED);
 				if(flag)
 					HibernateUtil.getCurrentSession().getTransaction().commit();
 				return lrvo;
 			}else{
-				users.put(upo.getUid(), upo);
-				lrvo.setLoginResultMessage(LoginResultMessage.FAIL_WRONG);
-				if(flag)
-					HibernateUtil.getCurrentSession().getTransaction().commit();
-				return lrvo;
+				if(upo.getPassword().equals(pass)){
+					upo.setStatus(UserStatus.ONLINE);
+					
+					if(!flag){
+						HibernateUtil.getCurrentSession().beginTransaction();
+						flag = true;
+						System.out.println(1);
+					}
+					MemberPO po = DaoManager.getInstance().getMemberDao().getInfo(upo.getUid());
+					if(po instanceof HotelWorkerPO)
+						lrvo.setHotelid(((HotelWorkerPO)po).getHotel().getHid());
+					userDao.update((UserPO) HibernateUtil.getCurrentSession().merge(upo));
+					lrvo.setLoginResultMessage(LoginResultMessage.SUCCESS);
+					lrvo.setUserType(upo.getType());
+					lrvo.setUserID(upo.getUid());
+					Hibernate.initialize(upo.getMember());
+					users.put(upo.getUid(), upo);
+					if(flag){
+						HibernateUtil.getCurrentSession().getTransaction().commit();
+						System.out.println("finish");
+					}
+					return lrvo;
+				}else{
+					users.put(upo.getUid(), upo);
+					lrvo.setLoginResultMessage(LoginResultMessage.FAIL_WRONG);
+					if(flag)
+						HibernateUtil.getCurrentSession().getTransaction().commit();
+					return lrvo;
+				}
 			}
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			return null;
 		}
 	}
 	

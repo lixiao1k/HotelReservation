@@ -4,9 +4,10 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-
 import Presentation.MainUI.ClientMainUI;
 import Presentation.MainUI.HotelWorkerMainUI;
+import Presentation.MainUI.LoginMainUI;
+import Presentation.MainUI.WebManagerMainUI;
 import datacontroller.DataController;
 import javafx.application.Application;
 import rmi.RemoteHelper;
@@ -15,9 +16,7 @@ public class TestRunner{
 	private RemoteHelper remoteHelper;
 	public TestRunner(String[] args){
 		linkToServer();
-		DataController.getInstance().put("HotelId",(long)1);
-		DataController.getInstance().put("UserId", (long)2);
-		Application.launch(ClientMainUI.class,args);
+		Application.launch(LoginMainUI.class,args);
 	}
 	private void linkToServer() {
 		try {

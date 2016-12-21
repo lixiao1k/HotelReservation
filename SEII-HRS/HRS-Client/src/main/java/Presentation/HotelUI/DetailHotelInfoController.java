@@ -15,6 +15,7 @@ import java.util.Set;
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.Rating;
 import org.controlsfx.control.SegmentedButton;
+import org.omg.CORBA.NO_IMPLEMENT;
 
 import datacontroller.DataController;
 import info.OrderStatus;
@@ -169,7 +170,22 @@ public class DetailHotelInfoController implements Initializable{
 		returnButton.setBorder(null);
 		returnButton.setBackground(null);
 		returnButton.setOnAction((ActionEvent e)->{
-			
+			GridPane pane = (GridPane)root.getScene().getWindow().getScene().getRoot();
+			Object obj = DataController.getInstance().get("HotelBrowsePane");
+			if(obj==null){
+				Notifications.create().owner(root.getScene().getWindow()).title("返回").text("返回失败！").showError();
+				return;
+			}
+			GridPane target = (GridPane)obj;
+			ObservableList<Node> list =pane.getChildren();
+			for(Node node:list){
+				String value=(String)node.getProperties().get("NAME");
+				if(value!=null&&value.contains("Pane")){
+					list.remove(node);
+					break;
+				}
+			}
+			pane.add(target, 3, 1);
 		});
 		rankMap = new HashMap<>();
 		rankMap.put(Rank.ONE, 1);
@@ -200,37 +216,6 @@ public class DetailHotelInfoController implements Initializable{
 		});
 		rankVBox.getChildren().add(rating);
 		rankVBox.setMargin(rating, new Insets(25,0,0,0));
-		//DataController.getInstance().putAndUpdate("Root", root.getScene().getRoot());
-		//test
-		HotelCommentVO hcvo = new HotelCommentVO();
-		hcvo.setComment("1111");
-		hcvo.setDate(new Date());
-		hcvo.setGrade(3);
-		hcvo.setHide(true);
-		hcvo.setName(null);
-		Room room = new Room();
-		room.setType("大床房");
-		hcvo.setRoom(room);
-		List<HotelCommentVO> vo = new ArrayList<>();
-		vo.add(hcvo);
-		commentListView.setItems(FXCollections.observableArrayList(vo));
-		HotelItemVO hivo = new HotelItemVO();
-		hivo.setDate(new Date());
-		hivo.setNum(200);
-		hivo.setTotal(344);
-		hivo.setPrice(36.7);
-		hivo.setRoom(room);
-		List<HotelItemVO> vo2 = new ArrayList<>();
-		vo2.add(hivo);
-		roomListView.setItems(FXCollections.observableArrayList(vo2));
-		OrderVO orderVO = new OrderVO();
-		orderVO.setOrderNum("SE-12345");
-		orderVO.setStatus(OrderStatus.EXECUTED);
-		List<OrderVO> vo3 = new ArrayList<>();
-		vo3.add(orderVO);
-		ObservableList<OrderVO> olist = FXCollections.observableArrayList(vo3);
-		DataController.getInstance().putAndUpdate("OrderData", olist);
-		userId = 2;
 		//DataController.getInstance().putAndUpdate("Root", root.getScene().getWindow().getScene().getRoot());
 	}
 	private void initialInfo() throws RemoteException{
@@ -246,33 +231,10 @@ public class DetailHotelInfoController implements Initializable{
 		roomData = FXCollections.observableArrayList(hotel.getRooms());
 		commentListView.setItems(commentData);
 		roomListView.setItems(roomData);
-
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		try{	
-			//test
-			hotel=new BasicHotelVO();
-			hotel.setDescription("上海铂睿全套房酒店位于上海市静安寺南京西路的顶级商务区域，周围众多顶级奢侈品牌汇集，甲级办公楼林立，恒隆广场、中信泰富广场、梅龙镇广场也都近在咫尺。得天独厚的地理位置，便捷的地铁2号和7号线，可以方便快捷地往返上海浦东、虹桥两个国际机场及国家会议中心。出门即可快速前往上海的各个区域。");
-			hotel.setService("上海铂睿全套房酒店每间房间配有无线上网服务，设施配备齐全。");
-			hotel.setFacility("免费旅游交通图(可赠送)有可无线上网的公共区域 免费中餐厅收费停车场");
-			hotel.setRank(Rank.FIVE);
-			hotel.setAddress("江苏省南京市");
-			hotel.setHotelName("如家");
-			hotel.setScore(75.222222);
-			hotel.setHotelId(1);
-			Room room = new Room();
-			room.setType("大床房");
-			HotelItemVO hivo = new HotelItemVO();
-			hivo.setDate(new Date());
-			hivo.setNum(200);
-			hivo.setTotal(344);
-			hivo.setPrice(36.7);
-			hivo.setRoom(room);
-			Set<HotelItemVO> rooms = new HashSet<>();
-			rooms.add(hivo);
-			hotel.setRooms(rooms);
-			//
+		try{
 			setBaseInfo();
 			initialInfo();
 		}catch(RemoteException e){

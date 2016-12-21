@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class LoginMainUI extends Application {
 
@@ -17,6 +18,7 @@ public class LoginMainUI extends Application {
 		Parent root=loader.load();
 		Scene scene=new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
+		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("¾ÆµêÔ¤¶©ÏµÍ³µÇÂ¼");
 		primaryStage.show();

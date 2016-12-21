@@ -9,7 +9,7 @@
 
 <GridPane id="main-pane" fx:id="webSalerMain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.MainUI.WebSalerMainController">
   <children>
-    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="1" GridPane.rowSpan="1">
+    <VBox prefHeight="200.0" prefWidth="100.0" styleClass="mainUIVBox" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="1" GridPane.rowSpan="1">
       <children>
         <Button id="mainbutton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goCreateNewStrategy" prefHeight="48.0" prefWidth="129.0" text="查看策略列表" textFill="WHITE">
           <font>
@@ -25,16 +25,16 @@
           </VBox.margin>
         </Button>
         <Button id="mainbutton" font="$x2" mnemonicParsing="false" onAction="#goRechargeCredit" prefHeight="48.0" prefWidth="129.0" text="信用充值" textFill="WHITE" wrapText="false" VBox.margin="$x3" />
+        <Button font="$x2" mnemonicParsing="false" onAction="#logout" prefHeight="48.0" prefWidth="128.0" text="登出" textFill="WHITE">
+          <VBox.margin>
+            <Insets left="7.0" right="7.0" top="370.0" />
+          </VBox.margin>
+        </Button>
       </children>
       <GridPane.margin>
         <Insets />
       </GridPane.margin>
     </VBox>
-    <Separator orientation="VERTICAL" prefHeight="559.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-      <GridPane.margin>
-        <Insets top="8.0" />
-      </GridPane.margin>
-    </Separator>
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="449.0" minWidth="0.0" prefWidth="144.0" />

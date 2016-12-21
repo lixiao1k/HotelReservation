@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import logic.service.ServiceFactory;
 import resultmessage.RegisterResultMessage;
 import rmi.RemoteHelper;
@@ -53,20 +54,33 @@ public class RegisterMainController implements Initializable{
 			return;
 		}
 		Notifications.create().title("×¢²á").text("×¢²á³É¹¦£¡").showConfirm();
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		Parent root = FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
 		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 		Stage login = new Stage();
 		login.setScene(scene);
 		login.setTitle("¾ÆµêÔ¤¶©ÏµÍ³µÇÂ¼");
 		login.show();
 		Stage register = (Stage) usernameField.getScene().getWindow();
 		register.close();
+	}
+	@FXML
+	protected void exit(ActionEvent e){
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
+			Stage login = new Stage();
+			login.setScene(scene);
+			login.setTitle("¾ÆµêÔ¤¶©ÏµÍ³µÇÂ¼");
+			login.initStyle(StageStyle.UNDECORATED);
+			login.show();
+			((Stage)usernameField.getScene().getWindow()).close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		if(serviceFactory==null)

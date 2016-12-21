@@ -21,6 +21,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import logic.service.ServiceFactory;
 import resultmessage.LoginResultMessage;
 import rmi.RemoteHelper;
@@ -39,6 +40,8 @@ public class LoginMainController implements Initializable{
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.setTitle("зЂВс");
+		stage.initStyle(StageStyle.UNDECORATED);
+		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 		stage.show();
 		Stage login = (Stage) usernameField.getScene().getWindow();
 		login.close();
@@ -66,7 +69,7 @@ public class LoginMainController implements Initializable{
 	    					,"WebSalerMainUI.fxml"
 	    					,"WebManagerMainUI.fxml"
 	    					};
-	    String[] contentPath = {"Presentation/MemberUI/KeepPersonInfo.fxml"
+	    String[] contentPath = {"Presentation/MemberUI/PersonInfo.fxml"
 	    					   ,"Presentation/HotelUI/SetHotelInfo.fxml"
 	    					   ,"Presentation/StrategyUI/WebSalerBrowseStrategyListUI.fxml"
 	    					   ,"Presentation/HotelUI/AddHotelInfo.fxml"
@@ -87,21 +90,29 @@ public class LoginMainController implements Initializable{
 			return;
 		}
 		DataController.getInstance().put("UserId", result.getUserID());
+		if(result.getHotelid()!=-1)
+			DataController.getInstance().put("HotelId",result.getHotelid());
 		int userType = type.get(result.getUserType());
 		FXMLLoader loader =new FXMLLoader();
 		loader.setLocation(getClass().getResource(mainPath[userType]));
 		Parent content = FXMLLoader.load(getClass().getClassLoader().getResource(contentPath[userType]));
 		content.getProperties().put("NAME", nameProperties[userType]);
 		GridPane root = (GridPane) loader.load();
-	    root.add(content, 2, 1);
+	    root.add(content, 3, 1);
 		Scene scene = new Scene(root,900,600);
 		Stage stage = new Stage();
 		stage.setTitle(titles[userType]);
+		stage.initStyle(StageStyle.UTILITY);
+		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 		stage.setScene(scene);
 		stage.show();
 		Stage login = (Stage) usernameField.getScene().getWindow();
 		waitStage.close();
 		login.close();
+	}
+	@FXML
+	protected void exit(ActionEvent e){
+		((Stage)usernameField.getScene().getWindow()).close();
 	}
 	public void initialize(URL location, ResourceBundle resources) {
 		if(serviceFactory==null)

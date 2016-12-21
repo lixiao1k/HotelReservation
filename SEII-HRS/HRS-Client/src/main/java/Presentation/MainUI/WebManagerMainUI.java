@@ -16,9 +16,10 @@ public class WebManagerMainUI extends Application{
 		Parent root = FXMLLoader.load(getClass().getResource("WebManagerMainUI.fxml"));
 		Parent HotelInfo = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/AddHotelInfo.fxml"));
 		HotelInfo.getProperties().put("NAME", "AddHotelInfoPane");
-		GridPane pane = (GridPane) root.lookup("#webManagerMain");
-		pane.add(HotelInfo, 2, 1);
+		GridPane pane = (GridPane) root;
+		pane.add(HotelInfo, 3, 1);
 		Scene scene = new Scene(root,900,600);
+		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

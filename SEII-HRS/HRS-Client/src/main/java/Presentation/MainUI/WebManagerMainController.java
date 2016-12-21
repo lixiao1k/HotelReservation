@@ -2,7 +2,10 @@ package Presentation.MainUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.Notifications;
 
 import datacontroller.DataController;
 import javafx.collections.ObservableList;
@@ -13,6 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import rmi.RemoteHelper;
 
 public class WebManagerMainController implements Initializable{
 	@FXML private GridPane webManagerMain;
@@ -60,6 +65,16 @@ public class WebManagerMainController implements Initializable{
 		if(o!=null)
 			userId = (long) o;
 	}
+    @FXML
+    protected void logout(ActionEvent e){
+    	try {
+			RemoteHelper.getInstance().getServiceFactory().getUserLogicService().logout(userId);
+			((Stage)webManagerMain.getScene().getWindow()).close();
+		} catch (RemoteException e2) {
+			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("µÇ³ö").text("µÇ³öÊ§°Ü£¡").showError();
+			e2.printStackTrace();
+		}
+    }
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setBaseInfo();

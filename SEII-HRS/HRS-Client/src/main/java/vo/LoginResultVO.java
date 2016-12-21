@@ -13,6 +13,7 @@ public class LoginResultVO implements Serializable{
 	private LoginResultMessage resultMessage;
     private UserType userType;
     private long userid;
+    private long hotelid;
     public LoginResultVO(LoginResultMessage resultMessage,UserType userType,long userid) {
 		// TODO Auto-generated constructor stub
     	this.resultMessage=resultMessage;
@@ -37,5 +38,20 @@ public class LoginResultVO implements Serializable{
     public void setUserID(long userid){
     	this.userid=userid;
     }
+	public long getUserid() {
+		return userid;
+	}
+	public void setUserid(long userid) {
+		this.userid = userid;
+	}
+	public long getHotelid() {
+		return hotelid;
+	}
+	public void setHotelid(long hotelid) {
+		this.hotelid = hotelid;
+	}
+	public void setResultMessage(LoginResultMessage resultMessage) {
+		this.resultMessage = resultMessage;
+	}
     
 }

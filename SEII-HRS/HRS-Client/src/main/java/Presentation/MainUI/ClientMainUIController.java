@@ -2,7 +2,10 @@ package Presentation.MainUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.Notifications;
 
 import Presentation.MemberUI.KeepPersonInfoController;
 import datacontroller.DataController;
@@ -16,6 +19,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import rmi.RemoteHelper;
 
 public class ClientMainUIController implements Initializable{
 	@FXML Button goHotelListButton;
@@ -80,7 +85,16 @@ public class ClientMainUIController implements Initializable{
 		if(o!=null)
 			userId = (long) o;
     }
-    
+    @FXML
+    protected void logout(ActionEvent e){
+    	try {
+			RemoteHelper.getInstance().getServiceFactory().getUserLogicService().logout(userId);
+			((Stage)clientmain.getScene().getWindow()).close();
+		} catch (RemoteException e2) {
+			Notifications.create().owner(clientmain.getScene().getWindow()).title("µÇ³ö").text("µÇ³öÊ§°Ü£¡").showError();
+			e2.printStackTrace();
+		}
+    }
 	public void initialize(URL location, ResourceBundle resources) {
 		setBaseInfo();
 	}
