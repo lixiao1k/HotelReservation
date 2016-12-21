@@ -21,7 +21,7 @@ import rmi.RemoteHelper;
 import vo.ManageClientVO;
 
 public class ManageCVIPController implements Initializable{
-	@FXML TextField CompanyName;
+	@FXML private TextField CompanyName;
 	
 		private ManageClientVO clvo;
 		private MemberLogicService memberlogic;

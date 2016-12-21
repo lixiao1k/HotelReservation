@@ -4,6 +4,9 @@ package Presentation.HotelUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import org.controlsfx.control.Notifications;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,6 +20,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import vo.AddHotelVO;
 
 public class AddHotelInfoController implements Initializable{
 @FXML TextField addressField;
@@ -31,7 +35,8 @@ public class AddHotelInfoController implements Initializable{
 @FXML ChoiceBox provinceChoice;
 @FXML ChoiceBox cityChoice;
 
-private static String star=null;
+ private static String star=null;
+ private AddHotelVO addHotel;
 
 @FXML
   public void Submit(ActionEvent e)throws IOException
@@ -44,20 +49,20 @@ private static String star=null;
 	  if(area||field)
 	  {
 		  
-		  Stage clickCheck=new Stage();
-		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheckFalse.fxml"));
-		  Scene scene=new Scene(root,275,125);
-		  clickCheck.setScene(scene);
-		  clickCheck.show();
-		  //锟斤拷息锟斤拷写锟斤拷锟斤拷锟斤拷
+			Notifications.create().owner(addHotelField.getScene().getWindow()).title("错误信息").text("填写内容不能为空").showError();
+
+		 
 	  }
 	  else
 	  {
 		 
-		  //封装addHotelVO
-		  //AddHotelVO add=new AddHotelVO(addressField.getText(),companyField.getText(),addHotelField.getText(),summaryArea.getText(),institutionArea.getText(),serveArea.getText(),star);
-
-		  //锟斤拷装addHotelVO
+		
+		  addHotel.setAddress(addressField.getText());
+		  addHotel.setDescription(summaryArea.getText());
+		  addHotel.setFacility(institutionArea.getText());
+		  addHotel.setName(addHotelField.getText());
+		  addHotel.setMemberName(hotelName.getText());
+		  addHotel.setPassword(password.getText());
 
 		  Stage clickCheck=new Stage();
 		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
@@ -86,8 +91,8 @@ private static String star=null;
 @Override
 public void initialize(URL location, ResourceBundle resources) {
 	// TODO Auto-generated method stub
-	starChoice.setItems(FXCollections.observableArrayList("锟斤拷","锟斤拷锟角硷拷","锟斤拷锟角硷拷","锟斤拷锟角硷拷","锟斤拷锟角硷拷"));
-	starChoice.setValue("锟斤拷");
+	starChoice.setItems(FXCollections.observableArrayList("无","一星级","二星级","三星级","四星级","五星级"));
+	starChoice.setValue("无");
 	star=(String) starChoice.getValue();
 	starChoice.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
 		@Override
