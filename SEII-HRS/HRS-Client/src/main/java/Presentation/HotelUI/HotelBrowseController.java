@@ -52,6 +52,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import logic.service.HotelLogicService;
 import logic.service.ServiceFactory;
@@ -349,6 +350,7 @@ public class HotelBrowseController implements Initializable{
 	}
 	
 	class hotelListCell extends ListCell<BasicHotelVO>{
+			int star1=0;
 			public void updateItem(BasicHotelVO item,boolean empty)
 			{
 				super.updateItem(item, empty);
@@ -361,9 +363,9 @@ public class HotelBrowseController implements Initializable{
 	                hotelName.setFont(new Font("YouYuan",20));
 	            //    Label star=new Label(item.getRank().toString());
 	            //    star.setFont(new Font("YouYuan",20));
-	                int star1=0;
 	                if(item.getRank()==Rank.NONE)
 	                {
+	                
 	                	star1=0;
 	                }
 	                else if(item.getRank()==Rank.ONE)
@@ -387,8 +389,13 @@ public class HotelBrowseController implements Initializable{
 	                	star1=5;
 	                }
 	                Rating star=new Rating(5,star1);
-	                star.setPartialRating(false);
-	                star.setUpdateOnHover(false);
+	            	star.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+						@Override
+						public void handle(MouseEvent event) {
+							star.setRating(star1);
+						}
+					});
 	                long theHotelID=item.getHotelId();//得到ID
 	                boolean flag=false;
 	                try {
@@ -414,6 +421,7 @@ public class HotelBrowseController implements Initializable{
 	                {
 	                	history.setText("预定过");
 	                	history.setFont(new Font("Youyuan",20));
+	                	history.setTextFill(Color.AQUAMARINE);
 	          
 	                }
 	                else
