@@ -351,6 +351,7 @@ public class HotelBrowseController implements Initializable{
 	
 	class hotelListCell extends ListCell<BasicHotelVO>{
 			int star1=0;
+			String leastType=null;
 			public void updateItem(BasicHotelVO item,boolean empty)
 			{
 				super.updateItem(item, empty);
@@ -431,7 +432,7 @@ public class HotelBrowseController implements Initializable{
 	                }
 	                Set<HotelItemVO> hotIt=item.getRooms();
 	                double leastPrice=1000000;
-	                String leastType=null;
+	              
 	                for(HotelItemVO  htlVO:hotIt)
 	                {
 	                	if(htlVO.getPrice()<leastPrice)
@@ -444,11 +445,16 @@ public class HotelBrowseController implements Initializable{
 	                Label least=new Label(leastPrice+"("+leastType+")");
 	                Button createOrder=new  Button("下订单");
 	                createOrder.setFont(new Font("Youyuan",20));
+	                
 	                //给下订单按钮加popover界面
 	                createOrder.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	                    
+	                   
+	                	
 	             		@Override
 						public void handle(MouseEvent event) {
+	             			DataController.getInstance().putAndUpdate("selectRoomType",leastType );
+	             			DataController.getInstance().putAndUpdate("selectHotel", item);
+	             		
 							createOrder(event, item);
 						}
 	               });
@@ -487,7 +493,102 @@ public class HotelBrowseController implements Initializable{
 
 		popOver.setTitle("下订单");
 
-		GridPane pane=(GridPane)DataController.getInstance().get("creatOrderPane");
+		GridPane pane=new GridPane();
+		
+		Label orderInfo=new Label("订单信息");
+		orderInfo.setFont(new Font("Youyuan",25));
+		
+		DatePicker checkin=new DatePicker();
+		DatePicker checkout=new DatePicker();
+		Label to=new Label("至");
+		to.setFont(new Font("Youyuan",20));;
+		Label bookNum=new Label("预定间数:");
+		bookNum.setFont(new Font("Youyuan",20));
+		
+		ComboBox roomNumBox=new ComboBox();
+		roomNumBox.setPromptText("房间数量");
+		roomNumBox.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+		
+		Label contactName=new Label("住客姓名:");
+		contactName.setFont(new Font("Youyuan",20));
+		TextField contactNameField=new TextField();
+		
+		Label contactWay=new Label("联系方式:");
+		contactWay.setFont(new Font("Youyuan",20));
+		TextField contactWayField=new TextField();
+		
+		Label people=new Label("入住人数:");
+		people.setFont(new Font("Youyuan",20));
+		TextField peopleField=new TextField();
+		
+		Label child=new Label("有无儿童");
+		child.setFont(new Font("Youyuan",20));
+		CheckBox ifchild=new CheckBox("有");
+		ifchild.setFont(new Font("Youyuan",20));
+		
+		Label strategy=new Label("所享优惠:");
+		strategy.setFont(new Font("Youyuan",20));
+		Label strategyText=new Label();
+		
+		Label order=new Label("订单总价格:");
+		order.setFont(new Font("Youyuan",20));
+		Label orderTotal=new Label("700元");
+		orderTotal.setFont(new Font("Youyuan",20));
+		
+		Label empty=new Label();
+		Label empty1=new Label();
+		
+		Button commit=new Button("提交订单");
+		commit.setFont(new Font("Youyuan",20));
+		
+		pane.add(orderInfo, 1, 0);
+		
+		pane.add(checkin, 0, 1);
+		pane.setPadding(new Insets(5,5,5,5));
+		pane.add(checkout, 2, 1);
+		pane.add(to, 1, 1);
+		pane.setMargin(to, new Insets(0,50,0,0));
+		
+		pane.add(bookNum, 0, 2);
+		pane.setMargin(bookNum, new Insets(0,0,0,15));
+		pane.add(roomNumBox, 0, 2);
+		pane.setMargin(roomNumBox, new Insets(0,0,0,120));
+		
+		pane.add(contactName, 0, 3);
+		pane.setMargin(contactName, new Insets(0,0,0,15));
+		pane.add(contactNameField, 0, 3, 3, 1);
+		pane.setMargin(contactNameField, new Insets(0,50,0,120));
+		
+		pane.add(contactWay, 0, 4);
+		pane.setMargin(contactWay, new Insets(0,0,0,15));
+		pane.add(contactWayField, 0, 4, 3, 1);
+		pane.setMargin(contactWayField, new Insets(0,50,0,120));
+		
+		pane.add(people, 0, 5);
+		pane.setMargin(people, new Insets(0,0,0,15));
+		pane.add(peopleField, 0, 5);
+		pane.setMargin(peopleField, new Insets(0,0,0,120));
+		
+		pane.add(child, 1, 5);
+		pane.setMargin(child, new Insets(0,0,0,15));
+		pane.add(ifchild, 1, 5,2,1);
+		pane.setMargin(ifchild, new Insets(0,0,0,100));
+		
+		pane.add(strategy, 0, 6);
+		pane.setMargin(strategy, new Insets(0,0,0,15));
+		pane.add(strategyText, 0, 6,3,1);
+		pane.setMargin(strategyText, new Insets(0,0,0,120));
+		
+		pane.add(empty, 0, 7);
+		pane.add(order, 0, 8);
+		pane.setMargin(order, new Insets(0,0,0,190));
+		pane.add(orderTotal, 1, 8,2,1);
+		pane.setMargin(orderTotal, new Insets(0,0,0,0));
+		
+		pane.add(empty1, 0, 9);
+		pane.add(commit, 2, 10);
+		pane.setMargin(commit, new Insets(10,0,0,120));
+		
 		popOver.setContentNode(pane);
 		popOver.show(((Node)e.getSource()),e.getScreenX(),e.getScreenY());
 		

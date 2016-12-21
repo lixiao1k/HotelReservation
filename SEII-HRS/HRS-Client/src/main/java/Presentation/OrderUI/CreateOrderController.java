@@ -96,7 +96,7 @@ public class CreateOrderController implements Initializable{
 		    neworder.setChild(child);
 		
 		    double totalNum=0;
-		    totalNum=neworder.getRoomNum()*leastPrice;
+		    totalNum=neworder.getRoomNum()*leastPrice*neworder.getStrategyOff();
 		    neworder.setRoomPrice(totalNum);
 		    totalMoney.setText(String.valueOf(totalNum));
 		
@@ -289,9 +289,10 @@ public class CreateOrderController implements Initializable{
 		DataController.getInstance().putAndUpdate("UserId", (Object)userid);
 		
 		DataController.getInstance().putAndUpdate("creatOrderPane", mainPane);// for hotelbrowse's popover
-
-		o=DataController.getInstance().get("HotelID");
-		hotelid=(long)o;
+		
+		o=DataController.getInstance().get("selectHotel");//得到一个BasicHotelVO
+		BasicHotelVO basichotel=(BasicHotelVO)o;
+		hotelid=basichotel.getHotelId();
 		//DataController.getInstance().put("selectHotel", (Object)hotelid);
 		neworder.setUserId(userid);
 		neworder.setHotelId(hotelid);
