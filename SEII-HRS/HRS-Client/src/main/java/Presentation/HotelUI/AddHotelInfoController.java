@@ -3,13 +3,23 @@ package Presentation.HotelUI;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.controlsfx.control.Notifications;
 
+import datacontroller.DataController;
+import info.BusinessCircle;
+import info.BusinessCity;
+import info.ListWrapper;
+import info.Rank;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,32 +27,45 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import logic.service.HotelLogicService;
+import logic.service.ServiceFactory;
+import resultmessage.HotelResultMessage;
+import rmi.RemoteHelper;
+import vo.AddHotelResultVO;
 import vo.AddHotelVO;
 
 public class AddHotelInfoController implements Initializable{
-@FXML TextField addressField;
-@FXML TextField companyField;
-@FXML ChoiceBox starChoice;
-@FXML TextArea summaryArea;
-@FXML TextArea institutionArea;
-@FXML TextArea serveArea;
-@FXML TextField hotelName;
-@FXML TextField password;
-@FXML TextField addHotelField;
-@FXML ChoiceBox provinceChoice;
-@FXML ChoiceBox cityChoice;
+@FXML private TextField addressField;
+
+@FXML private ChoiceBox starChoice;
+@FXML private TextArea summaryArea;
+@FXML private TextArea institutionArea;
+@FXML private TextArea serveArea;
+@FXML private TextField hotelName;
+@FXML private TextField password;
+@FXML private TextField addHotelField;
+@FXML  private ComboBox<String> businessCity;
+@FXML  private ComboBox<String>businessCircle;
 
  private static String star=null;
  private AddHotelVO addHotel;
+ private ServiceFactory service;
+ private HotelLogicService hotelLogic;
+ private ListWrapper<BusinessCity> bc;
+ private BusinessCity  city;
+ private BusinessCircle circle;
+ private Set<BusinessCircle> setcircle;
+ private AddHotelResultVO hresult;
 
 @FXML
   public void Submit(ActionEvent e)throws IOException
   {
 	boolean area=(summaryArea.getText().equals(""))||(institutionArea.getText().equals(""))||(serveArea.getText().equals(""));
-	boolean field=(addressField.getText().equals(""))||(companyField.getText().equals(""))||(addHotelField.getText().equals("")
+	boolean field=(addressField.getText().equals(""))||(addHotelField.getText().equals("")
 			        ||hotelName.getText().equals("")||password.getText().equals(""));
    
 
@@ -56,21 +79,55 @@ public class AddHotelInfoController implements Initializable{
 	  else
 	  {
 		 
-		
+		  Rank rank=Rank.NONE;
 		  addHotel.setAddress(addressField.getText());
 		  addHotel.setDescription(summaryArea.getText());
 		  addHotel.setFacility(institutionArea.getText());
 		  addHotel.setName(addHotelField.getText());
 		  addHotel.setMemberName(hotelName.getText());
 		  addHotel.setPassword(password.getText());
+		  addHotel.setService(serveArea.getText());
+		  switch(star)
+		  {
+		  case"无":{
+			  break;
+		  }
+		  case"一星级":
+		  {
+			  rank=Rank.ONE;break;
+		  }
+		  case"二星级":
+		  {
+			  rank=Rank.TWO;break;
+		  }
+		  case"三星级":
+		  {
+			  rank=Rank.THREE;break;
+		  }
+		  case"四星级":
+		  {
+			  rank=Rank.FOUR;break;
+		  }
+		  case"五星级":
+		  {
+			  rank=Rank.FIVE;break;
+		  }
+		  
+			  
+		  }
+		  
+		  addHotel.setRank(rank);
+		 hresult= hotelLogic.addHotel(addHotel);
+		 if(hresult.getResultMessage()==HotelResultMessage.SUCCESS)
+		 {
+			 Notifications.create().owner(hotelName.getScene().getWindow()).title("提示信息").text("添加成功").showConfirm();
+			 
+		 }
+		 else
+		 {
+			 Notifications.create().owner(hotelName.getScene().getWindow()).title("错误信息").text("添加失败").showError();
+		 }
 
-		  Stage clickCheck=new Stage();
-		  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
-		  Scene scene=new Scene(root,275,125);
-		  clickCheck.setScene(scene);
-		  clickCheck.show();
-		  //锟结交锟缴癸拷  
-		  //锟斤拷一锟斤拷addHotelVO
 	  }
 	  
   }
@@ -80,16 +137,119 @@ public class AddHotelInfoController implements Initializable{
   public void cancel(ActionEvent e)
   {
 	  addressField.clear();
-	  companyField.clear();
+	  
 	  
 	  summaryArea.clear();
 	  institutionArea.clear();
 	  serveArea.clear();
 	  addHotelField.clear();
   }
+  
+	public void selectCity()
+	{
+		Iterator<BusinessCity> it;
+		try {
+			it = bc.iterator();
+			String selectCity=businessCity.getSelectionModel().getSelectedItem().toString();
+				   
+		    Set<String> circle=new HashSet<>();//寰楀埌鍩庡競瀵瑰簲鍏ㄩ儴鍟嗗湀淇℃伅
+			while(it.hasNext())
+			{
+				BusinessCity bci=it.next();
+				if(bci.getName().equals(selectCity))
+				{
+					city=bci;
+					System.out.println(city.toString());
+					Set<BusinessCircle> bcirs = bci.getCircles();
+										setcircle=bcirs;
+					for(BusinessCircle bcir:bcirs){
+							circle.add(bcir.getName());
+					}
+					break;
+				}
+			}
+			
+			ObservableList<String> circles = FXCollections.observableArrayList(circle);
+
+				businessCircle.getItems().clear();
+	
+
+				businessCircle.getItems().addAll(circles);
+			
+		
+
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void selectCircle()
+	{
+		
+	
+		String selectCircle=null;
+		if(businessCircle .getSelectionModel().getSelectedItem()==null)
+		{
+
+		//	System.out.println("啥也没有");
+
+		}
+		else
+		{
+
+			selectCircle=businessCircle.getSelectionModel().getSelectedItem();
+			System.out.println(selectCircle);
+	
+		    addHotel.setBusinessCity(city);
+		    for(BusinessCircle bcir:setcircle){
+		    	if(selectCircle.equals(bcir.getName()))
+		    	{
+		    		circle=bcir;
+		    		circle.setBcircleId(bcir.getBcircleId());
+		    		break;
+		    	}
+		}
+		    addHotel.setBusinessCircle(circle);
+		    
+		  
+		}
+
+		
+	}
+  
 
 @Override
 public void initialize(URL location, ResourceBundle resources) {
+	
+	if(service==null)
+	{
+		service=RemoteHelper.getInstance().getServiceFactory();
+		
+	}
+	try {
+		addHotel=new AddHotelVO();
+		hotelLogic=service.getHotelLogicService();
+		bc=hotelLogic.getCity();
+		Set<String> set = new HashSet<>();//寰楀埌鍏ㄩ儴鍩庡競淇℃伅
+
+		Iterator<BusinessCity> it = bc.iterator();
+		while(it.hasNext())
+		{
+			BusinessCity bci = it.next();
+			
+			set.add(bci.getName());
+		}
+		
+		ObservableList<String> cities = FXCollections.observableArrayList(set);
+		System.out.println(cities.size());
+		businessCity.getItems().addAll(cities);
+	} catch (RemoteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
 	// TODO Auto-generated method stub
 	starChoice.setItems(FXCollections.observableArrayList("无","一星级","二星级","三星级","四星级","五星级"));
 	starChoice.setValue("无");

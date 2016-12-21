@@ -1,8 +1,14 @@
 package vo;
 
+import java.io.Serializable;
+
 import resultmessage.HotelResultMessage;
 
-public class AddHotelResultVO {
+public class AddHotelResultVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7477583905528412059L;
 	private HotelResultMessage resultMessage;
 	private HotelWorkerVO hotelworker;
 	private long hotelId;

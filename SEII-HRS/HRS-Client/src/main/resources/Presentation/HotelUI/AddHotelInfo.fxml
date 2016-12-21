@@ -18,21 +18,20 @@
         <Insets left="60.0" fx:id="x2" />
       </GridPane.margin>
     </Label>
-    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="244.0" text="商圈：" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="2" />
-    <Label alignment="CENTER" font="$x1" prefHeight="53.0" prefWidth="240.0" text="简介：" GridPane.columnIndex="0" GridPane.rowIndex="3">
+    <Label alignment="CENTER" font="$x1" prefHeight="53.0" prefWidth="240.0" text="简介：" GridPane.columnIndex="0" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="60.0" />
          </GridPane.margin></Label>
-    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="设施：" GridPane.columnIndex="0" GridPane.rowIndex="4">
+    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="设施：" GridPane.columnIndex="0" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="60.0" />
          </GridPane.margin></Label>
-    <Label alignment="CENTER" font="$x1" prefHeight="53.0" prefWidth="304.0" text="服务：" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="5">
+    <Label alignment="CENTER" font="$x1" prefHeight="53.0" prefWidth="304.0" text="服务：" textOverrun="ELLIPSIS" GridPane.columnIndex="0" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="60.0" />
          </GridPane.margin></Label>
-    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="星级：" GridPane.margin="$x2" GridPane.rowIndex="8" />
-    <Button font="$x1" mnemonicParsing="false" onAction="#Submit" text="提交" GridPane.columnIndex="1" GridPane.rowIndex="9">
+    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="星级：" GridPane.margin="$x2" GridPane.rowIndex="7" />
+    <Button font="$x1" mnemonicParsing="false" onAction="#Submit" text="提交" GridPane.columnIndex="1" GridPane.rowIndex="8">
       <GridPane.margin>
         <Insets />
       </GridPane.margin>
@@ -41,21 +40,20 @@
          <GridPane.margin>
             <Insets left="330.0" right="10.0" />
          </GridPane.margin></TextField>
-    <TextField fx:id="companyField" prefHeight="34.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-    <TextArea fx:id="summaryArea" prefHeight="74.0" prefWidth="440.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <TextArea fx:id="summaryArea" prefHeight="74.0" prefWidth="440.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <GridPane.margin>
         <Insets bottom="10.0" top="12.0" fx:id="x3" />
       </GridPane.margin>
     </TextArea>
-    <TextArea fx:id="institutionArea" prefHeight="35.0" prefWidth="440.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+    <TextArea fx:id="institutionArea" prefHeight="35.0" prefWidth="440.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets top="12.0" />
          </GridPane.margin></TextArea>
-    <TextArea fx:id="serveArea" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+    <TextArea fx:id="serveArea" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets top="12.0" />
          </GridPane.margin></TextArea>
-    <Button font="$x1" mnemonicParsing="false" onAction="#cancel" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="9">
+    <Button font="$x1" mnemonicParsing="false" onAction="#cancel" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="8">
       <GridPane.margin>
         <Insets left="290.0" />
       </GridPane.margin>
@@ -69,8 +67,8 @@
          </font>
       </Label>
       <TextField fx:id="addHotelField" GridPane.columnIndex="1" />
-      <ChoiceBox fx:id="starChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <Label text="酒店用户名：" GridPane.rowIndex="6">
+      <ChoiceBox fx:id="starChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label text="酒店用户名：" GridPane.rowIndex="5">
          <font>
             <Font size="20.0" />
          </font>
@@ -78,7 +76,7 @@
             <Insets left="11.0" />
          </GridPane.margin>
       </Label>
-      <Label text="密码：" GridPane.rowIndex="7">
+      <Label text="密码：" GridPane.rowIndex="6">
          <font>
             <Font size="20.0" />
          </font>
@@ -86,14 +84,14 @@
             <Insets left="70.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="hotelName" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <ChoiceBox fx:id="provinceChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <ChoiceBox fx:id="cityChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <TextField fx:id="hotelName" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <TextField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <ComboBox fx:id="businessCity" onAction="#selectCity" prefWidth="150.0" promptText="城市" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ComboBox fx:id="businessCircle" onAction="#selectCircle" prefWidth="150.0" promptText="商圈" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="160.0" />
          </GridPane.margin>
-      </ChoiceBox>
+      </ComboBox>
   </children>
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="414.0" minWidth="10.0" prefWidth="142.0" />
@@ -106,7 +104,6 @@
   <rowConstraints>
       <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="105.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="127.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
