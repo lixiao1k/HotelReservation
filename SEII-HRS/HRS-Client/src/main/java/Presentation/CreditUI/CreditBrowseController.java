@@ -119,7 +119,7 @@ public class CreditBrowseController implements Initializable{
 				Label time=new Label(item.getDate().toString());
 				time.setFont(new Font("KaiTi_GB2312",15));
 				Label delta=new Label(Integer.toString(item.getDelta()));
-				delta.setFont(new Font("KaiTi_GB2312", 20));
+				delta.setFont(new Font("KaiTi_GB2312", 15));
 				delta.setPrefWidth(100);
 				delta.setTooltip(tooltip);
 				if(item.getDelta()>0){
@@ -129,8 +129,8 @@ public class CreditBrowseController implements Initializable{
 				}else{
 					delta.setTextFill(Color.BLACK);
 				}
-				Label credit=new Label("淇＄敤鎬诲��:"+Integer.toString(item.getCredit()));
-				credit.setFont(new Font("KaiTi_GB2312",20));
+				Label credit=new Label("信用总值:"+Integer.toString(item.getCredit()));
+				credit.setFont(new Font("KaiTi_GB2312",15));
 				credit.setPrefWidth(200);
 //				cell.add(id, 0, 0);
 				cell.add(time,2,0);
