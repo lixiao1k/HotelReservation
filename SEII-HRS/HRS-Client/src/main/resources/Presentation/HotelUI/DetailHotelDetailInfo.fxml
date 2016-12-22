@@ -15,7 +15,7 @@
       <children>
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="酒店描述">
           <fill>
-            <RadialGradient fx:value="radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 100.0px 100.0px, radius 200.0px, 0xff0000ff 0.0%, 0x0000ffff 30.0%, 0x000000ff 100.0%)" fx:id="x1" />
+            <Color blue="1.000" green="0.904" red="0.200" fx:id="x1" />
           </fill>
           <font>
             <Font name="幼圆" size="20.0" fx:id="x2" />
@@ -24,7 +24,7 @@
             <Insets left="5.0" top="5.0" fx:id="x3" />
           </VBox.margin>
         </Text>
-        <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="750.0">
+        <Text fx:id="description" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="750.0">
           <font>
             <Font size="15.0" fx:id="x4" />
           </font>
@@ -38,10 +38,10 @@
           </VBox.margin>
         </Separator>
         <Text fill="$x1" font="$x2" strokeType="OUTSIDE" strokeWidth="0.0" text="酒店设施" VBox.margin="$x3" />
-        <Text fx:id="facility" font="$x4" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="750.0" VBox.margin="$x5" />
+        <Text fx:id="facility" fill="WHITE" font="$x4" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="750.0" VBox.margin="$x5" />
         <Separator prefWidth="200.0" />
-        <Text fill="$x1" font="$x2" strokeType="OUTSIDE" strokeWidth="0.0" text="酒店服务" VBox.margin="$x3" />
-        <Text fx:id="service" font="$x4" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="750.0" VBox.margin="$x5" />
+        <Text fill="#33ffe7" font="$x2" strokeType="OUTSIDE" strokeWidth="0.0" text="酒店服务" VBox.margin="$x3" />
+        <Text fx:id="service" fill="WHITE" font="$x4" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="750.0" VBox.margin="$x5" />
       </children>
     </VBox>
   </children>

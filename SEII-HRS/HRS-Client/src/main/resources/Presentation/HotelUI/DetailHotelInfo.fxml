@@ -26,14 +26,14 @@
             <Insets left="3.0" top="5.0" fx:id="x3" />
           </VBox.margin>
         </Text>
-        <Text id="hotel" fx:id="hotelName" font="$x1" scaleX="1.0" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="360.0">
+        <Text id="hotel" fx:id="hotelName" fill="WHITE" font="$x1" scaleX="1.0" scaleY="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="360.0">
           <VBox.margin>
             <Insets bottom="3.0" left="3.0" top="3.0" fx:id="x4" />
           </VBox.margin>
         </Text>
         <Separator prefWidth="200.0" />
         <Text fill="$x2" font="$x1" strokeType="OUTSIDE" strokeWidth="0.0" text="酒店地址" VBox.margin="$x3" />
-        <Text fx:id="address" font="$x1" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="360.0" VBox.margin="$x4" />
+        <Text fx:id="address" fill="WHITE" font="$x1" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="360.0" VBox.margin="$x4" />
         <Separator prefWidth="200.0" />
         <HBox id="score" prefHeight="148.75" prefWidth="372.0">
           <children>

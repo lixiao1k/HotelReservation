@@ -15,7 +15,7 @@
       <children>
         <HBox prefHeight="31.0" prefWidth="763.0">
           <children>
-            <Text fill="radial-gradient(focus-angle 0.0deg, focus-distance 0.0% , center 100.0px 100.0px, radius 200.0px, 0xff0000ff 0.0%, 0x0000ffff 30.0%, 0x000000ff 100.0%)" strokeType="OUTSIDE" strokeWidth="0.0" text="订单类型">
+            <Text fill="#33e7ff" strokeType="OUTSIDE" strokeWidth="0.0" text="订单类型">
               <font>
                 <Font name="幼圆" size="20.0" />
               </font>

@@ -17,6 +17,7 @@ import info.BusinessCity;
 import info.Cache;
 import info.HotelItem;
 import info.ListWrapper;
+import info.Room;
 import info.Rule;
 import info.UserStatus;
 import info.UserType;
@@ -49,6 +50,7 @@ import vo.RoomInfoVO;
 import vo.SearchHotelVO;
 import vo.AddHotelResultVO;
 import vo.AddHotelVO;
+import vo.AddRoomVO;
 
 public class HotelDO {
 	private HotelDao hotelDao;
@@ -61,6 +63,17 @@ public class HotelDO {
 		hotelDao = DaoManager.getInstance().getHotelDao();
 		hotels = new Cache<HotelPO>(size);
 		
+	}
+	private void initial(HotelPO po){
+		Hibernate.initialize(po);
+		Hibernate.initialize(po.getBusinessCircle());
+		Hibernate.initialize(po.getBusinessCity());
+		Hibernate.initialize(po.getComments());
+		Hibernate.initialize(po.getOrders());
+		Hibernate.initialize(po.getRooms());
+		Hibernate.initialize(po.getHotelworker());
+		Hibernate.initialize(po.getImageData());
+		Hibernate.initialize(po.getStrategies());
 	}
 	public HotelVO getHotelInfo(long hotelId){
 		HotelPO cachePO = null;
@@ -75,8 +88,7 @@ public class HotelDO {
 				HotelVO result = DozerMappingUtil.getInstance().map(po, HotelVO.class);
 				if(po.getImageData()!=null)
 					result.setImage(SerializeUtil.byteToImage(po.getImageData()));
-				Hibernate.initialize(po);
-				Hibernate.initialize(po.getBusinessCircle());
+				initial(po);
 				hotels.put(hotelId, po);
 				HibernateUtil.getCurrentSession().getTransaction().commit();
 				return result;
@@ -150,7 +162,7 @@ public class HotelDO {
 						if(DateUtil.compare(hi.getDate(), now))
 							rooms.add(DozerMappingUtil.getInstance().map(hi, HotelItemVO.class));
 					}
-					Hibernate.initialize(po);
+					initial(po);
 					hotels.put(hotelId, po);
 				}else
 					return null;
@@ -205,17 +217,15 @@ public class HotelDO {
 					}
 					result.setBookedOrders(oList);
 					result.setImage(SerializeUtil.byteToImage(po.getImageData()));
-					Hibernate.initialize(po);
-					Hibernate.initialize(po.getComments());
-					Hibernate.initialize(po.getOrders());
-					Hibernate.initialize(po.getRooms());
+				}
+				if(po!=null){
+					initial(po);
+					hotels.put(hotelId, po);
 				}
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.commit();
-				if(po!=null){
-					hotels.put(hotelId, po);
-				}
+
 				return result;
 			}catch(RuntimeException e){
 				e.printStackTrace();
@@ -314,6 +324,7 @@ public class HotelDO {
 				hi.getRoom();
 			}
 			hotels.remove(vo.getHotelId());
+			initial(po);
 			hotels.put(vo.getHotelId(), po);
 			HibernateUtil.getCurrentSession()
 							.getTransaction()
@@ -394,6 +405,7 @@ public class HotelDO {
 						po.setImageData(SerializeUtil.imageToByte(vo.getImage()));
 					
 					hotelDao.update(po);
+					initial(po);
 					hotels.put(vo.getHotelId(), po);
 				}
 				HibernateUtil.getCurrentSession()
@@ -433,6 +445,7 @@ public class HotelDO {
 					po.setImageData(SerializeUtil.imageToByte(vo.getImage()));
 				System.out.println(po.getImageData()==null);
 				hotelDao.update(po);
+				initial(po);
 				HibernateUtil.getCurrentSession()
 								.getTransaction()
 								.commit();
@@ -602,7 +615,6 @@ public class HotelDO {
 				result.add(bhvo);
 			}
 			HibernateUtil.getCurrentSession().getTransaction().commit();
-			System.out.println(result.size());
 			return result;
 		}catch(RuntimeException e){
 			e.printStackTrace();
@@ -612,6 +624,63 @@ public class HotelDO {
 								.rollback();
 				return null;
 			}catch(RuntimeErrorException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
+	}
+	public HotelResultMessage addNewRoom(AddRoomVO vo) throws RemoteException{
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			HotelPO po = (HotelPO) HibernateUtil.getCurrentSession().get(HotelPO.class, vo.getHotelId());
+			if(po==null){
+				HibernateUtil.getCurrentSession().getTransaction().commit();
+				return HotelResultMessage.FAIL_WRONGID;
+			}
+			ListWrapper<Room> rtypes = hotelDao.getAllRooms();
+			Iterator<Room> it =null;
+			if(rtypes==null)
+				return HotelResultMessage.FAIL;
+			it = rtypes.iterator();
+			Room roomResult = null;
+			while(it.hasNext()){
+				Room room = it.next();
+				if(room.getType().equals(vo.getRoomType())){
+					roomResult = room;
+					break;
+				}
+			}
+			if(roomResult==null){
+				Room newRoom = new Room(vo.getRoomType());
+				newRoom.setRid((long) HibernateUtil.getCurrentSession().save(newRoom));
+				roomResult = newRoom;
+			}
+			Set<HotelItem> rooms = po.getRooms();
+			Calendar calendar = new GregorianCalendar(); 
+			Date now = new Date();
+			calendar.setTime(now);
+			Date temp = calendar.getTime();
+			for(int i=0;i<15;i++){
+				HotelItem hi = new HotelItem();
+				hi.setHotel(po);
+				hi.setNum(vo.getNum());
+				hi.setRoom(roomResult);
+				hi.setPrice(vo.getPrice());
+				hi.setTotal(vo.getNum());
+				hi.setDate(temp);
+				rooms.add(hi);
+				calendar.add(calendar.DATE, 1);
+				temp = calendar.getTime();
+			}
+			hotelDao.update(po);
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			return HotelResultMessage.SUCCESS;
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+				return HotelResultMessage.FAIL;
+			}catch(RuntimeException ex){
 				ex.printStackTrace();
 			}
 			throw e;

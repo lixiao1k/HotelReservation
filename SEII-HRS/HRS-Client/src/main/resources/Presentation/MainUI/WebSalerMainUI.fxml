@@ -25,9 +25,14 @@
           </VBox.margin>
         </Button>
         <Button id="mainbutton" font="$x2" mnemonicParsing="false" onAction="#goRechargeCredit" prefHeight="48.0" prefWidth="129.0" text="信用充值" textFill="WHITE" wrapText="false" VBox.margin="$x3" />
+        <Button id="mainbutton" font="$x2" mnemonicParsing="false" onAction="#changePassword" prefHeight="48.0" prefWidth="128.0" text="更改密码" textFill="WHITE">
+          <VBox.margin>
+            <Insets left="7.0" right="7.0" top="315.0" />
+          </VBox.margin>
+        </Button>
         <Button font="$x2" mnemonicParsing="false" onAction="#logout" prefHeight="48.0" prefWidth="128.0" text="登出" textFill="WHITE">
           <VBox.margin>
-            <Insets left="7.0" right="7.0" top="370.0" />
+            <Insets left="7.0" right="7.0" top="7.0" fx:id="x3" />
           </VBox.margin>
         </Button>
       </children>

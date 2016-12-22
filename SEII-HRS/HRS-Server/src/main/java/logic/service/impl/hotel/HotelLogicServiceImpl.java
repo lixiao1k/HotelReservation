@@ -18,6 +18,7 @@ import vo.MaintainHotelInfoVO;
 import vo.MaintainRoomInfoVO;
 import vo.SearchHotelVO;
 import vo.AddHotelVO;
+import vo.AddRoomVO;
 
 public class HotelLogicServiceImpl extends UnicastRemoteObject implements HotelLogicService {
 
@@ -28,6 +29,9 @@ public class HotelLogicServiceImpl extends UnicastRemoteObject implements HotelL
 	private HotelDO hotelDO;
 	public HotelLogicServiceImpl() throws RemoteException {
 		hotelDO = new HotelDO();
+	}
+	public HotelResultMessage addNewRoom(AddRoomVO vo) throws RemoteException{
+		return hotelDO.addNewRoom(vo);
 	}
 	@Override
 	public ListWrapper<BusinessCity> getCity() throws RemoteException {

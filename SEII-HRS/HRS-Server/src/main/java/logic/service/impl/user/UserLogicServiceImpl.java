@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import logic.service.UserLogicService;
 import resultmessage.RegisterResultMessage;
+import resultmessage.UserResultMessage;
 import vo.LoginResultVO;
 
 public class UserLogicServiceImpl extends UnicastRemoteObject implements UserLogicService{
@@ -29,6 +30,11 @@ public class UserLogicServiceImpl extends UnicastRemoteObject implements UserLog
 	@Override
 	public RegisterResultMessage register(String username, String password) throws RemoteException {
 		return userDO.register(username, password);
+	}
+	@Override
+	public UserResultMessage changePassword(long userId, String password,String newPassword) throws RemoteException {
+		// TODO Auto-generated method stub
+		return userDO.changePassword(userId, password, newPassword);
 	}
 
 }

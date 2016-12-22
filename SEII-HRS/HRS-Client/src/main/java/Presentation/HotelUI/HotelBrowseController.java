@@ -507,12 +507,12 @@ public class HotelBrowseController implements Initializable{
 				for(Node node:list){
 					String value=(String)node.getProperties().get("NAME");
 					if(value!=null&&value.contains("Pane")){
+						DataController.getInstance().putAndUpdate("HotelSearchPane", node);
 						list.remove(node);
 						break;
 					}
 				}
 				client.add(hoteldetailBrowse, 3, 1);
-				DataController.getInstance().putAndUpdate("HotelBrowsePane", this);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

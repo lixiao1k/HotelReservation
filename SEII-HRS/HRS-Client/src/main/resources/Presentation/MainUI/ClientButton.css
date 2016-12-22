@@ -110,7 +110,7 @@
 	-fx-background-image: url("bg.png");
 }
 #hotel-detail-pane{
-	-fx-background-color: #FFFFFF;
+	-fx-background-image:url("detailsubbg.png");
 }
 #x-button{
 	-fx-background-image: url("x.png");

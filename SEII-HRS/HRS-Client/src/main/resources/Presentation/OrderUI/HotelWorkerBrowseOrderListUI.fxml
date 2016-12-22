@@ -6,10 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <GridPane fx:id="mainPane" gridLinesVisible="false" hgap="10.0" prefHeight="564.0" prefWidth="768.0" scaleX="1.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.OrderUI.HotelWorkerBrowseOrderListController">
   <children>
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="4.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="18.5" opacity="0.42" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="728.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <GridPane.margin>
+        <Insets left="10.0" top="15.0" />
+      </GridPane.margin>
+    </Rectangle>
     <Label alignment="CENTER" prefHeight="49.0" prefWidth="94.0" text="搜索" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
       <font>
         <Font name="幼圆" size="25.0" fx:id="x1" />

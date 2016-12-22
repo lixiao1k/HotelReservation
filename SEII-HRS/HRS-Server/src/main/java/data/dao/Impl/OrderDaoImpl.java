@@ -53,7 +53,9 @@ public class OrderDaoImpl implements OrderDao{
 	@Override
 	public ListWrapper<OrderPO> getHotelUserOrders(long hotelId, long userId)throws RemoteException  {
 		List<OrderPO> list = orderDataHelper.getHotelUserOrders(hotelId, userId);
-		ListWrapper<OrderPO> res = new ListWrapper<>(list);
+		ListWrapper<OrderPO> res = null;
+		if(list!=null)
+			res = new ListWrapper<>(list);
 		return res;
 	}
 

@@ -108,5 +108,10 @@ public class HotelDaoImpl implements HotelDao {
 		}
 		return result;
 	}
+	@Override
+	public ListWrapper<Room> getAllRooms() throws RemoteException {
+		List<Room> rooms = hotelDataHelper.getAllRooms();
+		return new ListWrapper<Room>(rooms);
+	}
 
 }

@@ -47,6 +47,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import logic.service.HotelLogicService;
 import rmi.RemoteHelper;
+import util.DateUtil;
 import util.DoubleUtil;
 import vo.BasicHotelVO;
 import vo.ExtraHotelVO;
@@ -81,7 +82,7 @@ public class DetailHotelInfoController implements Initializable{
 		Object o = DataController.getInstance().get("selectHotel");
 		if(o!=null)
 			hotel = (BasicHotelVO) o;
-		o = DataController.getInstance().get("selectUser");
+		o = DataController.getInstance().get("UserId");
 		if(o!=null)
 			userId = (long) o;
 		buttons = FXCollections.observableArrayList();
@@ -113,6 +114,7 @@ public class DetailHotelInfoController implements Initializable{
 			}
 		});
 		b2.setOnAction((ActionEvent e)->{
+			DataController.getInstance().putAndUpdate("HotelID", hotel.getHotelId());
 			ObservableList<Node> nodes = root.getChildren();
 			for(Node node:nodes){
 				String t = (String) node.getProperties().get("NAME");
@@ -171,7 +173,7 @@ public class DetailHotelInfoController implements Initializable{
 		returnButton.setBackground(null);
 		returnButton.setOnAction((ActionEvent e)->{
 			GridPane pane = (GridPane)root.getScene().getWindow().getScene().getRoot();
-			Object obj = DataController.getInstance().get("HotelBrowsePane");
+			Object obj = DataController.getInstance().get("HotelSearchPane");
 			if(obj==null){
 				Notifications.create().owner(root.getScene().getWindow()).title("∑µªÿ").text("∑µªÿ ß∞‹£°").showError();
 				return;
@@ -216,7 +218,7 @@ public class DetailHotelInfoController implements Initializable{
 		});
 		rankVBox.getChildren().add(rating);
 		rankVBox.setMargin(rating, new Insets(25,0,0,0));
-		//DataController.getInstance().putAndUpdate("Root", root.getScene().getWindow().getScene().getRoot());
+		DataController.getInstance().putAndUpdate("Root", DataController.getInstance().get("mainPane"));
 	}
 	private void initialInfo() throws RemoteException{
 		if(hotel==null)
@@ -226,10 +228,17 @@ public class DetailHotelInfoController implements Initializable{
 		if(ehvo==null){
 			return;
 		}
+		ObservableList<HotelItemVO> temp;
+		roomData = FXCollections.observableArrayList();
 		orderData = FXCollections.observableArrayList(ehvo.getBookedOrders());
 		commentData = FXCollections.observableArrayList(ehvo.getComments());
-		roomData = FXCollections.observableArrayList(hotel.getRooms());
+		temp = FXCollections.observableArrayList(hotel.getRooms());
 		commentListView.setItems(commentData);
+		Date now = new Date();
+		for(HotelItemVO vo:temp){
+			if(DateUtil.compare(now, vo.getDate()))
+				roomData.add(vo);
+		}
 		roomListView.setItems(roomData);
 	}
 	@Override

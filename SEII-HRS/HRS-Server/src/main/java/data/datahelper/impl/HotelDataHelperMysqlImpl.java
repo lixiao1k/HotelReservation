@@ -9,6 +9,7 @@ import data.datahelper.HotelDataHelper;
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.HotelItem;
+import info.ListWrapper;
 import info.Room;
 import info.Rule;
 import po.HotelPO;
@@ -22,6 +23,7 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 	private static final String getHotelListByRuleQuery = 
 			"select h from HotelPO as h,HotelItem as hi where h.businessCircle=:BCIRCLE and h.businessCity=:BCITY"
 			+ " and hi.hotel=h";
+	private static final String getAllRooms = "from Room";
 	private static final String getHotelListByString = 
 			"from HotelPO as h where h.name like :STRING";
 	@Override
@@ -90,6 +92,12 @@ public class HotelDataHelperMysqlImpl implements HotelDataHelper{
 		Query query = HibernateUtil.getCurrentSession().createQuery(getHotelItemQuery);
 		query.setEntity("HOTEL", po);
 		query.setEntity("ROOM", room);
+		return query.list();
+	}
+
+	@Override
+	public List<Room> getAllRooms() {
+		Query query = HibernateUtil.getCurrentSession().createQuery(getAllRooms);
 		return query.list();
 	}
 	

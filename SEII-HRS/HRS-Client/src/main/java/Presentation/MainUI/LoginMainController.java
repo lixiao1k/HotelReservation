@@ -1,7 +1,9 @@
 package Presentation.MainUI;
 
+import java.awt.Window;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -22,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import logic.service.ServiceFactory;
 import resultmessage.LoginResultMessage;
 import rmi.RemoteHelper;
@@ -99,12 +102,22 @@ public class LoginMainController implements Initializable{
 		content.getProperties().put("NAME", nameProperties[userType]);
 		GridPane root = (GridPane) loader.load();
 	    root.add(content, 3, 1);
+	    DataController.getInstance().putAndUpdate("mainPane", root);
 		Scene scene = new Scene(root,900,600);
 		Stage stage = new Stage();
 		stage.setTitle(titles[userType]);
-		stage.initStyle(StageStyle.UTILITY);
+		stage.setResizable(false);
 		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 		stage.setScene(scene);
+		final long id = result.getUserid();
+		stage.setOnCloseRequest((WindowEvent e2)->{
+			try {
+				RemoteHelper.getInstance().getServiceFactory().getUserLogicService().logout(id);
+			} catch (RemoteException e3) {
+				Notifications.create().owner(stage).title("µÇ³ö").text("µÇ³öÊ§°Ü£¡").showError();
+				e3.printStackTrace();
+			}
+		});
 		stage.show();
 		Stage login = (Stage) usernameField.getScene().getWindow();
 		waitStage.close();

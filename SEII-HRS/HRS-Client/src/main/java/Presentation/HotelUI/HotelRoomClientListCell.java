@@ -35,13 +35,13 @@ public class HotelRoomClientListCell extends ListCell<HotelItemVO>{
             btn.setId("shiny-orange");
             btn.setOnAction((ActionEvent e)->{
             	try {
-					Parent p = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/CreateOrder.fxml"));
 					Object o = DataController.getInstance().get("Root");
 					if(o==null){
 						Notifications.create().title("初始化").text("初始化失败！").showError();
 						return;
 					}
 					DataController.getInstance().putAndUpdate("selectRoomType", item.getRoom());
+					Parent p = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/CreateOrder.fxml"));
 					GridPane root = (GridPane) o;
 					ObservableList<Node> nodes = root.getChildren();
 					for(Node node:nodes){

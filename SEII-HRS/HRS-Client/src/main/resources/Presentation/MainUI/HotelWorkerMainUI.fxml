@@ -22,9 +22,14 @@
         <Button id="mainbutton" alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goOrderList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="浏览订单" textFill="WHITE" VBox.margin="$x2" />
         <Button id="mainbutton" alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goRoomList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="更新客房" textFill="WHITE" VBox.margin="$x2" />
         <Button id="mainbutton" fx:id="goStrategyListButton" alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goStrategyList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="浏览策略列表" textFill="WHITE" underline="false" wrapText="false" VBox.margin="$x2" />
+        <Button id="mainbutton" font="$x1" mnemonicParsing="false" onAction="#changePassword" prefHeight="48.0" prefWidth="128.0" text="更改密码" textFill="WHITE">
+          <VBox.margin>
+            <Insets left="7.0" right="7.0" top="285.0" />
+          </VBox.margin>
+        </Button>
         <Button id="mainbutton" font="$x1" mnemonicParsing="false" onAction="#logout" prefHeight="48.0" prefWidth="129.0" text="登出" textFill="WHITE">
           <VBox.margin>
-            <Insets left="7.0" right="7.0" top="315.0" />
+            <Insets left="7.0" right="7.0" top="7.0" fx:id="x2" />
           </VBox.margin>
         </Button>
       </children>

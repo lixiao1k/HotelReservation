@@ -19,4 +19,5 @@ public interface HotelDataHelper {
 	public List<BusinessCity> getAllCity();
 	public List<HotelPO> getHotelListByCityAndCircle(BusinessCity city, BusinessCircle circle);
 	public List<HotelItem> getHotelItemByRoom(long hotelId,Room room);
+	public List<Room> getAllRooms();
 }

@@ -2,12 +2,12 @@ package logic.service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-
 import info.BusinessCity;
 import info.ListWrapper;
 import resultmessage.HotelResultMessage;
 import vo.AddHotelResultVO;
 import vo.AddHotelVO;
+import vo.AddRoomVO;
 import vo.BasicHotelVO;
 import vo.CheckInRoomInfoVO;
 import vo.CheckOutRoomInfoVO;
@@ -30,4 +30,5 @@ public interface HotelLogicService extends Remote{
 	public HotelResultMessage setRoomInfo(MaintainRoomInfoVO vo) throws RemoteException;
 	public AddHotelResultVO addHotel(AddHotelVO vo) throws RemoteException;
 	public HotelVO getHotelInfo(long hotelId) throws RemoteException;
+	public HotelResultMessage addNewRoom(AddRoomVO vo) throws RemoteException;
 }

@@ -74,19 +74,19 @@ public class CreateOrderController implements Initializable{
 
 		    
 		
-		 //住客姓名
+		 //浣忓濮撳悕
 		    String customer=null;
 		    customer=customerName.getText();
 		    neworder.setContactName(customer);
-		 //手机号码
+		 //鎵嬫満鍙风爜
 		    String contact=null;
 		    contact=phoneNumber.getText();
 		    neworder.setContactWay(contact);
-		 //预计入住人数
+		 //棰勮鍏ヤ綇浜烘暟
 		    int people=0;
 		    people=Integer.parseInt(peopleNum.getText());
 		    neworder.setPeople(people);
-		 //是否有儿童
+		 //鏄惁鏈夊効绔�
 		    boolean child=false;
 		    if(Ifchild.isSelected())
 		    {
@@ -137,14 +137,14 @@ public class CreateOrderController implements Initializable{
 	
     public void checkStrategy()
     {
-    	//入住时间
+    	//鍏ヤ綇鏃堕棿
 		
 		
 		LocalDate localcheckin=checkIntime.getValue();
 		Instant instant = localcheckin.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
         Date  checkintime=Date.from(instant);
 	  
-	//退房时间
+	//閫�鎴挎椂闂�
 	    LocalDate localcheckout=checkOuttime.getValue();
 	    		instant=localcheckout.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
 	    Date  checkouttime=Date.from(instant);
@@ -152,12 +152,12 @@ public class CreateOrderController implements Initializable{
 	    neworder.setCheckInTime(checkintime);
 	    neworder.setCheckOutTime(checkouttime);
 	    
-	    //检查策略
-	    ListWrapper<HotelItemVO> hotelitemList;//根据hotelid得到该酒店全部房间基本类型
+	    //妫�鏌ョ瓥鐣�
+	    ListWrapper<HotelItemVO> hotelitemList;//鏍规嵁hotelid寰楀埌璇ラ厭搴楀叏閮ㄦ埧闂村熀鏈被鍨�
 	
 			   try {
 				 HotelStrategyVO hotelstrategyvo;
-				 HotelItemVO    hotelroomvo;//根据hotelid得到该酒店全部房间类型信息
+				 HotelItemVO    hotelroomvo;//鏍规嵁hotelid寰楀埌璇ラ厭搴楀叏閮ㄦ埧闂寸被鍨嬩俊鎭�
 				 
 				 
 				strategylogic=serviceFactory.getStrategyLogicService();
@@ -172,10 +172,10 @@ public class CreateOrderController implements Initializable{
 				it=liststrategy.iterator();
 				
 				Set<StrategyItemVO> hotelstrategySet;
-				String roomType=(String)DataController.getInstance().get("selectRoomType");//得到所选酒店房型
+				String roomType=(String)DataController.getInstance().get("selectRoomType");//寰楀埌鎵�閫夐厭搴楁埧鍨�
 				
 				
-				Object o=DataController.getInstance().get("selectHotel");//得到所选酒店的基本信息
+				Object o=DataController.getInstance().get("selectHotel");//寰楀埌鎵�閫夐厭搴楃殑鍩烘湰淇℃伅
 				BasicHotelVO bhvo=(BasicHotelVO)o;
 				
 				Set<HotelItemVO> hotelroom=bhvo.getRooms();
@@ -184,7 +184,7 @@ public class CreateOrderController implements Initializable{
 					if(hivo.getRoom().getType()==roomType)
 					{
 						
-						neworder.setRoom(hivo.getRoom());//给订单传房间信息
+						neworder.setRoom(hivo.getRoom());//缁欒鍗曚紶鎴块棿淇℃伅
 					}
 				}
 			
@@ -197,7 +197,7 @@ public class CreateOrderController implements Initializable{
 			    Iterator<HotelItemVO> ithotel;
 			    ithotel=hotelitemList.iterator();
 			    
-			    //遍历酒店房间类型得到房间初始价格
+			    //閬嶅巻閰掑簵鎴块棿绫诲瀷寰楀埌鎴块棿鍒濆浠锋牸
 			    while(ithotel.hasNext())
 			    {
 			    	hotelroomvo=ithotel.next();
@@ -211,12 +211,12 @@ public class CreateOrderController implements Initializable{
 			    
 				String strategyName="  ";
 				
-				boolean flag=false;//标记该酒店有无优惠信息
+				boolean flag=false;//鏍囪璇ラ厭搴楁湁鏃犱紭鎯犱俊鎭�
 				double offinfo=1;
 				while(it.hasNext())
 				{
 					hotelstrategyvo=it.next();
-					//所选酒店有优惠
+					//鎵�閫夐厭搴楁湁浼樻儬
 					if(hotelid==hotelstrategyvo.getHotelId())
 					{
 						
@@ -225,10 +225,10 @@ public class CreateOrderController implements Initializable{
 						for(StrategyItemVO  sta:hotelstrategySet)
 						{
 							
-							//所选房间类型有优惠
+							//鎵�閫夋埧闂寸被鍨嬫湁浼樻儬
 							if(roomType.equals(sta.getRoom().getType()))
 							{
-								neworder.setStrategy(hotelstrategyvo.getId());//设置strategyid
+								neworder.setStrategy(hotelstrategyvo.getId());//璁剧疆strategyid
 								flag=true;
 								if(sta.getPriceAfter()<leastPrice)
 								{
@@ -253,9 +253,9 @@ public class CreateOrderController implements Initializable{
 				}
 				else
 				{
-					strategyType.setText("无");
+					strategyType.setText("鏃�");
 				}
-				//最晚入住时间
+				//鏈�鏅氬叆浣忔椂闂�
 
                 SimpleDateFormat sdf=new SimpleDateFormat("yy-MM-dd HH:mm:ss ");
 				String lastCheckin;
@@ -264,7 +264,7 @@ public class CreateOrderController implements Initializable{
 				lastCal.add(Calendar.AM_PM, 18);
 				Date lastCheck=lastCal.getTime();
 				lastCheckin=sdf.format(lastCheck);
-				lateCheck.setText("订单最晚执行时间:"+lastCheckin);
+				lateCheck.setText("璁㈠崟鏈�鏅氭墽琛屾椂闂�:"+lastCheckin);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

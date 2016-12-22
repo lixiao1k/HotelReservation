@@ -13,6 +13,8 @@ import java.util.Set;
 
 import org.controlsfx.control.Notifications;
 import org.controlsfx.control.PopOver;
+import org.controlsfx.control.PopOver.ArrowLocation;
+
 import datacontroller.DataController;
 import info.ListWrapper;
 import info.Room;
@@ -35,9 +37,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import logic.service.ServiceFactory;
 import resultmessage.HotelResultMessage;
 import rmi.RemoteHelper;
+import vo.AddRoomVO;
 import vo.CheckInRoomInfoVO;
 import vo.HotelItemVO;
 import vo.MaintainRoomInfoVO;
@@ -256,7 +260,97 @@ public class BrowseRoomListController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+	@FXML
+	protected void addNewRoom(ActionEvent e) {
+		PopOver popOver = new PopOver();
+		GridPane pane = new GridPane();
+		Font font = new Font("YouYuan",15);
+		Text typeText = new Text("房间类型");
+		Text numText = new Text("房间数量");
+		Text priceText =  new Text("房间价格");
+		typeText.setFont(font);
+		numText.setFont(font);
+		priceText.setFont(font);
+		TextField type = new TextField();
+		TextField num = new TextField();
+		TextField price = new TextField();
+		Button btn = new Button("确认");
+		btn.setId("green-button");
+		btn.setFont(new Font("YouYuan",15));
+		btn.setOnAction((ActionEvent e3)->{
+			try{
+				if(type.getText()==null||type.getText().equals("\\s")){
+					Notifications.create().owner(roomListView.getScene().getWindow()).title("添加客房").text("请输入房间类型名").showError();
+					return;
+				}
+				double roomPrice = Double.parseDouble(price.getText());
+				int roomNum = Integer.parseInt(num.getText());
+				popOver.hide();
+				addNewRoomAction(type.getText(),roomNum,roomPrice);
+			}catch(NumberFormatException e4){
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("线下入住").text("输入格式有误！").showWarning();
+				popOver.hide();
+			}
+		});
+		Button btn2 = new Button("取消");
+		btn2.setId("red-button");
+		btn2.setFont(new Font("YouYuan",15));
+		btn2.setOnAction((ActionEvent e2)->{
+			popOver.hide();
+		});
+		pane.add(typeText, 0, 0);
+		pane.add(type, 1, 0);
+		pane.add(numText, 0, 1);
+		pane.add(num, 1, 1);
+		pane.add(priceText, 0, 2);
+		pane.add(price, 1, 2);
+		pane.add(btn, 1, 3);
+		pane.add(btn2, 1, 3);
+		pane.setHalignment(btn, HPos.RIGHT);
+		pane.setMargin(btn, new Insets(5,5,5,0));
+		pane.setHalignment(btn2, HPos.RIGHT);
+		pane.setMargin(typeText, new Insets(5,5,5,5));
+		pane.setMargin(type, new Insets(5,5,5,5));
+		pane.setMargin(numText, new Insets(5,5,5,5));
+		pane.setMargin(num, new Insets(5,5,5,5));
+		pane.setMargin(price, new Insets(5,5,5,5));
+		pane.setMargin(priceText, new Insets(5,5,5,5));
+		pane.setMargin(btn2, new Insets(5,90,5,0));
+		popOver.setContentNode(pane);
+		popOver.setArrowLocation(ArrowLocation.TOP_CENTER);
+		popOver.show(((Node)e.getSource()));
+	}
+	private void addNewRoomAction(String type,int num,double price){
+		try {
+			AddRoomVO arvo = new  AddRoomVO();
+			arvo.setNum(num);
+			arvo.setPrice(price);
+			arvo.setHotelId(hotelId);
+			arvo.setRoomType(type);
+			HotelResultMessage result = serviceFactory.getHotelLogicService().addNewRoom(arvo);
+			if(result==HotelResultMessage.FAIL_WRONGID){
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("添加客房").text("添加失败！数据错误！！").showError();
+				return;
+			}
+			else if (result==HotelResultMessage.SUCCESS){
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("添加客房").text("添加成功！").showConfirm();
+				ListWrapper<HotelItemVO> list;
+				list = serviceFactory.getHotelLogicService().getRoomInfo(hotelId);
+				System.out.println(list.size());
+				Iterator<HotelItemVO> it = list.iterator();
+				List<HotelItemVO> rooms = new ArrayList<HotelItemVO>();
+				while(it.hasNext()){
+					HotelItemVO hivo = it.next();
+					rooms.add(hivo);
+				}
+				roomListViewData = FXCollections.observableArrayList(rooms);
+				roomListView.setItems(roomListViewData);
+			}
+		} catch (RemoteException e) {
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("添加客房").text("添加失败！网络错误！").showError();
+			e.printStackTrace();
+		}
+	}
 	class RoomListCell extends ListCell<HotelItemVO>{
 
 		public void updateItem(HotelItemVO item,boolean empty){

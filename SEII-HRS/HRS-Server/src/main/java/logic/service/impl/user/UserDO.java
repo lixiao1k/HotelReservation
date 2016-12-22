@@ -18,6 +18,7 @@ import po.MemberPO;
 import po.UserPO;
 import resultmessage.LoginResultMessage;
 import resultmessage.RegisterResultMessage;
+import resultmessage.UserResultMessage;
 import util.Base64Util;
 import util.HibernateUtil;
 import vo.LoginResultVO;
@@ -118,7 +119,7 @@ public class UserDO {
 			if(po==null)
 				return;
 			po.setStatus(UserStatus.OFFLINE);
-			userDao.update(po);
+			userDao.update((UserPO) HibernateUtil.getCurrentSession().merge(po));
 			HibernateUtil.getCurrentSession().getTransaction().commit();
 		}catch(RuntimeException e){
 			e.printStackTrace();
@@ -176,5 +177,37 @@ public class UserDO {
 			}
 			throw e;
 		}
+	}
+	public UserResultMessage changePassword(long userId,String password,String newPassword){
+			try{
+				HibernateUtil.getCurrentSession().beginTransaction();
+				UserPO po = userDao.getInfo(userId);
+				if(po==null)
+					return UserResultMessage.FAIL_WRONGID;
+				String pass = Base64Util.encode(password);
+				if(pass.equals(po.getPassword())){
+					po.setPassword(Base64Util.encode(newPassword));
+					userDao.update(po);
+					Hibernate.initialize(po);
+					HibernateUtil.getCurrentSession().getTransaction().commit();
+					users.put(userId, po);
+					return UserResultMessage.SUCCESS;
+				}else{
+					Hibernate.initialize(po);
+					HibernateUtil.getCurrentSession().getTransaction().commit();
+					users.put(userId, po);
+					return UserResultMessage.FAIL_WRONGINFO;
+				}
+			}catch(RuntimeException e){
+				e.printStackTrace();
+				users.remove(userId);
+				try{
+					HibernateUtil.getCurrentSession().getTransaction().rollback();
+					return UserResultMessage.FAIL;
+				}catch(RuntimeException ex){
+					ex.printStackTrace();
+				}
+				throw e;
+			}
 	}
 }
