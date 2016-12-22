@@ -26,12 +26,14 @@ import datacontroller.DataController;
 import info.BusinessCircle;
 import info.BusinessCity;
 import info.ListWrapper;
+import info.OrderStrategy;
 import info.Rank;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,12 +57,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import logic.service.HotelLogicService;
+import logic.service.OrderLogicService;
 import logic.service.ServiceFactory;
+import logic.service.StrategyLogicService;
 import rmi.RemoteHelper;
 import vo.BasicHotelVO;
 import vo.HotelItemVO;
+import vo.HotelStrategyVO;
+import vo.NewOrderVO;
 import vo.OrderVO;
 import vo.SearchHotelVO;
+import vo.StrategyItemVO;
 
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.Notifications;
@@ -97,6 +104,9 @@ public class HotelBrowseController implements Initializable{
     private ObservableList<String> limitStarList;//为checkcomboBox设置限制条件
     private ObservableList<String> limitRankList;
     private ObservableList<String> limitPriceList;
+    private NewOrderVO newOrder;
+    private OrderLogicService orderLogic;
+    private StrategyLogicService strategyLogic;
     
 	public void search(ActionEvent e)
 	{
@@ -446,10 +456,8 @@ public class HotelBrowseController implements Initializable{
 	                	
 	             		@Override
 						public void handle(MouseEvent event) {
-	             			DataController.getInstance().putAndUpdate("selectRoomType",leastType );
-	             			DataController.getInstance().putAndUpdate("selectHotel", item);
-	             		
-							createOrder(event, item);
+	          
+							createOrder(event, item,leastType);
 						}
 	               });
 	                
@@ -480,8 +488,15 @@ public class HotelBrowseController implements Initializable{
 	}
 	
 	//差一个popover界面
-	public void createOrder(MouseEvent e,BasicHotelVO item)
+	public void createOrder(MouseEvent e,BasicHotelVO item,String ltype)
 	{
+	
+		long userId=0;
+	//	userId=(long)DataController.getInstance().get("UserId");
+	//	newOrder.setUserId(userId);//传userid
+	//	newOrder.setHotelId(item.getHotelId());//传hotelid
+		
+		
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
 
@@ -494,6 +509,9 @@ public class HotelBrowseController implements Initializable{
 		
 		DatePicker checkin=new DatePicker();
 		DatePicker checkout=new DatePicker();
+
+		
+		
 		Label to=new Label("至");
 		to.setFont(new Font("Youyuan",20));;
 		Label bookNum=new Label("预定间数:");
@@ -502,10 +520,20 @@ public class HotelBrowseController implements Initializable{
 		ComboBox roomNumBox=new ComboBox();
 		roomNumBox.setPromptText("房间数量");
 		roomNumBox.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+   	    roomNumBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+						@Override
+						public void handle(MouseEvent event) {
+							// TODO Auto-generated method stub
+				
+							
+						}
+					});
 		
 		Label contactName=new Label("住客姓名:");
 		contactName.setFont(new Font("Youyuan",20));
 		TextField contactNameField=new TextField();
+		
 		
 		Label contactWay=new Label("联系方式:");
 		contactWay.setFont(new Font("Youyuan",20));
@@ -523,10 +551,52 @@ public class HotelBrowseController implements Initializable{
 		Label strategy=new Label("所享优惠:");
 		strategy.setFont(new Font("Youyuan",20));
 		Label strategyText=new Label();
+		strategyText.setFont(new Font("Youyuan",20));
+		checkout.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+					if(checkout.getValue()!=null)
+					{
+						try {
+							strategyLogic=serviceFactory.getStrategyLogicService();
+							LocalDate localcheckin=checkin.getValue();
+							Instant instant = localcheckin.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+					        Date  checkintime=Date.from(instant);
+					        
+			OrderStrategy	ordervo=new OrderStrategy();
+							ordervo.setCheckInTime(checkintime);
+							ordervo.setHotelId(item.getHotelId());
+							ordervo.setUserId(userid);
+							
+			ListWrapper<HotelStrategyVO> liststrategy=strategyLogic.getStrategyForOrder(ordervo);
+							Iterator<HotelStrategyVO>it=liststrategy.iterator();
+							HotelStrategyVO hsVO=null;
+							Set<StrategyItemVO> straSet;
+							while(it.hasNext())
+							{
+								hsVO=it.next();
+								straSet=hsVO.getItems();
+								
+							}
+							
+			
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						   strategyText.setText("双十一大优惠");
+
+					}
+				   
+			}
+		});
 		
 		Label order=new Label("订单总价格:");
 		order.setFont(new Font("Youyuan",20));
-		Label orderTotal=new Label("700元");
+		Label orderTotal=new Label("");
 		orderTotal.setFont(new Font("Youyuan",20));
 		
 		Label empty=new Label();
@@ -534,6 +604,48 @@ public class HotelBrowseController implements Initializable{
 		
 		Button commit=new Button("提交订单");
 		commit.setFont(new Font("Youyuan",20));
+		commit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				if(checkin.getValue()==null||checkout.getValue()==null||roomNumBox.getValue()==null||contactNameField.getText().equals("")
+						||contactWayField.getText().equals("")||peopleField.getText().equals(""))
+				{
+					Notifications.create().owner(commit.getScene().getWindow()).title("错误信息").text("请确认信息完整!").showError();
+				}
+				else
+				{
+					//入住时间
+					LocalDate localcheckin=checkin.getValue();
+					Instant instant = localcheckin.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+			        Date  checkintime=Date.from(instant);
+					
+			        //预计退房时间
+			        LocalDate localcheckout=checkout.getValue();
+		    		instant=localcheckout.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+		             Date  checkouttime=Date.from(instant);
+		             
+		             int people=0;
+			    	    people=Integer.parseInt(peopleField.getText());
+		             
+		     	    newOrder.setCheckInTime(checkintime);
+		    	    newOrder.setCheckOutTime(checkouttime);
+		    	    newOrder.setChild(ifchild.isSelected());
+		    	    newOrder.setContactName(contactNameField.getText());
+		    	    newOrder.setContactWay(contactWayField.getText());
+		    	    newOrder.setPeople(people);
+		    	    newOrder.setRoomNum((int)roomNumBox.getValue());
+		    	  
+		    	   
+		 
+					
+				}
+			
+			}
+			
+			
+		});
 		
 		pane.add(orderInfo, 0, 0,2,1);
 		pane.setMargin(orderInfo, new Insets(0,0,0,275));

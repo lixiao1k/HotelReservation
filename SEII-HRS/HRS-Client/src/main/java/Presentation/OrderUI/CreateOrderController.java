@@ -63,33 +63,30 @@ public class CreateOrderController implements Initializable{
 	private long userid;
 	private long hotelid;
 	private ServiceFactory  serviceFactory;
-	private StrategyLogicService  strategylogic;
+	private StrategyLogicService  strategyLogic;
 	private OrderStrategy ordervo;
 	private ListWrapper<HotelStrategyVO> liststrategy;
-	private NewOrderVO  neworder;
-	private HotelLogicService  hotellogic;
+	private NewOrderVO  newOrder;
+	private HotelLogicService  hotelLogic;
 	private OrderLogicService orderLogic;
 	
 	private  double leastPrice;
 	public void commit() throws IOException
 	{
 		
-		    
-
-		    
 		
 		 //住客姓名
 		    String customer=null;
 		    customer=customerName.getText();
-		    neworder.setContactName(customer);
+		    newOrder.setContactName(customer);
 		 //手机号码
 		    String contact=null;
 		    contact=phoneNumber.getText();
-		    neworder.setContactWay(contact);
+		    newOrder.setContactWay(contact);
 		 //预计入住人数
 		    int people=0;
 		    people=Integer.parseInt(peopleNum.getText());
-		    neworder.setPeople(people);
+		    newOrder.setPeople(people);
 		 //是否有儿童
 		    boolean child=false;
 		    if(Ifchild.isSelected())
@@ -97,17 +94,17 @@ public class CreateOrderController implements Initializable{
 		    	child=true;
 
 		    }
-		    neworder.setChild(child);
+		    newOrder.setChild(child);
 		
 		    double totalNum=0;
-		    totalNum=neworder.getRoomNum()*leastPrice*neworder.getStrategyOff();
-		    neworder.setRoomPrice(totalNum);
+		    totalNum=newOrder.getRoomNum()*leastPrice*newOrder.getStrategyOff();
+		    newOrder.setRoomPrice(totalNum);
 		    totalMoney.setText(String.valueOf(totalNum));
 		
 		    try {
 				orderLogic=serviceFactory.getOrderLogicService();
 		    	
-		    	if(	orderLogic.create(neworder)==OrderResultMessage.SUCCESS)
+		    	if(	orderLogic.create(newOrder)==OrderResultMessage.SUCCESS)
 		    	{
 			    	GridPane client=(GridPane)peopleNum.getScene().getWindow().getScene().getRoot();
 					FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/OrderUI/ClientBrowseOrderListUI.fxml"));
@@ -124,7 +121,7 @@ public class CreateOrderController implements Initializable{
 					}
 					client.add(hoteldetailBrowse, 3, 1);
 		    	}
-		    	else if(orderLogic.create(neworder)==OrderResultMessage.FAIL_NOTENOUGHCREDIT)
+		    	else if(orderLogic.create(newOrder)==OrderResultMessage.FAIL_NOTENOUGHCREDIT)
 		    	{
 		    		Notifications.create().owner(phoneNumber.getScene().getWindow()).title("错误信息").text("信用不足!").showError();
 		    	}
@@ -144,7 +141,7 @@ public class CreateOrderController implements Initializable{
 		   num=roomNumBox.getSelectionModel().getSelectedItem();
 		   roomNumBox.setValue(num);
 		  
-		   neworder.setRoomNum(num);
+		   newOrder.setRoomNum(num);
 	}
 	
     public void checkStrategy()
@@ -161,8 +158,8 @@ public class CreateOrderController implements Initializable{
 	    		instant=localcheckout.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
 	    Date  checkouttime=Date.from(instant);
 	    
-	    neworder.setCheckInTime(checkintime);
-	    neworder.setCheckOutTime(checkouttime);
+	    newOrder.setCheckInTime(checkintime);
+	    newOrder.setCheckOutTime(checkouttime);
 	    
 	    //检查策略
 	    ListWrapper<HotelItemVO> hotelitemList;//根据hotelid得到该酒店全部房间基本类型
@@ -172,14 +169,14 @@ public class CreateOrderController implements Initializable{
 				 HotelItemVO    hotelroomvo;//根据hotelid得到该酒店全部房间类型信息
 				 
 				 
-				strategylogic=serviceFactory.getStrategyLogicService();
+				strategyLogic=serviceFactory.getStrategyLogicService();
 				ordervo=new OrderStrategy();
 				ordervo.setCheckInTime(checkintime);
 				ordervo.setHotelId(hotelid);
 				ordervo.setUserId(userid);
 				
 				
-				liststrategy=strategylogic.getStrategyForOrder(ordervo);
+				liststrategy=strategyLogic.getStrategyForOrder(ordervo);
 				Iterator<HotelStrategyVO> it;
 				it=liststrategy.iterator();
 				
@@ -196,15 +193,15 @@ public class CreateOrderController implements Initializable{
 					if(hivo.getRoom().getType()==roomType)
 					{
 						
-						neworder.setRoom(hivo.getRoom());//给订单传房间信息
+						newOrder.setRoom(hivo.getRoom());//给订单传房间信息
 					}
 				}
 			
 				
 				
 		
-			    hotellogic=serviceFactory.getHotelLogicService();
-			    hotelitemList=hotellogic.getRoomInfo(hotelid);
+			    hotelLogic=serviceFactory.getHotelLogicService();
+			    hotelitemList=hotelLogic.getRoomInfo(hotelid);
 			    
 			    Iterator<HotelItemVO> ithotel;
 			    ithotel=hotelitemList.iterator();
@@ -240,13 +237,13 @@ public class CreateOrderController implements Initializable{
 							//所选房间类型有优惠
 							if(roomType.equals(sta.getRoom().getType()))
 							{
-								neworder.setStrategy(hotelstrategyvo.getId());//设置strategyid
+								newOrder.setStrategy(hotelstrategyvo.getId());//设置strategyid
 								flag=true;
 								if(sta.getPriceAfter()<leastPrice)
 								{
 									leastPrice=sta.getPriceAfter();
 									offinfo=sta.getOff();
-									neworder.setStrategyOff(offinfo);
+									newOrder.setStrategyOff(offinfo);
 									
 								}
 							}
@@ -295,7 +292,7 @@ public class CreateOrderController implements Initializable{
 		{
 			serviceFactory=RemoteHelper.getInstance().getServiceFactory();
 		}
-		neworder=new NewOrderVO();
+		newOrder=new NewOrderVO();
 		Object o=DataController.getInstance().get("UserId");
 		userid=(long)o;
 		DataController.getInstance().putAndUpdate("UserId", (Object)userid);
@@ -306,8 +303,8 @@ public class CreateOrderController implements Initializable{
 		BasicHotelVO basichotel=(BasicHotelVO)o;
 		hotelid=basichotel.getHotelId();
 		//DataController.getInstance().put("selectHotel", (Object)hotelid);
-		neworder.setUserId(userid);
-		neworder.setHotelId(hotelid);
+		newOrder.setUserId(userid);
+		newOrder.setHotelId(hotelid);
 
 		roomNumBox.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
 		

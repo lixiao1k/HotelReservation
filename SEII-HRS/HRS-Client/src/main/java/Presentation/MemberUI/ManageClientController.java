@@ -1,4 +1,4 @@
-package Presentation.UserUI;
+package Presentation.MemberUI;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,7 +19,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import Presentation.UserUI.ManageUserController;
 import datacontroller.DataController;
 public class ManageClientController implements Initializable{
 	@FXML  private TextField searchField;
