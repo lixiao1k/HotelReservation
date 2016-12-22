@@ -14,12 +14,12 @@
       <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="69.0" />
    </rowConstraints>
    <columnConstraints>
-      <ColumnConstraints maxWidth="251.0" minWidth="169.0" prefWidth="181.0" />
-      <ColumnConstraints maxWidth="364.0" minWidth="256.0" prefWidth="347.0" />
-      <ColumnConstraints maxWidth="251.0" minWidth="235.0" prefWidth="240.0" />
+      <ColumnConstraints maxWidth="251.0" minWidth="150.0" prefWidth="181.0" />
+      <ColumnConstraints maxWidth="400.0" minWidth="400.0" prefWidth="400.0" />
+      <ColumnConstraints maxWidth="251.0" minWidth="100.0" prefWidth="220.0" />
    </columnConstraints>
    <children>
-      <Label alignment="CENTER" prefHeight="20.0" prefWidth="379.0" text="注册会员" textFill="#e40c0c" GridPane.columnIndex="1">
+      <Label alignment="CENTER" prefHeight="49.0" prefWidth="347.0" text="注册会员" textFill="#fffbfb" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
          <font>
             <Font name="SimSun" size="36.0" />
          </font>
@@ -28,84 +28,17 @@
          </padding>
       </Label>
       <GridPane GridPane.rowIndex="1">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="245.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="135.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="214.0" minHeight="10.0" prefHeight="129.0" vgrow="SOMETIMES" />
          </rowConstraints>
-         <children>
-            <GridPane>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="181.0" text="*生日:">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets top="15.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <Label alignment="TOP_RIGHT" prefHeight="69.0" prefWidth="181.0" text="(个人用户必填)" textFill="#eb0b0b" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </GridPane>
-            <GridPane GridPane.rowIndex="1">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="93.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label alignment="BOTTOM_RIGHT" prefHeight="50.0" prefWidth="181.0" text="*企业名称:">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <Label alignment="TOP_RIGHT" prefHeight="20.0" prefWidth="190.0" text="（企业用户必填）" textFill="#eb0b0b" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="TOP_RIGHT" prefHeight="47.0" prefWidth="181.0" text="（个人用户选填）" textFill="#eb0b0b" GridPane.rowIndex="2">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </GridPane>
-         </children>
       </GridPane>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <GridPane prefHeight="405.0" prefWidth="347.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="12.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="141.0" vgrow="SOMETIMES" />
@@ -113,25 +46,41 @@
                   <RowConstraints maxHeight="151.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <DatePicker fx:id="birthdayDatePicker" prefHeight="35.0" prefWidth="233.0">
+                  <DatePicker fx:id="birthdayDatePicker" prefHeight="17.0" prefWidth="181.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <GridPane.margin>
-                        <Insets bottom="45.0" left="10.0" />
+                        <Insets bottom="45.0" left="10.0" top="80.0" />
                      </GridPane.margin>
                   </DatePicker>
-                  <TextField fx:id="nameOfCompanyTextField" maxWidth="220.0" minWidth="220.0" prefHeight="39.0" prefWidth="220.0" GridPane.rowIndex="1">
+                  <TextField fx:id="nameOfCompanyTextField" maxWidth="186.0" minWidth="160.0" prefHeight="23.0" prefWidth="186.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets bottom="60.0" left="10.0" />
                      </GridPane.margin>
                   </TextField>
+                  <Label text="生日：" textFill="#fffbfb" GridPane.valignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" top="33.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label prefHeight="28.0" prefWidth="108.0" text="企业名称：" textFill="#f8f7f7" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="register" mnemonicParsing="false" onAction="#registerbuttonAction" prefHeight="29.0" prefWidth="90.0" text="立即注册" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
                </children>
             </GridPane>
          </children>
       </VBox>
-      <Button fx:id="register" mnemonicParsing="false" onAction="#registerbuttonAction" prefHeight="39.0" prefWidth="96.0" text="立即注册" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets left="130.0" />
-         </GridPane.margin>
-      </Button>
       <Label GridPane.columnIndex="2" GridPane.rowIndex="2" />
    </children>
 </GridPane>

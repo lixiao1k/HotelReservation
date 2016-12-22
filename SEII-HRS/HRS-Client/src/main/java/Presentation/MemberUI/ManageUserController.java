@@ -1,4 +1,4 @@
-package Presentation.UserUI;
+package Presentation.MemberUI;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,7 +58,7 @@ public class ManageUserController implements Initializable{
 					}
 				}
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Presentation/UserUI/"+newNode));
+					FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Presentation/MemberUI/"+newNode));
 					Parent newManage = loader.load();
 					newManage.getProperties().put("NAME", newValue);
 					ManagePane.add(newManage, 0,1,3,1);

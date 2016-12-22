@@ -1,4 +1,4 @@
-package Presentation.UserUI;
+package Presentation.MemberUI;
 
 import java.io.IOException;
 import java.net.URL;
