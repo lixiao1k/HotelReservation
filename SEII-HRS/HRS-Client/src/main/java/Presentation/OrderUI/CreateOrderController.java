@@ -14,6 +14,8 @@ import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.controlsfx.control.Notifications;
+
 import datacontroller.DataController;
 import info.ListWrapper;
 import info.OrderStrategy;
@@ -34,6 +36,7 @@ import logic.service.HotelLogicService;
 import logic.service.OrderLogicService;
 import logic.service.ServiceFactory;
 import logic.service.StrategyLogicService;
+import resultmessage.OrderResultMessage;
 import rmi.RemoteHelper;
 import vo.BasicHotelVO;
 import vo.HotelItemVO;
@@ -66,6 +69,7 @@ public class CreateOrderController implements Initializable{
 	private NewOrderVO  neworder;
 	private HotelLogicService  hotellogic;
 	private OrderLogicService orderLogic;
+	
 	private  double leastPrice;
 	public void commit() throws IOException
 	{
@@ -102,21 +106,29 @@ public class CreateOrderController implements Initializable{
 		
 		    try {
 				orderLogic=serviceFactory.getOrderLogicService();
-		    	orderLogic.create(neworder);
-		    	GridPane client=(GridPane)peopleNum.getScene().getWindow().getScene().getRoot();
-				FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/OrderUI/ClientBrowseOrderListUI.fxml"));
-				
-				Parent hoteldetailBrowse = loader.load();
-				hoteldetailBrowse.getProperties().put("NAME","HotelDetailPane" );
-				ObservableList<Node> list =client.getChildren();
-				for(Node node:list){
-					String value=(String)node.getProperties().get("NAME");
-					if(value!=null&&value.contains("Pane")){
-						list.remove(node);
-						break;
+		    	
+		    	if(	orderLogic.create(neworder)==OrderResultMessage.SUCCESS)
+		    	{
+			    	GridPane client=(GridPane)peopleNum.getScene().getWindow().getScene().getRoot();
+					FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/OrderUI/ClientBrowseOrderListUI.fxml"));
+					
+					Parent hoteldetailBrowse = loader.load();
+					hoteldetailBrowse.getProperties().put("NAME","HotelDetailPane" );
+					ObservableList<Node> list =client.getChildren();
+					for(Node node:list){
+						String value=(String)node.getProperties().get("NAME");
+						if(value!=null&&value.contains("Pane")){
+							list.remove(node);
+							break;
+						}
 					}
-				}
-				client.add(hoteldetailBrowse, 3, 1);
+					client.add(hoteldetailBrowse, 3, 1);
+		    	}
+		    	else if(orderLogic.create(neworder)==OrderResultMessage.FAIL_NOTENOUGHCREDIT)
+		    	{
+		    		Notifications.create().owner(phoneNumber.getScene().getWindow()).title("错误信息").text("信用不足!").showError();
+		    	}
+
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -127,9 +127,9 @@ public class HotelBrowseController implements Initializable{
 		    for (Map.Entry<BasicHotelVO, Integer> entry : map.entrySet()) {
 		    	hotelstextlimit.add(entry.getKey());
 		    }
-			hotelListViewData=FXCollections.observableArrayList(hotelstextlimit);
-
-			show();
+		    ObservableList<BasicHotelVO> result=FXCollections.observableArrayList(hotelstextlimit);
+		    hotelListView.setItems(result);
+			
 		
 		
 		} catch (RemoteException e1) {
@@ -137,15 +137,9 @@ public class HotelBrowseController implements Initializable{
 			e1.printStackTrace();
 		}
 	
-
-		
 	}
 	
-	public void show()
-	{
-		hotelListView.setCellFactory(e->new hotelListCell());
-		hotelListView.setItems(hotelListViewData);
-	}
+
 	
 	  private Map<BasicHotelVO,Integer> sortMapByValue(Map<BasicHotelVO, Integer> map) {
 	        List<Map.Entry<BasicHotelVO, Integer>> mapList = new ArrayList<Map.Entry<BasicHotelVO, Integer>>(
@@ -277,9 +271,9 @@ public class HotelBrowseController implements Initializable{
 				}
 	
 				System.out.println(hotelslimit.size());
-				hotelListViewData=FXCollections.observableArrayList(hotelslimit);
-				hotelListView.setCellFactory(e->new hotelListCell());
-				hotelListView.setItems(hotelListViewData);
+				ObservableList<BasicHotelVO> result=FXCollections.observableArrayList(hotelslimit);
+			
+				hotelListView.setItems(result);
 				
 
 				
@@ -541,7 +535,8 @@ public class HotelBrowseController implements Initializable{
 		Button commit=new Button("提交订单");
 		commit.setFont(new Font("Youyuan",20));
 		
-		pane.add(orderInfo, 1, 0);
+		pane.add(orderInfo, 0, 0,2,1);
+		pane.setMargin(orderInfo, new Insets(0,0,0,275));
 		
 		pane.add(checkin, 0, 1);
 		pane.setPadding(new Insets(5,5,5,5));
