@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Map;
@@ -28,9 +30,11 @@ import info.BusinessCity;
 import info.ListWrapper;
 import info.OrderStrategy;
 import info.Rank;
+import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -90,6 +94,7 @@ public class HotelBrowseController implements Initializable{
 	@FXML private ChoiceBox<String> limitStar;
 	@FXML private ChoiceBox<String> limitRank;
 	@FXML private ChoiceBox<String> limitPrice;
+	@FXML private Button checkHistory;
 	private ServiceFactory serviceFactory;
 	private ListWrapper<BusinessCity> bc;
 	private long userid;
@@ -297,12 +302,43 @@ public class HotelBrowseController implements Initializable{
 		
 	}
 	
+	//查看预定过的酒店
+	public void checkHistory()
+	{
+		List<BasicHotelVO> hotelsHistory = new ArrayList<BasicHotelVO>();
+		
+		try {
+			Iterator<BasicHotelVO> it=basicHotel.iterator();
+			Iterator<Long>historyit=hotelid.iterator();
+			BasicHotelVO bavo=null;
+			while(it.hasNext())
+			{
+				bavo=it.next();
+				while(historyit.hasNext())
+				{
+					if(bavo.getHotelId()==historyit.next())
+					{
+						hotelsHistory.add(bavo);
+					}
+				}
+				
+			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ObservableList<BasicHotelVO>result=FXCollections.observableArrayList(hotelsHistory);
+		hotelListView.setItems(result);
+		
+	}
+
+	
 	public void search(SearchHotelVO vo)
 	{
 		    try {
 		    	if(vo==null)
 		    	{
-		    		System.out.println("vo有问题");
+		    		
 		    	}
 		   // 	System.out.println(vo.getBusinessCircle().getName());
 				basicHotel=	hotelbl.getHotels(vo);//根据searchvo返回搜索到的酒店信息

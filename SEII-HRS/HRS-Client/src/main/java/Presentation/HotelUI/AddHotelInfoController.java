@@ -11,6 +11,8 @@ import java.util.Set;
 
 import org.controlsfx.control.Notifications;
 
+import com.sun.javafx.geom.Rectangle;
+
 import datacontroller.DataController;
 import info.BusinessCircle;
 import info.BusinessCity;
@@ -30,6 +32,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import logic.service.HotelLogicService;
 import logic.service.ServiceFactory;
@@ -50,6 +53,8 @@ public class AddHotelInfoController implements Initializable{
 @FXML private TextField addHotelField;
 @FXML  private ComboBox<String> businessCity;
 @FXML  private ComboBox<String>businessCircle;
+@FXML private StackPane stack;
+
 
  private static String star=null;
  private AddHotelVO addHotel;
@@ -249,6 +254,10 @@ public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
+	
+	Rectangle icon=new Rectangle();
+
+	
 	
 	// TODO Auto-generated method stub
 	starChoice.setItems(FXCollections.observableArrayList("无","一星级","二星级","三星级","四星级","五星级"));
