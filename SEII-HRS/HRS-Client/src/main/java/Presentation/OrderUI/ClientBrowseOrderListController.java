@@ -30,7 +30,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import logic.service.CommentLogicService;
 import logic.service.OrderLogicService;
 import resultmessage.OrderResultMessage;
@@ -99,6 +102,8 @@ public class ClientBrowseOrderListController implements Initializable{
 		controller.setOrderVO(vo);
 		Scene scene=new Scene(root);
 		Stage stage=new Stage();
+//		stage.initModality(Modality.APPLICATION_MODAL);
+//		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setScene(scene);
 		stage.show();
 	}

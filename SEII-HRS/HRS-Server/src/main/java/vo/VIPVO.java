@@ -1,11 +1,16 @@
 package vo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
 import info.VIPType;
 
-public class VIPVO {
+public class VIPVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2375349133518351815L;
 	private VIPType type;
 	private Date birthday;
 	private long userId;

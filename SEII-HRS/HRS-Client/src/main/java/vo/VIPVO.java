@@ -1,22 +1,30 @@
 package vo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
-public class VIPVO {
-	private int type;
-	private LocalDate birthday;
+import info.VIPType;
+
+public class VIPVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2375349133518351815L;
+	private VIPType type;
+	private Date birthday;
 	private long userId;
 	private String companyName;
-	public VIPVO(int type, LocalDate birthday, long userId, String companyName) {
+	public VIPVO(VIPType type, Date birthday, long userId, String companyName) {
 		this.type=type;
 		this.birthday=birthday;
 		this.userId=userId;
 		this.companyName=companyName;
 	}
-	public void setType(int type){
+	public void setType(VIPType type){
 		this.type = type;
 	}
-	public void setBirthDay(LocalDate birthday){
+	public void setBirthDay(Date birthday){
 		this.birthday = birthday;
 	}
 	public void setUserId(long userId){
@@ -31,10 +39,10 @@ public class VIPVO {
 	public long getUserId(){
 		return userId;
 	}
-	public LocalDate getBirthday(){
+	public Date getBirthday(){
 		return birthday;
 	}
-	public int getType(){
+	public VIPType getType(){
 		return type;
 	}
 	
