@@ -1,6 +1,12 @@
 package info;
 
-public class StrategyType {
+import java.io.Serializable;
+
+public class StrategyType implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5248419732398619630L;
 	private long id;
 	private String name;
 	public void setName(String name){
