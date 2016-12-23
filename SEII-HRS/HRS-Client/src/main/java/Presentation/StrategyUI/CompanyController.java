@@ -126,7 +126,7 @@ public class CompanyController implements Initializable{
 	
 	public void setBaseInfo(){
 		hotelid=(long)DataController.getInstance().get("HotelId");
-		DataController.getInstance().put("HotelId", hotelid);
+		DataController.getInstance().putAndUpdate("HotelId", hotelid);
 	}
 	
 	@Override

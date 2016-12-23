@@ -136,9 +136,8 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 	
 	//基本信息
     public void setBaseInfo(){
-    	DataController.getInstance().put("HotelId", (long)1);
     	hotelid=(long)DataController.getInstance().get("HotelId");
-    	DataController.getInstance().put("HotelId", hotelid);
+    	DataController.getInstance().putAndUpdate("HotelId", hotelid);
     }
     
     //初始化类型

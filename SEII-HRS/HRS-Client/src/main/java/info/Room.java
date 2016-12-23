@@ -1,6 +1,8 @@
 package info;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Room implements Serializable{
 
@@ -10,6 +12,10 @@ public class Room implements Serializable{
 	private static final long serialVersionUID = -1830300546353465658L;
 	private long rid;
 	private String type;
+	public Room(){}
+	public Room(String type){
+		this.type = type;
+	}
 	public long getRid(){
 		return this.rid;
 	}
@@ -22,15 +28,4 @@ public class Room implements Serializable{
 	public void setType(String type){
 		this.type = type;
 	}
-	@Override
-	public String toString() {
-		return  rid + "  " + type;
-	}
-	public Room(){}
-	public Room(long rid, String type) {
-		super();
-		this.rid = rid;
-		this.type = type;
-	}
-	
 }

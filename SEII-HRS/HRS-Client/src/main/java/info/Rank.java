@@ -1,5 +1,5 @@
 package info;
 
 public enum Rank {
-	ONE,TWO,THREE,FOUR,FIVE,NONE
+	ONE,TWO,THREE,FOUR,FIVE, NONE
 }

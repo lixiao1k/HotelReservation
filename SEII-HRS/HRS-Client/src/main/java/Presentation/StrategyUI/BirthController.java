@@ -104,6 +104,7 @@ public class BirthController implements Initializable{
 		Room=new ListSelectionView<>();
 		ObservableList<Room> sourcelist=FXCollections.observableArrayList();
 		ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
+		System.out.println(volist);
 		Iterator<HotelItemVO> it=volist.iterator();
 		while(it.hasNext()){
 			Room room=it.next().getRoom();
@@ -123,7 +124,7 @@ public class BirthController implements Initializable{
 	
 	public void setBaseInfo(){
 		hotelid=(long)DataController.getInstance().get("HotelId");
-		DataController.getInstance().put("HotelId", hotelid);
+		DataController.getInstance().putAndUpdate("HotelId", hotelid);
 	}
 	
 	@Override
