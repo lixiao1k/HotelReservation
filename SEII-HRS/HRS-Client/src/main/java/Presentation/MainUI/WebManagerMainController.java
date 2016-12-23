@@ -37,7 +37,7 @@ public class WebManagerMainController implements Initializable{
 					  ,"ManageUserPane"
 		};
 		String[] path = {"Presentation/HotelUI/AddHotelInfo.fxml"
-						,"Presentation/UserUI/ManageUser.fxml"
+						,"Presentation/MemberUI/ManageUser.fxml"
 		};
 		try {
 			Parent pane = null;
@@ -81,7 +81,7 @@ public class WebManagerMainController implements Initializable{
 			RemoteHelper.getInstance().getServiceFactory().getUserLogicService().logout(userId);
 			((Stage)webManagerMain.getScene().getWindow()).close();
 		} catch (RemoteException e2) {
-			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("µÇ³ö").text("µÇ³öÊ§°Ü£¡").showError();
+			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("ï¿½Ç³ï¿½").text("ï¿½Ç³ï¿½Ê§ï¿½Ü£ï¿½").showError();
 			e2.printStackTrace();
 		}
     }
@@ -90,25 +90,25 @@ public class WebManagerMainController implements Initializable{
     	PopOver popOver = new PopOver();
 		GridPane pane = new GridPane();
 		Font font = new Font("YouYuan",15);
-		Text text1 = new Text("Ô­ÃÜÂë");
+		Text text1 = new Text("Ô­ï¿½ï¿½ï¿½ï¿½");
 		text1.setFont(font);
-		Text text2 = new Text("ÐÂÃÜÂë");
+		Text text2 = new Text("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		text2.setFont(font);
 		PasswordField password = new PasswordField();
 		PasswordField newPassword = new PasswordField();
-		Button btn = new Button("È·ÈÏ");
+		Button btn = new Button("È·ï¿½ï¿½");
 		btn.setId("green-button");
 		btn.setFont(new Font("YouYuan",15));
 		btn.setOnAction((ActionEvent e3)->{
 			if(password.getText()==null||password.getText().equals("\\s")
 					||newPassword.getText()==null||newPassword.getText().equals("\\s")){
-				Notifications.create().owner(webManagerMain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("ÇëÊäÈëÃÜÂë£¡£¡").showError();
+				Notifications.create().owner(webManagerMain.getScene().getWindow()).title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").text("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¡ï¿½ï¿½").showError();
 				return;
 			}
 			changePasswordAction(password.getText(),newPassword.getText());
 			popOver.hide();
 		});
-		Button btn2 = new Button("È¡Ïû");
+		Button btn2 = new Button("È¡ï¿½ï¿½");
 		btn2.setId("red-button");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
@@ -136,14 +136,14 @@ public class WebManagerMainController implements Initializable{
     	try{
     		UserResultMessage result = RemoteHelper.getInstance().getServiceFactory().getUserLogicService().changePassword(userId, password, newPassword);
     		if(result==UserResultMessage.FAIL_WRONGID){
-    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("´íÎóÓÃ»§£¡").showError();
+    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").text("ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½").showError();
     		}else if(result==UserResultMessage.FAIL_WRONGINFO){
-    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("Ô­ÃÜÂë´íÎó£¡").showError();
+    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").text("Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").showError();
     		}
     		else
-    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("³É¹¦£¡").showConfirm();
+    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").text("ï¿½É¹ï¿½ï¿½ï¿½").showConfirm();
     	}catch(RemoteException e){
-    		Notifications.create().owner(webManagerMain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("ÍøÂç´íÎó£¡").showError();
+    		Notifications.create().owner(webManagerMain.getScene().getWindow()).title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").text("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").showError();
     		e.printStackTrace();
     	}
     }

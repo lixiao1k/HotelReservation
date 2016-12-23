@@ -356,6 +356,7 @@ public class HotelBrowseController implements Initializable{
 	class hotelListCell extends ListCell<BasicHotelVO>{
 			int star1=0;
 			String leastType=null;
+			double leastPrice=1000000;
 			public void updateItem(BasicHotelVO item,boolean empty)
 			{
 				super.updateItem(item, empty);
@@ -435,7 +436,7 @@ public class HotelBrowseController implements Initializable{
 	                	
 	                }
 	                Set<HotelItemVO> hotIt=item.getRooms();
-	                double leastPrice=1000000;
+	              
 	              
 	                for(HotelItemVO  htlVO:hotIt)
 	                {
@@ -457,7 +458,7 @@ public class HotelBrowseController implements Initializable{
 	             		@Override
 						public void handle(MouseEvent event) {
 	          
-							createOrder(event, item,leastType);
+							createOrder(event, item,leastType,leastPrice);
 						}
 	               });
 	                
@@ -488,8 +489,16 @@ public class HotelBrowseController implements Initializable{
 	}
 	
 	//差一个popover界面
-	public void createOrder(MouseEvent e,BasicHotelVO item,String ltype)
+	public void createOrder(MouseEvent e,BasicHotelVO item,String ltype,Double lprice)
 	{
+		Set<HotelItemVO>htVO=item.getRooms();
+		for(HotelItemVO hteVO:htVO)
+		{
+			if(hteVO.getRoom().getType().equals(ltype))
+			{
+				newOrder.setRoom(hteVO.getRoom());
+			}
+		}
 	
 		long userId=0;
 	//	userId=(long)DataController.getInstance().get("UserId");
@@ -520,16 +529,7 @@ public class HotelBrowseController implements Initializable{
 		ComboBox roomNumBox=new ComboBox();
 		roomNumBox.setPromptText("房间数量");
 		roomNumBox.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
-   	    roomNumBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-						@Override
-						public void handle(MouseEvent event) {
-							// TODO Auto-generated method stub
-				
-							
-						}
-					});
-		
+	
 		Label contactName=new Label("住客姓名:");
 		contactName.setFont(new Font("Youyuan",20));
 		TextField contactNameField=new TextField();
@@ -574,20 +574,52 @@ public class HotelBrowseController implements Initializable{
 							Iterator<HotelStrategyVO>it=liststrategy.iterator();
 							HotelStrategyVO hsVO=null;
 							Set<StrategyItemVO> straSet;
+							double leastOff=1;
+							String strategyDes="";
 							while(it.hasNext())
 							{
 								hsVO=it.next();
-								straSet=hsVO.getItems();
+								
+								//有网站针对全部客房的优惠
+								if(hsVO.getItems()==null)
+								{
+									if(hsVO.getOff()<leastOff)
+									{
+										leastOff=hsVO.getOff();
+										strategyDes=hsVO.getName();
+										newOrder.setStrategy(hsVO.getId());
+										newOrder.setStrategyOff(leastOff);
+										
+									}
+								
+								}
+								else
+								{
+									straSet=hsVO.getItems();
+									for(StrategyItemVO stVO:straSet)
+									{
+										if(stVO.getRoom().getType().equals(ltype))
+										{
+											if(stVO.getOff()<leastOff)
+											{
+												leastOff=stVO.getOff();
+												strategyDes=hsVO.getName();
+												newOrder.setStrategy(hsVO.getId());
+												newOrder.setStrategyOff(leastOff);
+												
+											}
+										}
+									}
+								}
 								
 							}
 							
-			
+							strategyText.setText(strategyDes);
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
-						   strategyText.setText("双十一大优惠");
 
 					}
 				   
@@ -598,6 +630,19 @@ public class HotelBrowseController implements Initializable{
 		order.setFont(new Font("Youyuan",20));
 		Label orderTotal=new Label("");
 		orderTotal.setFont(new Font("Youyuan",20));
+		
+   	    roomNumBox.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+						@Override
+						public void handle(MouseEvent event) {
+							// TODO Auto-generated method stub
+							int num=(int)roomNumBox.getValue();
+							double moneyTotal=0;
+							moneyTotal=num*lprice*newOrder.getStrategyOff();
+							orderTotal.setText(String.valueOf(moneyTotal)+"元");
+							newOrder.setRoomPrice(moneyTotal);
+						}
+					});
 		
 		Label empty=new Label();
 		Label empty1=new Label();
@@ -707,7 +752,7 @@ public class HotelBrowseController implements Initializable{
 		//没选中酒店
 		if(hotelListView.getSelectionModel().getSelectedItem()==null)
 		{
-			
+			Notifications.create().owner(searchField.getScene().getWindow()).title("提示信息").text("请选择酒店!").showWarning();
 		}
 		else
 		{
