@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+
+import javax.swing.ImageIcon;
+import javax.swing.plaf.ToolTipUI;
+
 import org.controlsfx.control.Notifications;
 import Presentation.CreditUI.CreditBrowseController;
 import datacontroller.DataController;
@@ -16,6 +20,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import logic.service.ServiceFactory;
 import resultmessage.MemberResultMessage;
@@ -28,6 +35,7 @@ public class KeepPersonInfoController implements Initializable{
 	@FXML TextField nameTextField;
 	@FXML TextField phoneTextField;
 	@FXML Label creditLabel;
+	@FXML ImageView VIPImageView;
 	private ServiceFactory serviceFactory;
 	private long userid;
 	private String username;
@@ -96,6 +104,15 @@ public class KeepPersonInfoController implements Initializable{
 		    creditLabel.setText(Integer.toString(credit));
 		    nameTextField.setEditable(false);
 		    phoneTextField.setEditable(false);
+		    final Tooltip tip = new Tooltip();
+		    tip.setText("请先点击编辑按钮才能编辑");
+		    nameTextField.setTooltip(tip);
+		    phoneTextField.setTooltip(tip);
+		    if(membervo.isVIP()){
+		    	VIPImageView=new ImageView();
+		    	Image image=new Image(getClass().getResourceAsStream("VIP.png"));
+		    	VIPImageView.setImage(image);
+		    }
 		}catch (RemoteException e) {
 			e.printStackTrace();
 		}catch (IOException e) {

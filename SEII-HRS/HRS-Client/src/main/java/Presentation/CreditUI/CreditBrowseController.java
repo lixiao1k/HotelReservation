@@ -41,6 +41,7 @@ public class CreditBrowseController implements Initializable{
 	private ServiceFactory serviceFactory;
 //	private CreditVO vo;
 	private Iterator<CreditVO> it;
+	private int credit;
 	
 //	@FXML
 //	protected void goBack(ActionEvent e){
@@ -81,7 +82,6 @@ public class CreditBrowseController implements Initializable{
 		try{
 			userid=(long)DataController.getInstance().get("UserId");
 			ListWrapper<CreditVO> list=serviceFactory.getCreditLogicService().getInfo(userid);
-			System.out.println(userid);
 			if(list==null){
 				System.out.println("null");
 			}
@@ -90,7 +90,7 @@ public class CreditBrowseController implements Initializable{
 			}
 			it=list.iterator();
 			creditListViewData=FXCollections.observableArrayList();
-			initialListViewData(it);
+			initialListViewData(it);		
 //		    LocalDate date=LocalDate.now();
 //			CreditVO credit1=new CreditVO(151250084, date, 26, 398);
 //			CreditVO credit2=new CreditVO(151250086, date, -26, 226);
@@ -98,6 +98,10 @@ public class CreditBrowseController implements Initializable{
 //			creditListViewData.add(credit2);
 			creditListView.setCellFactory(e->new CreditListCell());
 			creditListView.setItems(creditListViewData);
+			username=serviceFactory.getMemberLogicService().getInfo(userid).getName();
+			credit=serviceFactory.getMemberLogicService().getInfo(userid).getCredit();
+			nameLabel.setText(username);
+			creditLabel.setText(Integer.toString(credit));
 		}catch(RemoteException e){
 			e.printStackTrace();
 		}catch(IOException e){
