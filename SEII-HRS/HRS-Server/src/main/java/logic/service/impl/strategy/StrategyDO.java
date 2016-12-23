@@ -245,7 +245,7 @@ public class StrategyDO {
 								.getTransaction()
 								.rollback();
 				return null;
-			}catch(RuntimeErrorException ex){
+			}catch(RuntimeErrorException ex){ 
 				ex.printStackTrace();
 			}
 			throw e;
