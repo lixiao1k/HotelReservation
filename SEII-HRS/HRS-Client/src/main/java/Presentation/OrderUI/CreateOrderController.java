@@ -75,7 +75,7 @@ public class CreateOrderController implements Initializable{
 	{
 		
 		
-		 //浣忓濮撳悕
+		 //住客姓名
 		    String customer=null;
 		    customer=customerName.getText();
 		    newOrder.setContactName(customer);

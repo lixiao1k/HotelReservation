@@ -462,8 +462,7 @@ public class HotelBrowseController implements Initializable{
 						}
 	               });
 	                
-	                
-	                //差setmagin
+	               
 	                cell.setHalignment(createOrder, HPos.RIGHT);
 	                
 	                cell.add(hotelName, 0, 0);
@@ -484,8 +483,6 @@ public class HotelBrowseController implements Initializable{
 				}
 			}
 		
-		
-		
 	}
 	
 	//差一个popover界面
@@ -501,9 +498,9 @@ public class HotelBrowseController implements Initializable{
 		}
 	
 		long userId=0;
-	//	userId=(long)DataController.getInstance().get("UserId");
-	//	newOrder.setUserId(userId);//传userid
-	//	newOrder.setHotelId(item.getHotelId());//传hotelid
+		userId=(long)DataController.getInstance().get("UserId");
+		newOrder.setUserId(userId);//传userid
+		newOrder.setHotelId(item.getHotelId());//传hotelid
 		
 		
 		PopOver popOver = new PopOver();
@@ -809,7 +806,6 @@ public class HotelBrowseController implements Initializable{
 			ObservableList<String> circles = FXCollections.observableArrayList(circle);
 
 				circleBox.getItems().clear();
-	
 
 				circleBox.getItems().addAll(circles);
 			
