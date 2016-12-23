@@ -1,11 +1,15 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Set;
 
-import info.StrategyItem;
 import info.StrategyType;
 
-public class HotelStrategyVO {
+public class HotelStrategyVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6677036065608327336L;
 	private long id;
 	private StrategyType type;
 	private String name;
