@@ -203,8 +203,10 @@ public class StrategyDO {
 			HotelStrategyVO vo = DozerMappingUtil.getInstance().map(po, HotelStrategyVO.class);
 			vo.setExtraInfo(SerializeUtil.blobToStrategyRule(po.getRule()).getInfo());
 			Set<StrategyItemVO> set = new HashSet<>();
-			if(po.getStrategyRoom()==null)
-				return new ListWrapper<>(result);
+			if(po.getStrategyRoom()==null){
+				result.add(vo);
+				continue;
+			}
 			Iterator<StrategyItem> siit = po.getStrategyRoom();
 			while(siit.hasNext()){
 				StrategyItem si = siit.next();
