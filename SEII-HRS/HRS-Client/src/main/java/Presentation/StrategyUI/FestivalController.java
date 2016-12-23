@@ -47,13 +47,14 @@ public class FestivalController implements Initializable{
 				}else{
 					svo.setExtraInfo(Time1.getValue()+"|"+Time2.getValue());
 					svo.setHotelId(-1);
-					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();
 					Iterator<StrategyType> it=typelist.iterator();
 					while(it.hasNext()){
 						StrategyType type=it.next();
-						if(type.getName().equals("Festival"))
+						if(type.getName().equals("FestivalStrategy")){
 							svo.setStrategyType(type);
 							break;
+						}
 					}
 					StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
 					if(m==StrategyResultMessage.SUCCESS){

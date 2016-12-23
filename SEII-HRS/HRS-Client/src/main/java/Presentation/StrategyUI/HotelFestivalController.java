@@ -2,8 +2,10 @@ package Presentation.StrategyUI;
 
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.controlsfx.control.ListSelectionView;
 import org.controlsfx.control.Notifications;
@@ -28,6 +30,7 @@ import logic.service.StrategyLogicService;
 import resultmessage.StrategyResultMessage;
 import rmi.RemoteHelper;
 import vo.HotelItemVO;
+import vo.StrategyItemVO;
 import vo.StrategyVO;
 
 public class HotelFestivalController implements Initializable{
@@ -60,14 +63,33 @@ public class HotelFestivalController implements Initializable{
 				}else{
 					svo.setExtraInfo(Time1.getValue()+"|"+Time2.getValue());
 					svo.setHotelId(hotelid);
-					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();
 					Iterator<StrategyType> it=typelist.iterator();
 					while(it.hasNext()){
 						StrategyType type=it.next();
-						if(type.getName().equals("HotelFestival"))
+						if(type.getName().equals("HotelFestivalStrategy")){
 							svo.setStrategyType(type);
 							break;
+						}
 					}
+					ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
+					Set<StrategyItemVO> voset=new HashSet<>();
+					ObservableList<Room> targetlist=Room.getTargetItems();
+					for(Room room:targetlist){
+						Iterator<HotelItemVO> itt=volist.iterator();
+						while(itt.hasNext()){
+							HotelItemVO hvo=itt.next();
+							if(hvo.getRoom().getRid()==room.getRid()){
+								StrategyItemVO sivo=new StrategyItemVO();
+								sivo.setRoom(room);
+								sivo.setPriceBefore(hvo.getPrice());
+								sivo.setOff(off);
+								sivo.setPriceAfter(hvo.getPrice()*(1-off));
+								voset.add(sivo);
+							}
+						}
+					}
+					svo.setItems(voset);
 					StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
 					if(m==StrategyResultMessage.SUCCESS){
 						Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("创建成功！").showConfirm();

@@ -55,7 +55,7 @@ public class StrategyVO implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return name + "   æ∆µÍ£∫" + hotelId + "   ’€ø€£∫" + off;
+		return name + "   ’€ø€£∫" + off;
 	}
 	public long getId() {
 		return id;

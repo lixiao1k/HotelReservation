@@ -150,10 +150,10 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
     //ÀàÐÍËÑË÷
     public void swift(int i){
 		String name[]={
-				"Birth",
-				"Room",
-				"Company",
-				"HotelFestival"};
+				"BirthStrategy",
+				"RoomStrategy",
+				"CompanyStrategy",
+				"HotelFestivalStrategy"};
 		if(selist==null){
 			selist=FXCollections.observableArrayList();
 			for(StrategyVO vo:olist){

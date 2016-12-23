@@ -60,13 +60,14 @@ public class CompanyController implements Initializable{
 				}else{
 					svo.setExtraInfo(Company.getText());
 					svo.setHotelId(hotelid);
-					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();
 					Iterator<StrategyType> it=typelist.iterator();
 					while(it.hasNext()){
 						StrategyType type=it.next();
-						if(type.getName().equals("Company"))
+						if(type.getName().equals("CompanyStrategy")){
 							svo.setStrategyType(type);
 							break;
+					    }
 					}
 					
 					ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);

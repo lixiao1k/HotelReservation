@@ -1,8 +1,14 @@
 package vo;
 
+import java.io.Serializable;
+
 import info.Room;
 
-public class StrategyItemVO {
+public class StrategyItemVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4707894610414142254L;
 	private Room room;
 	private double priceBefore;
 	private double priceAfter;

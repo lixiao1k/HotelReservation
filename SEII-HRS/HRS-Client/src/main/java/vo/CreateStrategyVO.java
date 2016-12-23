@@ -1,8 +1,13 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class CreateStrategyVO {
+public class CreateStrategyVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 890105449692526869L;
 	private long strategyId;
 	private Set<StrategyItemVO> items;
 	public void setItems(Set<StrategyItemVO> items){

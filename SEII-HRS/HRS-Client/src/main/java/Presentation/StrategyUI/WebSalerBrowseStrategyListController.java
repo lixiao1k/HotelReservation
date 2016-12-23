@@ -136,17 +136,15 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 	   //初始化类型
     public void initType(){
 		ObservableList<String> typelist=FXCollections.observableArrayList();
-		typelist.addAll("生日优惠策略","房间预订优惠策略","合作企业优惠策略","节日优惠策略");
+		typelist.addAll("VIP商圈优惠策略","节日优惠策略");
 		Type.setItems(typelist);
     }
     
     //类型搜索
     public void swift(int i){
 		String name[]={
-				"Birth",
-				"Room",
-				"Company",
-				"HotelFestival"};
+				"VIPCircleStrategy",
+				"FestivalStrategy"};
 		if(selist==null){
 			selist=FXCollections.observableArrayList();
 			for(StrategyVO vo:olist){
@@ -169,17 +167,11 @@ public class WebSalerBrowseStrategyListController implements Initializable{
     //增加监听
 	public void addchoiceboxlistener(){
 		Type.getSelectionModel().selectedItemProperty().addListener((ov,oldvalue,newvalue)->{
-			if(newvalue.equals("生日优惠策略")){
+			if(newvalue.equals("VIP商圈优惠策略")){
 				swift(0);
 			}
-			if(newvalue.equals("房间预订优惠策略")){
-				swift(1);
-			}
-			if(newvalue.equals("合作企业优惠策略")){
-				swift(2);
-			}
 			if(newvalue.equals("节日优惠策略")){
-				swift(3);
+				swift(1);
 			}
         });
 	}

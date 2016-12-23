@@ -50,13 +50,14 @@ public class VIPCircleController implements Initializable{
 				if(Circle.getSelectionModel().isEmpty()){
 					svo.setExtraInfo(Circle.getSelectionModel().getSelectedItem());
 					svo.setHotelId(-1);
-					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();
 					Iterator<StrategyType> it=typelist.iterator();
 					while(it.hasNext()){
 						StrategyType type=it.next();
-						if(type.getName().equals("VIPCircle"))
+						if(type.getName().equals("VIPCircleStrategy")){
 							svo.setStrategyType(type);
 							break;
+						}
 					}
 					StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
 					if(m==StrategyResultMessage.SUCCESS){

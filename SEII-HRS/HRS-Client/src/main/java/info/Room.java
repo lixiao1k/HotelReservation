@@ -16,6 +16,10 @@ public class Room implements Serializable{
 	public Room(String type){
 		this.type = type;
 	}
+	@Override
+	public String toString() {
+		return type;
+	}
 	public long getRid(){
 		return this.rid;
 	}

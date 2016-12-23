@@ -55,14 +55,16 @@ public class BirthController implements Initializable{
 				off=Double.valueOf(Off.getText());
 				svo.setOff(off);
 				svo.setHotelId(hotelid);
-				ListWrapper<StrategyType> typelist = strategyLogic.getTypes();;
+				ListWrapper<StrategyType> typelist = strategyLogic.getTypes();
 				Iterator<StrategyType> it=typelist.iterator();
 				while(it.hasNext()){
 					StrategyType type=it.next();
-					if(type.getName().equals("Birth"))
+					if(type.getName().equals("BirthStrategy")){
 						svo.setStrategyType(type);
 						break;
+					}
 				}
+				System.out.println(svo.getType().getName());
 				svo.setExtraInfo("");
 				ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
 				Set<StrategyItemVO> voset=new HashSet<>();
@@ -104,7 +106,6 @@ public class BirthController implements Initializable{
 		Room=new ListSelectionView<>();
 		ObservableList<Room> sourcelist=FXCollections.observableArrayList();
 		ListWrapper<HotelItemVO> volist=hotelLogic.getRoomInfo(hotelid);
-		System.out.println(volist);
 		Iterator<HotelItemVO> it=volist.iterator();
 		while(it.hasNext()){
 			Room room=it.next().getRoom();
