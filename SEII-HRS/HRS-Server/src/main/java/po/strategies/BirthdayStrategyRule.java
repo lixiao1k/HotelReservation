@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 import info.OrderStrategy;
 
-public class BrithdayStrategyRule implements StrategyRule,Serializable{
+public class BirthdayStrategyRule implements StrategyRule,Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2995416007646717175L;
-	public BrithdayStrategyRule(String s) {
+	public BirthdayStrategyRule(String s) {
 	}
 	@Override
 	public boolean canBeApplied(OrderStrategy po) {
