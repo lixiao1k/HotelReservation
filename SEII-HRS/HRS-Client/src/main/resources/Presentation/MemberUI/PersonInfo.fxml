@@ -80,10 +80,6 @@
             <Insets left="120.0" top="10.0" />
          </GridPane.margin>
       </Button>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
-         <children>
-            <ImageView fx:id="VIPImageView" fitHeight="113.0" fitWidth="162.0" layoutX="14.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </Pane>
+      <Label fx:id="VIPLabel" prefHeight="100.0" prefWidth="100.0" text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
    </children>
 </GridPane>

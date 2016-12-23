@@ -35,7 +35,7 @@ public class KeepPersonInfoController implements Initializable{
 	@FXML TextField nameTextField;
 	@FXML TextField phoneTextField;
 	@FXML Label creditLabel;
-	@FXML ImageView VIPImageView;
+	@FXML Label VIPLabel;
 	private ServiceFactory serviceFactory;
 	private long userid;
 	private String username;
@@ -109,9 +109,8 @@ public class KeepPersonInfoController implements Initializable{
 		    nameTextField.setTooltip(tip);
 		    phoneTextField.setTooltip(tip);
 		    if(membervo.isVIP()){
-		    	VIPImageView=new ImageView();
-		    	Image image=new Image(getClass().getResourceAsStream("VIP.png"));
-		    	VIPImageView.setImage(image);
+		        Image image=new Image(getClass().getResourceAsStream("VIP.png"));
+		        VIPLabel.setGraphic(new ImageView(image));
 		    }
 		}catch (RemoteException e) {
 			e.printStackTrace();
