@@ -1,20 +1,31 @@
 package Presentation.StrategyUI;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.GridPane;
 
 public class HotelWorkerCreateStrategyController implements Initializable{
+	@FXML Button Back;
 	@FXML GridPane mainPane;
 	@FXML ChoiceBox<String> Type;
 	GridPane clientmain;
@@ -37,6 +48,23 @@ public class HotelWorkerCreateStrategyController implements Initializable{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+	}
+	
+	@FXML
+	protected void Enter(){
+		Image image2=new Image(getClass().getResourceAsStream("undo2.png"));
+		Back.setBackground(new Background(new BackgroundImage(image2, null, null, null, null)));
+	}
+	
+	@FXML
+	protected void Exit(){
+		Image image1=new Image(getClass().getResourceAsStream("undo.png"));
+		Back.setBackground(new Background(new BackgroundImage(image1, null, null, null, null)));
+	}
+	
+	public void initBack(){
+		Image image1=new Image(getClass().getResourceAsStream("undo.png"));
+		Back.setBackground(new Background(new BackgroundImage(image1, null, null, null, null)));
 	}
 	
 	public void initType(){
@@ -90,6 +118,7 @@ public class HotelWorkerCreateStrategyController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initType();
+		initBack();
 		addchoiceboxlistener();
 	}
 }
