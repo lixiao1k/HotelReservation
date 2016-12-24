@@ -26,12 +26,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import logic.service.HotelLogicService;
@@ -40,6 +44,7 @@ import resultmessage.HotelResultMessage;
 import rmi.RemoteHelper;
 import vo.AddHotelResultVO;
 import vo.AddHotelVO;
+import vo.HotelItemVO;
 
 public class AddHotelInfoController implements Initializable{
 @FXML private TextField addressField;
@@ -49,12 +54,12 @@ public class AddHotelInfoController implements Initializable{
 @FXML private TextArea institutionArea;
 @FXML private TextArea serveArea;
 @FXML private TextField hotelName;
-@FXML private TextField password;
+@FXML private PasswordField password;
 @FXML private TextField addHotelField;
 @FXML  private ComboBox<String> businessCity;
 @FXML  private ComboBox<String>businessCircle;
 @FXML private StackPane stack;
-
+@FXML private Button next;
 
  private static String star=null;
  private AddHotelVO addHotel;
@@ -73,13 +78,16 @@ public class AddHotelInfoController implements Initializable{
 	boolean field=(addressField.getText().equals(""))||(addHotelField.getText().equals("")
 			        ||hotelName.getText().equals("")||password.getText().equals(""));
    
-
+		Set<HotelItemVO> roomSet=addHotel.getItems();
 	  if(area||field)
 	  {
 		  
 			Notifications.create().owner(addHotelField.getScene().getWindow()).title("错误信息").text("填写内容不能为空").showError();
+	  }
+	  else if(roomSet==null)
+	  {
+			Notifications.create().owner(addHotelField.getScene().getWindow()).title("错误信息").text("请完善客房信息").showError();
 
-		 
 	  }
 	  else
 	  {
@@ -149,6 +157,24 @@ public class AddHotelInfoController implements Initializable{
 	  serveArea.clear();
 	  addHotelField.clear();
   }
+  
+  //跳转到录入酒店客房信息界面
+  public void goNext() throws IOException
+  {
+	  GridPane mainpane=(GridPane)addressField.getScene().getWindow().getScene().getRoot();
+	  Parent pane=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/AddHotelRoom.fxml"));
+		pane.getProperties().put("NAME", "addHotelRoomPane");
+		ObservableList<Node> list=mainpane.getChildren();
+		for (Node node:list){
+			String value = (String) node.getProperties().get("NAME");
+			if (value!=null&&value.contains("Pane")){
+				list.remove(node);
+				break;
+			}
+		}
+		mainpane.add(pane, 3, 1);
+  }
+  
   
 	public void selectCity()
 	{
@@ -235,6 +261,7 @@ public void initialize(URL location, ResourceBundle resources) {
 	}
 	try {
 		addHotel=new AddHotelVO();
+		DataController.getInstance().putAndUpdate("addHotelInfo", addHotel);
 		hotelLogic=service.getHotelLogicService();
 		bc=hotelLogic.getCity();
 		Set<String> set = new HashSet<>();//寰楀埌鍏ㄩ儴鍩庡競淇℃伅
@@ -255,7 +282,6 @@ public void initialize(URL location, ResourceBundle resources) {
 		e.printStackTrace();
 	}
 	
-	Rectangle icon=new Rectangle();
 
 	
 	
