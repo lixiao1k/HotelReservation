@@ -1,18 +1,29 @@
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
-
+import static org.junit.Assert.*;
 import info.ListWrapper;
 import info.OrderStrategy;
+import info.Room;
+import info.StrategyType;
 
 import static org.mockito.Mockito.*;
 
 import java.rmi.RemoteException;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import logic.service.StrategyLogicService;
+import logic.service.impl.strategy.StrategyLogicServiceImpl;
 import po.HotelPO;
 import po.UserPO;
 import resultmessage.StrategyResultMessage;
 import vo.HotelStrategyVO;
+import vo.StrategyItemVO;
+import vo.StrategyResultVO;
 import vo.StrategyVO;
 
 public class StrategyMockTest {
@@ -57,7 +68,63 @@ public class StrategyMockTest {
 		});
 		when(service.create(any(StrategyVO.class))).thenAnswer((InvocationOnMock invocation)->{
 			StrategyVO vo = (StrategyVO) invocation.getArguments()[0];
-			return null;
+			StrategyResultVO r = new StrategyResultVO();
+			if(vo.getHotelId()<=0){
+				r.setResultMessage(StrategyResultMessage.FAIL_WRONGID);
+				return r;
+			}
+			r.setResultMessage(StrategyResultMessage.SUCCESS);
+			return r;
 		});
 	}
+	@Test
+	public void testCreate() throws RemoteException{
+		StrategyLogicService strategyService = new StrategyLogicServiceImpl();
+		StrategyVO vo = new StrategyVO();
+		StrategyType type = new StrategyType();
+		type.setName("FestivalStrategy");
+		type.setId(1);
+		vo.setStrategyType(type);
+		vo.setName("双十二促销策略");
+		vo.setHotelId(1);
+		Set<StrategyItemVO> list = new HashSet<>();
+		StrategyItemVO sivo = new StrategyItemVO();
+		sivo.setOff(0.3);
+		Room room = new Room();
+		room.setRid(1);
+		room.setType("大床房");
+		sivo.setRoom(room);
+		list.add(sivo);
+		vo.setItems(list);
+		vo.setExtraInfo("2016-12-12|2016-12-13");
+		StrategyResultVO result = strategyService.create(vo);
+		Assert.assertNotEquals("wrong", null,result);
+	}
+	@Test
+	public void testDelete() throws RemoteException{
+		StrategyLogicService strategyService = new StrategyLogicServiceImpl();
+		StrategyResultMessage result = strategyService.delete(11);
+		Assert.assertEquals("wrong", StrategyResultMessage.SUCCESS,result);
+	}
+	@Test
+	public void testGetStrategyList() throws RemoteException{
+		ListWrapper<HotelStrategyVO> list = service.getStrategyList(1);
+	}
+	@Test
+	public void testGetStrategyForOrder() throws RemoteException{
+		OrderStrategy vo = new OrderStrategy();
+		ListWrapper<HotelStrategyVO> list = service.getStrategyForOrder(vo);
+		assertEquals("wrong", null,list);
+		vo.setHotelId(1);
+		vo.setUserId(1);
+		list = service.getStrategyForOrder(vo);
+		assertNotEquals("wrong", null,list);
+		assertEquals("wrong", 1,list.size());
+	}
+	@Test
+	public void testGetTypes() throws RemoteException{
+		ListWrapper<StrategyType> list = service.getTypes();
+		assertNotEquals("wrong", null,list);
+	}
+	
 }
