@@ -81,7 +81,7 @@ public class TestMemberBL {
 		MemberLogicService memberLogic=new MemberLogicServiceImpl();
 		MemberResultMessage resultmessage=null;
 		LocalDate testbirth=LocalDate.of(1970, 1, 1);
-		ManageClientVO testvo=new ManageClientVO(2, "bingyuhuo22",  DateUtil.localDateToDate(testbirth), "bingyuhuo", "12345678901");
+		ManageClientVO testvo=new ManageClientVO(2,  DateUtil.localDateToDate(testbirth), "bingyuhuo", "12345678901");
 		testvo.setUserid(-1);
 		resultmessage=memberLogic.updateClient(testvo);
 		Assert.assertEquals("Fail in client wrong ID test.", MemberResultMessage.FAIL_WRONGID, resultmessage);

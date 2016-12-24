@@ -437,7 +437,7 @@ public class MemberDO {
 			MemberPO po=null;
 			if(vo!=null){
 				HibernateUtil.getCurrentSession().beginTransaction();
-				po=memberDao.getInfo(vo.getUsername());
+				po=memberDao.getInfo(vo.getUserid());
 				if(po==null){
 					return MemberResultMessage.FAIL_WRONGID;
 				}else{
@@ -448,7 +448,6 @@ public class MemberDO {
 					vpo.setCompanyName(vo.getCompanyname());
 					cmpo.setVipInfo(vpo);
 					cmpo.setContactWay(vo.getPhonenumber());
-					upo.setUsername(vo.getUsername());
 					po.setUser(upo);
 					memberDao.update(po);
 					HibernateUtil.getCurrentSession().getTransaction().commit();
