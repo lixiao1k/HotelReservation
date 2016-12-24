@@ -1,8 +1,7 @@
 package vo;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 
 public class ManageClientVO implements Serializable {
 /**
@@ -10,15 +9,13 @@ public class ManageClientVO implements Serializable {
 	 */
 	private static final long serialVersionUID = 8256851516544145211L;
 	private long userid;
-	private String username;
-	private LocalDate birthday;
+	private Date birthday;
 	private String companyname;
 	private String phone;
-	public ManageClientVO(long userid, String username, LocalDate birthday, String companyname,
+	public ManageClientVO(long userid, Date birthday, String companyname,
 			String phonenumber) {
 		super();
 		this.userid = userid;
-		this.username = username;
 		this.birthday = birthday;
 		this.companyname = companyname;
 		this.phone = phonenumber;
@@ -32,33 +29,16 @@ public class ManageClientVO implements Serializable {
 	public void setPhonenumber(String phonenumber) {
 		this.phone = phonenumber;
 	}
-//	public void addPhonenumber(String number){
-//		phonenumber.add(number);
-//	}
-	@Override
-	public String toString() {
-		return "ManageClientVO [userid=" + userid + ", username=" + username + ", birthday=" + birthday
-				+ ", companyname=" + companyname + ", phonenumber=" + phone + "]";
-	}
-//	public void deletePhonenumber(String number){
-//		phonenumber.remove(number);
-//	}
 	public long getUserid() {
 		return userid;
 	}
 	public void setUserid(long userid) {
 		this.userid = userid;
 	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public LocalDate getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(LocalDate birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 	public String getCompanyname() {
