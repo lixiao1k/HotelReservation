@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.Set;
 import javax.management.RuntimeErrorException;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+
 import data.dao.HotelDao;
 import data.dao.impl.DaoManager;
 import info.BusinessCircle;
@@ -598,7 +600,6 @@ public class HotelDO {
 			HibernateUtil.getCurrentSession().beginTransaction();
 			Rule rule = DozerMappingUtil.getInstance().map(vo, Rule.class);
 			ListWrapper<HotelPO> hotels = hotelDao.getHotelListByRule(rule);
-			System.out.println(hotels.size()+"dddd");
 			Iterator<HotelPO> it = hotels.iterator();
 			ListWrapper<BasicHotelVO> result = new ListWrapper<>();
 			while(it.hasNext()){
@@ -680,6 +681,23 @@ public class HotelDO {
 			try{
 				HibernateUtil.getCurrentSession().getTransaction().rollback();
 				return HotelResultMessage.FAIL;
+			}catch(RuntimeException ex){
+				ex.printStackTrace();
+			}
+			throw e;
+		}
+	}
+	public ListWrapper<Room> getRoomTypes() throws RemoteException{
+		try{
+			HibernateUtil.getCurrentSession().beginTransaction();
+			ListWrapper<Room> list = hotelDao.getAllRooms();
+			HibernateUtil.getCurrentSession().getTransaction().commit();
+			return list;
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			try{
+				HibernateUtil.getCurrentSession().getTransaction().rollback();
+				return null;
 			}catch(RuntimeException ex){
 				ex.printStackTrace();
 			}

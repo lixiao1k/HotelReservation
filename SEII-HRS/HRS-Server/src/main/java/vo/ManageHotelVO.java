@@ -86,4 +86,7 @@ public class ManageHotelVO {
 		this.password = password;
 		this.name = name;
 	}
+	public ManageHotelVO() {
+		// TODO Auto-generated constructor stub
+	}
 }

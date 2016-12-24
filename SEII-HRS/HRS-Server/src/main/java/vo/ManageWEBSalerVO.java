@@ -12,6 +12,9 @@ public class ManageWEBSalerVO {
 		this.password = password;
 		this.name = name;
 	}
+	public ManageWEBSalerVO() {
+		// TODO Auto-generated constructor stub
+	}
 	public long getUserid() {
 		return userid;
 	}

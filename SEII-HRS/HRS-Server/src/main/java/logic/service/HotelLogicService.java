@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import info.BusinessCity;
 import info.ListWrapper;
+import info.Room;
 import resultmessage.HotelResultMessage;
 import vo.AddHotelResultVO;
 import vo.AddHotelVO;
@@ -31,4 +32,5 @@ public interface HotelLogicService extends Remote{
 	public AddHotelResultVO addHotel(AddHotelVO vo) throws RemoteException;
 	public HotelVO getHotelInfo(long hotelId) throws RemoteException;
 	public HotelResultMessage addNewRoom(AddRoomVO vo) throws RemoteException;
+	public ListWrapper<Room> getRoomTypes() throws RemoteException;
 }

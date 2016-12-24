@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import info.BusinessCity;
 import info.ListWrapper;
+import info.Room;
 import logic.service.HotelLogicService;
 import resultmessage.HotelResultMessage;
 import vo.AddHotelResultVO;
@@ -94,6 +95,11 @@ public class HotelLogicServiceImpl extends UnicastRemoteObject implements HotelL
 	@Override
 	public HotelVO getHotelInfo(long hotelId) throws RemoteException {
 		return hotelDO.getHotelInfo(hotelId);
+	}
+	@Override
+	public ListWrapper<Room> getRoomTypes() throws RemoteException {
+		// TODO Auto-generated method stub
+		return hotelDO.getRoomTypes();
 	}
 
 

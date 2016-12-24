@@ -21,6 +21,9 @@ public class VIPVO implements Serializable{
 		this.userId=userId;
 		this.companyName=companyName;
 	}
+	public VIPVO() {
+		// TODO Auto-generated constructor stub
+	}
 	public void setType(VIPType type){
 		this.type = type;
 	}
