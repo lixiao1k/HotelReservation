@@ -39,15 +39,21 @@ public class RegisterController implements Initializable {
 
 		if(toggle.getSelectedToggle().getUserData()=="People"){
 			LocalDate birthday=birthdayDatePicker.getValue();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-			Date date=sdf.parse(birthday.toString());
+			String datestr=birthday.toString();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date=sdf.parse(datestr);
 			VIPVO vo=new VIPVO(VIPType.PERSON,date, userid,nameOfCompanyTextField.getText());
 			MemberResultMessage result=servicefactory.getMemberLogicService().registerVIP(vo);
 			checkResult(result);
 		}else if(toggle.getSelectedToggle().getUserData()=="Company"){
-			VIPVO vo=new VIPVO(VIPType.COMPANY,null,userid,nameOfCompanyTextField.getText());
-			MemberResultMessage result=servicefactory.getMemberLogicService().registerVIP(vo);
-			checkResult(result);
+			if(nameOfCompanyTextField.getText().length()>=1){
+				VIPVO vo=new VIPVO(VIPType.COMPANY,null,userid,nameOfCompanyTextField.getText());
+				MemberResultMessage result=servicefactory.getMemberLogicService().registerVIP(vo);
+				checkResult(result);
+			}else{
+				Notifications.create().title("提示").text("请填写企业名称").showConfirm();
+			}
+
 		}
 	}
     public void checkResult(MemberResultMessage result){
