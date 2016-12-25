@@ -22,6 +22,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -34,6 +36,7 @@ public class CreditBrowseController implements Initializable{
 	@FXML Label nameLabel;
 	@FXML Label creditLabel;
 	@FXML ListView<CreditVO> creditListView;
+	@FXML Label creditImageLabel;
 //	KeepPersonInfoController keeppersoninfocontroller;
 	private String username;
 	private long userid;
@@ -102,6 +105,8 @@ public class CreditBrowseController implements Initializable{
 			credit=serviceFactory.getMemberLogicService().getInfo(userid).getCredit();
 			nameLabel.setText(username);
 			creditLabel.setText(Integer.toString(credit));
+			Image imagecredit =new Image(getClass().getResourceAsStream("credit.png"));
+		    creditImageLabel.setGraphic(new ImageView(imagecredit));
 		}catch(RemoteException e){
 			e.printStackTrace();
 		}catch(IOException e){

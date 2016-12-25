@@ -72,17 +72,17 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="register" mnemonicParsing="false" onAction="#registerbuttonAction" prefHeight="29.0" prefWidth="90.0" text="立即注册" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <Button fx:id="register" mnemonicParsing="false" onAction="#registerbuttonAction" prefHeight="29.0" prefWidth="90.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <GridPane.margin>
-                        <Insets />
+                        <Insets top="50.0" />
                      </GridPane.margin>
                   </Button>
-                  <RadioButton fx:id="peopleRadioButton" mnemonicParsing="false" text="People" textFill="#fcfcfc" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <RadioButton fx:id="peopleRadioButton" mnemonicParsing="false" textFill="#fcfcfc" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="120.0" top="50.0" />
                      </GridPane.margin>
                   </RadioButton>
-                  <RadioButton fx:id="companyRadioButton" mnemonicParsing="false" text="Company" textFill="#f8f8f8" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                  <RadioButton fx:id="companyRadioButton" mnemonicParsing="false" textFill="#f8f8f8" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <GridPane.margin>
                         <Insets left="200.0" top="50.0" />
                      </GridPane.margin>

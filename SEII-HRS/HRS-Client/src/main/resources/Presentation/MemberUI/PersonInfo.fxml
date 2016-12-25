@@ -54,7 +54,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="creditLabel" text="********" textFill="#f8f3f3" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <Label fx:id="creditLabel" text="********" textFill="#f8f6f6" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="100.0" top="70.0" />
          </GridPane.margin>
@@ -62,22 +62,22 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button mnemonicParsing="false" onAction="#goCreditBrowse" text="查看信用记录" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+      <Button fx:id="browseButton" mnemonicParsing="false" onAction="#goCreditBrowse" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="100.0" top="30.0" />
+            <Insets left="180.0" top="68.0" />
          </GridPane.margin>
          <effect>
             <Bloom threshold="0.89" />
          </effect>
       </Button>
-      <Button mnemonicParsing="false" onAction="#edit" text="编辑" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <Button fx:id="editButton" mnemonicParsing="false" onAction="#edit" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets left="40.0" top="10.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" onAction="#save" text="保存" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <Button fx:id="saveButton" mnemonicParsing="false" onAction="#save" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <GridPane.margin>
-            <Insets left="120.0" top="10.0" />
+            <Insets bottom="4.0" left="120.0" top="9.0" />
          </GridPane.margin>
       </Button>
       <Label fx:id="VIPLabel" prefHeight="100.0" prefWidth="100.0" text="Label" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />

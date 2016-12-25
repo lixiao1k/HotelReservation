@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -29,6 +30,7 @@ import resultmessage.MemberResultMessage;
 import rmi.RemoteHelper;
 import vo.BasicMemberVO;
 import vo.MemberVO;
+import vo.VIPVO;
 
 public class KeepPersonInfoController implements Initializable{
 
@@ -36,6 +38,9 @@ public class KeepPersonInfoController implements Initializable{
 	@FXML TextField phoneTextField;
 	@FXML Label creditLabel;
 	@FXML Label VIPLabel;
+	@FXML Button editButton;
+	@FXML Button saveButton;
+	@FXML Button browseButton;
 	private ServiceFactory serviceFactory;
 	private long userid;
 	private String username;
@@ -111,7 +116,20 @@ public class KeepPersonInfoController implements Initializable{
 		    if(membervo.isVIP()){
 		        Image image=new Image(getClass().getResourceAsStream("VIP.png"));
 		        VIPLabel.setGraphic(new ImageView(image));
+		        final Tooltip tooltip=new Tooltip();
+		        tooltip.setText("VIP用户"+membervo.getName()+"同志您好！"+"\n"+
+		                        "您的信余额为:"+membervo.getCredit());
+		        VIPLabel.setTooltip(tooltip);
 		    }
+		    Image imageEdit=new Image(getClass().getResourceAsStream("edit.png"));
+		    editButton.setGraphic(new ImageView(imageEdit));
+		    editButton.getStylesheets().add(getClass().getResource("buttonFile.css").toExternalForm());
+		    Image imageSave = new Image(getClass().getResourceAsStream("save.png"));
+		    saveButton.setGraphic(new ImageView(imageSave));
+		    saveButton.getStylesheets().add(getClass().getResource("buttonFile.css").toExternalForm());
+		    Image imageBrowse = new Image(getClass().getResourceAsStream("browse.png"));
+		    browseButton.setGraphic(new ImageView(imageBrowse));
+		    browseButton.getStylesheets().add(getClass().getResource("buttonFile.css").toExternalForm());
 		}catch (RemoteException e) {
 			e.printStackTrace();
 		}catch (IOException e) {

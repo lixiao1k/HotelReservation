@@ -19,17 +19,20 @@
       <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
    </columnConstraints>
    <children>
-      <Label fx:id="nameLabel" alignment="CENTER" prefHeight="15.0" prefWidth="101.0"  textFill="#fcfafa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+      <Label fx:id="nameLabel" alignment="CENTER" prefHeight="15.0" prefWidth="101.0" textFill="#fcfafa" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <font>
             <Font size="27.0" />
          </font>
       </Label>
-      <Label text="信用值：" textFill="#f8f5f5" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+      <Label fx:id="creditImageLabel" prefHeight="20.0" prefWidth="9.0" textFill="#f8f5f5" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
          <font>
             <Font size="15.0" />
          </font>
+         <GridPane.margin>
+            <Insets left="50.0" />
+         </GridPane.margin>
       </Label>
-      <Label fx:id="creditLabel"  textFill="#fffbfb" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+      <Label fx:id="creditLabel" prefHeight="15.0" prefWidth="50.0" textFill="#fffbfb" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets left="80.0" />
          </GridPane.margin>

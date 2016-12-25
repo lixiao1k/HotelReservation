@@ -15,12 +15,15 @@ import info.VIPType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import logic.service.ServiceFactory;
 import resultmessage.MemberResultMessage;
 import rmi.RemoteHelper;
@@ -31,6 +34,7 @@ public class RegisterController implements Initializable {
 	@FXML DatePicker birthdayDatePicker;
 	@FXML RadioButton peopleRadioButton;
 	@FXML RadioButton companyRadioButton;
+	@FXML Button register;
 	final ToggleGroup toggle =new ToggleGroup();
 	private ServiceFactory servicefactory;
 	private long userid;
@@ -83,5 +87,13 @@ public class RegisterController implements Initializable {
 		companyRadioButton.setToggleGroup(toggle);
 		companyRadioButton.setUserData("Company");
 		peopleRadioButton.setSelected(true);
+		Image peopleimage =new Image(getClass().getResourceAsStream("People.png"));
+		peopleRadioButton.setGraphic(new ImageView(peopleimage));
+		Image companyimage=new Image(getClass().getResourceAsStream("Company.png"));
+		companyRadioButton.setGraphic(new ImageView(companyimage));
+		Image registerButton = new Image(getClass().getResourceAsStream("register.png"));
+		register.setGraphic(new ImageView(registerButton));
+		register.getStylesheets().add(getClass().getResource("buttonFile.css").toExternalForm());
+//		nameOfCompanyTextField.getStylesheets().add(getClass().getResource("buttonFile.css").toExternalForm());
 	}
 }
