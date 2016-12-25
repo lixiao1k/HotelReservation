@@ -5,6 +5,11 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * 日期工具类，对日期相关的操作的封装复用等
+ * @author Whk
+ *
+ */
 public class DateUtil {
 	public static Date localDateToDate(LocalDate date){
 		ZoneId defaultZoneId = ZoneId.systemDefault();

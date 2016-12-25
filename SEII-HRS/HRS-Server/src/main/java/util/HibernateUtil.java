@@ -4,6 +4,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * Hibernateπ§æﬂ¿‡
+ * @author Whk
+ *
+ */
 public class HibernateUtil {
 	private static SessionFactory sessionFactory;
 	/*

@@ -1,6 +1,11 @@
 package util;
 
 
+/**
+ * 编解码用户名和密码的工具类
+ * @author Whk
+ *
+ */
 public class Base64Util {
 	private static char[] data = {'A','B','C','D','E','F','G','H'
 									,'I','J','K','L','M','N','O','P'

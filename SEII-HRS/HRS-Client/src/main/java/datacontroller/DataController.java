@@ -3,6 +3,11 @@ package datacontroller;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 采用controller用与名字绑定的方法解决界面之间的通信问题，同时也可加层filter来增强数据的可拓展性
+ * @author Whk
+ *
+ */
 public class DataController {
 	private Map<String, Object> map = new HashMap<>();
 	private static DataController instance;

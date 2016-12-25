@@ -7,6 +7,11 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.DozerBeanMapperSingletonWrapper;
 import org.dozer.Mapper;
 
+/**
+ * 持久化映射贫血类型的映射工具类
+ * @author Whk
+ *
+ */
 public class DozerMappingUtil {
 	private static DozerBeanMapper mapper;
 	static{

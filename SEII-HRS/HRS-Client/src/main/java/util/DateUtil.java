@@ -3,6 +3,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * 日期工具类，对日期相关的操作的封装复用等
+ * @author Whk
+ *
+ */
 public class DateUtil {
 	private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	public static boolean compare(Date date1,Date date2){ 

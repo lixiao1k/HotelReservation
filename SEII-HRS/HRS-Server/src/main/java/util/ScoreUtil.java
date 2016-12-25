@@ -5,6 +5,11 @@ import java.util.Set;
 import po.CommentPO;
 import po.HotelPO;
 
+/**
+ * 酒店计算评分的工具类
+ * @author Whk
+ *
+ */
 public class ScoreUtil {
 	public static double[] rankScore = {31.47,39.67,56.06,74.09,88.85};
 	public static double calculate(HotelPO po){

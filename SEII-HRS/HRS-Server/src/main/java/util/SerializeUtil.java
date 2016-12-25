@@ -16,6 +16,11 @@ import org.hibernate.Hibernate;
 
 import po.strategies.StrategyRule;
 
+/**
+ * 序列化与反序列化处理的工具类
+ * @author Whk
+ *
+ */
 public class SerializeUtil {
 	public static Image byteToImage(byte[] data){
 		InputStream in = new ByteArrayInputStream(data);

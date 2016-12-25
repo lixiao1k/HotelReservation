@@ -36,21 +36,28 @@ public class StrategyDO {
 	private Cache<StrategyPO> strategies;
 	public StrategyDO(){
 		strategyDao = DaoManager.getInstance().getStrategyDao();
-		//默锟较伙拷锟斤拷20锟斤拷StrategyPO
 		strategies = new Cache<StrategyPO>(20);
 	}
 	/*
 	 * Constructor
-	 * @param cacheSize-指锟斤拷锟截讹拷锟斤拷cacheSize
+	 * @param cacheSize
+	 * cahce大小
 	 */
 	public StrategyDO(int cacheSize){
 		strategyDao = DaoManager.getInstance().getStrategyDao();
 		strategies = new Cache<StrategyPO>(cacheSize);
 	}
+	/**
+	 * @param strategyId
+	 * 待删除的策略id
+	 * @return StrategyResultMessage
+	 * 删除结果
+	 * @throws RemoteException
+	 */
 	public StrategyResultMessage delete(long strategyId) throws RemoteException {
-		//锟饺达拷cache锟斤拷锟斤拷锟斤拷应锟斤拷strategy
+		//先从cache中搜素待删除的策略
 		StrategyPO cachePO = null;
-		//锟斤拷锟斤拷欠锟斤拷锟斤拷锟斤拷锟�
+		//标记hibernate 是否开启事务
 		boolean flag = false;
 		cachePO = strategies.get(strategyId);
 		if (cachePO!=null){
@@ -78,7 +85,7 @@ public class StrategyDO {
 				throw e;
 			}
 		}
-		//没锟揭碉拷锟斤拷去锟斤拷锟捷匡拷锟叫诧拷询锟斤拷删锟斤拷
+		//没有从cache中找到则从数据库中获取，处理后把相应结果存入cache
 		else{
 			try{
 				if (!flag)
@@ -107,6 +114,13 @@ public class StrategyDO {
 			}
 		}
 	}
+	/**
+	 * @param StrategyVO vo
+	 * 传入新增策略所必须的数据
+	 * @return StrategyResultVO
+	 * 创建结果 成功返回SUCCESS和相应额外的信息，失败返回FAIL
+	 * @throws RemoteException
+	 */
 	public StrategyResultVO create(StrategyVO vo) throws RemoteException {
 		StrategyResultVO srvo = new StrategyResultVO();
 		StrategyResultMessage result = null;
@@ -124,12 +138,12 @@ public class StrategyDO {
 			po = DozerMappingUtil.getInstance().map(vo, StrategyPO.class);
 			po.setHotel(hpo);
 			po.setStatus(false);
-			//使锟矫凤拷锟斤拷锟斤拷萍锟斤拷鼐锟斤拷锟斤拷StrategyRule
+			//使用反射机制动态加载策略规则
 			Class<?> clazz = Class.forName(StrategyRuleUtil.getInstance().getClassName(vo.getType().getName()));
 			Constructor constructor = clazz.getConstructor(String.class);
 			StrategyRule rule = (StrategyRule) constructor.newInstance(vo.getExtraInfo());
 			po.setRule(SerializeUtil.objectToBlob(rule));
-			//锟斤拷锟斤拷items
+			//如果hotelid!=-1则表明是网站人员，故此时不用存入房间数据
 			if(vo.getHotelId()!=-1){
 			Iterator<StrategyItemVO> sivoIt = vo.getItems().iterator();
 			Set<StrategyItem> items = new HashSet<>();
@@ -195,6 +209,14 @@ public class StrategyDO {
 		}
 		return null;
 	}
+	/**
+	 * 内部将持久化对象转化为VO类的方法，抽离开以重用
+	 * @param list 
+	 * 策略列表
+	 * @return ListWrapper<HotelStrategyVO>
+	 * 转化后的策略列表
+	 * @throws RemoteException
+	 */
 	private ListWrapper<HotelStrategyVO> transform(ListWrapper<StrategyPO> list)throws RemoteException {
 		Set<HotelStrategyVO> result = new HashSet<HotelStrategyVO>();
 		Iterator<StrategyPO> it = list.iterator();
@@ -228,6 +250,14 @@ public class StrategyDO {
 		}
 		return new ListWrapper<>(result);
 	}
+	/**
+	 * 酒店工作人员获取自身酒店订单所调用的方法
+	 * @param hotelId
+	 * 获取策略列表的酒店ID
+	 * @return ListWrapper<HotelStrategyVO>
+	 * 酒店策略列表
+	 * @throws RemoteException
+	 */
 	public ListWrapper<HotelStrategyVO> getStrategyList(long hotelId) throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession()
@@ -251,6 +281,11 @@ public class StrategyDO {
 			throw e;
 		}
 	}
+	/**
+	 * 获取网站营销人员的策略列表
+	 * @return ListWrapper<HotelStrategyVO>
+	 * @throws RemoteException
+	 */
 	public ListWrapper<HotelStrategyVO> getWEBStrategyList() throws RemoteException{
 		try{
 			HibernateUtil.getCurrentSession()
@@ -274,6 +309,16 @@ public class StrategyDO {
 			throw e;
 		}
 	}
+	/**
+	 * 给订单获取能采用的策略列表
+	 * 此方法在下订单时选择相应酒店，房间及数量时调用
+	 * @param OrderStrategy 
+	 * 基本的订单数据，将会根据这些数据获取能采用的策略
+	 * @return ListWrapper<HotelStrategyVO>
+	 * 所有能采用的策略列表
+	 * 包括酒店策略和网站营销策略
+	 * @throws RemoteException
+	 */
 	public ListWrapper<HotelStrategyVO> getStrategyForOrder(OrderStrategy vo) throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession()
@@ -307,6 +352,13 @@ public class StrategyDO {
 			throw e;
 		}
 	}
+	/**
+	 * 创建策略时需要知道所有可创建的策略类型
+	 * 此方法返回所有策略类型
+	 * @return ListWrapper<StrategyType>
+	 * 所有的策略类型
+	 * @throws RemoteException
+	 */
 	public ListWrapper<StrategyType> getTypes()throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();

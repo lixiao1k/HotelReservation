@@ -16,6 +16,11 @@ import java.util.Set;
 import info.ListWrapper;
 
 
+/**
+ * 策略规则反射机制获取类路径的工具类
+ * @author Whk
+ *
+ */
 public class StrategyRuleUtil {
 	private Map<String, String> types = new HashMap<String,String>();
 	private static StrategyRuleUtil instance;

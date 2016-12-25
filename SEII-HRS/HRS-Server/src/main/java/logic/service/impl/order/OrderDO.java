@@ -36,28 +36,33 @@ import util.HibernateUtil;
 import vo.NewOrderVO;
 import vo.OrderVO;
 import vo.StrategyVO;
-/*
- * Order模锟斤拷锟斤拷锟斤拷锟斤拷锟襟，撅拷锟斤拷实锟街革拷锟斤拷Order锟斤拷锟斤拷夭锟斤拷锟�
- */
+
 public class OrderDO {
 	private OrderDao orderDao;
-	//锟斤拷锟斤拷锟斤拷锟斤拷菘锟斤拷锟饺★拷锟斤拷锟絆rderPO锟斤拷锟斤拷
+	
+	/**
+	 * 订单cache
+	 */
 	private Cache<OrderPO> orders;
 	public OrderDO(){
 		orderDao = DaoManager.getInstance().getOrderDao();
-		//默锟较伙拷锟斤拷20锟斤拷OrderPO
 		orders = new Cache<OrderPO>(20);
 	}
 	/*
 	 * Constructor
-	 * @param cacheSize-指锟斤拷锟截讹拷锟斤拷cacheSize
+	 * @param cacheSize-cache大小
 	 */
 	public OrderDO(int cacheSize){
 		orderDao = DaoManager.getInstance().getOrderDao();
 		orders = new Cache<OrderPO>(cacheSize);
 	}
-	/*
-	 * 锟节诧拷转锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷getOrder锟斤拷锟斤拷锟斤拷锟竭硷拷锟较碉拷实锟街讹拷锟筋不锟洁，锟绞筹拷锟斤拷锟斤拷锟�
+	
+	/**
+	 * 内部调用的方法，用于将订单的持久化类转化为传输的VO类，主要是转化Dozer未能映射的复杂类型映射
+	 * @param list
+	 * @return ListWrapper<OrderVO>
+	 * 映射后的VO List
+	 * @throws RemoteException
 	 */
 	private ListWrapper<OrderVO> transform(ListWrapper<OrderPO> list)throws RemoteException {
 		Iterator<OrderPO> it = list.iterator();
@@ -73,6 +78,14 @@ public class OrderDO {
 		}
 		return new ListWrapper<OrderVO>(set);
 	}
+	/**
+	 * 客户查看自身订单时所调用的方法
+	 * @param userId
+	 * 用户id
+	 * @return ListWrapper<OrderVO> 
+	 * 用户的所有订单
+	 * @throws RemoteException
+	 */
 	public ListWrapper<OrderVO> getUserOrderInfo(long userId) throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
@@ -90,7 +103,14 @@ public class OrderDO {
 			throw e;
 		}
 	}
-
+	/**
+	 * 酒店工作人员查看自身订单时所调用的方法
+	 * @param hotelId
+	 * 酒店id
+	 * @return ListWrapper<OrderVO> 
+	 * 酒店的所有订单
+	 * @throws RemoteException
+	 */
 	public ListWrapper<OrderVO> getHotelOrderInfo(long hotelId) throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
@@ -108,7 +128,12 @@ public class OrderDO {
 		}
 	}
 
-
+	/**
+	 * 网站营销人员查看自身订单时所调用的方法
+	 * @return ListWrapper<OrderVO> 
+	 * 当天的所有异常的订单
+	 * @throws RemoteException
+	 */
 	public ListWrapper<OrderVO> getWEBOrderInfo() throws RemoteException {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
@@ -126,17 +151,21 @@ public class OrderDO {
 			throw e;
 		}
 	}
-	/*
-	 * 锟斤拷锟斤拷锟斤拷锟斤拷
-	 * @param OrderVO 锟斤拷view锟姐传锟斤拷锟斤拷锟侥讹拷锟斤拷锟斤拷锟斤拷息
+
+	/**
+	 * 客户在新建订单时所调用的方法
+	 * @param vo
+	 * 新订单信息
+	 * @return OrderResultMessage
+	 * 创建成功的结果
+	 * @throws RemoteException
 	 */
 	public OrderResultMessage create(NewOrderVO vo)throws RemoteException  {
-		//锟斤拷然锟斤拷锟斤拷锟斤拷锟斤拷思虻サ锟斤拷锟斤拷锟斤拷锟街わ拷卸希锟斤拷锟斤拷锘癸拷锟揭拷馗锟揭伙拷危锟斤拷锟街癸拷锟斤拷锟斤拷抓锟斤拷锟狡伙拷锟斤拷锟捷ｏ拷锟斤拷锟斤拷要锟饺斤拷锟斤拷锟斤拷锟街び︼拷锟斤拷锟较�
-		//锟斤拷锟斤拷锟斤拷锟斤拷识
+		//事务开始的标志
 		boolean flag = false;
-		// 锟斤拷前时锟斤拷
+		// 时间标记
 		Date now = new Date();
-		//锟津单碉拷锟斤拷锟斤拷锟斤拷证
+		//为了安全性问题加入数据验证，
 		if (!(vo.getCheckInTime().before(vo.getCheckOutTime())
 				&& vo.getCheckInTime().after(now)))
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
@@ -144,14 +173,13 @@ public class OrderDO {
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
 		else if (!(vo.getHotelId()>0&&vo.getUserId()>0))
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
-		//锟饺革拷锟斤拷userId锟斤拷hotelId锟斤拷询cache
+		//先根据id查询cache以获取相关的数据进行关联
 		Iterator cacheIt = orders.getKeys();
 		MemberPO mpo = null;
 		HotelPO hpo = null;
 		StrategyPO spo = null;
 		while(cacheIt.hasNext()){
 			long orderId;
-			//cache锟叫的硷拷锟斤拷锟杰凤拷orderId
 			try{
 				orderId = (long) cacheIt.next();
 			}catch(NumberFormatException e){
@@ -171,7 +199,7 @@ public class OrderDO {
 			if (hpo!=null&&mpo!=null&&spo!=null)
 				break;
 		}
-		//锟斤拷锟揭诧拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟捷匡拷锟斤拷锟�
+		//若没有从数据库中拿，这里也可以用Hibernate.get直接获取
 		if (hpo==null||mpo==null||spo==null){
 			try{
 				HibernateUtil.getCurrentSession()
@@ -185,7 +213,7 @@ public class OrderDO {
 					hpo = DaoManager.getInstance().getHotelDao().getInfo(vo.getHotelId());
 				if (spo==null)
 					spo = DaoManager.getInstance().getStrategyDao().getInfo(vo.getStrategyId());
-			//锟斤拷锟斤拷order锟斤拷锟斤拷锟斤拷锟斤拷未锟斤拷桑锟斤拷锟斤拷峤伙拷锟斤拷锟�		
+			
 			}catch(RuntimeException e){
 				e.printStackTrace();
 				try{
@@ -201,7 +229,6 @@ public class OrderDO {
 		}
 		if (hpo==null||mpo==null||spo==null) return OrderResultMessage.FAIL_WRONGORDERINFO;
 		
-		//锟斤拷锟斤拷锟斤拷证锟斤拷锟斤拷锟侥凤拷锟斤拷锟斤拷息锟角凤拷锟斤拷实
 		Room room = vo.getRoom();
 		Iterator<HotelItem> hoiit = hpo.getRoom();
 		if (room==null)
@@ -218,7 +245,7 @@ public class OrderDO {
 		    }
 		}
 		if (!roomFlag) return OrderResultMessage.FAIL_WRONGORDERINFO;
-		//锟斤拷锟斤拷锟铰讹拷锟斤拷锟斤拷息
+		//使用Dozer快速转换包括可能存在深克隆的属性
 		OrderPO po = DozerMappingUtil.getInstance().map(vo, OrderPO.class);
 		po.setCommented(false);
 		if(spo.getType().getName().contains("WEB")){
@@ -255,9 +282,9 @@ public class OrderDO {
 		po.setHotel(hpo);
 		po.setStrategy(spo);
 		po.setOff(spo.getOff());
+		//给订单加上编号
 		String orderNum = "SE-"+now.getDate()+po.hashCode();
 		po.setOrderId(orderNum);
-		//锟芥储锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟捷匡拷锟斤拷锟斤拷,同时锟芥储锟斤拷cache锟斤拷
 		try{
 			if (!flag)
 			HibernateUtil.getCurrentSession()
@@ -280,6 +307,18 @@ public class OrderDO {
 			throw e;
 		}
 	}
+	/**
+	 * 内部进行订单一系列操作的额外方法，采用表驱动的方式调用
+	 * @param po
+	 * 执行额外操作的订单
+	 * @param operation
+	 * 执行的操作
+	 * @param extraOperation
+	 * 可能存在的额外参数
+	 * @return OrderResultMessage
+	 * 额外操作成功或失败的消息
+	 * @throws RemoteException
+	 */
 	private OrderResultMessage extraOperation(OrderPO po,int operation,int extraOperation)throws RemoteException {
 		double[] rank = {1,0.5};
 		//revoke 锟斤拷锟斤拷
@@ -288,13 +327,14 @@ public class OrderDO {
 		Date judge2 = DateUtil.getFutureDate(po.getCheckInTime(), 6);
 		double[] sync = {-1,1,1,0,0};
 		int[] roomSync = {-1,0,1,1};
+		//因操作发生用户信用值的改变需要录入信用记录，这里为用印
 		String[] reason ={"锟斤拷锟斤拷锟届常","执锟叫讹拷锟斤拷","锟斤拷执锟叫讹拷锟斤拷","锟矫伙拷锟斤拷锟斤拷锟斤拷锟斤拷","锟斤拷站锟斤拷锟斤拷锟斤拷员锟斤拷锟斤拷锟斤拷锟斤拷"};
 		if(operation==4)
 			sync[4] = rank[extraOperation];
 		sync[3] = (now.before(judge))? 1:(now.before(po.getCheckInTime())? 0.5:0);
 		if(operation==3&&sync[3]==0)
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
-		// abnormal锟斤拷锟斤拷锟斤拷锟�
+		// abnormal的相关操作
 		if (operation==0&&now.after(po.getCheckInTime())&&now.before(judge2))
 			po.setAbnormalTime(new Timestamp(System.currentTimeMillis()));
 		else if(operation==0&&!(now.after(po.getCheckInTime())&&now.before(judge2)))
@@ -325,61 +365,72 @@ public class OrderDO {
 		}
 		return OrderResultMessage.SUCCESS;
 	}
-	/*
-	 * 锟斤拷锟斤拷execute,reExecute,abnormal锟斤拷cancel锟侥凤拷锟斤拷锟斤拷锟斤拷锟斤拷同锟斤拷锟斤拷锟矫憋拷锟斤拷锟斤拷锟侥凤拷式,1为锟斤拷锟斤拷锟届常锟斤拷2为执锟叫ｏ拷3为锟斤拷执锟叫ｏ拷4为锟矫伙拷锟斤拷锟斤拷锟斤拷5为锟斤拷站锟斤拷员锟斤拷锟斤拷
+	
+	/**
+	 * 由于对订单一系列相关操作实质上都是对订单状态的判断和改变（以及其他额外操作）
+	 * 故采用表驱动的方式，让代码更精炼课外胡
+	 * 其中0为异常，1为执行，2为补执行，3为用户撤销，4为网站营销人员撤销
+	 * 额外操作可能在4中出现，因为此时要选择恢复信用值的量级，其中0为一般，1为全部
+	 * @param orderId
+	 * 订单id
+	 * @param operation
+	 * 执行的操作
+	 * @param extraOperation
+	 * 可能执行的额外操作
+	 * @return
+	 * 订单执行的结果
+	 * @throws RemoteException
 	 */
 	private OrderResultMessage changeStatus(long orderId,int operation,int extraOperation)throws RemoteException {
-		//锟叫别订碉拷锟斤拷状态
+		//判断的订单状态
 		OrderStatus[] judgeStatus = {OrderStatus.UNEXECUTED
 									 ,OrderStatus.UNEXECUTED
 									 ,OrderStatus.ABNORMAL
 									 ,OrderStatus.UNEXECUTED
 									 ,OrderStatus.ABNORMAL};
-		//锟斤拷要锟斤拷锟侥的讹拷锟斤拷锟斤拷状态
+		//需要进行转换的订单状态
 		OrderStatus[] changeStatus = {OrderStatus.ABNORMAL
 									 ,OrderStatus.EXECUTED
 									 ,OrderStatus.EXECUTED
 									 ,OrderStatus.REVOKED
 									 ,OrderStatus.REVOKED};
-		//锟饺诧拷询锟斤拷锟斤拷锟斤拷锟斤拷锟睫革拷Order
+		//先从cache中查找是否有相应的订单
 		OrderPO cachePO = null;
 		try{
 			cachePO = orders.get(orderId);
 		}catch(IllegalArgumentException e){
-			System.err.println("锟斤拷锟斤拷锟斤拷锟轿拷锟�");
+			System.err.println("参数错误!");
 		}
 		boolean flag = false;
-		//锟斤拷cache 锟斤拷锟睫ｏ拷锟斤拷锟斤拷锟斤拷菘锟斤拷谢锟矫ｏ拷锟斤拷锟斤拷锟斤拷锟斤拷锟絚ache
+		//若没有从数据库中查找
 		if (cachePO==null){
 			OrderPO po = null;
-			//锟斤拷锟斤拷orderId锟斤拷取orderPO
 			try{
 				HibernateUtil.getCurrentSession().beginTransaction();
 				flag = true;
 				po = orderDao.getInfo(orderId);
-				//锟斤拷锟斤拷锟斤拷氐锟斤拷锟絅ull,说锟斤拷没锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷卮锟斤拷螅锟斤拷锟斤拷锟轿拷锟接︼拷锟阶刺�
+				//查找到存入cache
 				if (po!=null){
-					//锟斤拷锟絧o锟斤拷cache锟斤拷
 					orders.put(po.getOid(), po);
-					//锟叫讹拷状态锟角凤拷为锟斤拷锟斤拷锟斤拷状态
 					if(po.getStatus()==judgeStatus[operation-1]){
 						po.setStatus(changeStatus[operation-1]);
-						//锟斤拷锟斤拷锟斤拷锟斤拷卸锟斤拷锟斤拷锟斤拷
+						//进行额外操作
 						OrderResultMessage temp = extraOperation(po, operation-1, extraOperation);
+						//额外操作不成功，则需要回滚操作
 						if(temp!=OrderResultMessage.SUCCESS){
 							HibernateUtil.getCurrentSession().getTransaction().rollback();
 							return temp;
 						}
 						
 						orderDao.update(po);
-						//锟结交锟斤拷锟今并凤拷锟截成癸拷
+						//提交事务
 						HibernateUtil.getCurrentSession()
 										.getTransaction()
 										.commit();
 						return OrderResultMessage.SUCCESS;
 					}
 					else{
-						//状态锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷癫⒎锟斤拷卮锟斤拷锟�
+						//若判断状态错误，则返回错误状态
 						HibernateUtil.getCurrentSession()
 										.getTransaction()
 										.commit();
@@ -387,14 +438,13 @@ public class OrderDO {
 					}
 				}
 				else{
-					//锟结交锟斤拷锟斤拷
+					//数据库中找不到则返回id错误
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.commit();
 					return OrderResultMessage.FAIL_WRONGID;
 				}
 			}catch(RuntimeException e){
-				//锟斤拷锟斤拷锟斤拷锟斤拷时锟斤拷卮锟斤拷锟斤拷锟截癸拷锟斤拷锟斤拷
 				e.printStackTrace();
 				orders.remove(po.getOid());
 				try{
@@ -407,9 +457,8 @@ public class OrderDO {
 				}
 				throw e;
 			}
-		}//锟斤拷锟缴癸拷锟节伙拷锟斤拷锟斤拷锟揭碉拷锟剿讹拷应锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷露锟斤拷锟斤拷锟斤拷锟街拷志没锟�
+		}//找到了就直接对cache找到的po操作即可
 		else{
-			//锟斤拷锟斤拷锟芥及锟斤拷锟斤拷锟捷匡拷锟斤拷锟斤拷锟阶拷獾斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟捷匡拷毓锟绞憋拷锟絚ache锟叫碉拷锟斤拷锟斤拷也要锟斤拷应锟侥凤拷锟斤拷锟侥变，锟饺憋拷锟斤拷原始状态
 			OrderStatus tempStatus = cachePO.getStatus();
 			try{
 				if(!flag)
@@ -417,15 +466,14 @@ public class OrderDO {
 				
 				if (tempStatus==judgeStatus[operation-1]){
 					cachePO.setStatus(changeStatus[operation-1]);
-					//锟斤拷锟斤拷锟斤拷锟矫讹拷锟斤拷牟锟斤拷锟�
+					//进行额外操作
 					OrderResultMessage temp =extraOperation(cachePO, operation-1, extraOperation);
 					if(temp==OrderResultMessage.FAIL_WRONGORDERINFO){
 						HibernateUtil.getCurrentSession().getTransaction().rollback();
 						return temp;
 					}
-					//锟斤拷锟斤拷锟斤拷锟捷匡拷锟絚ache
 					orderDao.update(cachePO);
-					//锟结交锟斤拷锟今并凤拷锟斤拷
+					//提交事务
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
 									.commit();
@@ -437,10 +485,8 @@ public class OrderDO {
 					return OrderResultMessage.FAIL_WRONGSTATUS;	
 				}
 			}catch(RuntimeException e){
-				//锟街革拷cachePO锟叫碉拷锟斤拷锟斤拷
 				e.printStackTrace();
 				cachePO.setStatus(tempStatus);
-				//锟截癸拷锟斤拷锟斤拷
 				try{
 					HibernateUtil.getCurrentSession()
 									.getTransaction()
