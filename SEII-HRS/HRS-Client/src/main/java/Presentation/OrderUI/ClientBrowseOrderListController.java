@@ -45,7 +45,7 @@ public class ClientBrowseOrderListController implements Initializable{
 	@FXML private ChoiceBox<String> orderType;
 	@FXML private TextField searchText;
 	private ObservableList<OrderVO> olist;
-	private String[] otypes={"全部订单","未执行订单","已执行订单","异常订单","已撤销订单"};
+	private String[] otypes={"鍏ㄩ儴璁㈠崟","鏈墽琛岃鍗�","宸叉墽琛岃鍗�","寮傚父璁㈠崟","宸叉挙閿�璁㈠崟"};
 	private Map<String,OrderStatus> otypeMap;
 	private OrderLogicService orderLogic;
 	private CommentLogicService commentLogic;
@@ -101,49 +101,52 @@ public class ClientBrowseOrderListController implements Initializable{
 		CommentController controller =loader.getController();
 		controller.setOrderVO(vo);
 		Scene scene=new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("commentFile.css").toExternalForm());
 		Stage stage=new Stage();
 //		stage.initModality(Modality.APPLICATION_MODAL);
 //		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setScene(scene);
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.show();
 	}
 	public void revoke(OrderVO vo,ActionEvent e){
 		try {
 			OrderResultMessage m = orderLogic.userRevoke(vo.getOrderId());
 			if(m==OrderResultMessage.SUCCESS){
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销成功！").showConfirm();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("鎾ら攢璁㈠崟").text("鎾ら攢鎴愬姛锛�").showConfirm();
 				vo.setStatus(OrderStatus.REVOKED);
 				olist.remove(vo);
 				olist.add(vo);
 			}
 			else if (m==OrderResultMessage.FAIL_WRONGID)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销失败！不存在此订单！").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("鎾ら攢璁㈠崟").text("鎾ら攢澶辫触锛佷笉瀛樺湪姝よ鍗曪紒").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGORDERINFO)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销失败！错误的订单信息！").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("鎾ら攢璁㈠崟").text("鎾ら攢澶辫触锛侀敊璇殑璁㈠崟淇℃伅锛�").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGSTATUS)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销失败！错误的订单状态").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("鎾ら攢璁㈠崟").text("鎾ら攢澶辫触锛侀敊璇殑璁㈠崟鐘舵��").showWarning();
 		} catch (RemoteException e1) {
-			Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销失败！未知错误！").showWarning();
+			Notifications.create().owner(orderListView.getScene().getWindow()).title("鎾ら攢璁㈠崟").text("鎾ら攢澶辫触锛佹湭鐭ラ敊璇紒").showWarning();
 			e1.printStackTrace();
 		}
 	}
-	//基本信息
+	//鍩烘湰淇℃伅
     public void setBaseInfo(){
     	Object o = DataController.getInstance().get("UserId");
     	if(o==null){
-    		Notifications.create().owner(orderListView.getScene().getWindow()).title("初始化").text("初始化错误！").showError();
+    		Notifications.create().owner(orderListView.getScene().getWindow()).title("鍒濆鍖�").text("鍒濆鍖栭敊璇紒").showError();
     		return;
     	}
     	this.userid=(long)o;
     	DataController.getInstance().put("ClientOrderController", this);
     	ObservableList<String> t = FXCollections.observableArrayList(otypes);
     	orderType.setItems(t);
-    	orderType.setValue("全部订单");
+    	orderType.setValue("鍏ㄩ儴璁㈠崟");
     	otypeMap = new HashMap<>();
-    	otypeMap.put("未执行订单", OrderStatus.UNEXECUTED);
-    	otypeMap.put("异常订单", OrderStatus.ABNORMAL);
-    	otypeMap.put("已执行订单", OrderStatus.EXECUTED);
-    	otypeMap.put("已撤销订单", OrderStatus.REVOKED);
+    	otypeMap.put("鏈墽琛岃鍗�", OrderStatus.UNEXECUTED);
+    	otypeMap.put("寮傚父璁㈠崟", OrderStatus.ABNORMAL);
+    	otypeMap.put("宸叉墽琛岃鍗�", OrderStatus.EXECUTED);
+    	otypeMap.put("宸叉挙閿�璁㈠崟", OrderStatus.REVOKED);
     	orderType.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -158,7 +161,7 @@ public class ClientBrowseOrderListController implements Initializable{
 		if(value==null)
 			return;
 		else{
-			if(value.equals("全部订单")){
+			if(value.equals("鍏ㄩ儴璁㈠崟")){
 				orderListView.setItems(olist);
 				return;
 			}
@@ -172,7 +175,7 @@ public class ClientBrowseOrderListController implements Initializable{
 		}
 	}
 
-    //初始化列表
+    //鍒濆鍖栧垪琛�
     public void initListView() throws RemoteException{
     	ListWrapper<OrderVO> volist=orderLogic.getUserOrderInfo(userid);
     	if(volist==null)
