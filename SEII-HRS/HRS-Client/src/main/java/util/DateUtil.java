@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
-	private static SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+	private static SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	public static boolean compare(Date date1,Date date2){ 
 	    Calendar aCalendar = Calendar.getInstance();
 	    aCalendar.setTime(date1);

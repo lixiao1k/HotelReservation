@@ -1,6 +1,5 @@
 package Presentation.OrderUI;
 
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -30,10 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import logic.service.CommentLogicService;
 import logic.service.OrderLogicService;
 import resultmessage.OrderResultMessage;
@@ -117,21 +113,21 @@ public class ClientBrowseOrderListController implements Initializable{
 				olist.add(vo);
 			}
 			else if (m==OrderResultMessage.FAIL_WRONGID)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销失败！不存在此订单！").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("错误的订单号！").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGORDERINFO)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销失败！错误的订单信息！").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("错误的订单信息！").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGSTATUS)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销失败！错误的订单状态").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("错误的订单状态！").showWarning();
 		} catch (RemoteException e1) {
-			Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销失败！未知错误！").showWarning();
+			Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("网络错误！").showWarning();
 			e1.printStackTrace();
 		}
 	}
-	//基本信息
+	//鍩烘湰淇℃伅
     public void setBaseInfo(){
     	Object o = DataController.getInstance().get("UserId");
     	if(o==null){
-    		Notifications.create().owner(orderListView.getScene().getWindow()).title("初始化").text("初始化错误！").showError();
+    		Notifications.create().owner(orderListView.getScene().getWindow()).title("鍒濆鍖�").text("鍒濆鍖栭敊璇紒").showError();
     		return;
     	}
     	this.userid=(long)o;
@@ -158,7 +154,7 @@ public class ClientBrowseOrderListController implements Initializable{
 		if(value==null)
 			return;
 		else{
-			if(value.equals("全部订单")){
+			if(value.equals("鍏ㄩ儴璁㈠崟")){
 				orderListView.setItems(olist);
 				return;
 			}
@@ -172,7 +168,7 @@ public class ClientBrowseOrderListController implements Initializable{
 		}
 	}
 
-    //初始化列表
+    //鍒濆鍖栧垪琛�
     public void initListView() throws RemoteException{
     	ListWrapper<OrderVO> volist=orderLogic.getUserOrderInfo(userid);
     	if(volist==null)

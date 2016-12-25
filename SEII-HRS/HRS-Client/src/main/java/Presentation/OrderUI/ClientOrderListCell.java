@@ -40,7 +40,7 @@ public class ClientOrderListCell extends ListCell<OrderVO>{
 		popOver.setTitle("订单");
 		BorderPane mainPane = new BorderPane();
 		GridPane basicPane = new GridPane();
-		Label name = new Label("下订单酒店:  "+item.getContactName());
+		Label name = new Label("下订单酒店:  "+item.getHotelName());
 		Label initialTime = new Label("From "+DateUtil.format(item.getCheckInTime())+" to "+DateUtil.format(item.getCheckOutTime()));
 		Label peopleInfo = new Label("入住人数： "+item.getPeople()+"人 ; "+(item.getChild()? "有":"无")+"儿童");
 		Label contactName = new Label("联系人： "+item.getContactName());

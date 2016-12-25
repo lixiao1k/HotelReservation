@@ -79,36 +79,27 @@ public class StrategyMockTest {
 	}
 	@Test
 	public void testCreate() throws RemoteException{
-		StrategyLogicService strategyService = new StrategyLogicServiceImpl();
 		StrategyVO vo = new StrategyVO();
-		StrategyType type = new StrategyType();
-		type.setName("FestivalStrategy");
-		type.setId(1);
-		vo.setStrategyType(type);
-		vo.setName("双十二促销策略");
+		StrategyResultVO r = service.create(vo);
+		assertEquals("wrong",StrategyResultMessage.FAIL_WRONGID,r.getResultMessage());
 		vo.setHotelId(1);
-		Set<StrategyItemVO> list = new HashSet<>();
-		StrategyItemVO sivo = new StrategyItemVO();
-		sivo.setOff(0.3);
-		Room room = new Room();
-		room.setRid(1);
-		room.setType("大床房");
-		sivo.setRoom(room);
-		list.add(sivo);
-		vo.setItems(list);
-		vo.setExtraInfo("2016-12-12|2016-12-13");
-		StrategyResultVO result = strategyService.create(vo);
-		Assert.assertNotEquals("wrong", null,result);
+		r = service.create(vo);
+		assertEquals("wrong", StrategyResultMessage.SUCCESS,r.getResultMessage());
 	}
 	@Test
 	public void testDelete() throws RemoteException{
-		StrategyLogicService strategyService = new StrategyLogicServiceImpl();
-		StrategyResultMessage result = strategyService.delete(11);
-		Assert.assertEquals("wrong", StrategyResultMessage.SUCCESS,result);
+		StrategyResultMessage r = service.delete(1);
+		assertEquals("wrong", StrategyResultMessage.SUCCESS,r);
+		r = service.delete(2);
+		assertEquals("wrong", StrategyResultMessage.FAIL_WRONGID,r);
 	}
 	@Test
 	public void testGetStrategyList() throws RemoteException{
-		ListWrapper<HotelStrategyVO> list = service.getStrategyList(1);
+		ListWrapper<HotelStrategyVO> list = service.getStrategyList(0);
+		assertEquals("wrong",null,list);
+		list = service.getStrategyList(1);
+		assertNotEquals("wrong",null,list);
+		assertEquals("wrong",1,list.size());
 	}
 	@Test
 	public void testGetStrategyForOrder() throws RemoteException{
