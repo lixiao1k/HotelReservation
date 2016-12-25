@@ -86,6 +86,9 @@ public class KeepPersonInfoController implements Initializable{
 		phoneTextField.setEditable(false);
 	}
 	private void updateClient() throws RemoteException{
+		if(phoneTextField.getText().length()!=11||nameTextField.getText().length()<1){
+			return;
+		}
 		BasicMemberVO vo =new BasicMemberVO(userid, phoneTextField.getText(), nameTextField.getText());
 		MemberResultMessage result=serviceFactory.getMemberLogicService().changeInfo(vo);
 		if(result==MemberResultMessage.SUCCESS){

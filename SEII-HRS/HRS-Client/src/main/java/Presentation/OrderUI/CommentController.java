@@ -43,6 +43,9 @@ public class CommentController implements Initializable{
     private ServiceFactory servicefactory;
     @FXML
     protected void save(ActionEvent e) throws RemoteException{
+    	if(degreeComboBox.getValue()==null){
+    		return;
+    	}
     	int grade=Integer.parseInt(degreeComboBox.getValue());
     	long orderid=vo.getOrderId();
     	CommentVO vo=new CommentVO(grade, commentTextArea.getText(), userid, (long)3,orderid);
@@ -53,12 +56,12 @@ public class CommentController implements Initializable{
     	}
         CommentResultMessage resultmessage=servicefactory.getCommentLogicService().review(vo);
         if(resultmessage==CommentResultMessage.SUCCESS){
-        	Notifications.create().title("ÌáÊ¾").text("ÆÀ¼Û³É¹¦").showConfirm();
+        	Notifications.create().title("ï¿½ï¿½Ê¾").text("ï¿½ï¿½ï¿½Û³É¹ï¿½").showConfirm();
 
         }else if(resultmessage==CommentResultMessage.FAIL){
-        	Notifications.create().title("ÌáÊ¾").text("ÆÀ¼ÛÊ§°Ü").showConfirm();
+        	Notifications.create().title("ï¿½ï¿½Ê¾").text("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½").showConfirm();
         }else if(resultmessage==CommentResultMessage.FAIL_HAVEREVIEWED){
-        	Notifications.create().title("ÌáÊ¾").text("ÒÑ¾­ÆÀ¼Û").showConfirm();
+        	Notifications.create().title("ï¿½ï¿½Ê¾").text("ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½").showConfirm();
         }
     }
     private void initialComboBox(){

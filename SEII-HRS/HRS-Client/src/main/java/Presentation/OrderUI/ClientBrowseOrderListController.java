@@ -106,8 +106,6 @@ public class ClientBrowseOrderListController implements Initializable{
 //		stage.initModality(Modality.APPLICATION_MODAL);
 //		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setScene(scene);
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.show();
 	}
 	public void revoke(OrderVO vo,ActionEvent e){
