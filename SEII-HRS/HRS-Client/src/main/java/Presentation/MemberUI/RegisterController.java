@@ -43,6 +43,9 @@ public class RegisterController implements Initializable {
 
 		if(toggle.getSelectedToggle().getUserData()=="People"){
 			LocalDate birthday=birthdayDatePicker.getValue();
+			if(birthday==null){
+				return;
+			}
 			String datestr=birthday.toString();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date=sdf.parse(datestr);

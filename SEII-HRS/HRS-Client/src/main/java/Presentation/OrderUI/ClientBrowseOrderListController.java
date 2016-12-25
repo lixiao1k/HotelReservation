@@ -97,6 +97,7 @@ public class ClientBrowseOrderListController implements Initializable{
 		CommentController controller =loader.getController();
 		controller.setOrderVO(vo);
 		Scene scene=new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("commentFile.css").toExternalForm());
 		Stage stage=new Stage();
 //		stage.initModality(Modality.APPLICATION_MODAL);
 //		stage.initStyle(StageStyle.TRANSPARENT);
@@ -107,12 +108,13 @@ public class ClientBrowseOrderListController implements Initializable{
 		try {
 			OrderResultMessage m = orderLogic.userRevoke(vo.getOrderId());
 			if(m==OrderResultMessage.SUCCESS){
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销成功！").showConfirm();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("撤销订单成功！").showConfirm();
 				vo.setStatus(OrderStatus.REVOKED);
 				olist.remove(vo);
 				olist.add(vo);
 			}
 			else if (m==OrderResultMessage.FAIL_WRONGID)
+
 				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("错误的订单号！").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGORDERINFO)
 				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("错误的订单信息！").showWarning();
@@ -120,6 +122,7 @@ public class ClientBrowseOrderListController implements Initializable{
 				Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("错误的订单状态！").showWarning();
 		} catch (RemoteException e1) {
 			Notifications.create().owner(orderListView.getScene().getWindow()).title("撤销订单").text("网络错误！").showWarning();
+
 			e1.printStackTrace();
 		}
 	}
@@ -127,7 +130,7 @@ public class ClientBrowseOrderListController implements Initializable{
     public void setBaseInfo(){
     	Object o = DataController.getInstance().get("UserId");
     	if(o==null){
-    		Notifications.create().owner(orderListView.getScene().getWindow()).title("鍒濆鍖�").text("鍒濆鍖栭敊璇紒").showError();
+    		Notifications.create().owner(orderListView.getScene().getWindow()).title("初始化").text("初始化错误！").showError();
     		return;
     	}
     	this.userid=(long)o;
@@ -154,7 +157,7 @@ public class ClientBrowseOrderListController implements Initializable{
 		if(value==null)
 			return;
 		else{
-			if(value.equals("鍏ㄩ儴璁㈠崟")){
+			if(value.equals("全部订单")){
 				orderListView.setItems(olist);
 				return;
 			}

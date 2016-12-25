@@ -15,11 +15,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import logic.service.ServiceFactory;
+import resultmessage.CommentResultMessage;
 import rmi.RemoteHelper;
 import vo.CommentVO;
 import vo.OrderVO;
@@ -27,21 +34,35 @@ import vo.OrderVO;
 public class CommentController implements Initializable{
     @FXML ComboBox<String> degreeComboBox;
     @FXML TextArea commentTextArea;
+    @FXML RadioButton anonymousRadioButton;
+    @FXML GridPane commentPane;
+    @FXML Button updateButton;
     ObservableList<String> degreeData=FXCollections.observableArrayList("1","2","3","4","5");
     private OrderVO vo; 
     private long userid;
     private ServiceFactory servicefactory;
     @FXML
     protected void save(ActionEvent e) throws RemoteException{
+    	if(degreeComboBox.getValue()==null){
+    		return;
+    	}
     	int grade=Integer.parseInt(degreeComboBox.getValue());
-    	System.out.println(grade);
-    	System.out.println(commentTextArea.getText());
-    	System.out.println(userid);
     	long orderid=vo.getOrderId();
-    	System.out.println(orderid);
     	CommentVO vo=new CommentVO(grade, commentTextArea.getText(), userid, (long)3,orderid);
-    	servicefactory.getCommentLogicService().review(vo);
-    	Notifications.create().title("ÌáÊ¾").text("¶©µ¥ÆÀ¼Û³É¹¦").showConfirm();
+    	if(anonymousRadioButton.isSelected()){
+    		vo.setHide(true);
+    	}else{
+    		vo.setHide(false);
+    	}
+        CommentResultMessage resultmessage=servicefactory.getCommentLogicService().review(vo);
+        if(resultmessage==CommentResultMessage.SUCCESS){
+        	Notifications.create().title("ï¿½ï¿½Ê¾").text("ï¿½ï¿½ï¿½Û³É¹ï¿½").showConfirm();
+
+        }else if(resultmessage==CommentResultMessage.FAIL){
+        	Notifications.create().title("ï¿½ï¿½Ê¾").text("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½").showConfirm();
+        }else if(resultmessage==CommentResultMessage.FAIL_HAVEREVIEWED){
+        	Notifications.create().title("ï¿½ï¿½Ê¾").text("ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½").showConfirm();
+        }
     }
     private void initialComboBox(){
     	degreeComboBox.setItems(degreeData);
@@ -55,6 +76,9 @@ public class CommentController implements Initializable{
 		userid=(long)DataController.getInstance().get("UserId");
 		servicefactory=RemoteHelper.getInstance().getServiceFactory();
 		initialComboBox();
+		Image imageupdate = new Image(getClass().getResourceAsStream("update.png"));
+		updateButton.setGraphic(new ImageView(imageupdate));
+		updateButton.getStylesheets().add(getClass().getResource("commentFile.css").toExternalForm());
 	}
 
 }

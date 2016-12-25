@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.OrderUI.CommentController">
+<GridPane fx:id="commentPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.OrderUI.CommentController">
    <rowConstraints>
       <RowConstraints maxHeight="141.0" minHeight="58.0" prefHeight="67.0" />
       <RowConstraints maxHeight="224.0" minHeight="95.0" prefHeight="122.0" />
@@ -15,17 +15,17 @@
       <RowConstraints maxHeight="141.0" minHeight="114.0" prefHeight="114.0" />
    </rowConstraints>
    <columnConstraints>
-      <ColumnConstraints maxWidth="263.0" minWidth="242.0" prefWidth="257.0" />
+      <ColumnConstraints maxWidth="242.0" minWidth="242.0" prefWidth="242.0" />
       <ColumnConstraints maxWidth="270.0" minWidth="249.0" prefWidth="255.0" />
       <ColumnConstraints maxWidth="256.0" minWidth="256.0" prefWidth="256.0" />
    </columnConstraints>
    <children>
-      <Label alignment="CENTER" prefHeight="20.0" prefWidth="262.0" text="评价" GridPane.columnIndex="1">
+      <Label alignment="CENTER" prefHeight="20.0" prefWidth="262.0" text="评价" textFill="#fff9f9" GridPane.columnIndex="1">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="83.0" text="订单评分:" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      <Label alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="83.0" text="订单评分:" textFill="#fcf9f9" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font size="18.0" />
          </font>
@@ -34,7 +34,7 @@
          </GridPane.margin>
       </Label>
       <ComboBox fx:id="degreeComboBox" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-      <Label alignment="TOP_RIGHT" prefHeight="38.0" prefWidth="82.0" text="订单评价:" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <Label alignment="TOP_RIGHT" prefHeight="38.0" prefWidth="82.0" text="订单评价:" textFill="#fcfafa" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <font>
             <Font size="18.0" />
          </font>
@@ -42,9 +42,9 @@
             <Insets left="140.0" top="65.0" />
          </GridPane.margin>
       </Label>
-      <Button mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="55.0" text="提交" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <Button fx:id="updateButton" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <GridPane.margin>
-            <Insets left="160.0" top="25.0" />
+            <Insets left="160.0" top="50.0" />
          </GridPane.margin>
       </Button>
       <TextArea fx:id="commentTextArea" maxHeight="100.0" maxWidth="400.0" prefHeight="100.0" prefWidth="100.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -52,5 +52,10 @@
             <Insets top="65.0" />
          </GridPane.margin>
       </TextArea>
+      <RadioButton fx:id="anonymousRadioButton" mnemonicParsing="false" text="匿名" textFill="#fcf7f7" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets top="100.0" />
+         </GridPane.margin>
+      </RadioButton>
    </children>
 </GridPane>
