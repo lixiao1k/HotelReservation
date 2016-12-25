@@ -28,8 +28,8 @@
       <Separator prefWidth="200.0" GridPane.rowIndex="1" />
       <GridPane GridPane.rowIndex="2">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="204.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="564.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="145.0" minHeight="10.0" prefHeight="136.0" vgrow="SOMETIMES" />
@@ -37,22 +37,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="大床房：">
-               <GridPane.margin>
-                  <Insets left="100.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <TextField fx:id="bigBed" prefHeight="30.0" prefWidth="129.0">
-               <GridPane.margin>
-                  <Insets left="180.0" />
-               </GridPane.margin>
-            </TextField>
             <Button mnemonicParsing="false" onAction="#commit" text="确认" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="215.0" top="65.0" />
+                  <Insets left="415.0" top="65.0" />
                </GridPane.margin>
                <font>
                   <Font size="20.0" />
@@ -60,36 +47,71 @@
             </Button>
             <Button mnemonicParsing="false" onAction="#goBack" text="返回" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="100.0" top="65.0" />
+                  <Insets left="300.0" top="65.0" />
                </GridPane.margin>
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
-            <Label text="双标房：" GridPane.rowIndex="1">
-               <font>
-                  <Font size="20.0" />
-               </font>
+            <ComboBox fx:id="type1" onAction="#select1" prefWidth="150.0" promptText="房间类型">
                <GridPane.margin>
-                  <Insets bottom="120.0" left="100.0" />
+                  <Insets bottom="50.0" left="50.0" />
                </GridPane.margin>
-            </Label>
-            <TextField fx:id="doubleBed" GridPane.rowIndex="1">
+            </ComboBox>
+            <ComboBox fx:id="type3" onAction="#select3" prefWidth="150.0" promptText="房间类型" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="120.0" left="180.0" />
+                  <Insets left="50.0" top="50.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="type2" onAction="#select2" prefWidth="150.0" promptText="房间类型" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets bottom="300.0" left="50.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <Label text="房间数量" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="150.0" left="80.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="num1" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="30.0" right="380.0" />
                </GridPane.margin>
             </TextField>
-            <Label text="家庭套房：" GridPane.rowIndex="1">
-               <font>
-                  <Font size="20.0" />
-               </font>
+            <TextField fx:id="num2" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <GridPane.margin>
-                  <Insets left="80.0" top="60.0" />
+                  <Insets bottom="300.0" left="30.0" right="380.0" />
                </GridPane.margin>
-            </Label>
-            <TextField fx:id="familyRoom" GridPane.rowIndex="1">
+            </TextField>
+            <TextField fx:id="num3" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="180.0" top="60.0" />
+                  <Insets left="30.0" right="380.0" top="50.0" />
+               </GridPane.margin>
+            </TextField>
+            <Label text="房间价格" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="150.0" left="350.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="price1" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="310.0" right="90.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="price2" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <GridPane.margin>
+                  <Insets bottom="300.0" left="310.0" right="90.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="price3" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="310.0" right="90.0" top="50.0" />
                </GridPane.margin>
             </TextField>
          </children>
