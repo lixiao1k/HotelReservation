@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 import org.controlsfx.control.Notifications;
 
-import datacontroller.DataController;
 import info.ListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -175,6 +174,11 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 			}
         });
 	}
+	
+	//初始化css
+	public void initcss(){
+		mainPane.getStylesheets().add(getClass().getResource("strategylist.css").toExternalForm());
+	}
     
     //初始化列表
     public void initListView() throws RemoteException{
@@ -205,6 +209,7 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 			e.printStackTrace();
 		}
 		initType();
+		initcss();
 		addchoiceboxlistener();
 		try {
 			initListView();

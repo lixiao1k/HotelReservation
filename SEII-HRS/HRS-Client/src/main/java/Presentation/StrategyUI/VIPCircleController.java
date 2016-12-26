@@ -88,8 +88,14 @@ public class VIPCircleController implements Initializable{
 		Circle.setItems(circlelist);
 	}
 	
+	//≥ı ºªØcss
+	public void initcss(){
+		mainPane.getStylesheets().add(getClass().getResource("alltype.css").toExternalForm());
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		initcss();
 		try {
 			strategyLogic=RemoteHelper.getInstance().getServiceFactory().getStrategyLogicService();
 			hotelLogic=RemoteHelper.getInstance().getServiceFactory().getHotelLogicService();

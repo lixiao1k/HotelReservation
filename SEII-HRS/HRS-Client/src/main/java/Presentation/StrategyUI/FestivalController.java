@@ -84,8 +84,14 @@ public class FestivalController implements Initializable{
 		mainPane.setMargin(Time2, new Insets(0, 0, 0, 320));
 	}
 	
+	//≥ı ºªØcss
+	public void initcss(){
+		mainPane.getStylesheets().add(getClass().getResource("alltype.css").toExternalForm());
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		initcss();
 		try {
 			strategyLogic=RemoteHelper.getInstance().getServiceFactory().getStrategyLogicService();
 		} catch (RemoteException e) {

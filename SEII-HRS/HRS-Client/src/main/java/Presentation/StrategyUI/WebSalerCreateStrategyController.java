@@ -11,10 +11,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.GridPane;
 
 public class WebSalerCreateStrategyController implements Initializable{
+	@FXML Button Back;
 	@FXML GridPane mainPane;
 	@FXML ChoiceBox<String> Type;
 	GridPane clientmain;
@@ -43,6 +48,23 @@ public class WebSalerCreateStrategyController implements Initializable{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+	}
+	
+	@FXML
+	protected void Enter(){
+		Image image2=new Image(getClass().getResourceAsStream("undo2.png"));
+		Back.setBackground(new Background(new BackgroundImage(image2, null, null, null, null)));
+	}
+	
+	@FXML
+	protected void Exit(){
+		Image image1=new Image(getClass().getResourceAsStream("undo.png"));
+		Back.setBackground(new Background(new BackgroundImage(image1, null, null, null, null)));
+	}
+	
+	public void initBack(){
+		Image image1=new Image(getClass().getResourceAsStream("undo.png"));
+		Back.setBackground(new Background(new BackgroundImage(image1, null, null, null, null)));
 	}
 	
 	//界面跳转
@@ -79,9 +101,16 @@ public class WebSalerCreateStrategyController implements Initializable{
         });
 	}
 	
+	//初始化css
+	public void initcss(){
+		mainPane.getStylesheets().add(getClass().getResource("createstrategy.css").toExternalForm());
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		initType();
+		initcss();
+		initBack();
 		addchoiceboxlistener();
 	}
 }
