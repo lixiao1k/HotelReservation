@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -115,13 +116,14 @@ public class RoomController implements Initializable{
 		Room.setSourceItems(sourcelist);
 		Label sourceheader=new Label("所有房间：");
 		sourceheader.setFont(new Font(14));
-		sourceheader.setTextFill(Color.RED);
+		sourceheader.setTextFill(Color.YELLOW);
 		Room.setSourceHeader(sourceheader);
 		Label targetheader=new Label("使用策略的房间：");
 		targetheader.setFont(new Font(14));
-		targetheader.setTextFill(Color.RED);
+		targetheader.setTextFill(Color.YELLOW);
 		Room.setTargetHeader(targetheader);
 		mainPane.add(Room, 0, 1);
+		mainPane.setMargin(Room, new Insets(0,0,0,50));
 	}
 	
 	public void setBaseInfo(){
@@ -129,9 +131,15 @@ public class RoomController implements Initializable{
 		DataController.getInstance().putAndUpdate("HotelId", hotelid);
 	}
 	
+	//初始化css
+	public void initcss(){
+		mainPane.getStylesheets().add(getClass().getResource("alltype.css").toExternalForm());
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setBaseInfo();
+		initcss();
 		try {
 			strategyLogic=RemoteHelper.getInstance().getServiceFactory().getStrategyLogicService();
 			hotelLogic=RemoteHelper.getInstance().getServiceFactory().getHotelLogicService();

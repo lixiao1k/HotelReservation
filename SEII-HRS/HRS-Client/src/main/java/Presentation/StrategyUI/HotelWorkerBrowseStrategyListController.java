@@ -89,6 +89,8 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 			Notifications.create().owner(mainPane.getScene().getWindow()).title("删除策略").text("删除失败！未知错误！").showWarning();
 			e1.printStackTrace();
 		}
+		olist.remove(vo);
+		strategyListView.setItems(olist);
 	}
 	
 	class StrategyCell extends ListCell<StrategyVO>{
@@ -190,6 +192,11 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 			}
         });
 	}
+	
+	//初始化css
+	public void initcss(){
+		mainPane.getStylesheets().add(getClass().getResource("strategylist.css").toExternalForm());
+	}
     
     //初始化列表
     public void initListView() throws RemoteException{
@@ -221,6 +228,7 @@ public class HotelWorkerBrowseStrategyListController implements Initializable{
 		}
 		setBaseInfo();
 		initType();
+		initcss();
 		addchoiceboxlistener();
 		try {
 			initListView();

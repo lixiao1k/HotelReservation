@@ -1,0 +1,27 @@
+.button {
+	-fx-border-radius: 10px;
+    -fx-border-color: #9fc5e8;
+    -fx-border-width: 1;
+    -fx-background-radius: 10px;
+    -fx-background-color: transparent;
+}
+
+.button:hover {
+	-fx-background-color: #9fc5e8;
+	-fx-text-fill: #0000ff;
+}
+
+.choice-box {
+	-fx-border-radius: 10px;
+	-fx-border-color: #9fc5e8;
+	-fx-background-color: transparent;
+}
+
+.choice-box .label {
+	-fx-text-fill: #0000ff;
+	-fx-opacity: 0.6;
+}
+
+.text-field {
+	-fx-background-radius: 10px;
+}
