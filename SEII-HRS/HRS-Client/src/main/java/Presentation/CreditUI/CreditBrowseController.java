@@ -1,5 +1,7 @@
 package Presentation.CreditUI;
-
+/*
+ * @author Shelton Lee 151250084
+ */
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -37,42 +39,14 @@ public class CreditBrowseController implements Initializable{
 	@FXML Label creditLabel;
 	@FXML ListView<CreditVO> creditListView;
 	@FXML Label creditImageLabel;
-//	KeepPersonInfoController keeppersoninfocontroller;
+	@FXML Label peopleImageLabel;
 	private String username;
 	private long userid;
 	private ObservableList<CreditVO> creditListViewData;
 	private ServiceFactory serviceFactory;
-//	private CreditVO vo;
 	private Iterator<CreditVO> it;
 	private int credit;
 	
-//	@FXML
-//	protected void goBack(ActionEvent e){
-//		GridPane clientmain=(GridPane)nameLabel.getScene().getWindow().getScene().getRoot();
-//		try {
-//			Parent PersonInfo =FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/KeepPersonInfo.fxml"));
-//			PersonInfo.getProperties().put("NAME","PersonInfoPane");
-//			ObservableList<Node> list = clientmain.getChildren();
-//			for(Node node:list){
-//				String value=(String)node.getProperties().get("NAME");
-//				if(value!=null&&value.contains("Pane")){
-//					list.remove(node);
-//					break;
-//				}
-//			}
-//			clientmain.add(PersonInfo, 2, 1);
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//	}
-//
-//	public void setKeepPersonInfoController(KeepPersonInfoController controller){
-//		this.keeppersoninfocontroller=controller;
-//	}
-//	public void setBaseInfo(long userid){
-//		this.userid=userid;
-//	}
 	private void initialListViewData(Iterator<CreditVO> iterator){
 		while(iterator.hasNext()){
 			creditListViewData.add(iterator.next());
@@ -94,11 +68,6 @@ public class CreditBrowseController implements Initializable{
 			it=list.iterator();
 			creditListViewData=FXCollections.observableArrayList();
 			initialListViewData(it);		
-//		    LocalDate date=LocalDate.now();
-//			CreditVO credit1=new CreditVO(151250084, date, 26, 398);
-//			CreditVO credit2=new CreditVO(151250086, date, -26, 226);
-//			creditListViewData.add(credit1);
-//			creditListViewData.add(credit2);
 			creditListView.setCellFactory(e->new CreditListCell());
 			creditListView.setItems(creditListViewData);
 			username=serviceFactory.getMemberLogicService().getInfo(userid).getName();
@@ -107,6 +76,8 @@ public class CreditBrowseController implements Initializable{
 			creditLabel.setText(Integer.toString(credit));
 			Image imagecredit =new Image(getClass().getResourceAsStream("credit.png"));
 		    creditImageLabel.setGraphic(new ImageView(imagecredit));
+			Image userImage =new Image(getClass().getResourceAsStream("user.png"));
+		    peopleImageLabel.setGraphic(new ImageView(userImage));
 		}catch(RemoteException e){
 			e.printStackTrace();
 		}catch(IOException e){
@@ -119,12 +90,8 @@ public class CreditBrowseController implements Initializable{
 			super.updateItem(item, empty);
 			if(item!=null){
 				GridPane cell=new GridPane();
-				final Tooltip tooltip=new Tooltip();
+				final Tooltip tooltip=new Tooltip();//to show the cause of the credit's change
 				tooltip.setText(item.getReason());
-//				Label id=new Label("ID:"+Long.toString(item.);
-//				id.setFont(new Font("KaiTi_GB2312",15));
-//				id.setPrefWidth(150);
-//				id.setPrefHeight(50);
 				Label time=new Label(item.getDate().toString());
 				time.setFont(new Font("KaiTi_GB2312",15));
 				Label delta=new Label(Integer.toString(item.getDelta()));
@@ -138,10 +105,9 @@ public class CreditBrowseController implements Initializable{
 				}else{
 					delta.setTextFill(Color.BLACK);
 				}
-				Label credit=new Label("信用总值:"+Integer.toString(item.getCredit()));
+				Label credit=new Label("Credit Deposit:"+Integer.toString(item.getCredit()));
 				credit.setFont(new Font("KaiTi_GB2312",15));
 				credit.setPrefWidth(200);
-//				cell.add(id, 0, 0);
 				cell.add(time,2,0);
 				cell.add(delta, 0, 0);
 				cell.add(credit, 1, 0);
