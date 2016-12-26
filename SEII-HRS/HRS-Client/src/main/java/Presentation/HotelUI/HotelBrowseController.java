@@ -95,6 +95,7 @@ public class HotelBrowseController implements Initializable{
 	@FXML private ChoiceBox<String> limitRank;
 	@FXML private ChoiceBox<String> limitPrice;
 	@FXML private Button checkHistory;
+	@FXML private Button browseDetail;
 	private ServiceFactory serviceFactory;
 	private ListWrapper<BusinessCity> bc;
 	private long userid;
@@ -923,6 +924,7 @@ public class HotelBrowseController implements Initializable{
 			hotelid=hotelbl.getBookHotel(userid);//得到预定历史
 			bc = serviceFactory.getHotelLogicService().getCity();
 			Set<String> set = new HashSet<>();//寰楀埌鍏ㄩ儴鍩庡競淇℃伅
+	//		hotelSearchButton.getStylesheets().add(getClass().getClassLoader().getResource("Presentation/MainUI/ClientButton.css").toExternalForm());
 
 			Iterator<BusinessCity> it = bc.iterator();
 			while(it.hasNext())

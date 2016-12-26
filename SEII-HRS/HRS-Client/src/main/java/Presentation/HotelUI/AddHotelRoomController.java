@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import logic.service.HotelLogicService;
 import logic.service.ServiceFactory;
+import resultmessage.HotelResultMessage;
 import rmi.RemoteHelper;
 import vo.AddHotelVO;
 import vo.HotelItemVO;
@@ -65,73 +68,68 @@ public class AddHotelRoomController implements Initializable{
 			mainpane.add(pane, 3, 1);
 	}
 	
-	public void commit()
+	public void commit() throws RemoteException
 	{
 		if(type1.getValue()!=null)
 		{
-			HotelItemVO hlV1=null;
-			Room room1=null;
+			HotelItemVO hlV1=new HotelItemVO();
+			Room room1=new Room();
+			System.out.println(type1.getValue());
 			room1.setType(type1.getValue());
 			room1.setRid(map.get(type1.getValue()));
 			hlV1.setRoom(room1);
-			if(num1.getText().equals("")||price1.getText().equals(""))
-			{
-				Notifications.create().owner(num1.getScene().getWindow()).title("错误信息").text("填写内容不能为空!").showError();
-			}
-			else
-			{
-				hlV1.setNum(Integer.parseInt(num1.getText()));
-				hlV1.setPrice(Double.parseDouble(price1.getText()));
-				roomSet.add(hlV1);
-				Notifications.create().owner(num1.getScene().getWindow()).title("提示信息").text("提交成功").showConfirm();;
 
-			}
+			hlV1.setNum(Integer.parseInt(num1.getText()));
+			hlV1.setPrice(Double.parseDouble(price1.getText()));
+			roomSet.add(hlV1);
+
+			
 		}
 		if(type2.getValue()!=null)
 			
 		{
-			HotelItemVO hlV2=null;
-			Room room2=null;
+			HotelItemVO hlV2=new HotelItemVO();
+			Room room2=new Room();
 			room2.setType(type2.getValue());
 			room2.setRid(map.get(type2.getValue()));
 			hlV2.setRoom(room2);
-			if(num2.getText().equals("")||price2.getText().equals(""))
-			{
-				Notifications.create().owner(num2.getScene().getWindow()).title("错误信息").text("填写内容不能为空!").showError();
-			}
-			else
-			{
-				hlV2.setNum(Integer.parseInt(num2.getText()));
-				hlV2.setPrice(Double.parseDouble(price2.getText()));
-				roomSet.add(hlV2);
-				Notifications.create().owner(num2.getScene().getWindow()).title("提示信息").text("提交成功").showConfirm();;
 
-			}
+			hlV2.setNum(Integer.parseInt(num2.getText()));
+			hlV2.setPrice(Double.parseDouble(price2.getText()));
+			roomSet.add(hlV2);
+
+			
 			
 		}
 		if(type3.getValue()!=null)
 		{
-			HotelItemVO hlV3=null;
-			Room room3=null;
+			HotelItemVO hlV3=new HotelItemVO();
+			Room room3=new Room();
 			room3.setType(type3.getValue());
 			room3.setRid(map.get(type3.getValue()));
 			hlV3.setRoom(room3);
-			if(num3.getText().equals("")||price3.getText().equals(""))
-			{
-				Notifications.create().owner(num3.getScene().getWindow()).title("错误信息").text("填写内容不能为空!").showError();
-			}
-			else
-			{
-				hlV3.setNum(Integer.parseInt(num3.getText()));
-				hlV3.setPrice(Double.parseDouble(price3.getText()));
-				roomSet.add(hlV3);
-				Notifications.create().owner(num3.getScene().getWindow()).title("提示信息").text("提交成功").showConfirm();;
+			hlV3.setNum(Integer.parseInt(num3.getText()));
+			hlV3.setPrice(Double.parseDouble(price3.getText()));
+			roomSet.add(hlV3);
 
-			}
-			
 		}
 	
 		ahvo.setItems(roomSet);
+		if(	hotelLogic.addHotel(ahvo).getResultMessage()==HotelResultMessage.SUCCESS)
+		{
+			Notifications.create().owner(num3.getScene().getWindow()).title("提示信息").text("提交成功").showConfirm();;
+			DataController.getInstance().putAndUpdate("HotelId", hotelLogic.addHotel(ahvo).getHotelId());
+		}
+		else if(hotelLogic.addHotel(ahvo).getResultMessage()==HotelResultMessage.FAIL)
+		{
+			Notifications.create().owner(num3.getScene().getWindow()).title("错误信息").text("添加失败").showError();
+
+		}
+		else if(hotelLogic.addHotel(ahvo).getResultMessage()==HotelResultMessage.FAIL_NOTENOUGHINFO)
+		{
+			Notifications.create().owner(num3.getScene().getWindow()).title("错误信息").text("填写内容不能为空!").showError();
+
+		}
 	}
 	
 
@@ -145,11 +143,13 @@ public class AddHotelRoomController implements Initializable{
 		if(service==null)
 			service=RemoteHelper.getInstance().getServiceFactory();
 			try {
+				
 				hotelLogic=service.getHotelLogicService();
 				List<String>type=new ArrayList<String>();
 				roomType=hotelLogic.getRoomTypes();
 				Iterator<Room>it=roomType.iterator();
-				
+				map=new HashMap<>();
+				roomSet=new HashSet<>();
 				Room room;
 				while(it.hasNext())
 				{

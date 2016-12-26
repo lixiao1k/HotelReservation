@@ -53,17 +53,17 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <ComboBox fx:id="type1" onAction="#select1" prefWidth="150.0" promptText="房间类型">
+            <ComboBox fx:id="type1" prefWidth="150.0" promptText="房间类型">
                <GridPane.margin>
                   <Insets bottom="50.0" left="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <ComboBox fx:id="type3" onAction="#select3" prefWidth="150.0" promptText="房间类型" GridPane.rowIndex="1">
+            <ComboBox fx:id="type3" prefWidth="150.0" promptText="房间类型" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="50.0" top="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <ComboBox fx:id="type2" onAction="#select2" prefWidth="150.0" promptText="房间类型" GridPane.rowIndex="1" GridPane.rowSpan="2">
+            <ComboBox fx:id="type2" prefWidth="150.0" promptText="房间类型" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <GridPane.margin>
                   <Insets bottom="300.0" left="50.0" />
                </GridPane.margin>
