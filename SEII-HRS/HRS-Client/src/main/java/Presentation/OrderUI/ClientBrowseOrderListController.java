@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Map.Entry;
 import org.controlsfx.control.Notifications;
+
+import Presentation.CommentUI.CommentController;
 import datacontroller.DataController;
 import info.ListWrapper;
 import info.OrderStatus;
@@ -26,9 +28,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import logic.service.CommentLogicService;
 import logic.service.OrderLogicService;
@@ -40,6 +45,7 @@ public class ClientBrowseOrderListController implements Initializable{
 	@FXML private ListView<OrderVO> orderListView;
 	@FXML private ChoiceBox<String> orderType;
 	@FXML private TextField searchText;
+	@FXML private Button searchButton;
 	private ObservableList<OrderVO> olist;
 	private String[] otypes={"全部订单","未执行订单","已执行订单","异常订单","已撤销订单"};
 	private Map<String,OrderStatus> otypeMap;
@@ -92,15 +98,13 @@ public class ClientBrowseOrderListController implements Initializable{
 	        return result;
 	    }
 	public void review(OrderVO vo,ActionEvent e) throws Exception{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Comment.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("Presentation/CommentUI/Comment.fxml"));
 		Parent root=loader.load();
 		CommentController controller =loader.getController();
 		controller.setOrderVO(vo);
 		Scene scene=new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("commentFile.css").toExternalForm());
 		Stage stage=new Stage();
-//		stage.initModality(Modality.APPLICATION_MODAL);
-//		stage.initStyle(StageStyle.TRANSPARENT);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -195,6 +199,9 @@ public class ClientBrowseOrderListController implements Initializable{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		Image searchImage =new Image(getClass().getResourceAsStream("search.png"));
+		searchButton.setGraphic(new ImageView(searchImage));
+		searchButton.getStylesheets().add(getClass().getResource("commentFile.css").toExternalForm());
 	}
 	
 }

@@ -1,5 +1,8 @@
 package Presentation.MemberUI;
-
+/*
+ * @author Shelton Lee 151250084
+ */
+import java.awt.Toolkit;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.ParseException;
@@ -44,6 +47,7 @@ public class RegisterController implements Initializable {
 		if(toggle.getSelectedToggle().getUserData()=="People"){
 			LocalDate birthday=birthdayDatePicker.getValue();
 			if(birthday==null){
+				Toolkit.getDefaultToolkit().beep();
 				return;
 			}
 			String datestr=birthday.toString();
@@ -58,20 +62,24 @@ public class RegisterController implements Initializable {
 				MemberResultMessage result=servicefactory.getMemberLogicService().registerVIP(vo);
 				checkResult(result);
 			}else{
-				Notifications.create().title("提示").text("请填写企业名称").showConfirm();
+				Notifications.create().title("INFO").text("Please write company name").showConfirm();
+				Toolkit.getDefaultToolkit().beep();
 			}
 
 		}
 	}
     public void checkResult(MemberResultMessage result){
     	if(result==MemberResultMessage.FAIL_ALREADYVIP){
-    		Notifications.create().title("提示").text("您已是会员").showConfirm();
+    		Notifications.create().title("INFO").text("Fail, you are already VIP").showConfirm();
+			Toolkit.getDefaultToolkit().beep();
     	}else if(result==MemberResultMessage.FAIL_CREDITNOTENOUGH){
-    		Notifications.create().title("提示").text("您的信用不足，请及时充值").showConfirm();
+    		Notifications.create().title("INFO").text("Fail, your credit isn't enough").showConfirm();
+			Toolkit.getDefaultToolkit().beep();
     	}else if(result==MemberResultMessage.SUCCESS){
-    		Notifications.create().title("提示").text("恭喜您注册成功").showConfirm();
+    		Notifications.create().title("INFO").text("SUCCEE,Welcome!").showConfirm();
+			Toolkit.getDefaultToolkit().beep();
     	}else{
-    		Notifications.create().title("提示").text("注册失败").showConfirm();
+    		Notifications.create().title("INFO").text("FAIL").showConfirm();
     	}
     }
 	@Override

@@ -1,5 +1,7 @@
 package Presentation.MemberUI;
-
+/*
+ * @author Shelton Lee 151250084
+ */
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -55,11 +57,8 @@ public class KeepPersonInfoController implements Initializable{
 			GridPane clientmain=(GridPane)nameTextField.getScene().getWindow().getScene().getRoot();
 			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/CreditUI/CreditBrowse.fxml"));
 			Parent creditBrowse = loader.load();
-//			CreditBrowseController creditcontroller=loader.getController();
-//			creditcontroller.setKeepPersonInfoController(this);
-//			creditcontroller.setBaseInfo(this.userid);
 			creditBrowse.getProperties().put("NAME","CreditBrowsePane" );
-			ObservableList<Node> list =clientmain.getChildren();
+			ObservableList<Node> list =clientmain.getChildren();//remove this pane and add the CreditUI's pane
 			for(Node node:list){
 				String value=(String)node.getProperties().get("NAME");
 				if(value!=null&&value.contains("Pane")){
@@ -75,7 +74,7 @@ public class KeepPersonInfoController implements Initializable{
 	}
 	@FXML
 	protected void edit(ActionEvent e){
-		Notifications.create().title("提示").text("可以编辑").showConfirm();
+		Notifications.create().title("INFO").text("Now can edit").showConfirm();
 		nameTextField.setEditable(true);
 		phoneTextField.setEditable(true);
 	}
@@ -92,9 +91,9 @@ public class KeepPersonInfoController implements Initializable{
 		BasicMemberVO vo =new BasicMemberVO(userid, phoneTextField.getText(), nameTextField.getText());
 		MemberResultMessage result=serviceFactory.getMemberLogicService().changeInfo(vo);
 		if(result==MemberResultMessage.SUCCESS){
-		    Notifications.create().title("提示").text("保存成功").showConfirm();
+		    Notifications.create().title("INFO").text("SUCCESS").showConfirm();
 		}else{
-			Notifications.create().title("提示").text("保存失败").showConfirm();
+			Notifications.create().title("INFO").text("FAIL").showConfirm();
 		}
 	}
 	public void initialize(URL location, ResourceBundle resources) {
@@ -113,17 +112,18 @@ public class KeepPersonInfoController implements Initializable{
 		    nameTextField.setEditable(false);
 		    phoneTextField.setEditable(false);
 		    final Tooltip tip = new Tooltip();
-		    tip.setText("请先点击编辑按钮才能编辑");
+		    tip.setText("Please press the edit button first");
 		    nameTextField.setTooltip(tip);
 		    phoneTextField.setTooltip(tip);
 		    if(membervo.isVIP()){
 		        Image image=new Image(getClass().getResourceAsStream("VIP.png"));
 		        VIPLabel.setGraphic(new ImageView(image));
 		        final Tooltip tooltip=new Tooltip();
-		        tooltip.setText("VIP用户"+membervo.getName()+"同志您好！"+"\n"+
-		                        "您的信余额为:"+membervo.getCredit());
+		        tooltip.setText("VIP user"+membervo.getName()+"Welcome!"+"\n"+
+		                        "Your credit deposit is:"+membervo.getCredit());
 		        VIPLabel.setTooltip(tooltip);
 		    }
+		    //UI beauty
 		    Image imageEdit=new Image(getClass().getResourceAsStream("edit.png"));
 		    editButton.setGraphic(new ImageView(imageEdit));
 		    editButton.getStylesheets().add(getClass().getResource("buttonFile.css").toExternalForm());

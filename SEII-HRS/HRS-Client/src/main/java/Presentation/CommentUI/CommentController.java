@@ -1,5 +1,7 @@
-package Presentation.OrderUI;
-
+package Presentation.CommentUI;
+/*
+ * @author Shelton Lee 151250084
+ */
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -56,12 +58,12 @@ public class CommentController implements Initializable{
     	}
         CommentResultMessage resultmessage=servicefactory.getCommentLogicService().review(vo);
         if(resultmessage==CommentResultMessage.SUCCESS){
-        	Notifications.create().title("��ʾ").text("���۳ɹ�").showConfirm();
+        	Notifications.create().title("INFO").text("SUCCESS").showConfirm();
 
         }else if(resultmessage==CommentResultMessage.FAIL){
-        	Notifications.create().title("��ʾ").text("����ʧ��").showConfirm();
+        	Notifications.create().title("INFO").text("FAIL").showConfirm();
         }else if(resultmessage==CommentResultMessage.FAIL_HAVEREVIEWED){
-        	Notifications.create().title("��ʾ").text("�Ѿ�����").showConfirm();
+        	Notifications.create().title("INFO").text("fail! have been reviewed").showConfirm();
         }
     }
     private void initialComboBox(){
