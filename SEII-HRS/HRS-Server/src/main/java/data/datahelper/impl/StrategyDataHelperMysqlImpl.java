@@ -12,7 +12,7 @@ import util.HibernateUtil;
 
 public class StrategyDataHelperMysqlImpl implements StrategyDataHelper{
 	private static final String hotelStrategyList = "from StrategyPO as s where s.hotel=:HOTEL and s.status='false'";
-	private static final String webStrategyList = "from StrategyPO as s where s.type=1 and s.status='false'";
+	private static final String webStrategyList = "from StrategyPO as s where s.hotel is null and s.status='false'";
 	private static final String getTypesList = "from StrategyType";
 	@Override
 	public void insert(StrategyPO po) {
