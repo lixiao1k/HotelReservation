@@ -87,6 +87,8 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 			Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ý²ßÂÔ").text("É¾³ýÊ§°Ü£¡Î´Öª´íÎó£¡").showWarning();
 			e1.printStackTrace();
 		}
+		olist.remove(vo);
+		strategyListView.setItems(olist);
 	}
 	
 	class StrategyCell extends ListCell<StrategyVO>{

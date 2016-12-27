@@ -48,6 +48,8 @@ public class VIPCircleController implements Initializable{
 				off=Double.valueOf(Off.getText());
 				svo.setOff(off);
 				if(Circle.getSelectionModel().isEmpty()){
+					Notifications.create().owner(mainPane.getScene().getWindow()).title("创建策略").text("请选择商圈").showWarning();
+				}else{
 					svo.setExtraInfo(Circle.getSelectionModel().getSelectedItem());
 					svo.setHotelId(-1);
 					ListWrapper<StrategyType> typelist = strategyLogic.getTypes();
