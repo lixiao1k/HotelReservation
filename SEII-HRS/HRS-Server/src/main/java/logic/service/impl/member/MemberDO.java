@@ -333,33 +333,12 @@ public class MemberDO {
 	
 	
 	public ManageWEBSalerVO getWEBSaler(String username) throws RemoteException {
-		MemberVO vo=getInfo(username);
-		if(vo!=null){
-			MemberPO po=null;
-			po=members.get(username);
-			if(po!=null){
-				return DozerMappingUtil.getInstance().map(po, ManageWEBSalerVO.class);
-			}else{
-				try{
-					HibernateUtil.getCurrentSession().beginTransaction();
-					po=memberDao.getInfo(username);
-					members.put(username, po);
-					HibernateUtil.getCurrentSession().getTransaction().commit();
-					return DozerMappingUtil.getInstance().map(po, ManageWEBSalerVO.class);
-				}catch(RuntimeException e){
-					members.remove(username);
-					try{
-						HibernateUtil.getCurrentSession()
-										.getTransaction()
-										.rollback();
-						return null;
-					}catch(RuntimeErrorException ex){
-						ex.printStackTrace();
-					}
-					throw e;
-				}
-			}
-		}else{
+		try{
+			ManageWEBSalerVO vo=DozerMappingUtil.getInstance().map(getInfo(username), ManageWEBSalerVO.class);
+			System.out.println(vo);
+		return vo;
+		}catch(RuntimeException e){
+			e.printStackTrace();
 			return null;
 		}
 	}

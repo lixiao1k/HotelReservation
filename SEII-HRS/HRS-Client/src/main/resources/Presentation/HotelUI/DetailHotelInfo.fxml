@@ -20,7 +20,7 @@
             <Color blue="1.000" green="0.200" red="0.264" fx:id="x2" />
           </fill>
           <font>
-            <Font name="幼圆" size="20.0" fx:id="x1" />
+            <Font size="20.0" fx:id="x1" />
           </font>
           <VBox.margin>
             <Insets left="3.0" top="5.0" fx:id="x3" />
@@ -45,10 +45,12 @@
                 <Insets fx:id="x5" />
               </HBox.margin>
             </Label>
-            <Label alignment="BOTTOM_CENTER" prefHeight="128.625" text="/5" textAlignment="CENTER" textFill="#9f9f9f">
+
+            <Label alignment="BOTTOM_CENTER" prefHeight="128.625" text="/5.0" textAlignment="CENTER" textFill="#9f9f9f">
               <font>
                 <Font size="20.0" />
               </font>
+
               <HBox.margin>
                 <Insets bottom="10.0" left="3.0" right="3.0" />
               </HBox.margin>

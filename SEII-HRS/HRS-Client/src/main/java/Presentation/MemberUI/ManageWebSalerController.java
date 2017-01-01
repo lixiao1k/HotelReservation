@@ -47,6 +47,7 @@ public class ManageWebSalerController implements Initializable{
 			e1.printStackTrace();
 		}
 		userName.setText(upwebvo.getUsername());
+		System.out.println(upwebvo.getUsername());
 		Name.setText(upwebvo.getName());
 		password.setText(upwebvo.getPassword());
 	}
@@ -59,7 +60,7 @@ public class ManageWebSalerController implements Initializable{
 		  boolean empty=userName.getText().equals("")||Name.getText().equals("")||password.getText().equals("");
 		  if(empty)
 		  {
-				Notifications.create().owner(searchField.getScene().getWindow()).title("閿欒淇℃伅").text("濉啓鍐呭涓嶈兘涓虹┖").showError();
+				Notifications.create().owner(searchField.getScene().getWindow()).title("错误信息").text("不能为空！").showError();
 
 		  }
 		  else
@@ -70,12 +71,12 @@ public class ManageWebSalerController implements Initializable{
 			  MemberResultMessage result1=memberlogic.updateWEBSaler(upwebvo);
 			  if(MemberResultMessage.SUCCESS==result1)
 			  {
-					Notifications.create().owner(searchField.getScene().getWindow()).title("鎻愮ず淇℃伅").text("鎻愪氦鎴愬姛").showConfirm();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("确认信息").text("成功！").showConfirm();
 
 			  }
 			  else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result1)
 			  {
-					Notifications.create().owner(searchField.getScene().getWindow()).title("閿欒淇℃伅").text("瀵嗙爜鏍煎紡閿欒").showError();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("错误信息").text("密码长度不够！").showError();
 
 			  }
 		
@@ -93,7 +94,7 @@ public class ManageWebSalerController implements Initializable{
 			String passadd=password.getText();
 			if(empty)
 			{
-				Notifications.create().owner(searchField.getScene().getWindow()).title("閿欒淇℃伅").text("濉啓鍐呭涓嶈兘涓虹┖").showError();
+				Notifications.create().owner(searchField.getScene().getWindow()).title("错误信息").text("不能为空！").showError();
 			}
 			else
 			{
@@ -103,12 +104,12 @@ public class ManageWebSalerController implements Initializable{
 				MemberResultMessage result=memberlogic.addWEBSaler(addwebvo);
 				if(MemberResultMessage.SUCCESS==result)
 				{
-					Notifications.create().owner(searchField.getScene().getWindow()).title("鎻愮ず淇℃伅").text("娣诲姞鎴愬姛").showError();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("确认信息").text("成功！").showError();
 
 				}
 				else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result)
 				{
-					Notifications.create().owner(searchField.getScene().getWindow()).title("閿欒淇℃伅").text("瀵嗙爜鏍煎紡閿欒").showError();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("错误信息").text("密码长度不够！").showError();
 
 				}
 
