@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
+import org.hibernate.Hibernate;
+
 import data.dao.MemberDao;
 import data.dao.impl.DaoManager;
 import info.Cache;
@@ -310,18 +312,22 @@ public class MemberDO {
 		try{
 			HibernateUtil.getCurrentSession().beginTransaction();
 			ListWrapper<MemberPO> polist=memberDao.manageInfo(hotelname);
-			HibernateUtil.getCurrentSession().getTransaction().commit();
 			List<ManageHotelVO> volist=new ArrayList<>();
 			Iterator<MemberPO> it=polist.iterator();
 			while(it.hasNext()){
 				MemberPO po=it.next();
 				HotelWorkerPO hotelworker=(HotelWorkerPO)po;
 				HotelPO hotel=hotelworker.getHotel();
+				Hibernate.initialize(hotel.getBusinessCircle());
+				Hibernate.initialize(hotel.getBusinessCity());
 				ManageHotelVO managehotelvo=new ManageHotelVO(hotel.getName(), hotel.getAddress(), hotel.getBusinessCity(), hotel.getBusinessCircle(), hotel.getHid(), po.getMid(), po.getUser().getUsername(), po.getUser().getPassword(), po.getName());
 				volist.add(managehotelvo);
 			}
+
+			HibernateUtil.getCurrentSession().getTransaction().commit();
 			return new ListWrapper<ManageHotelVO>(volist);
 		}catch(RuntimeException e){
+			e.printStackTrace();
 			try{
 				HibernateUtil.getCurrentSession().getTransaction().rollback();
 			}catch(RuntimeErrorException ex){
@@ -335,7 +341,13 @@ public class MemberDO {
 	public ManageWEBSalerVO getWEBSaler(String username) throws RemoteException {
 		try{
 			ManageWEBSalerVO vo=DozerMappingUtil.getInstance().map(getInfo(username), ManageWEBSalerVO.class);
-			System.out.println(vo);
+			HibernateUtil.getCurrentSession().beginTransaction();
+			UserPO po = DaoManager.getInstance().getUserDao().getInfo(username);
+			if(po!=null){
+			vo.setPassword(Base64Util.decode(po.getPassword()));
+			vo.setUsername(Base64Util.decode(po.getUsername()));
+			}
+			HibernateUtil.getCurrentSession().getTransaction().commit();
 		return vo;
 		}catch(RuntimeException e){
 			e.printStackTrace();

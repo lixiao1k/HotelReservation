@@ -16,13 +16,13 @@ public class UserPO {
 	public UserPO(String username,String password){
 		this.username = username;
 		this.password = password;
-		setStatus(UserStatus.ONLINE);
+		setStatus(UserStatus.OFFLINE);
 	}
 	public UserPO(String username,String password, UserType type){
 		this.username = username;
 		this.password = password;
 		this.type=type;
-		setStatus(UserStatus.ONLINE);
+		setStatus(UserStatus.OFFLINE);
 	}
 	public String getUsername(){
 		return this.username;
