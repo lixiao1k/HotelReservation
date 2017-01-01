@@ -647,7 +647,7 @@ public class HotelBrowseController implements Initializable{
 							hsVO=it.next();
 							System.out.println("shdadisdaj");
 							//有网站针对全部客房的优惠
-							if(hsVO.getItems()==null)
+							if(hsVO.getHotelId()==0)
 							{
 								if(hsVO.getOff()<leastOff)
 								{
@@ -656,11 +656,6 @@ public class HotelBrowseController implements Initializable{
 									newOrder.setStrategy(hsVO.getId());
 									newOrder.setStrategyOff(leastOff);
 									
-								}
-								else
-								{
-									newOrder.setStrategy(hsVO.getId());
-									newOrder.setStrategyOff(leastOff);
 								}
 							
 							}
@@ -684,7 +679,7 @@ public class HotelBrowseController implements Initializable{
 							}
 							
 						}
-				
+
 						strategyText.setText(strategyDes);
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
@@ -751,7 +746,6 @@ public class HotelBrowseController implements Initializable{
 		    	    newOrder.setContactWay(contactWayField.getText());
 		    	    newOrder.setPeople(people);
 		    	    newOrder.setRoomNum((int)roomNumBox.getValue());
-		    	    newOrder.setStrategy(-1);
 		    	   try {
 		    		   orderLogic=serviceFactory.getOrderLogicService();
 		    		   OrderResultMessage result=orderLogic.create(newOrder);
