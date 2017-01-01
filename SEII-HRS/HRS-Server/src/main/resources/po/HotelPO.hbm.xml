@@ -38,7 +38,14 @@
   		    	<param name="type">12</param>
  		   </type>
         </property>
-        <one-to-one name="hotelworker" class="po.HotelWorkerPO" cascade="all" property-ref="hotel"></one-to-one>
+        <many-to-one 
+        name="hotelworker" 
+        class="po.HotelWorkerPO" 
+        column="M_ID"
+        unique="true"
+        not-null="true"
+        lazy="proxy"
+        />
         <many-to-one 
             name="businessCity"
             column="BCITY_ID"

@@ -1,9 +1,15 @@
 package vo;
 
+import java.io.Serializable;
+
 import info.BusinessCircle;
 import info.BusinessCity;
 
-public class ManageHotelVO {
+public class ManageHotelVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6299432276304786462L;
 	private String hotelname;
 	private String address;
 	private BusinessCity bussinesscity;
