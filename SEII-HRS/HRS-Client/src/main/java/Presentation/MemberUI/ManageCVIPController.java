@@ -55,13 +55,11 @@ public class ManageCVIPController implements Initializable{
 		{
 			String nameup=CompanyName.getText();
 			clvo.setCompanyname(nameup);
-			if(MemberResultMessage.SUCCESS==memberlogic.updateClient(clvo))
+			MemberResultMessage result=memberlogic.updateClient(clvo);
+			if(MemberResultMessage.SUCCESS==result)
 			{
-				Stage clickCheck=new Stage();
-				  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
-				  Scene scene=new Scene(root,275,125);
-				  clickCheck.setScene(scene);
-				  clickCheck.show();
+				Notifications.create().owner(CompanyName.getScene().getWindow()).title("系统提示").text("提交成功").show();
+
 				  CompanyName.clear();
 			}
 			else

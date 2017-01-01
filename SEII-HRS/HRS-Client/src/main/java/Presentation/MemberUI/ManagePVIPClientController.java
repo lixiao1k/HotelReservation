@@ -60,13 +60,11 @@ public class ManagePVIPClientController implements Initializable{
 			String Birthup=BirthDayTime.getText();
 			
 			clvo.setCompanyname(Birthup);
-			if(MemberResultMessage.SUCCESS==memberlogic.updateClient(clvo))
+			MemberResultMessage result=memberlogic.updateClient(clvo);
+			if(MemberResultMessage.SUCCESS==result)
 			{
-				Stage clickCheck=new Stage();
-				  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
-				  Scene scene=new Scene(root,275,125);
-				  clickCheck.setScene(scene);
-				  clickCheck.show();
+				Notifications.create().owner(BirthDayTime.getScene().getWindow()).title("提示信息").text("提交成功").show();
+
 				  BirthDayTime.clear();
 			}
 			else

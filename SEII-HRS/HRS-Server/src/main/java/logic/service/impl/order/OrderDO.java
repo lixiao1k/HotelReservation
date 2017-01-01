@@ -166,10 +166,7 @@ public class OrderDO {
 		// 时间标记
 		Date now = new Date();
 		//为了安全性问题加入数据验证，
-		if (!(vo.getCheckInTime().before(vo.getCheckOutTime())
-				&& vo.getCheckInTime().after(now)))
-			return OrderResultMessage.FAIL_WRONGORDERINFO;
-		else if (!(vo.getPeople()>0))
+		if (!(vo.getPeople()>0))
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
 		else if (!(vo.getHotelId()>0&&vo.getUserId()>0))
 			return OrderResultMessage.FAIL_WRONGORDERINFO;
@@ -237,6 +234,7 @@ public class OrderDO {
 		while(hoiit.hasNext()){
 			HotelItem oi = hoiit.next();
 			roomFlag = false;
+			System.out.println(room.getType()+" "+vo.getRoomPrice());
 		    if (oi.getRoom().getType().equals(room.getType())){
 		    	if (oi.getNum()>=vo.getRoomNum()&&Math.abs(oi.getPrice()-vo.getRoomPrice())<1){
 		    		roomFlag = true;
@@ -245,9 +243,11 @@ public class OrderDO {
 		    }
 		}
 		if (!roomFlag) return OrderResultMessage.FAIL_WRONGORDERINFO;
+		System.out.println(1);
 		//使用Dozer快速转换包括可能存在深克隆的属性
 		OrderPO po = DozerMappingUtil.getInstance().map(vo, OrderPO.class);
 		po.setCommented(false);
+		if(spo!=null)
 		if(spo.getType().getName().contains("WEB")){
 			po.setOff(spo.getOff());
 		}else{

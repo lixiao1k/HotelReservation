@@ -21,7 +21,7 @@
             <Insets left="40.0" right="150.0" />
          </GridPane.margin>
       </TextField>
-      <Button mnemonicParsing="false" onAction="#Search" text="搜索">
+      <Button mnemonicParsing="false" onAction="#Search" text="搜索" textFill="#0a0303">
          <font>
             <Font size="20.0" />
          </font>

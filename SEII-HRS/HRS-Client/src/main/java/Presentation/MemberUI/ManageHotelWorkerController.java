@@ -132,7 +132,7 @@ public class ManageHotelWorkerController implements Initializable {
 		else
 		{
 			ManageHotelVO vo;
-			ManageHotelWorkerVO commitvo=null;
+			ManageHotelWorkerVO commitvo=new ManageHotelWorkerVO(0, 0, "", "", "");
 			vo=hotellist.getSelectionModel().getSelectedItem();
 			long hotelid=vo.getHotelid();
 			commitvo.setHotelid(hotelid);
@@ -140,17 +140,15 @@ public class ManageHotelWorkerController implements Initializable {
 			commitvo.setName(nameup);
 			String passup=password.getText();
 			commitvo.setPassword(passup);
-			if(MemberResultMessage.SUCCESS==memberlogic.updateHotelWorker(commitvo))
+			MemberResultMessage result=memberlogic.updateHotelWorker(commitvo);
+			if(MemberResultMessage.SUCCESS==result)
 			{
-				Stage clickCheck=new Stage();
-				  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
-				  Scene scene=new Scene(root,275,125);
-				  clickCheck.setScene(scene);
-				  clickCheck.show();
+				Notifications.create().owner(searchHotel.getScene().getWindow()).title("提示信息").text("提交成功").show();
+
 				  workerName.clear();
 				  password.clear();
 			}
-			else if(MemberResultMessage.FAIL_PASSWORDLENGTH==memberlogic.updateHotelWorker(commitvo))
+			else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result)
 			{
 				Notifications.create().owner(searchHotel.getScene().getWindow()).title("错误信息").text("密码不符合格式").showError();
 				

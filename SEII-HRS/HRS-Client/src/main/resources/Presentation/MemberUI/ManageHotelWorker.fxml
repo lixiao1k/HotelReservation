@@ -10,7 +10,7 @@
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="576.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MemberUI.ManageHotelWorkerController">
   <!-- TODO Add Nodes -->
   <children>
-    <Label alignment="CENTER" prefHeight="30.0" prefWidth="62.0" text="名称：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <Label alignment="CENTER" prefHeight="30.0" prefWidth="62.0" text="名称：" textFill="#fcfcfc" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <font>
         <Font size="20.0" fx:id="x1" />
       </font>
@@ -18,7 +18,7 @@
         <Insets left="50.0" />
       </GridPane.margin>
     </Label>
-    <Label font="$x1" prefHeight="30.0" prefWidth="62.0" text="密码：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <Label font="$x1" prefHeight="30.0" prefWidth="62.0" text="密码：" textFill="#fcfcfc" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <GridPane.margin>
         <Insets left="50.0" top="100.0" />
       </GridPane.margin>
@@ -38,7 +38,7 @@
             <Insets left="50.0" right="180.0" />
          </GridPane.margin>
       </TextField>
-      <Button mnemonicParsing="false" onAction="#Search" text="搜索">
+      <Button mnemonicParsing="false" onAction="#Search" text="搜索" textFill="#0a0303">
          <GridPane.margin>
             <Insets left="410.0" />
          </GridPane.margin>
@@ -46,7 +46,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" onAction="#Commit" text="提交" GridPane.rowIndex="1">
+      <Button mnemonicParsing="false" onAction="#Commit" text="提交" textFill="#0a0303" GridPane.rowIndex="1">
          <font>
             <Font size="20.0" />
          </font>
@@ -54,7 +54,7 @@
             <Insets left="300.0" top="230.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" onAction="#Cancel" text="取消" GridPane.rowIndex="1">
+      <Button mnemonicParsing="false" onAction="#Cancel" text="取消" textFill="#0a0303" GridPane.rowIndex="1">
          <font>
             <Font size="20.0" />
          </font>

@@ -66,7 +66,8 @@ public class ManageWebSalerController implements Initializable{
 			  upwebvo.setName(nameup);
 			  upwebvo.setPassword(passup);
 			  upwebvo.setUsername(userup);
-			  if(MemberResultMessage.SUCCESS==memberlogic.updateWEBSaler(upwebvo))
+			  MemberResultMessage result1=memberlogic.updateWEBSaler(upwebvo);
+			  if(MemberResultMessage.SUCCESS==result1)
 			  {
 				  Stage clickCheck=new Stage();
 				  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
@@ -74,7 +75,7 @@ public class ManageWebSalerController implements Initializable{
 				  clickCheck.setScene(scene);
 				  clickCheck.show();
 			  }
-			  else if(MemberResultMessage.FAIL_PASSWORDLENGTH==memberlogic.updateWEBSaler(upwebvo))
+			  else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result1)
 			  {
 					Notifications.create().owner(searchField.getScene().getWindow()).title("错误信息").text("密码格式错误").showError();
 
@@ -88,7 +89,7 @@ public class ManageWebSalerController implements Initializable{
 	public void AddInfo() throws IOException
 	{
 		  boolean empty=userName.getText().equals("")||Name.getText().equals("")||password.getText().equals("");
-
+		  	addwebvo=new ManageWEBSalerVO(0, null, null, null);
 			String useradd=userName.getText();
 			String nameadd=Name.getText();
 			String passadd=password.getText();
@@ -101,8 +102,8 @@ public class ManageWebSalerController implements Initializable{
 				addwebvo.setName(nameadd);
 				addwebvo.setPassword(passadd);
 				addwebvo.setUsername(useradd);
-				
-				if(MemberResultMessage.SUCCESS==memberlogic.addWEBSaler(addwebvo))
+				MemberResultMessage result=memberlogic.addWEBSaler(addwebvo);
+				if(MemberResultMessage.SUCCESS==result)
 				{
 					Stage addCheck=new Stage();
 					  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/addCheck.fxml"));
@@ -110,7 +111,7 @@ public class ManageWebSalerController implements Initializable{
 					  addCheck.setScene(scene);
 					  addCheck.show();
 				}
-				else if(MemberResultMessage.FAIL_PASSWORDLENGTH==memberlogic.addWEBSaler(addwebvo))
+				else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result)
 				{
 					Notifications.create().owner(searchField.getScene().getWindow()).title("错误信息").text("密码格式错误").showError();
 

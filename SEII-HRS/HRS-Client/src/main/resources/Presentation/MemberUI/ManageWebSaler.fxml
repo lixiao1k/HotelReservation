@@ -20,7 +20,7 @@
             <Insets bottom="350.0" left="50.0" right="180.0" />
          </GridPane.margin>
       </TextField>
-      <Button mnemonicParsing="false" onAction="#Search" text="搜索">
+      <Button mnemonicParsing="false" onAction="#Search" text="搜索" textFill="#0a0303">
          <GridPane.margin>
             <Insets bottom="350.0" left="420.0" />
          </GridPane.margin>
@@ -28,7 +28,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Label text="用户名：">
+      <Label text="用户名：" textFill="#fcfcfc">
          <font>
             <Font size="18.0" />
          </font>
@@ -41,7 +41,7 @@
             <Insets bottom="250.0" left="100.0" right="120.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="昵称：">
+      <Label text="昵称：" textFill="#fcfcfc">
          <font>
             <Font size="18.0" />
          </font>
@@ -54,7 +54,7 @@
             <Insets bottom="150.0" left="100.0" right="120.0" />
          </GridPane.margin>
       </TextField>
-      <Label text="密码：">
+      <Label text="密码：" textFill="#fcfcfc">
          <GridPane.margin>
             <Insets bottom="50.0" left="50.0" />
          </GridPane.margin>
@@ -67,7 +67,7 @@
             <Insets bottom="50.0" left="100.0" right="120.0" />
          </GridPane.margin>
       </TextField>
-      <Button fx:id="addBT" mnemonicParsing="false" onAction="#AddInfo" text="添加">
+      <Button fx:id="addBT" mnemonicParsing="false" onAction="#AddInfo" text="添加" textFill="#0a0303">
          <GridPane.margin>
             <Insets left="300.0" top="320.0" />
          </GridPane.margin>
@@ -75,7 +75,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="commitBT" mnemonicParsing="false" onAction="#Commit" text="提交">
+      <Button fx:id="commitBT" mnemonicParsing="false" onAction="#Commit" text="提交" textFill="#0a0303">
          <font>
             <Font size="20.0" />
          </font>

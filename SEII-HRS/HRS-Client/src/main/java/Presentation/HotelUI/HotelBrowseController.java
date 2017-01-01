@@ -694,7 +694,7 @@ public class HotelBrowseController implements Initializable{
 			System.out.println(num);
 			moneyTotal=num*lprice*newOrder.getStrategyOff();
 			orderTotal.setText(String.valueOf(moneyTotal)+"元");
-			newOrder.setRoomPrice(moneyTotal);
+			newOrder.setRoomPrice(lprice);
    	    });
 		
 		Label empty=new Label();
@@ -735,7 +735,7 @@ public class HotelBrowseController implements Initializable{
 		    	    newOrder.setContactWay(contactWayField.getText());
 		    	    newOrder.setPeople(people);
 		    	    newOrder.setRoomNum((int)roomNumBox.getValue());
-		    	    
+		    	    newOrder.setStrategy(-1);
 		    	   try {
 		    		   orderLogic=serviceFactory.getOrderLogicService();
 		    		   OrderResultMessage result=orderLogic.create(newOrder);
