@@ -37,6 +37,7 @@ public class ManagePVIPClientController implements Initializable{
 		}
 		clvo=(ManageClientVO)DataController.getInstance().get("searchClient");
 		
+		if(clvo.getBirthday()!=null)
 		BirthDayTime.setText(clvo.getBirthday().toString());;
 
 		

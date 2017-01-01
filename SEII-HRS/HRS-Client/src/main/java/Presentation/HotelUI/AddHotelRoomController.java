@@ -115,19 +115,20 @@ public class AddHotelRoomController implements Initializable{
 		}
 	
 		ahvo.setItems(roomSet);
-		if(	hotelLogic.addHotel(ahvo).getResultMessage()==HotelResultMessage.SUCCESS)
+		System.out.println(ahvo.getUsername());
+		HotelResultMessage m=hotelLogic.addHotel(ahvo).getResultMessage();
+		if(	m==HotelResultMessage.SUCCESS)
 		{
-			Notifications.create().owner(num3.getScene().getWindow()).title("鎻愮ず淇℃伅").text("鎻愪氦鎴愬姛").showConfirm();;
-			DataController.getInstance().putAndUpdate("HotelId", hotelLogic.addHotel(ahvo).getHotelId());
+			Notifications.create().owner(num3.getScene().getWindow()).title("提示信息").text("添加成功！").showConfirm();
 		}
-		else if(hotelLogic.addHotel(ahvo).getResultMessage()==HotelResultMessage.FAIL)
+		else if(m==HotelResultMessage.FAIL)
 		{
-			Notifications.create().owner(num3.getScene().getWindow()).title("閿欒淇℃伅").text("娣诲姞澶辫触").showError();
+			Notifications.create().owner(num3.getScene().getWindow()).title("错误信息").text("添加失败，未知错误！").showError();
 
 		}
-		else if(hotelLogic.addHotel(ahvo).getResultMessage()==HotelResultMessage.FAIL_NOTENOUGHINFO)
+		else if(m==HotelResultMessage.FAIL_NOTENOUGHINFO)
 		{
-			Notifications.create().owner(num3.getScene().getWindow()).title("閿欒淇℃伅").text("濉啓鍐呭涓嶈兘涓虹┖!").showError();
+			Notifications.create().owner(num3.getScene().getWindow()).title("错误信息").text("添加失败，信息不全！").showError();
 
 		}
 	}
@@ -167,7 +168,7 @@ public class AddHotelRoomController implements Initializable{
 				e.printStackTrace();
 			}
 		 ahvo=(AddHotelVO)DataController.getInstance().get("addHotelInfo");
-		
+		 System.out.println(ahvo.getUsername());
 	}
 	
 	

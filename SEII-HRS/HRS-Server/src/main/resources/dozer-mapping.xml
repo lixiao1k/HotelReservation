@@ -65,26 +65,26 @@
     </field>
 </mapping>
 <mapping>
-   <class-a>po.MemberPO</class-a>
+   <class-a>vo.MemberVO</class-a>
     <class-b>vo.ManageHotelWorkerVO</class-b>
     <field>
-        <a>mid</a>
+        <a>memberId</a>
         <b>userid</b>
     </field>
 </mapping>
 <mapping>
-   <class-a>po.MemberPO</class-a>
+   <class-a>vo.MemberVO</class-a>
     <class-b>vo.ManageClientVO</class-b>
     <field>
-        <a>mid</a>
+        <a>memberId</a>
         <b>userid</b>
     </field>
 </mapping>
 <mapping>
-   <class-a>po.MemberPO</class-a>
+   <class-a>vo.MemberVO</class-a>
     <class-b>vo.ManageHotelVO</class-b>
     <field>
-        <a>mid</a>
+        <a>memberId</a>
         <b>userid</b>
     </field>
     <field>

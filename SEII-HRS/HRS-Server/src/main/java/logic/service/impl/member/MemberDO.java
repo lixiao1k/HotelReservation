@@ -267,18 +267,20 @@ public class MemberDO {
 			try{
 				HibernateUtil.getCurrentSession()
 								.beginTransaction();
-				MemberPO po = memberDao.getInfo(username);
+				MemberPO po = memberDao.getInfo(Base64Util.encode(username));
+				System.out.println(Base64Util.encode(username));
 				if(po!=null){
 					members.put(username, po);
-					HibernateUtil.getCurrentSession()
-									.getTransaction()
-									.commit();
 					MemberVO vo = DozerMappingUtil.getInstance().map(po, MemberVO.class);
+					HibernateUtil.getCurrentSession()
+						.getTransaction()
+						.commit();
 					return vo;
 				}else{
 					return null;
 				}
 			}catch(RuntimeException e){
+				e.printStackTrace();
 				members.remove(username);
 				try{
 					HibernateUtil.getCurrentSession()
@@ -294,7 +296,14 @@ public class MemberDO {
 	}
 
 	public ManageClientVO getClient(String username) throws RemoteException {
-		return DozerMappingUtil.getInstance().map(getInfo(username), ManageClientVO.class);
+		try{
+			ManageClientVO vo=DozerMappingUtil.getInstance().map(getInfo(username), ManageClientVO.class);
+			System.out.println(vo);
+		return vo;
+		}catch(RuntimeException e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public ListWrapper<ManageHotelVO> getAllHotelWorker(String hotelname) throws RemoteException {

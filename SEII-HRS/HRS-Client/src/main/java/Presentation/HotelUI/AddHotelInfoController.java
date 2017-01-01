@@ -108,6 +108,7 @@ public class AddHotelInfoController implements Initializable{
 			  addHotel.setFacility(institutionArea.getText());
 			  addHotel.setName(addHotelField.getText());
 			  addHotel.setMemberName(hotelName.getText());
+			  addHotel.setUsername(hotelName.getText());
 			  addHotel.setPassword(password.getText());
 			  addHotel.setService(serveArea.getText());
 			  switch(star)

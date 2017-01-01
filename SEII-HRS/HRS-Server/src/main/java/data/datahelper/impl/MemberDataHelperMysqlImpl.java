@@ -28,7 +28,7 @@ public class MemberDataHelperMysqlImpl implements MemberDataHelper{
 		Query query = HibernateUtil.getCurrentSession().createQuery(getInfoByString);
 		query.setString("USERNAME", username);
 		List<MemberPO> list = query.list();
-		if(list!=null&&list.size()==1){
+		if(list!=null&&list.size()>=1){
 			return list.get(0);
 		}
 		return null;

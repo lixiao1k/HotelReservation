@@ -40,6 +40,7 @@ public class ScoreUtil {
 			temp+=com.getGrade()*2.25;
 			count++;
 		}
+		if(count!=0)
 		result += temp/(1.0*count);
 		return result;
 	}

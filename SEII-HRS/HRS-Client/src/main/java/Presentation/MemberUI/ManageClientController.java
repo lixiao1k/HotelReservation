@@ -34,16 +34,18 @@ public class ManageClientController implements Initializable{
 		try {
 			memberlogic=servicefactory.getMemberLogicService();
 			clientvo=memberlogic.getClient(username);
+			System.out.println(clientvo);
 			setBaseinfo();
 		} catch (RemoteException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		if(clientvo.getCompanyname()!=null)
+		if(clientvo.getCompanyname()==null)
 		{
+			System.out.println("ssssssssss");
 			try {
-				
-				Parent personVIPBrowse = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/UserUI/ManagePeVIPClient.fxml"));
+				DataController.getInstance().putAndUpdate("searchClient", clientvo);
+				Parent personVIPBrowse = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/MemberUI/ManagePeVIPClient.fxml"));
 				personVIPBrowse.getProperties().put("NAME","PVIPClient" );
 				ObservableList<Node> list =ClientPane.getChildren();
 				for(Node node:list){
