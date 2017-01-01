@@ -225,7 +225,7 @@ public class StrategyDO {
 			HotelStrategyVO vo = DozerMappingUtil.getInstance().map(po, HotelStrategyVO.class);
 			vo.setExtraInfo(SerializeUtil.blobToStrategyRule(po.getRule()).getInfo());
 			Set<StrategyItemVO> set = new HashSet<>();
-			if(po.getStrategyRoom()==null){
+			if(po.getHotel()==null){
 				result.add(vo);
 				continue;
 			}

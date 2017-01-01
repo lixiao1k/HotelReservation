@@ -95,11 +95,10 @@ public class CreateOrderController implements Initializable{
 
 		    }
 		    newOrder.setChild(child);
-		
-		    double totalNum=0;
-		    totalNum=newOrder.getRoomNum()*leastPrice*newOrder.getStrategyOff();
-		    newOrder.setRoomPrice(totalNum);
-		    totalMoney.setText(String.valueOf(totalNum));
+		    double roompri=0;
+		    roompri=leastPrice*newOrder.getStrategyOff();
+		    newOrder.setRoomPrice(roompri);
+		   
 		
 		    try {
 				orderLogic=serviceFactory.getOrderLogicService();
@@ -142,6 +141,9 @@ public class CreateOrderController implements Initializable{
 		   roomNumBox.setValue(num);
 		  
 		   newOrder.setRoomNum(num);
+		   double totalNum=0;
+		    totalNum=newOrder.getRoomNum()*leastPrice*newOrder.getStrategyOff();
+		    totalMoney.setText(String.valueOf(totalNum));
 	}
 	
     public void checkStrategy()
