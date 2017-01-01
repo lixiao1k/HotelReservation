@@ -56,7 +56,7 @@ public class BrowseRoomListController implements Initializable{
 		Room src = source.getRoom();
 		Room tar = target.getRoom();
 		if(source.getNum()<num){
-			Notifications.create().owner(roomListView.getScene().getWindow()).title("更新客房").text("请输入正确的数量！").showError();
+			Notifications.create().owner(roomListView.getScene().getWindow()).title("更新客房").text("请输入正确的数量").showError();
 
 			return;
 		}
@@ -87,7 +87,7 @@ public class BrowseRoomListController implements Initializable{
 			e.printStackTrace();
 			Notifications.create().title("更新客房").text("未知错误").showError();
 
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("锟斤拷锟侥凤拷锟斤拷锟斤拷息").text("锟斤拷锟斤拷失锟杰ｏ拷").showError();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("閿熸枻鎷烽敓渚ュ嚖鎷烽敓鏂ゆ嫹閿熸枻鎷锋伅").text("閿熸枻鎷烽敓鏂ゆ嫹澶遍敓鏉帮綇鎷�").showError();
 		}
 	}
 	public void changeRoomInfo(MouseEvent e,HotelItemVO hivo){
@@ -132,7 +132,7 @@ public class BrowseRoomListController implements Initializable{
 				changeRoomInfoAction(hivo,target,num);
 				popOver.hide();
 			}catch(NumberFormatException e3){
-				Notifications.create().owner(roomListView.getScene().getWindow()).title("更新客房").text("请输入正确的客房数量！").showWarning();
+				Notifications.create().owner(roomListView.getScene().getWindow()).title("更新客房").text("璇疯緭鍏ユ纭殑瀹㈡埧鏁伴噺锛�").showWarning();
 
 				popOver.hide();
 			}
