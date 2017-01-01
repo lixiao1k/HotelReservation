@@ -306,6 +306,7 @@ public class HotelDO {
 				}
 			}
 			result.setBookedOrders(oList);
+			if(po.getImageData()!=null)
 			result.setImage(SerializeUtil.byteToImage(po.getImageData()));
 			return result;
 		}

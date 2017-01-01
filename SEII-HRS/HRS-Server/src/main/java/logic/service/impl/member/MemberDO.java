@@ -19,6 +19,7 @@ import po.MemberPO;
 import po.UserPO;
 import po.VIPPO;
 import resultmessage.MemberResultMessage;
+import util.Base64Util;
 import util.DozerMappingUtil;
 import util.HibernateUtil;
 import vo.BasicMemberVO;
@@ -381,7 +382,7 @@ public class MemberDO {
 			throw e;
 		}
 		try{
-			UserPO user=new UserPO(vo.getUsername(), vo.getPassword(), UserType.WEB_SALER);
+			UserPO user=new UserPO(Base64Util.encode(vo.getUsername()), Base64Util.encode(vo.getPassword()), UserType.WEB_SALER);
 			MemberPO po=new MemberPO(vo.getName(), UserType.WEB_SALER, user);
 			user.setMember(po);
 			memberDao.add(po);
@@ -416,6 +417,7 @@ public class MemberDO {
 					cmpo.setContactWay(vo.getPhonenumber());
 					po.setName(vo.getName());
 					memberDao.update(po);
+					members.put(vo.getUserid(), po);
 					HibernateUtil.getCurrentSession().getTransaction().commit();
 					return MemberResultMessage.SUCCESS;
 				}
@@ -484,7 +486,7 @@ public class MemberDO {
 				return MemberResultMessage.FAIL_WRONGID;
 			}else{
 				UserPO upo=po.getUser();
-				upo.setPassword(vo.getPassword());
+				upo.setPassword(Base64Util.encode(vo.getPassword()));
 				po.setUser(upo);
 				po.setName(vo.getName());				
 				memberDao.update(po);
@@ -518,7 +520,7 @@ public class MemberDO {
 				return MemberResultMessage.FAIL_WRONGID;
 			}else{
 				UserPO upo=po.getUser();
-				upo.setPassword(vo.getPassword());
+				upo.setPassword(Base64Util.encode(vo.getPassword()));
 				po.setUser(upo);
 				po.setName(vo.getName());				
 				memberDao.update(po);
