@@ -614,7 +614,22 @@ public class HotelBrowseController implements Initializable{
 						ordervo.setCheckInTime(checkintime);
 						ordervo.setHotelId(item.getHotelId());
 						ordervo.setUserId(userid);
-						
+						Iterator<BusinessCity> cit = bc.iterator();
+						while(cit.hasNext()){
+							BusinessCity bcity = cit.next();
+							Iterator<BusinessCircle> bcirit = bcity.getCircleIterator();
+							boolean flag = true;
+							while(bcirit.hasNext()){
+								BusinessCircle bcir = bcirit.next();
+								if(bcir.getName().equals(circleBox.getSelectionModel().getSelectedItem())){
+									ordervo.setBcir(bcir);
+									flag = false;
+									break;
+								}
+							}
+							if(!flag)
+								break;
+						}
 		ListWrapper<HotelStrategyVO> liststrategy=strategyLogic.getStrategyForOrder(ordervo);
 						Iterator<HotelStrategyVO>it=liststrategy.iterator();
 						HotelStrategyVO hsVO=null;
@@ -624,7 +639,7 @@ public class HotelBrowseController implements Initializable{
 						while(it.hasNext())
 						{
 							hsVO=it.next();
-							System.out.println(leastOff);
+							System.out.println("shdadisdaj");
 							//有网站针对全部客房的优惠
 							if(hsVO.getItems()==null)
 							{

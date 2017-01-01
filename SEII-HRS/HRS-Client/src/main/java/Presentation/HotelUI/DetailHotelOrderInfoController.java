@@ -22,7 +22,7 @@ public class DetailHotelOrderInfoController implements Initializable{
 	@FXML private ChoiceBox<String> orderType;
 	@FXML private ListView<OrderVO> orderListView;
 	private ObservableList<OrderVO> orderData;
-	private String[] otypes={"ȫ������","δִ�ж���","��ִ�ж���","�쳣����","�ѳ�������"};
+	private String[] otypes={"全部订单","未执行订单","异常订单","已执行订单","已撤销订单"};
 	private Map<String,OrderStatus> otypeMap;
 
 	public void searchInChoice(String value){
@@ -31,7 +31,7 @@ public class DetailHotelOrderInfoController implements Initializable{
 		if(value==null)
 			return;
 		else{
-			if(value.equals("ȫ������")){
+			if(value.equals("全部订单")){
 				orderListView.setItems(orderData);
 				return;
 			}
@@ -58,12 +58,12 @@ public class DetailHotelOrderInfoController implements Initializable{
 		orderListView.setCellFactory(e->new HotelOrderInfoClientListCell());
     	ObservableList<String> t = FXCollections.observableArrayList(otypes);
     	orderType.setItems(t);
-    	orderType.setValue("ȫ������");
+    	orderType.setValue("全部订单");
     	otypeMap = new HashMap<>();
-    	otypeMap.put("δִ�ж���", OrderStatus.UNEXECUTED);
-    	otypeMap.put("�쳣����", OrderStatus.ABNORMAL);
-    	otypeMap.put("��ִ�ж���", OrderStatus.EXECUTED);
-    	otypeMap.put("�ѳ�������", OrderStatus.REVOKED);
+    	otypeMap.put("未执行订单", OrderStatus.UNEXECUTED);
+    	otypeMap.put("异常订单", OrderStatus.ABNORMAL);
+    	otypeMap.put("已执行订单", OrderStatus.EXECUTED);
+    	otypeMap.put("已撤销订单", OrderStatus.REVOKED);
     	orderType.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
