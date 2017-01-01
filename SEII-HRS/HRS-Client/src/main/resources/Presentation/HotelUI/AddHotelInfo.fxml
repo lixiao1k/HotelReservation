@@ -10,7 +10,7 @@
 <GridPane alignment="CENTER" hgap="10.0" prefHeight="564.0" prefWidth="768.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HotelUI.AddHotelInfoController">
   <!-- TODO Add Nodes -->
   <children>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="254.0" text="地址：" textAlignment="CENTER" textOverrun="CLIP" underline="false" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="254.0" text="地址：" textAlignment="CENTER" textFill="#f8f5f5" textOverrun="CLIP" underline="false" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
       <font>
         <Font size="20.0" fx:id="x1" />
       </font>
@@ -18,19 +18,19 @@
         <Insets left="60.0" fx:id="x2" />
       </GridPane.margin>
     </Label>
-    <Label alignment="CENTER" font="$x1" prefHeight="53.0" prefWidth="240.0" text="简介：" GridPane.columnIndex="0" GridPane.rowIndex="2">
+    <Label alignment="CENTER" font="$x1" prefHeight="53.0" prefWidth="240.0" text="简介：" textFill="#eeeeee" GridPane.columnIndex="0" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="60.0" />
          </GridPane.margin></Label>
-    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="设施：" GridPane.columnIndex="0" GridPane.rowIndex="3">
+    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="设施：" textFill="#fcf9f9" GridPane.columnIndex="0" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="60.0" />
          </GridPane.margin></Label>
-    <Label alignment="CENTER" font="$x1" prefHeight="53.0" prefWidth="304.0" text="服务：" textOverrun="ELLIPSIS" GridPane.rowIndex="4">
+    <Label alignment="CENTER" font="$x1" prefHeight="53.0" prefWidth="304.0" text="服务：" textFill="#f8f3f3" textOverrun="ELLIPSIS" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="60.0" />
          </GridPane.margin></Label>
-    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="星级：" GridPane.margin="$x2" GridPane.rowIndex="7" />
+    <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="星级：" textFill="#f8f6f6" GridPane.margin="$x2" GridPane.rowIndex="7" />
     <Button font="$x1" mnemonicParsing="false" onAction="#Submit" text="提交" GridPane.columnIndex="1" GridPane.rowIndex="8">
       <GridPane.margin>
         <Insets />
@@ -58,7 +58,7 @@
         <Insets left="290.0" />
       </GridPane.margin>
     </Button>
-      <Label text="酒店名称：">
+      <Label text="酒店名称：" textFill="#fcf7f7">
          <GridPane.margin>
             <Insets left="40.0" />
          </GridPane.margin>
@@ -68,7 +68,7 @@
       </Label>
       <TextField fx:id="addHotelField" GridPane.columnIndex="1" />
       <ChoiceBox fx:id="starChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <Label text="酒店用户名：" GridPane.rowIndex="5">
+      <Label text="酒店用户名：" textFill="#fcf8f8" GridPane.rowIndex="5">
          <font>
             <Font size="20.0" />
          </font>
@@ -76,7 +76,7 @@
             <Insets left="11.0" />
          </GridPane.margin>
       </Label>
-      <Label text="密码：" GridPane.rowIndex="6">
+      <Label text="密码：" textFill="#f8f7f7" GridPane.rowIndex="6">
          <font>
             <Font size="20.0" />
          </font>

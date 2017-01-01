@@ -43,7 +43,6 @@ public class RegisterController implements Initializable {
 	private long userid;
 	@FXML
 	protected void registerbuttonAction(ActionEvent e) throws ParseException, RemoteException{
-
 		if(toggle.getSelectedToggle().getUserData()=="People"){
 			LocalDate birthday=birthdayDatePicker.getValue();
 			if(birthday==null){
