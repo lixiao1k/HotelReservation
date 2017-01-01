@@ -60,7 +60,7 @@ public class ManageHotelWorkerController implements Initializable {
 		String hotel=searchHotel.getText();
 		try {
 			memberlogic=servicefactory.getMemberLogicService();
-			allhotel=memberlogic.getAllHotelWorker(hotel);//得到相同名字的全部酒店信息
+			allhotel=memberlogic.getAllHotelWorker(hotel);//寰楀埌鐩稿悓鍚嶅瓧鐨勫叏閮ㄩ厭搴椾俊鎭�
 			List<ManageHotelVO> hotels = new ArrayList<ManageHotelVO>();
 			Iterator<ManageHotelVO> it;
 			it=allhotel.iterator();
@@ -96,11 +96,11 @@ public class ManageHotelWorkerController implements Initializable {
 			{
 				GridPane cell=new GridPane();
 			     cell.prefWidthProperty().bind(hotellist.widthProperty().subtract(2));
-			     Label address=new Label(item.getBussinesscity().getName());//得到城市名称
+			     Label address=new Label(item.getBussinesscity().getName());//寰楀埌鍩庡競鍚嶇О
 			     address.setFont(new Font("Youyuan",20));
-			     Label circle=new Label(item.getBussinesscircle().getName());//得到商圈名称
+			     Label circle=new Label(item.getBussinesscircle().getName());//寰楀埌鍟嗗湀鍚嶇О
 			     circle.setFont(new Font("Youyuan",20));
-			     Label hotelName=new Label(item.getHotelname());//得到酒店名称
+			     Label hotelName=new Label(item.getHotelname());//寰楀埌閰掑簵鍚嶇О
 			     hotelName.setFont(new Font("Youyuan",20));
 			     
 			     cell.add(address,0,0);
@@ -126,7 +126,7 @@ public class ManageHotelWorkerController implements Initializable {
 		boolean empty=workerName.getText().equals("")||password.getText().equals("");
 		if(empty)
 		{
-			Notifications.create().owner(searchHotel.getScene().getWindow()).title("错误信息").text("填写内容不能为空").showError();
+			Notifications.create().owner(searchHotel.getScene().getWindow()).title("閿欒淇℃伅").text("濉啓鍐呭涓嶈兘涓虹┖").showError();
 
 		}
 		else
@@ -143,14 +143,14 @@ public class ManageHotelWorkerController implements Initializable {
 			MemberResultMessage result=memberlogic.updateHotelWorker(commitvo);
 			if(MemberResultMessage.SUCCESS==result)
 			{
-				Notifications.create().owner(searchHotel.getScene().getWindow()).title("提示信息").text("提交成功").show();
+				Notifications.create().owner(searchHotel.getScene().getWindow()).title("鎻愮ず淇℃伅").text("鎻愪氦鎴愬姛").show();
 
 				  workerName.clear();
 				  password.clear();
 			}
 			else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result)
 			{
-				Notifications.create().owner(searchHotel.getScene().getWindow()).title("错误信息").text("密码不符合格式").showError();
+				Notifications.create().owner(searchHotel.getScene().getWindow()).title("閿欒淇℃伅").text("瀵嗙爜涓嶇鍚堟牸寮�").showError();
 				
 			}
 			

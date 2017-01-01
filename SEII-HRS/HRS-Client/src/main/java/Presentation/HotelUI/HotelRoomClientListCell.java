@@ -31,13 +31,13 @@ public class HotelRoomClientListCell extends ListCell<HotelItemVO>{
             type.setFont(font);
             avaliableNum.setFont(new Font("YouYuan",8));
             price.setFont(new Font("YouYuan",13));
-            Button btn = new Button("ï¿½Â¶ï¿½ï¿½ï¿½");
+            Button btn = new Button("ÏÂ¶©µ¥");
             btn.setId("shiny-orange");
             btn.setOnAction((ActionEvent e)->{
             	try {
 					Object o = DataController.getInstance().get("Root");
 					if(o==null){
-						Notifications.create().title("ï¿½ï¿½Ê¼ï¿½ï¿½").text("ï¿½ï¿½Ê¼ï¿½ï¿½Ê§ï¿½Ü£ï¿½").showError();
+						Notifications.create().title("´íÎóÐÅÏ¢").text("Ã»ÓÐ£¡").showError();
 						return;
 					}
 					DataController.getInstance().putAndUpdate("selectRoomType", item.getRoom().getType());
@@ -55,7 +55,7 @@ public class HotelRoomClientListCell extends ListCell<HotelItemVO>{
 					root.add(p, 3, 1);
             	} catch (Exception e1) {
             		e1.printStackTrace();
-					Notifications.create().title("ï¿½ï¿½Ê¼ï¿½ï¿½").text("ï¿½ï¿½Ê¼ï¿½ï¿½Ê§ï¿½Ü£ï¿½").showError();
+					Notifications.create().title("´íÎóÐÅÏ¢").text("Î´Öª´íÎó").showError();
 					
 				}
             	
