@@ -133,18 +133,7 @@ public class CreateOrderController implements Initializable{
 	}
 
 
-    @FXML
-	public void setRoom()
-	{
-		   int num=0;
-		   num=roomNumBox.getSelectionModel().getSelectedItem();
-		   roomNumBox.setValue(num);
-		  
-		   newOrder.setRoomNum(num);
-		   double totalNum=0;
-		    totalNum=newOrder.getRoomNum()*leastPrice*newOrder.getStrategyOff();
-		    totalMoney.setText(String.valueOf(totalNum));
-	}
+
 	
     public void checkStrategy()
     {
@@ -192,7 +181,7 @@ public class CreateOrderController implements Initializable{
 				Set<HotelItemVO> hotelroom=bhvo.getRooms();
 				for(HotelItemVO hivo:hotelroom)
 				{
-					if(hivo.getRoom().getType()==roomType)
+					if(hivo.getRoom().getType().equals(roomType))
 					{
 
 						newOrder.setRoom(hivo.getRoom());//给订单传房间信息
@@ -216,24 +205,50 @@ public class CreateOrderController implements Initializable{
 			    	if(roomType.equals(hotelroomvo.getRoom().getType()))
 			    	{
 			    		leastPrice=hotelroomvo.getPrice();
-			    	
+			    		System.out.println(leastPrice);
 			    	}
 			    }
 			    
-			    
+			    System.out.println("aaaaa");
 				String strategyName="  ";
 				
 				boolean flag=false;//鏍囪璇ラ厭搴楁湁鏃犱紭鎯犱俊鎭�
 				double offinfo=1;
+				if(!(it.hasNext()))
+				{
+					System.out.println("shidaho");
+					newOrder.setStrategyOff(offinfo);
+					newOrder.setStrategy(-1);
+				}
+				else
+				{
+					System.out.println("bbbbbb");
+				}
 				while(it.hasNext())
 				{
+					System.out.println("y偶东西");
 					hotelstrategyvo=it.next();
 					//鎵�閫夐厭搴楁湁浼樻儬
 					if(hotelid==hotelstrategyvo.getHotelId())
 					{
 						
 						hotelstrategySet=hotelstrategyvo.getItems();
+						if(hotelstrategySet==null)
+						{
+							if(hotelstrategyvo.getOff()<offinfo)
+							{
+								offinfo=hotelstrategyvo.getOff();
 						
+								newOrder.setStrategy(hotelstrategyvo.getId());
+								newOrder.setStrategyOff(offinfo);
+								
+							}
+							else
+							{
+								newOrder.setStrategy(hotelstrategyvo.getId());
+								newOrder.setStrategyOff(offinfo);
+							}
+						}
 						for(StrategyItemVO  sta:hotelstrategySet)
 						{
 							
@@ -258,12 +273,11 @@ public class CreateOrderController implements Initializable{
 					
 					
 				}
+		
 				
 				if(flag)
 				{
 					strategyType.setText(strategyName);
-					
-					
 				}
 				else
 				{
@@ -288,6 +302,22 @@ public class CreateOrderController implements Initializable{
 			   
 	    
     }
+    
+    @FXML
+	public void setRoom()
+	{
+		   int num=0;
+		   num=roomNumBox.getSelectionModel().getSelectedItem();
+		   roomNumBox.setValue(num);
+		  
+		   newOrder.setRoomNum(num);
+		   double totalNum=0;
+		   System.out.println(num);
+		   System.out.println(leastPrice);
+		   System.out.println(newOrder.getStrategyOff());
+		    totalNum=num*leastPrice*newOrder.getStrategyOff();
+		    totalMoney.setText(String.valueOf(totalNum));
+	}
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

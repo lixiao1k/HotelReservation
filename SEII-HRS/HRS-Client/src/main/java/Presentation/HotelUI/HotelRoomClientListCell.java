@@ -31,16 +31,16 @@ public class HotelRoomClientListCell extends ListCell<HotelItemVO>{
             type.setFont(font);
             avaliableNum.setFont(new Font("YouYuan",8));
             price.setFont(new Font("YouYuan",13));
-            Button btn = new Button("ÏÂ¶©µ¥");
+            Button btn = new Button("ï¿½Â¶ï¿½ï¿½ï¿½");
             btn.setId("shiny-orange");
             btn.setOnAction((ActionEvent e)->{
             	try {
 					Object o = DataController.getInstance().get("Root");
 					if(o==null){
-						Notifications.create().title("³õÊ¼»¯").text("³õÊ¼»¯Ê§°Ü£¡").showError();
+						Notifications.create().title("ï¿½ï¿½Ê¼ï¿½ï¿½").text("ï¿½ï¿½Ê¼ï¿½ï¿½Ê§ï¿½Ü£ï¿½").showError();
 						return;
 					}
-					DataController.getInstance().putAndUpdate("selectRoomType", item.getRoom());
+					DataController.getInstance().putAndUpdate("selectRoomType", item.getRoom().getType());
 					Parent p = FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/OrderUI/CreateOrder.fxml"));
 					GridPane root = (GridPane) o;
 					ObservableList<Node> nodes = root.getChildren();
@@ -55,7 +55,7 @@ public class HotelRoomClientListCell extends ListCell<HotelItemVO>{
 					root.add(p, 3, 1);
             	} catch (Exception e1) {
             		e1.printStackTrace();
-					Notifications.create().title("³õÊ¼»¯").text("³õÊ¼»¯Ê§°Ü£¡").showError();
+					Notifications.create().title("ï¿½ï¿½Ê¼ï¿½ï¿½").text("ï¿½ï¿½Ê¼ï¿½ï¿½Ê§ï¿½Ü£ï¿½").showError();
 					
 				}
             	

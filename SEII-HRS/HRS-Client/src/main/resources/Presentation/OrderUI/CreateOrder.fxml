@@ -109,7 +109,7 @@
             <Insets bottom="115.0" left="75.0" right="350.0" />
          </GridPane.margin>
       </DatePicker>
-      <DatePicker fx:id="checkOuttime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <DatePicker fx:id="checkOuttime" onAction="#checkStrategy" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="115.0" left="220.0" right="200.0" />
          </GridPane.margin>

@@ -636,6 +636,12 @@ public class HotelBrowseController implements Initializable{
 						Set<StrategyItemVO> straSet;
 						double leastOff=1;
 						String strategyDes="";
+						if(!(it.hasNext()))
+						{
+							System.out.println("shidaho");
+							newOrder.setStrategyOff(leastOff);
+							newOrder.setStrategy(-1);
+						}
 						while(it.hasNext())
 						{
 							hsVO=it.next();
@@ -678,12 +684,7 @@ public class HotelBrowseController implements Initializable{
 							}
 							
 						}
-						if(!(it.hasNext()))
-						{
-							System.out.println("shidaho");
-							newOrder.setStrategyOff(leastOff);
-							newOrder.setStrategy(-1);
-						}
+				
 						strategyText.setText(strategyDes);
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
