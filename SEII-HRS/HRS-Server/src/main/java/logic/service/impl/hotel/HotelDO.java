@@ -257,7 +257,8 @@ public class HotelDO {
 						oList.add(ovo);
 					}
 					result.setBookedOrders(oList);
-					result.setImage(SerializeUtil.byteToImage(po.getImageData()));
+					if(result.getImage()!=null)
+						result.setImage(SerializeUtil.byteToImage(po.getImageData()));
 				}
 				if(po!=null){
 					initial(po);
