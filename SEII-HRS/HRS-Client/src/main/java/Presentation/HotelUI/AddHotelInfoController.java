@@ -71,79 +71,7 @@ public class AddHotelInfoController implements Initializable{
  private Set<BusinessCircle> setcircle;
  private AddHotelResultVO hresult;
 
-@FXML
-  public void Submit(ActionEvent e)throws IOException
-  {
-	boolean area=(summaryArea.getText().equals(""))||(institutionArea.getText().equals(""))||(serveArea.getText().equals(""));
-	boolean field=(addressField.getText().equals(""))||(addHotelField.getText().equals("")
-			        ||hotelName.getText().equals("")||password.getText().equals(""));
-   
-		Set<HotelItemVO> roomSet=addHotel.getItems();
-	  if(area||field)
-	  {
-		  
-			Notifications.create().owner(addHotelField.getScene().getWindow()).title("错误信息").text("填写内容不能为空").showError();
-	  }
-	  else if(roomSet==null)
-	  {
-			Notifications.create().owner(addHotelField.getScene().getWindow()).title("错误信息").text("请完善客房信息�").showError();
 
-	  }
-	  else
-	  {
-		 
-		  Rank rank=Rank.NONE;
-		  addHotel.setAddress(addressField.getText());
-		  addHotel.setDescription(summaryArea.getText());
-		  addHotel.setFacility(institutionArea.getText());
-		  addHotel.setName(addHotelField.getText());
-		  addHotel.setMemberName(hotelName.getText());
-		  addHotel.setPassword(password.getText());
-		  addHotel.setService(serveArea.getText());
-		  switch(star)
-		  {
-		  case"无":{
-			  break;
-		  }
-		  case"一星级":
-		  {
-			  rank=Rank.ONE;break;
-		  }
-		  case"二星级":
-		  {
-			  rank=Rank.TWO;break;
-		  }
-		  case"三星级":
-		  {
-			  rank=Rank.THREE;break;
-		  }
-		  case"四星级":
-		  {
-			  rank=Rank.FOUR;break;
-		  }
-		  case"五星级":
-		  {
-			  rank=Rank.FIVE;break;
-		  }
-		  
-			  
-		  }
-		  
-		  addHotel.setRank(rank);
-		 hresult= hotelLogic.addHotel(addHotel);
-		 if(hresult.getResultMessage()==HotelResultMessage.SUCCESS)
-		 {
-			 Notifications.create().owner(hotelName.getScene().getWindow()).title("提示信息").text("添加成功").showConfirm();
-			 
-		 }
-		 else
-		 {
-			 Notifications.create().owner(hotelName.getScene().getWindow()).title("错误信息").text("添加错误").showError();
-		 }
-
-	  }
-	  
-  }
   
   @FXML
   //閿熸枻鎷烽敓楗衡槄鎷烽敓锟� 閿熸枻鎷烽敓鏂ゆ嫹鍐欓敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿燂拷
@@ -161,6 +89,61 @@ public class AddHotelInfoController implements Initializable{
   //璺宠浆鍒板綍鍏ラ厭搴楀鎴夸俊鎭晫闈�
   public void goNext() throws IOException
   {
+	  boolean area=(summaryArea.getText().equals(""))||(institutionArea.getText().equals(""))||(serveArea.getText().equals(""));
+		boolean field=(addressField.getText().equals(""))||(addHotelField.getText().equals("")
+				        ||hotelName.getText().equals("")||password.getText().equals(""));
+	   
+		  if(area||field)
+		  {
+			  
+				Notifications.create().owner(addHotelField.getScene().getWindow()).title("错误信息").text("填写内容不能为空").showError();
+		  }
+
+		  else
+		  {
+			 
+			  Rank rank=Rank.NONE;
+			  addHotel.setAddress(addressField.getText());
+			  addHotel.setDescription(summaryArea.getText());
+			  addHotel.setFacility(institutionArea.getText());
+			  addHotel.setName(addHotelField.getText());
+			  addHotel.setMemberName(hotelName.getText());
+			  addHotel.setPassword(password.getText());
+			  addHotel.setService(serveArea.getText());
+			  switch(star)
+			  {
+			  case"无":{
+				  break;
+			  }
+			  case"一星级":
+			  {
+				  rank=Rank.ONE;break;
+			  }
+			  case"二星级":
+			  {
+				  rank=Rank.TWO;break;
+			  }
+			  case"三星级":
+			  {
+				  rank=Rank.THREE;break;
+			  }
+			  case"四星级":
+			  {
+				  rank=Rank.FOUR;break;
+			  }
+			  case"五星级":
+			  {
+				  rank=Rank.FIVE;break;
+			  }
+			  
+				  
+			  }
+			  
+			  addHotel.setRank(rank);
+
+
+		  }
+	  
 		DataController.getInstance().putAndUpdate("addHotelInfo", addHotel);
 	  GridPane mainpane=(GridPane)addressField.getScene().getWindow().getScene().getRoot();
 	  Parent pane=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/AddHotelRoom.fxml"));

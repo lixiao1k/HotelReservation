@@ -31,11 +31,6 @@
             <Insets left="60.0" />
          </GridPane.margin></Label>
     <Label alignment="CENTER" font="$x1" prefHeight="43.0" prefWidth="304.0" text="星级：" textFill="#f8f6f6" GridPane.margin="$x2" GridPane.rowIndex="7" />
-    <Button font="$x1" mnemonicParsing="false" onAction="#Submit" text="提交" GridPane.columnIndex="1" GridPane.rowIndex="8">
-      <GridPane.margin>
-        <Insets />
-      </GridPane.margin>
-    </Button>
     <TextField fx:id="addressField" prefHeight="34.0" prefWidth="440.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="330.0" right="10.0" />
