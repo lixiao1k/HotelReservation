@@ -823,7 +823,7 @@ public class HotelBrowseController implements Initializable{
 	}
 	
 	//浏览酒店详细信息
-	public void goHotelDetail()
+	public void goHotelDetail() throws RemoteException
 	{
 		//没选中酒店
 		if(hotelListView.getSelectionModel().getSelectedItem()==null)
@@ -835,6 +835,22 @@ public class HotelBrowseController implements Initializable{
 			BasicHotelVO selecthotel;
 			selecthotel=hotelListView.getSelectionModel().getSelectedItem();
 			DataController.getInstance().putAndUpdate("selectHotel", selecthotel);
+			Iterator<BusinessCity> cit = bc.iterator();
+			while(cit.hasNext()){
+				BusinessCity bcity = cit.next();
+				Iterator<BusinessCircle> bcirit = bcity.getCircleIterator();
+				boolean flag = true;
+				while(bcirit.hasNext()){
+					BusinessCircle bcir = bcirit.next();
+					if(bcir.getName().equals(circleBox.getSelectionModel().getSelectedItem())){
+						DataController.getInstance().putAndUpdate("hotelBussinessCircle", bcir);
+						flag = false;
+						break;
+					}
+				}
+				if(!flag)
+					break;
+			}
 			GridPane client=(GridPane)searchField.getScene().getWindow().getScene().getRoot();
 			FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("Presentation/HotelUI/DetailHotelInfo.fxml"));
 			try {

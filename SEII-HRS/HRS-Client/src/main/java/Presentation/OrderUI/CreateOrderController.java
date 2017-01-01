@@ -17,6 +17,7 @@ import java.util.Set;
 import org.controlsfx.control.Notifications;
 
 import datacontroller.DataController;
+import info.BusinessCircle;
 import info.ListWrapper;
 import info.OrderStrategy;
 import info.Room;
@@ -158,14 +159,16 @@ public class CreateOrderController implements Initializable{
 			   try {
 				 HotelStrategyVO hotelstrategyvo;
 				 HotelItemVO    hotelroomvo;//鏍规嵁hotelid寰楀埌璇ラ厭搴楀叏閮ㄦ埧闂寸被鍨嬩俊鎭�
-				 
+					Object o=DataController.getInstance().get("selectHotel");//寰楀埌鎵�閫夐厭搴楃殑鍩烘湰淇℃伅
+					BasicHotelVO bhvo=(BasicHotelVO)o;
+					BusinessCircle bci=(BusinessCircle)DataController.getInstance().get("hotelBussinessCircle");
 				 
 				strategyLogic=serviceFactory.getStrategyLogicService();
 				ordervo=new OrderStrategy();
 				ordervo.setCheckInTime(checkintime);
 				ordervo.setHotelId(hotelid);
 				ordervo.setUserId(userid);
-				
+				ordervo.setBcir(bci);
 				
 				liststrategy=strategyLogic.getStrategyForOrder(ordervo);
 				Iterator<HotelStrategyVO> it;
@@ -175,9 +178,7 @@ public class CreateOrderController implements Initializable{
 				String roomType=(String)DataController.getInstance().get("selectRoomType");//寰楀埌鎵�閫夐厭搴楁埧鍨�
 				
 				
-				Object o=DataController.getInstance().get("selectHotel");//寰楀埌鎵�閫夐厭搴楃殑鍩烘湰淇℃伅
-				BasicHotelVO bhvo=(BasicHotelVO)o;
-				
+			
 				Set<HotelItemVO> hotelroom=bhvo.getRooms();
 				for(HotelItemVO hivo:hotelroom)
 				{
@@ -289,7 +290,7 @@ public class CreateOrderController implements Initializable{
 				String lastCheckin;
 				Calendar lastCal = Calendar.getInstance();
 				lastCal.setTime(checkintime);
-				lastCal.add(Calendar.AM_PM, 18);
+				lastCal.add(Calendar.HOUR_OF_DAY, 18);
 				Date lastCheck=lastCal.getTime();
 				lastCheckin=sdf.format(lastCheck);
 				lateCheck.setText("璁㈠崟鏈�鏅氭墽琛屾椂闂�:"+lastCheckin);
