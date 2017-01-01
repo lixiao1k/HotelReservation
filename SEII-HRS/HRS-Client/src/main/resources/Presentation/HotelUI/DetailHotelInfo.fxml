@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane id="hotel-detail-pane" fx:id="root" prefHeight="564.0" prefWidth="760.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.HotelUI.DetailHotelInfoController">
+<GridPane id="hotel-detail-pane" fx:id="root" prefHeight="564.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.HotelUI.DetailHotelInfoController">
   <!-- TODO Add Nodes -->
   <children>
     <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -45,7 +45,7 @@
                 <Insets fx:id="x5" />
               </HBox.margin>
             </Label>
-            <Label alignment="BOTTOM_CENTER" prefHeight="128.625" text="/100" textAlignment="CENTER" textFill="#9f9f9f">
+            <Label alignment="BOTTOM_CENTER" prefHeight="128.625" text="/5" textAlignment="CENTER" textFill="#9f9f9f">
               <font>
                 <Font size="20.0" />
               </font>

@@ -221,10 +221,7 @@ public class CreateOrderController implements Initializable{
 					newOrder.setStrategyOff(offinfo);
 					newOrder.setStrategy(-1);
 				}
-				else
-				{
-					System.out.println("bbbbbb");
-				}
+		
 				while(it.hasNext())
 				{
 					System.out.println("y偶东西");
@@ -244,11 +241,7 @@ public class CreateOrderController implements Initializable{
 								newOrder.setStrategyOff(offinfo);
 								
 							}
-							else
-							{
-								newOrder.setStrategy(hotelstrategyvo.getId());
-								newOrder.setStrategyOff(offinfo);
-							}
+					
 						}
 						for(StrategyItemVO  sta:hotelstrategySet)
 						{
@@ -271,7 +264,17 @@ public class CreateOrderController implements Initializable{
 						}
 						strategyName=hotelstrategyvo.getName();
 					}
-					
+					else if(hotelstrategyvo.getHotelId()==0)
+					{
+						if(hotelstrategyvo.getOff()<offinfo)
+						{
+							offinfo=hotelstrategyvo.getOff();
+							
+							newOrder.setStrategy(hotelstrategyvo.getId());
+							newOrder.setStrategyOff(offinfo);
+							
+						}
+					}
 					
 				}
 		
@@ -293,7 +296,7 @@ public class CreateOrderController implements Initializable{
 				lastCal.add(Calendar.HOUR_OF_DAY, 18);
 				Date lastCheck=lastCal.getTime();
 				lastCheckin=sdf.format(lastCheck);
-				lateCheck.setText("璁㈠崟鏈�鏅氭墽琛屾椂闂�:"+lastCheckin);
+				lateCheck.setText("订单最晚执行时间:"+lastCheckin);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
