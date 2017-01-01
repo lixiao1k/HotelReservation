@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="ManagePane" prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.UserUI.ManageUserController">
+<GridPane fx:id="ManagePane" prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.MemberUI.ManageUserController">
   <!-- TODO Add Nodes -->
   <children>
     <Label alignment="CENTER" prefHeight="48.0" prefWidth="161.0" text="选择管理的用户：" GridPane.columnIndex="0" GridPane.rowIndex="0">

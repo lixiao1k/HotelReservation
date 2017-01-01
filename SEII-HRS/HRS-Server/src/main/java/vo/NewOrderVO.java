@@ -1,10 +1,15 @@
 package vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import info.Room;
 
-public class NewOrderVO {
+public class NewOrderVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3061627945144076152L;
 	private long userId;
 	private long hotelId;
 	private boolean child;

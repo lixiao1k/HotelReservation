@@ -64,6 +64,7 @@ import logic.service.HotelLogicService;
 import logic.service.OrderLogicService;
 import logic.service.ServiceFactory;
 import logic.service.StrategyLogicService;
+import resultmessage.OrderResultMessage;
 import rmi.RemoteHelper;
 import vo.BasicHotelVO;
 import vo.HotelItemVO;
@@ -233,6 +234,10 @@ public class HotelBrowseController implements Initializable{
 				lscore=0;
 				hscore=3.0;
 			}
+			case"无":{
+				lscore=0.0;
+				hscore=5.0;
+			}
 			}
 		
 			
@@ -254,6 +259,10 @@ public class HotelBrowseController implements Initializable{
 				lprice=500;
 				hprice=100000;
 				break;
+			}
+			case"无":{
+				lprice=0;
+				hprice=100000;
 			}
 			}
 			
@@ -525,11 +534,13 @@ public class HotelBrowseController implements Initializable{
 	//差一个popover界面
 	public void createOrder(MouseEvent e,BasicHotelVO item,String ltype,Double lprice)
 	{
+		newOrder=new NewOrderVO();
 		Set<HotelItemVO>htVO=item.getRooms();
 		for(HotelItemVO hteVO:htVO)
 		{
 			if(hteVO.getRoom().getType().equals(ltype))
 			{
+				
 				newOrder.setRoom(hteVO.getRoom());
 			}
 		}
@@ -586,77 +597,87 @@ public class HotelBrowseController implements Initializable{
 		strategy.setFont(new Font("Youyuan",20));
 		Label strategyText=new Label();
 		strategyText.setFont(new Font("Youyuan",20));
-		checkout.setOnMouseExited(new EventHandler<MouseEvent>() {
+		checkout.valueProperty().addListener(new ChangeListener<LocalDate>() {
 
 			@Override
-			public void handle(MouseEvent event) {
+			public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
 				// TODO Auto-generated method stub
-					if(checkout.getValue()!=null)
-					{
-						try {
-							strategyLogic=serviceFactory.getStrategyLogicService();
-							LocalDate localcheckin=checkin.getValue();
-							Instant instant = localcheckin.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
-					        Date  checkintime=Date.from(instant);
-					        
-			OrderStrategy	ordervo=new OrderStrategy();
-							ordervo.setCheckInTime(checkintime);
-							ordervo.setHotelId(item.getHotelId());
-							ordervo.setUserId(userid);
-							
-			ListWrapper<HotelStrategyVO> liststrategy=strategyLogic.getStrategyForOrder(ordervo);
-							Iterator<HotelStrategyVO>it=liststrategy.iterator();
-							HotelStrategyVO hsVO=null;
-							Set<StrategyItemVO> straSet;
-							double leastOff=1;
-							String strategyDes="";
-							while(it.hasNext())
+				if(newValue!=null)
+				{
+					try {
+						strategyLogic=serviceFactory.getStrategyLogicService();
+						LocalDate localcheckin=checkin.getValue();
+						Instant instant = localcheckin.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+				        Date  checkintime=Date.from(instant);
+				        
+		OrderStrategy	ordervo=new OrderStrategy();
+						ordervo.setCheckInTime(checkintime);
+						ordervo.setHotelId(item.getHotelId());
+						ordervo.setUserId(userid);
+						
+		ListWrapper<HotelStrategyVO> liststrategy=strategyLogic.getStrategyForOrder(ordervo);
+						Iterator<HotelStrategyVO>it=liststrategy.iterator();
+						HotelStrategyVO hsVO=null;
+						Set<StrategyItemVO> straSet;
+						double leastOff=1;
+						String strategyDes="";
+						while(it.hasNext())
+						{
+							hsVO=it.next();
+							System.out.println(leastOff);
+							//有网站针对全部客房的优惠
+							if(hsVO.getItems()==null)
 							{
-								hsVO=it.next();
-								
-								//有网站针对全部客房的优惠
-								if(hsVO.getItems()==null)
+								if(hsVO.getOff()<leastOff)
 								{
-									if(hsVO.getOff()<leastOff)
-									{
-										leastOff=hsVO.getOff();
-										strategyDes=hsVO.getName();
-										newOrder.setStrategy(hsVO.getId());
-										newOrder.setStrategyOff(leastOff);
-										
-									}
-								
+									leastOff=hsVO.getOff();
+									strategyDes=hsVO.getName();
+									newOrder.setStrategy(hsVO.getId());
+									newOrder.setStrategyOff(leastOff);
+									
 								}
 								else
 								{
-									straSet=hsVO.getItems();
-									for(StrategyItemVO stVO:straSet)
+									newOrder.setStrategy(hsVO.getId());
+									newOrder.setStrategyOff(leastOff);
+								}
+							
+							}
+							else
+							{
+								straSet=hsVO.getItems();
+								for(StrategyItemVO stVO:straSet)
+								{
+									if(stVO.getRoom().getType().equals(ltype))
 									{
-										if(stVO.getRoom().getType().equals(ltype))
+										if(stVO.getOff()<leastOff)
 										{
-											if(stVO.getOff()<leastOff)
-											{
-												leastOff=stVO.getOff();
-												strategyDes=hsVO.getName();
-												newOrder.setStrategy(hsVO.getId());
-												newOrder.setStrategyOff(leastOff);
-												
-											}
+											leastOff=stVO.getOff();
+											strategyDes=hsVO.getName();
+											newOrder.setStrategy(hsVO.getId());
+											newOrder.setStrategyOff(leastOff);
+											
 										}
 									}
 								}
-								
 							}
 							
-							strategyText.setText(strategyDes);
-						} catch (RemoteException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
 						}
-
-
+						if(!(it.hasNext()))
+						{
+							System.out.println("shidaho");
+							newOrder.setStrategyOff(leastOff);
+							newOrder.setStrategy(-1);
+						}
+						strategyText.setText(strategyDes);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-				   
+
+
+				}
+			   
 			}
 		});
 		
@@ -665,18 +686,16 @@ public class HotelBrowseController implements Initializable{
 		Label orderTotal=new Label("");
 		orderTotal.setFont(new Font("Youyuan",20));
 		
-   	    roomNumBox.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-						@Override
-						public void handle(MouseEvent event) {
-							// TODO Auto-generated method stub
-							int num=(int)roomNumBox.getValue();
-							double moneyTotal=0;
-							moneyTotal=num*lprice*newOrder.getStrategyOff();
-							orderTotal.setText(String.valueOf(moneyTotal)+"元");
-							newOrder.setRoomPrice(moneyTotal);
-						}
-					});
+   	    roomNumBox.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> ov,Number old_val,Number new_val)->{
+	   	 	int num=(int)new_val+1;
+			double moneyTotal=0;
+			System.out.println(lprice);
+			System.out.println(newOrder.getStrategyOff());
+			System.out.println(num);
+			moneyTotal=num*lprice*newOrder.getStrategyOff();
+			orderTotal.setText(String.valueOf(moneyTotal)+"元");
+			newOrder.setRoomPrice(moneyTotal);
+   	    });
 		
 		Label empty=new Label();
 		Label empty1=new Label();
@@ -691,10 +710,11 @@ public class HotelBrowseController implements Initializable{
 				if(checkin.getValue()==null||checkout.getValue()==null||roomNumBox.getValue()==null||contactNameField.getText().equals("")
 						||contactWayField.getText().equals("")||peopleField.getText().equals(""))
 				{
-					Notifications.create().owner(commit.getScene().getWindow()).title("错误信息").text("请确认信息完整!").showError();
+					Notifications.create().owner(hotelSearchButton.getScene().getWindow()).title("错误信息").text("请确认信息完整!").showError();
 				}
 				else
 				{
+					System.out.println(1);
 					//入住时间
 					LocalDate localcheckin=checkin.getValue();
 					Instant instant = localcheckin.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
@@ -715,10 +735,22 @@ public class HotelBrowseController implements Initializable{
 		    	    newOrder.setContactWay(contactWayField.getText());
 		    	    newOrder.setPeople(people);
 		    	    newOrder.setRoomNum((int)roomNumBox.getValue());
-		    	  
+		    	    
+		    	   try {
+		    		   orderLogic=serviceFactory.getOrderLogicService();
+		    		   OrderResultMessage result=orderLogic.create(newOrder);
+					if(result==OrderResultMessage.SUCCESS)
+					   {
+						  	popOver.hide();
+						  	Notifications.create().owner(commit.getScene().getWindow()).title("成功信息").text("下订单成功").show();
+						  	
+					   }
+					System.out.println(result);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		    	   
-		 
-					
 				}
 			
 			}
@@ -925,7 +957,7 @@ public class HotelBrowseController implements Initializable{
 			bc = serviceFactory.getHotelLogicService().getCity();
 			Set<String> set = new HashSet<>();//寰楀埌鍏ㄩ儴鍩庡競淇℃伅
 	//		hotelSearchButton.getStylesheets().add(getClass().getClassLoader().getResource("Presentation/MainUI/ClientButton.css").toExternalForm());
-
+		
 			Iterator<BusinessCity> it = bc.iterator();
 			while(it.hasNext())
 			{
@@ -956,6 +988,7 @@ public class HotelBrowseController implements Initializable{
 			limitStar.setValue("三星级");
 			
 			limitRankList=FXCollections.observableArrayList();
+			limitRankList.add("无");
 			limitRankList.add("4.0~5.0");
 			limitRankList.add("3.0~4.0");
 			limitRankList.add("3.0以下");
@@ -963,6 +996,7 @@ public class HotelBrowseController implements Initializable{
 			limitRank.setValue("4.0~5.0");
 			
 			limitPriceList=FXCollections.observableArrayList();
+			limitPriceList.add("无");
 			limitPriceList.add("200元以下");
 			limitPriceList.add("200~500");
 			limitPriceList.add("500元以上");

@@ -17,7 +17,7 @@ public class ClientRunner{
 	public ClientRunner(String[] args){
 		linkToServer();
 		//DataController.getInstance().put("HotelId", (long)1);
-		Application.launch(WebSalerMainUI.class,args);
+		Application.launch(LoginMainUI.class,args);
 	}
 	private void linkToServer() {
 		try {

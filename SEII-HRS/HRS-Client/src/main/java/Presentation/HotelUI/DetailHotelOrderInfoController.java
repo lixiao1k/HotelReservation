@@ -22,7 +22,7 @@ public class DetailHotelOrderInfoController implements Initializable{
 	@FXML private ChoiceBox<String> orderType;
 	@FXML private ListView<OrderVO> orderListView;
 	private ObservableList<OrderVO> orderData;
-	private String[] otypes={"È«²¿¶©µ¥","Î´Ö´ÐÐ¶©µ¥","ÒÑÖ´ÐÐ¶©µ¥","Òì³£¶©µ¥","ÒÑ³·Ïú¶©µ¥"};
+	private String[] otypes={"È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","Î´Ö´ï¿½Ð¶ï¿½ï¿½ï¿½","ï¿½ï¿½Ö´ï¿½Ð¶ï¿½ï¿½ï¿½","ï¿½ì³£ï¿½ï¿½ï¿½ï¿½","ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"};
 	private Map<String,OrderStatus> otypeMap;
 
 	public void searchInChoice(String value){
@@ -31,7 +31,7 @@ public class DetailHotelOrderInfoController implements Initializable{
 		if(value==null)
 			return;
 		else{
-			if(value.equals("È«²¿¶©µ¥")){
+			if(value.equals("È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")){
 				orderListView.setItems(orderData);
 				return;
 			}
@@ -58,12 +58,12 @@ public class DetailHotelOrderInfoController implements Initializable{
 		orderListView.setCellFactory(e->new HotelOrderInfoClientListCell());
     	ObservableList<String> t = FXCollections.observableArrayList(otypes);
     	orderType.setItems(t);
-    	orderType.setValue("È«²¿¶©µ¥");
+    	orderType.setValue("È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
     	otypeMap = new HashMap<>();
-    	otypeMap.put("Î´Ö´ÐÐ¶©µ¥", OrderStatus.UNEXECUTED);
-    	otypeMap.put("Òì³£¶©µ¥", OrderStatus.ABNORMAL);
-    	otypeMap.put("ÒÑÖ´ÐÐ¶©µ¥", OrderStatus.EXECUTED);
-    	otypeMap.put("ÒÑ³·Ïú¶©µ¥", OrderStatus.REVOKED);
+    	otypeMap.put("Î´Ö´ï¿½Ð¶ï¿½ï¿½ï¿½", OrderStatus.UNEXECUTED);
+    	otypeMap.put("ï¿½ì³£ï¿½ï¿½ï¿½ï¿½", OrderStatus.ABNORMAL);
+    	otypeMap.put("ï¿½ï¿½Ö´ï¿½Ð¶ï¿½ï¿½ï¿½", OrderStatus.EXECUTED);
+    	otypeMap.put("ï¿½Ñ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", OrderStatus.REVOKED);
     	orderType.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
