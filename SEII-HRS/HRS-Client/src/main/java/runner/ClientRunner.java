@@ -16,7 +16,9 @@ public class ClientRunner{
 	private RemoteHelper remoteHelper;
 	public ClientRunner(String[] args){
 		linkToServer();
+
 		//DataController.getInstance().put("HotelId", (long)1);
+
 		Application.launch(LoginMainUI.class,args);
 	}
 	private void linkToServer() {

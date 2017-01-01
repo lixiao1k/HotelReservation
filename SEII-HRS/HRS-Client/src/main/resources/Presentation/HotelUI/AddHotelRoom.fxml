@@ -17,7 +17,7 @@
       <RowConstraints maxHeight="487.0" minHeight="10.0" prefHeight="478.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="酒店客房信息录入">
+      <Label text="酒店客房信息录入" textFill="#f2eeee">
          <font>
             <Font size="24.0" />
          </font>
@@ -68,7 +68,7 @@
                   <Insets bottom="300.0" left="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <Label text="房间数量" GridPane.columnIndex="1">
+            <Label text="房间数量" textFill="#eeebeb" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="150.0" left="80.0" />
                </GridPane.margin>
@@ -91,7 +91,7 @@
                   <Insets left="30.0" right="380.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <Label text="房间价格" GridPane.columnIndex="1">
+            <Label text="房间价格" textFill="#fffdfd" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="150.0" left="350.0" />
                </GridPane.margin>

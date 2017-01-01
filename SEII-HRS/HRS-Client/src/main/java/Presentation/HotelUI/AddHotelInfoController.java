@@ -86,7 +86,7 @@ public class AddHotelInfoController implements Initializable{
 	  }
 	  else if(roomSet==null)
 	  {
-			Notifications.create().owner(addHotelField.getScene().getWindow()).title("错误信息").text("请完善客房信息").showError();
+			Notifications.create().owner(addHotelField.getScene().getWindow()).title("错误信息").text("请完善客房信息�").showError();
 
 	  }
 	  else
@@ -138,7 +138,7 @@ public class AddHotelInfoController implements Initializable{
 		 }
 		 else
 		 {
-			 Notifications.create().owner(hotelName.getScene().getWindow()).title("错误信息").text("添加失败").showError();
+			 Notifications.create().owner(hotelName.getScene().getWindow()).title("错误信息").text("添加错误").showError();
 		 }
 
 	  }
@@ -146,7 +146,7 @@ public class AddHotelInfoController implements Initializable{
   }
   
   @FXML
-  //锟斤拷锟饺★拷锟� 锟斤拷锟斤拷写锟斤拷锟斤拷锟斤拷锟�
+  //閿熸枻鎷烽敓楗衡槄鎷烽敓锟� 閿熸枻鎷烽敓鏂ゆ嫹鍐欓敓鏂ゆ嫹閿熸枻鎷烽敓鏂ゆ嫹閿燂拷
   public void cancel(ActionEvent e)
   {
 	  addressField.clear();
@@ -158,7 +158,7 @@ public class AddHotelInfoController implements Initializable{
 	  addHotelField.clear();
   }
   
-  //跳转到录入酒店客房信息界面
+  //璺宠浆鍒板綍鍏ラ厭搴楀鎴夸俊鎭晫闈�
   public void goNext() throws IOException
   {
 	  GridPane mainpane=(GridPane)addressField.getScene().getWindow().getScene().getRoot();
@@ -183,7 +183,7 @@ public class AddHotelInfoController implements Initializable{
 			it = bc.iterator();
 			String selectCity=businessCity.getSelectionModel().getSelectedItem().toString();
 				   
-		    Set<String> circle=new HashSet<>();//寰楀埌鍩庡競瀵瑰簲鍏ㄩ儴鍟嗗湀淇℃伅
+		    Set<String> circle=new HashSet<>();//瀵版鍩岄崺搴＄鐎电懓绨查崗銊╁劥閸熷棗婀�娣団剝浼�
 			while(it.hasNext())
 			{
 				BusinessCity bci=it.next();
@@ -224,7 +224,7 @@ public class AddHotelInfoController implements Initializable{
 		if(businessCircle .getSelectionModel().getSelectedItem()==null)
 		{
 
-		//	System.out.println("啥也没有");
+		//	System.out.println("鍟ヤ篃娌℃湁");
 
 		}
 		else
@@ -264,7 +264,7 @@ public void initialize(URL location, ResourceBundle resources) {
 		DataController.getInstance().putAndUpdate("addHotelInfo", addHotel);
 		hotelLogic=service.getHotelLogicService();
 		bc=hotelLogic.getCity();
-		Set<String> set = new HashSet<>();//寰楀埌鍏ㄩ儴鍩庡競淇℃伅
+		Set<String> set = new HashSet<>();//瀵版鍩岄崗銊╁劥閸╁骸绔舵穱鈩冧紖
 
 		Iterator<BusinessCity> it = bc.iterator();
 		while(it.hasNext())

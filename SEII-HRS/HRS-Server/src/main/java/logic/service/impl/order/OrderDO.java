@@ -227,7 +227,7 @@ public class OrderDO {
 				throw e;
 			}
 		}
-		if (hpo==null||mpo==null||spo==null) return OrderResultMessage.FAIL_WRONGORDERINFO;
+		if (hpo==null||mpo==null||(spo==null&&vo.getStrategyId()!=-1)) return OrderResultMessage.FAIL_WRONGORDERINFO;
 		
 		Room room = vo.getRoom();
 		Iterator<HotelItem> hoiit = hpo.getRoom();
@@ -281,7 +281,10 @@ public class OrderDO {
 		po.setMember(mpo);
 		po.setHotel(hpo);
 		po.setStrategy(spo);
+		if(spo!=null)
 		po.setOff(spo.getOff());
+		else
+			po.setOff(1);
 		//给订单加上编号
 		String orderNum = "SE-"+now.getDate()+po.hashCode();
 		po.setOrderId(orderNum);
