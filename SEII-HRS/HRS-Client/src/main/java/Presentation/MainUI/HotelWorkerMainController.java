@@ -86,7 +86,7 @@ public class HotelWorkerMainController implements Initializable{
 			RemoteHelper.getInstance().getServiceFactory().getUserLogicService().logout(userId);
 			((Stage)hotelmain.getScene().getWindow()).close();
 		} catch (RemoteException e) {
-			Notifications.create().owner(hotelmain.getScene().getWindow()).title("µÇ³ö").text("µÇ³öÊ§°Ü£¡").showError();
+			Notifications.create().owner(hotelmain.getScene().getWindow()).title("ç™»å‡º").text("å¤±è´¥").showError();
 			e.printStackTrace();
 		}
 	}
@@ -95,25 +95,25 @@ public class HotelWorkerMainController implements Initializable{
     	PopOver popOver = new PopOver();
 		GridPane pane = new GridPane();
 		Font font = new Font("YouYuan",15);
-		Text text1 = new Text("Ô­ÃÜÂë");
+		Text text1 = new Text("åŸå¯†ç ");
 		text1.setFont(font);
-		Text text2 = new Text("ĞÂÃÜÂë");
+		Text text2 = new Text("æ–°å¯†ç ");
 		text2.setFont(font);
 		PasswordField password = new PasswordField();
 		PasswordField newPassword = new PasswordField();
-		Button btn = new Button("È·ÈÏ");
+		Button btn = new Button("ç¡®è®¤");
 		btn.setId("green-button");
 		btn.setFont(new Font("YouYuan",15));
 		btn.setOnAction((ActionEvent e3)->{
 			if(password.getText()==null||password.getText().equals("\\s")
 					||newPassword.getText()==null||newPassword.getText().equals("\\s")){
-				Notifications.create().owner(hotelmain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("ÇëÊäÈëÃÜÂë£¡£¡").showError();
+				Notifications.create().owner(hotelmain.getScene().getWindow()).title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½").text("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£¡ï¿½ï¿½").showError();
 				return;
 			}
 			changePasswordAction(password.getText(),newPassword.getText());
 			popOver.hide();
 		});
-		Button btn2 = new Button("È¡Ïû");
+		Button btn2 = new Button("å–æ¶ˆ");
 		btn2.setId("red-button");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
@@ -141,18 +141,18 @@ public class HotelWorkerMainController implements Initializable{
     	try{
     		UserResultMessage result = RemoteHelper.getInstance().getServiceFactory().getUserLogicService().changePassword(userId, password, newPassword);
     		if(result==UserResultMessage.FAIL_WRONGID){
-    			Notifications.create().owner(hotelmain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("´íÎóÓÃ»§£¡").showError();
+    			Notifications.create().owner(hotelmain.getScene().getWindow()).title("æ›´æ”¹å¯†ç ").text("é”™è¯¯ID").showError();
     		}else if(result==UserResultMessage.FAIL_WRONGINFO){
-    			Notifications.create().owner(hotelmain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("Ô­ÃÜÂë´íÎó£¡").showError();
+    			Notifications.create().owner(hotelmain.getScene().getWindow()).title("æ›´æ”¹å¯†ç ").text("é”™è¯¯ä¿¡æ¯").showError();
     		}
     		else
-    			Notifications.create().owner(hotelmain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("³É¹¦£¡").showConfirm();
+    			Notifications.create().owner(hotelmain.getScene().getWindow()).title("æ›´æ”¹å¯†ç ").text("æˆåŠŸ").showConfirm();
     	}catch(RemoteException e){
-    		Notifications.create().owner(hotelmain.getScene().getWindow()).title("¸ü¸ÄÃÜÂë").text("ÍøÂç´íÎó£¡").showError();
+    		Notifications.create().owner(hotelmain.getScene().getWindow()).title("æ›´æ”¹å¯†ç ").text("ç½‘ç»œé”™è¯¯").showError();
     		e.printStackTrace();
     	}
     }
-	//»ù±¾ĞÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     public void setBaseInfo(){
 		Object o = DataController.getInstance().get("HotelId");
 		if(o!=null)

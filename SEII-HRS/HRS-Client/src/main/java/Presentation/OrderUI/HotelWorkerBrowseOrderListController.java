@@ -39,7 +39,7 @@ public class HotelWorkerBrowseOrderListController implements Initializable{
 	@FXML private ChoiceBox<String> orderType;
 	@FXML private TextField searchText;
 	@FXML private GridPane mainPane;
-	private String[] otypes={"È«²¿¶©µ¥","Î´Ö´ĞĞ¶©µ¥","ÒÑÖ´ĞĞ¶©µ¥","Òì³£¶©µ¥","ÒÑ³·Ïú¶©µ¥"};
+	private String[] otypes={"å…¨éƒ¨è®¢å•","æœªæ‰§è¡Œè®¢å•","å·²æ‰§è¡Œè®¢å•","å¼‚å¸¸è®¢å•","å·²æ’¤é”€è®¢å•"};
 	private Map<String,OrderStatus> otypeMap;
 	private ObservableList<OrderVO> olist;
 	private OrderLogicService orderLogic;
@@ -93,19 +93,19 @@ public class HotelWorkerBrowseOrderListController implements Initializable{
 		try {
 			OrderResultMessage m = orderLogic.execute(vo.getOrderId());
 			if(m==OrderResultMessage.SUCCESS){
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("Ö´ĞĞ¶©µ¥").text("Ö´ĞĞ³É¹¦£¡").showConfirm();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("æ‰§è¡Œè®¢å•").text("æ‰§è¡ŒæˆåŠŸï¼").showConfirm();
 				vo.setStatus(OrderStatus.EXECUTED);
 				olist.remove(vo);
 				olist.add(vo);
 			}
 			else if (m==OrderResultMessage.FAIL_WRONGID)
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("Ö´ĞĞ¶©µ¥").text("Ö´ĞĞÊ§°Ü£¡²»´æÔÚ´Ë¶©µ¥£¡").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("æ‰§è¡Œè®¢å•").text("æ‰§è¡Œå¤±è´¥ï¼ä¸å­˜åœ¨æ­¤è®¢å•ï¼").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGORDERINFO)
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("Ö´ĞĞ¶©µ¥").text("Ö´ĞĞÊ§°Ü£¡´íÎóµÄ¶©µ¥ĞÅÏ¢£¡").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("æ‰§è¡Œè®¢å•").text("æ‰§è¡Œå¤±è´¥ï¼é”™è¯¯çš„è®¢å•ä¿¡æ¯ï¼").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGSTATUS)
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("Ö´ĞĞ¶©µ¥").text("Ö´ĞĞÊ§°Ü£¡´íÎóµÄ¶©µ¥×´Ì¬").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("æ‰§è¡Œè®¢å•").text("æ‰§è¡Œå¤±è´¥ï¼é”™è¯¯çš„è®¢å•çŠ¶æ€").showWarning();
 		} catch (RemoteException e1) {
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("Ö´ĞĞ¶©µ¥").text("Ö´ĞĞÊ§°Ü£¡Î´Öª´íÎó£¡").showWarning();
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("æ‰§è¡Œè®¢å•").text("æ‰§è¡Œå¤±è´¥ï¼æœªçŸ¥é”™è¯¯ï¼").showWarning();
 			e1.printStackTrace();
 		}
 	}
@@ -113,34 +113,34 @@ public class HotelWorkerBrowseOrderListController implements Initializable{
 		try {
 			OrderResultMessage m = orderLogic.reExecute(vo.getOrderId());
 			if(m==OrderResultMessage.SUCCESS){
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("²¹Ö´ĞĞ¶©µ¥").text("²¹Ö´ĞĞ³É¹¦£¡").showConfirm();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("è¡¥æ‰§è¡Œè®¢å•").text("è¡¥æ‰§è¡ŒæˆåŠŸï¼").showConfirm();
 				vo.setStatus(OrderStatus.EXECUTED);
 				olist.remove(vo);
 				olist.add(vo);
 			}
 			else if (m==OrderResultMessage.FAIL_WRONGID)
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("²¹Ö´ĞĞ¶©µ¥").text("²¹Ö´ĞĞÊ§°Ü£¡²»´æÔÚ´Ë¶©µ¥£¡").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("è¡¥æ‰§è¡Œè®¢å•").text("è¡¥æ‰§è¡Œå¤±è´¥ï¼ä¸å­˜åœ¨æ­¤è®¢å•ï¼").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGORDERINFO)
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("²¹Ö´ĞĞ¶©µ¥").text("²¹Ö´ĞĞÊ§°Ü£¡´íÎóµÄ¶©µ¥ĞÅÏ¢£¡").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("è¡¥æ‰§è¡Œè®¢å•").text("è¡¥æ‰§è¡Œå¤±è´¥ï¼é”™è¯¯çš„è®¢å•ä¿¡æ¯ï¼").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGSTATUS)
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("²¹Ö´ĞĞ¶©µ¥").text("²¹Ö´ĞĞÊ§°Ü£¡´íÎóµÄ¶©µ¥×´Ì¬").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("è¡¥æ‰§è¡Œè®¢å•").text("è¡¥æ‰§è¡Œå¤±è´¥ï¼é”™è¯¯çš„è®¢å•çŠ¶æ€").showWarning();
 		} catch (RemoteException e1) {
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("²¹Ö´ĞĞ¶©µ¥").text("²¹Ö´ĞĞÊ§°Ü£¡Î´Öª´íÎó£¡").showWarning();
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("è¡¥æ‰§è¡Œè®¢å•").text("è¡¥æ‰§è¡Œå¤±è´¥ï¼æœªçŸ¥é”™è¯¯ï¼").showWarning();
 			e1.printStackTrace();
 		}
 	}
-	//»ù±¾ĞÅÏ¢
+	//åŸºæœ¬ä¿¡æ¯
     public void setBaseInfo(){
     	this.hotelId=(long)DataController.getInstance().get("HotelId");
     	DataController.getInstance().put("HotelOrderController", this);
     	ObservableList<String> t = FXCollections.observableArrayList(otypes);
     	orderType.setItems(t);
-    	orderType.setValue("È«²¿¶©µ¥");
+    	orderType.setValue("å…¨éƒ¨è®¢å•");
     	otypeMap = new HashMap<>();
-    	otypeMap.put("Î´Ö´ĞĞ¶©µ¥", OrderStatus.UNEXECUTED);
-    	otypeMap.put("Òì³£¶©µ¥", OrderStatus.ABNORMAL);
-    	otypeMap.put("ÒÑÖ´ĞĞ¶©µ¥", OrderStatus.EXECUTED);
-    	otypeMap.put("ÒÑ³·Ïú¶©µ¥", OrderStatus.REVOKED);
+    	otypeMap.put("æœªæ‰§è¡Œè®¢å•", OrderStatus.UNEXECUTED);
+    	otypeMap.put("å¼‚å¸¸è®¢å•", OrderStatus.ABNORMAL);
+    	otypeMap.put("å·²æ‰§è¡Œè®¢å•", OrderStatus.EXECUTED);
+    	otypeMap.put("å·²æ’¤é”€è®¢å•", OrderStatus.REVOKED);
     	orderType.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -149,7 +149,7 @@ public class HotelWorkerBrowseOrderListController implements Initializable{
 			}
 		});
     }
-    //³õÊ¼»¯ÁĞ±í
+    //åˆå§‹åŒ–åˆ—è¡¨
     public void initListView() throws RemoteException{
     	orderListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     	ListWrapper<OrderVO> volist=orderLogic.getHotelOrderInfo(hotelId);
@@ -167,7 +167,7 @@ public class HotelWorkerBrowseOrderListController implements Initializable{
 		if(value==null)
 			return;
 		else{
-			if(value.equals("È«²¿¶©µ¥")){
+			if(value.equals("å…¨éƒ¨è®¢å•")){
 				orderListView.setItems(olist);
 				return;
 			}

@@ -45,13 +45,13 @@ public class BirthController implements Initializable{
 	@FXML 
 	protected void Create() throws RemoteException{
 		StrategyVO svo=new StrategyVO();
-		if(Name.getText().equals("")){//¼ì²âÃû×Ö
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("´´½¨²ßÂÔ").text("ÇëÊäÈë²ßÂÔÃû").showWarning();
+		if(Name.getText().equals("")){//æ£€æµ‹åå­—
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ›å»ºç­–ç•¥").text("è¯·è¾“å…¥ç­–ç•¥å").showWarning();
 		}else{
 			svo.setName(Name.getText());
 			double off=0;
-			if(Off.getText().equals("")){//¼ì²âÕÛ¿Û
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("´´½¨²ßÂÔ").text("ÇëÊäÈëÕÛ¿Û").showWarning();
+			if(Off.getText().equals("")){//æ£€æµ‹æŠ˜æ‰£
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ›å»ºç­–ç•¥").text("è¯·è¾“å…¥æŠ˜æ‰£").showWarning();
 			}else{
 				off=Double.valueOf(Off.getText());
 				svo.setOff(off);
@@ -71,7 +71,7 @@ public class BirthController implements Initializable{
 				Set<StrategyItemVO> voset=new HashSet<>();
 				ObservableList<Room> targetlist=Room.getTargetItems();
 				if(targetlist.isEmpty()){
-					Notifications.create().owner(mainPane.getScene().getWindow()).title("´´½¨²ßÂÔ").text("ÇëÑ¡Ôñ·¿¼ä").showWarning();
+					Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ›å»ºç­–ç•¥").text("è¯·é€‰æ‹©æˆ¿é—´").showWarning();
 				}else{
 					for(Room room:targetlist){
 						Iterator<HotelItemVO> itt=volist.iterator();
@@ -90,13 +90,13 @@ public class BirthController implements Initializable{
 					svo.setItems(voset);
 					StrategyResultMessage m=strategyLogic.create(svo).getResultMessage();
 					if(m==StrategyResultMessage.SUCCESS){
-						Notifications.create().owner(mainPane.getScene().getWindow()).title("´´½¨²ßÂÔ").text("´´½¨³É¹¦£¡").showConfirm();
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ›å»ºç­–ç•¥").text("åˆ›å»ºæˆåŠŸï¼").showConfirm();
 					}
 					if(m==StrategyResultMessage.FAIL_WRONGINFO){
-						Notifications.create().owner(mainPane.getScene().getWindow()).title("´´½¨²ßÂÔ").text("´´½¨Ê§°Ü£¡²»´æÔÚ´Ë¾Æµê£¡").showWarning();
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ›å»ºç­–ç•¥").text("åˆ›å»ºå¤±è´¥ï¼ä¸å­˜åœ¨æ­¤é…’åº—ï¼").showWarning();
 					}
 					if(m==StrategyResultMessage.FAIL_WRONG){
-						Notifications.create().owner(mainPane.getScene().getWindow()).title("´´½¨²ßÂÔ").text("´´½¨Ê§°Ü£¡Î´Öª´íÎó£¡").showWarning();
+						Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ›å»ºç­–ç•¥").text("åˆ›å»ºå¤±è´¥ï¼æœªçŸ¥é”™è¯¯ï¼").showWarning();
 					}
 				}
 			}
@@ -113,11 +113,11 @@ public class BirthController implements Initializable{
 			sourcelist.add(room);
 		}
 		Room.setSourceItems(sourcelist);
-		Label sourceheader=new Label("ËùÓĞ·¿¼ä£º");
+		Label sourceheader=new Label("æ‰€æœ‰æˆ¿é—´ï¼š");
 		sourceheader.setFont(new Font(14));
 		sourceheader.setTextFill(Color.WHITE);
 		Room.setSourceHeader(sourceheader);
-		Label targetheader=new Label("Ê¹ÓÃ²ßÂÔµÄ·¿¼ä£º");
+		Label targetheader=new Label("ä½¿ç”¨ç­–ç•¥çš„æˆ¿é—´ï¼š");
 		targetheader.setFont(new Font(14));
 		targetheader.setTextFill(Color.WHITE);
 		Room.setTargetHeader(targetheader);
@@ -130,7 +130,7 @@ public class BirthController implements Initializable{
 		DataController.getInstance().putAndUpdate("HotelId", hotelid);
 	}
 	
-	//³õÊ¼»¯css
+	//åˆå§‹åŒ–css
 	public void initcss(){
 		mainPane.getStylesheets().add(getClass().getResource("alltype.css").toExternalForm());
 	}

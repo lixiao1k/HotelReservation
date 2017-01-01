@@ -48,7 +48,7 @@ public class ManageCVIPController implements Initializable{
 		boolean empty=CompanyName.getText().equals("");
 		if(empty)
 		{
-			Notifications.create().owner(CompanyName.getScene().getWindow()).title("错误信息").text("信息不能为空").showError();
+			Notifications.create().owner(CompanyName.getScene().getWindow()).title("閿欒淇℃伅").text("淇℃伅涓嶈兘涓虹┖").showError();
 
 		}
 		else
@@ -58,13 +58,13 @@ public class ManageCVIPController implements Initializable{
 			MemberResultMessage result=memberlogic.updateClient(clvo);
 			if(MemberResultMessage.SUCCESS==result)
 			{
-				Notifications.create().owner(CompanyName.getScene().getWindow()).title("提示信息").text("成功").show();
+				Notifications.create().owner(CompanyName.getScene().getWindow()).title("鎻愮ず淇℃伅").text("鎴愬姛").show();
 
 				  CompanyName.clear();
 			}
 			else
 			{
-				Notifications.create().owner(CompanyName.getScene().getWindow()).title("错误信息").text("未知错误").showError();
+				Notifications.create().owner(CompanyName.getScene().getWindow()).title("閿欒淇℃伅").text("鏈煡閿欒").showError();
 
 			}
 

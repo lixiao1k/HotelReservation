@@ -63,11 +63,11 @@ public class HotelWorkerCreateStrategyController implements Initializable{
 	
 	public void initType(){
 		ObservableList<String> typelist=FXCollections.observableArrayList();
-		typelist.addAll("生日优惠策略","房间预订优惠策略","合作企业优惠策略","节日优惠策略");
+		typelist.addAll("鐢熸棩浼樻儬绛栫暐","鎴块棿棰勮浼樻儬绛栫暐","鍚堜綔浼佷笟浼樻儬绛栫暐","鑺傛棩浼樻儬绛栫暐");
 		Type.setItems(typelist);
 	}
 	
-	//界面跳转
+	//鐣岄潰璺宠浆
 	public void swift(int i){
 		String name[]={
 				"Birth",
@@ -91,25 +91,25 @@ public class HotelWorkerCreateStrategyController implements Initializable{
 		}
 	}
 	
-	//增加监听
+	//澧炲姞鐩戝惉
 	public void addchoiceboxlistener(){
 		Type.getSelectionModel().selectedItemProperty().addListener((ov,oldvalue,newvalue)->{
-			if(newvalue.equals("生日优惠策略")){
+			if(newvalue.equals("鐢熸棩浼樻儬绛栫暐")){
 				swift(0);
 			}
-			if(newvalue.equals("房间预订优惠策略")){
+			if(newvalue.equals("鎴块棿棰勮浼樻儬绛栫暐")){
 				swift(1);
 			}
-			if(newvalue.equals("合作企业优惠策略")){
+			if(newvalue.equals("鍚堜綔浼佷笟浼樻儬绛栫暐")){
 				swift(2);
 			}
-			if(newvalue.equals("节日优惠策略")){
+			if(newvalue.equals("鑺傛棩浼樻儬绛栫暐")){
 				swift(3);
 			}
         });
 	}
 	
-	//初始化css
+	//鍒濆鍖朿ss
 	public void initcss(){
 		mainPane.getStylesheets().add(getClass().getResource("createstrategy.css").toExternalForm());
 	}

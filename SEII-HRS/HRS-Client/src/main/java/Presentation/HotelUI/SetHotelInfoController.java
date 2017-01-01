@@ -88,11 +88,11 @@ public class SetHotelInfoController implements Initializable{
 		try {
 			result = serviceFactory.getHotelLogicService().setHotelInfo(vo);
 			if(result==HotelResultMessage.SUCCESS){
-				Notifications.create().owner(hotelName.getScene().getWindow()).title("Î¬»¤¾ÆµêĞÅÏ¢").text("¸üĞÂ³É¹¦£¡").showConfirm();
+				Notifications.create().owner(hotelName.getScene().getWindow()).title("ç»´æŠ¤é…’åº—ä¿¡æ¯").text("æ›´æ–°æˆåŠŸï¼").showConfirm();
 			}
 			System.out.println(result);
 		} catch (RemoteException e1) {
-			Notifications.create().owner(hotelName.getScene().getWindow()).title("Î¬»¤¾ÆµêĞÅÏ¢").text("Î´Öª´íÎó£¡").showError();
+			Notifications.create().owner(hotelName.getScene().getWindow()).title("ç»´æŠ¤é…’åº—ä¿¡æ¯").text("æœªçŸ¥é”™è¯¯ï¼").showError();
 			e1.printStackTrace();
 		}
 	}
@@ -172,10 +172,10 @@ public class SetHotelInfoController implements Initializable{
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			e.printStackTrace();
 		}
 	}

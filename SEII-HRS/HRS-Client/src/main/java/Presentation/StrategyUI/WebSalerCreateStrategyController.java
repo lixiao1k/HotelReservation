@@ -26,7 +26,7 @@ public class WebSalerCreateStrategyController implements Initializable{
 	
 	public void initType(){
 		ObservableList<String> typelist=FXCollections.observableArrayList();
-		typelist.addAll("VIP商圈优惠策略","节日优惠策略");
+		typelist.addAll("VIP鍟嗗湀浼樻儬绛栫暐","鑺傛棩浼樻儬绛栫暐");
 		Type.setItems(typelist);
 	}
 	
@@ -67,7 +67,7 @@ public class WebSalerCreateStrategyController implements Initializable{
 		Back.setBackground(new Background(new BackgroundImage(image1, null, null, null, null)));
 	}
 	
-	//界面跳转
+	//鐣岄潰璺宠浆
 	public void swift(int i){
 		String name[]={
 				"VIPCircle",
@@ -89,19 +89,19 @@ public class WebSalerCreateStrategyController implements Initializable{
 		}
 	}
 	
-	//增加监听
+	//澧炲姞鐩戝惉
 	public void addchoiceboxlistener(){
 		Type.getSelectionModel().selectedItemProperty().addListener((ov,oldvalue,newvalue)->{
-			if(newvalue.equals("VIP商圈优惠策略")){
+			if(newvalue.equals("VIP鍟嗗湀浼樻儬绛栫暐")){
 				swift(0);
 			}
-			if(newvalue.equals("节日优惠策略")){
+			if(newvalue.equals("鑺傛棩浼樻儬绛栫暐")){
 				swift(1);
 			}
         });
 	}
 	
-	//初始化css
+	//鍒濆鍖朿ss
 	public void initcss(){
 		mainPane.getStylesheets().add(getClass().getResource("createstrategy.css").toExternalForm());
 	}

@@ -119,16 +119,16 @@ public class AddHotelRoomController implements Initializable{
 		HotelResultMessage m=hotelLogic.addHotel(ahvo).getResultMessage();
 		if(	m==HotelResultMessage.SUCCESS)
 		{
-			Notifications.create().owner(num3.getScene().getWindow()).title("ÌáÊ¾ĞÅÏ¢").text("Ìí¼Ó³É¹¦£¡").showConfirm();
+			Notifications.create().owner(num3.getScene().getWindow()).title("æç¤ºä¿¡æ¯").text("æ·»åŠ æˆåŠŸï¼").showConfirm();
 		}
 		else if(m==HotelResultMessage.FAIL)
 		{
-			Notifications.create().owner(num3.getScene().getWindow()).title("´íÎóĞÅÏ¢").text("Ìí¼ÓÊ§°Ü£¬Î´Öª´íÎó£¡").showError();
+			Notifications.create().owner(num3.getScene().getWindow()).title("é”™è¯¯ä¿¡æ¯").text("æ·»åŠ å¤±è´¥ï¼ŒæœªçŸ¥é”™è¯¯ï¼").showError();
 
 		}
 		else if(m==HotelResultMessage.FAIL_NOTENOUGHINFO)
 		{
-			Notifications.create().owner(num3.getScene().getWindow()).title("´íÎóĞÅÏ¢").text("Ìí¼ÓÊ§°Ü£¬ĞÅÏ¢²»È«£¡").showError();
+			Notifications.create().owner(num3.getScene().getWindow()).title("é”™è¯¯ä¿¡æ¯").text("æ·»åŠ å¤±è´¥ï¼Œä¿¡æ¯ä¸å…¨ï¼").showError();
 
 		}
 	}

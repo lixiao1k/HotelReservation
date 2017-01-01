@@ -86,10 +86,10 @@ public class DetailHotelInfoController implements Initializable{
 		if(o!=null)
 			userId = (long) o;
 		buttons = FXCollections.observableArrayList();
-		ToggleButton b1 = new ToggleButton("¾ÆµêÏêÇé");
-		ToggleButton b2 = new ToggleButton("¿Í·¿ĞÅÏ¢");
-		ToggleButton b3 = new ToggleButton("¾ÆµêÆÀÂÛ");
-		ToggleButton b4 = new ToggleButton("¶©µ¥ĞÅÏ¢");
+		ToggleButton b1 = new ToggleButton("é…’åº—è¯¦æƒ…");
+		ToggleButton b2 = new ToggleButton("å®¢æˆ¿ä¿¡æ¯");
+		ToggleButton b3 = new ToggleButton("é…’åº—è¯„è®º");
+		ToggleButton b4 = new ToggleButton("é…’åº—è®¢å•");
 		roomListView = new ListView<HotelItemVO>();
 		commentListView = new ListView<HotelCommentVO>();
 		b1.setOnAction((ActionEvent e)->{
@@ -110,7 +110,7 @@ public class DetailHotelInfoController implements Initializable{
 				root.add(p, 0, 2,2,1);
 			} catch (Exception e1) {
 				e1.printStackTrace();
-				Notifications.create().owner(root.getScene().getWindow()).title("³õÊ¼»¯").text("³õÊ¼»¯Ê§°Ü").showError();
+				Notifications.create().owner(root.getScene().getWindow()).title("åˆå§‹åŒ–").text("åˆå§‹åŒ–å¤±è´¥").showError();
 			}
 		});
 		b2.setOnAction((ActionEvent e)->{
@@ -152,7 +152,7 @@ public class DetailHotelInfoController implements Initializable{
 				p.getProperties().put("NAME", "Data");
 				root.add(p, 0, 2,2,1);
 			} catch (Exception e1) {
-				Notifications.create().owner(root.getScene().getWindow()).title("³õÊ¼»¯").text("³õÊ¼»¯Ê§°Ü").showError();
+				Notifications.create().owner(root.getScene().getWindow()).title("åˆå§‹åŒ–").text("åˆå§‹åŒ–å¤±è´¥").showError();
 				e1.printStackTrace();
 			}
 			
@@ -175,7 +175,7 @@ public class DetailHotelInfoController implements Initializable{
 			GridPane pane = (GridPane)root.getScene().getWindow().getScene().getRoot();
 			Object obj = DataController.getInstance().get("HotelSearchPane");
 			if(obj==null){
-				Notifications.create().owner(root.getScene().getWindow()).title("·µ»Ø").text("·µ»ØÊ§°Ü£¡").showError();
+				Notifications.create().owner(root.getScene().getWindow()).title("åˆå§‹åŒ–").text("åˆå§‹åŒ–å¤±è´¥").showError();
 				return;
 			}
 			GridPane target = (GridPane)obj;

@@ -38,14 +38,14 @@ public class HotelOrderInfoClientListCell extends ListCell<OrderVO>{
 		PopOver popOver = new PopOver();
 		popOver.setDetachable(false);
 		popOver.setAutoHide(true);
-		popOver.setTitle("¶©µ¥");
+		popOver.setTitle("è®¢å•");
 		BorderPane mainPane = new BorderPane();
 		GridPane basicPane = new GridPane();
-		Label name = new Label("ÏÂ¶©µ¥¾Æµê:  "+item.getContactName());
+		Label name = new Label("ä¸‹è®¢å•é…’åº—:  "+item.getContactName());
 		Label initialTime = new Label("From "+DateUtil.format(item.getCheckInTime())+" to "+DateUtil.format(item.getCheckOutTime()));
-		Label peopleInfo = new Label("Èë×¡ÈËÊı£º "+item.getPeople()+"ÈË ; "+(item.getChild()? "ÓĞ":"ÎŞ")+"¶ùÍ¯");
-		Label contactName = new Label("ÁªÏµÈË£º "+item.getContactName());
-		Label contactWay = new Label("ÁªÏµ·½Ê½£º "+item.getContactWay());
+		Label peopleInfo = new Label("å…¥ä½äººæ•°ï¼š "+item.getPeople()+"äºº ; "+(item.getChild()? "æœ‰":"æ— ")+"å„¿ç«¥");
+		Label contactName = new Label("è”ç³»äººï¼š "+item.getContactName());
+		Label contactWay = new Label("è”ç³»æ–¹å¼ï¼š "+item.getContactWay());
 		Font font = new Font("YouYuan",14);
 		name.setFont(font);
 		name.setTextFill(Color.BLACK);
@@ -71,7 +71,7 @@ public class HotelOrderInfoClientListCell extends ListCell<OrderVO>{
 		basicPane.add(s, 0, 6);
 		GridPane roomPane = new GridPane();
 		Label room = new Label(item.getRoom().getType());
-		Label num = new Label(""+item.getRoomNum()+" ¼ä");
+		Label num = new Label(""+item.getRoomNum()+" é—´");
 		Label strategy = new Label();
 		Label price = new Label();
 		Label off = new Label();

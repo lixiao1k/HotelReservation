@@ -27,8 +27,8 @@ import vo.ManageWEBSalerVO;
 
 public class ManageWebSalerController implements Initializable{
 	@FXML private TextField searchField;
-	@FXML private TextField userName;//ï¿½Ã»ï¿½ï¿½ï¿½
-	@FXML private TextField Name;//ï¿½Ç³ï¿½
+	@FXML private TextField userName;//é”ŸçŸ«ä¼™æ‹·é”Ÿæ–¤æ‹·
+	@FXML private TextField Name;//é”Ÿè§’ç­¹æ‹·
 	@FXML private PasswordField password;
 	@FXML private Button addBT;
 	@FXML private Button commitBT;
@@ -60,7 +60,7 @@ public class ManageWebSalerController implements Initializable{
 		  boolean empty=userName.getText().equals("")||Name.getText().equals("")||password.getText().equals("");
 		  if(empty)
 		  {
-				Notifications.create().owner(searchField.getScene().getWindow()).title("´íÎóĞÅÏ¢").text("²»ÄÜÎª¿Õ£¡").showError();
+				Notifications.create().owner(searchField.getScene().getWindow()).title("é”™è¯¯ä¿¡æ¯").text("ä¸èƒ½ä¸ºç©ºï¼").showError();
 
 		  }
 		  else
@@ -71,12 +71,12 @@ public class ManageWebSalerController implements Initializable{
 			  MemberResultMessage result1=memberlogic.updateWEBSaler(upwebvo);
 			  if(MemberResultMessage.SUCCESS==result1)
 			  {
-					Notifications.create().owner(searchField.getScene().getWindow()).title("È·ÈÏĞÅÏ¢").text("³É¹¦£¡").showConfirm();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("ç¡®è®¤ä¿¡æ¯").text("æˆåŠŸï¼").showConfirm();
 
 			  }
 			  else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result1)
 			  {
-					Notifications.create().owner(searchField.getScene().getWindow()).title("´íÎóĞÅÏ¢").text("ÃÜÂë³¤¶È²»¹»£¡").showError();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("é”™è¯¯ä¿¡æ¯").text("å¯†ç é•¿åº¦ä¸å¤Ÿï¼").showError();
 
 			  }
 		
@@ -94,7 +94,7 @@ public class ManageWebSalerController implements Initializable{
 			String passadd=password.getText();
 			if(empty)
 			{
-				Notifications.create().owner(searchField.getScene().getWindow()).title("´íÎóĞÅÏ¢").text("²»ÄÜÎª¿Õ£¡").showError();
+				Notifications.create().owner(searchField.getScene().getWindow()).title("é”™è¯¯ä¿¡æ¯").text("ä¸èƒ½ä¸ºç©ºï¼").showError();
 			}
 			else
 			{
@@ -104,12 +104,12 @@ public class ManageWebSalerController implements Initializable{
 				MemberResultMessage result=memberlogic.addWEBSaler(addwebvo);
 				if(MemberResultMessage.SUCCESS==result)
 				{
-					Notifications.create().owner(searchField.getScene().getWindow()).title("È·ÈÏĞÅÏ¢").text("³É¹¦£¡").showError();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("ç¡®è®¤ä¿¡æ¯").text("æˆåŠŸï¼").showError();
 
 				}
 				else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result)
 				{
-					Notifications.create().owner(searchField.getScene().getWindow()).title("´íÎóĞÅÏ¢").text("ÃÜÂë³¤¶È²»¹»£¡").showError();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("é”™è¯¯ä¿¡æ¯").text("å¯†ç é•¿åº¦ä¸å¤Ÿï¼").showError();
 
 				}
 

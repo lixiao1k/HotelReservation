@@ -42,7 +42,7 @@ public class LoginMainController implements Initializable{
 		Scene scene =new Scene(register);
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		stage.setTitle("×¢²á");
+		stage.setTitle("æ³¨å†Œ");
 		stage.initStyle(StageStyle.UNDECORATED);
 		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 		stage.show();
@@ -62,7 +62,7 @@ public class LoginMainController implements Initializable{
                 return null;
 			}
 		};
-		ProgressStage waitStage = new ProgressStage(sleep,(Stage)usernameField.getScene().getWindow(), "µÇÂ¼ÖĞ...");
+		ProgressStage waitStage = new ProgressStage(sleep,(Stage)usernameField.getScene().getWindow(), "ç™»å½•ä¸­...");
 		waitStage.show();
 		String username = usernameField.getText();
 	    String password = passwordField.getText();
@@ -85,11 +85,11 @@ public class LoginMainController implements Initializable{
 		LoginResultVO result = null;
 		result = serviceFactory.getUserLogicService().login(username, password);
 		if(result==null){
-			Notifications.create().title("µÇÂ¼").text("Î´Öª´íÎó£¡").showError();
+			Notifications.create().title("ç™»å½•").text("æœªçŸ¥é”™è¯¯ï¼").showError();
 			return;
 		}
 		else if(result.getResultMessage()!=LoginResultMessage.SUCCESS){
-			Notifications.create().title("µÇÂ¼").text(info.get(result.getResultMessage())).showWarning();
+			Notifications.create().title("ç™»å½•").text(info.get(result.getResultMessage())).showWarning();
 			return;
 		}
 		DataController.getInstance().put("UserId", result.getUserID());
@@ -114,7 +114,7 @@ public class LoginMainController implements Initializable{
 			try {
 				RemoteHelper.getInstance().getServiceFactory().getUserLogicService().logout(id);
 			} catch (RemoteException e3) {
-				Notifications.create().owner(stage).title("µÇ³ö").text("µÇ³öÊ§°Ü£¡").showError();
+				Notifications.create().owner(stage).title("ç™»å‡º").text("ç™»å‡ºå¤±è´¥ï¼").showError();
 				e3.printStackTrace();
 			}
 		});
@@ -131,9 +131,9 @@ public class LoginMainController implements Initializable{
 		if(serviceFactory==null)
 			serviceFactory = RemoteHelper.getInstance().getServiceFactory();
 		info = new HashMap<>();
-		info.put(LoginResultMessage.FAIL_LOGGED, "ÒÑµÇÂ¼£¡Çë²»ÒªÖØ¸´µÇÂ¼£¡");
-		info.put(LoginResultMessage.FAIL_NOINFO, "ÓÃ»§²»´æÔÚ£¡");
-		info.put(LoginResultMessage.FAIL_WRONG, "ÓÃ»§Ãû»òÃÜÂë´íÎó£¡");	
+		info.put(LoginResultMessage.FAIL_LOGGED, "å·²ç™»å½•ï¼è¯·ä¸è¦é‡å¤ç™»å½•ï¼");
+		info.put(LoginResultMessage.FAIL_NOINFO, "ç”¨æˆ·ä¸å­˜åœ¨ï¼");
+		info.put(LoginResultMessage.FAIL_WRONG, "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼");	
 		type.put(UserType.CLIENT, 0);
 		type.put(UserType.HOTEL_WORKER, 1);
 		type.put(UserType.WEB_SALER, 2);

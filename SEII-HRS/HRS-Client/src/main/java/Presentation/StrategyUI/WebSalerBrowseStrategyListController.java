@@ -48,7 +48,7 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 			selist=FXCollections.observableArrayList();
 			String key=searchText.getText();
 			if(key.equals("")){
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("ËÑË÷²ßÂÔ").text("ËÑË÷Ê§°Ü£¡ÇëÊäÈë¹Ø¼ü×Ö£¡").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("æœç´¢ç­–ç•¥").text("æœç´¢å¤±è´¥ï¼è¯·è¾“å…¥å…³é”®å­—ï¼").showWarning();
 			}
 			for(StrategyVO vo:olist){
 				if(vo.getName().contains(key)){
@@ -60,7 +60,7 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 			selist.clear();
 			String key=searchText.getText();
 			if(key.equals("")){
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("ËÑË÷²ßÂÔ").text("ËÑË÷Ê§°Ü£¡ÇëÊäÈë¹Ø¼ü×Ö£¡").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("æœç´¢ç­–ç•¥").text("æœç´¢å¤±è´¥ï¼è¯·è¾“å…¥å…³é”®å­—ï¼").showWarning();
 			}
 			for(StrategyVO vo:olist){
 				if(vo.getName().contains(key)){
@@ -75,16 +75,16 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 		try {
 			StrategyResultMessage m=strategyLogic.delete(vo.getId());
 			if(m==StrategyResultMessage.SUCCESS){
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ı²ßÂÔ").text("É¾³ı³É¹¦£¡").showConfirm();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ é™¤ç­–ç•¥").text("åˆ é™¤æˆåŠŸï¼").showConfirm();
 			}
 			if(m==StrategyResultMessage.FAIL_WRONGID){
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ı²ßÂÔ").text("É¾³ıÊ§°Ü£¡²»´æÔÚ´Ë²ßÂÔ£¡").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ é™¤ç­–ç•¥").text("åˆ é™¤å¤±è´¥ï¼ä¸å­˜åœ¨æ­¤ç­–ç•¥ï¼").showWarning();
 			}
 			if(m==StrategyResultMessage.FAIL_WRONG){
-				Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ı²ßÂÔ").text("É¾³ıÊ§°Ü£¡Î´Öª´íÎó£¡").showWarning();
+				Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ é™¤ç­–ç•¥").text("åˆ é™¤å¤±è´¥ï¼æœªçŸ¥é”™è¯¯ï¼").showWarning();
 			}
 		} catch (Exception e1) {
-			Notifications.create().owner(mainPane.getScene().getWindow()).title("É¾³ı²ßÂÔ").text("É¾³ıÊ§°Ü£¡Î´Öª´íÎó£¡").showWarning();
+			Notifications.create().owner(mainPane.getScene().getWindow()).title("åˆ é™¤ç­–ç•¥").text("åˆ é™¤å¤±è´¥ï¼æœªçŸ¥é”™è¯¯ï¼").showWarning();
 			e1.printStackTrace();
 		}
 		olist.remove(vo);
@@ -98,7 +98,7 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 				GridPane gridPane=new GridPane();
 				Label Info=new Label();
 				Info.setText(item.toString());
-				Button Del=new Button("É¾³ı");
+				Button Del=new Button("åˆ é™¤");
 				Del.setOnAction((ActionEvent e)->{
 					delete(item,e);
 				});
@@ -134,14 +134,14 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 		}
 	}
 	
-	   //³õÊ¼»¯ÀàĞÍ
+	   //åˆå§‹åŒ–ç±»å‹
     public void initType(){
 		ObservableList<String> typelist=FXCollections.observableArrayList();
-		typelist.addAll("VIPÉÌÈ¦ÓÅ»İ²ßÂÔ","½ÚÈÕÓÅ»İ²ßÂÔ");
+		typelist.addAll("VIPå•†åœˆä¼˜æƒ ç­–ç•¥","èŠ‚æ—¥ä¼˜æƒ ç­–ç•¥");
 		Type.setItems(typelist);
     }
     
-    //ÀàĞÍËÑË÷
+    //ç±»å‹æœç´¢
     public void swift(int i){
 		String name[]={
 				"VIPCircleStrategy",
@@ -165,24 +165,24 @@ public class WebSalerBrowseStrategyListController implements Initializable{
 		}
     }
     
-    //Ôö¼Ó¼àÌı
+    //å¢åŠ ç›‘å¬
 	public void addchoiceboxlistener(){
 		Type.getSelectionModel().selectedItemProperty().addListener((ov,oldvalue,newvalue)->{
-			if(newvalue.equals("VIPÉÌÈ¦ÓÅ»İ²ßÂÔ")){
+			if(newvalue.equals("VIPå•†åœˆä¼˜æƒ ç­–ç•¥")){
 				swift(0);
 			}
-			if(newvalue.equals("½ÚÈÕÓÅ»İ²ßÂÔ")){
+			if(newvalue.equals("èŠ‚æ—¥ä¼˜æƒ ç­–ç•¥")){
 				swift(1);
 			}
         });
 	}
 	
-	//³õÊ¼»¯css
+	//åˆå§‹åŒ–css
 	public void initcss(){
 		mainPane.getStylesheets().add(getClass().getResource("strategylist.css").toExternalForm());
 	}
     
-    //³õÊ¼»¯ÁĞ±í
+    //åˆå§‹åŒ–åˆ—è¡¨
     public void initListView() throws RemoteException{
     	ListWrapper<HotelStrategyVO> volist=strategyLogic.getWEBStrategyList();
     	olist=FXCollections.observableArrayList();

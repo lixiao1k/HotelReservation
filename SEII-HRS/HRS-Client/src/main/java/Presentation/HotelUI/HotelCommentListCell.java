@@ -33,7 +33,7 @@ public class HotelCommentListCell extends ListCell<HotelCommentVO> {
 				date.setText(DateUtil.format(item.getDate()));
 				content.setText(item.getComment());
 				if(item.getRoom()!=null)
-					room.setText("Ëù¶©·¿¼ä£º  "+item.getRoom().getType());
+					room.setText("æ‰€è®¢æˆ¿é—´ï¼š  "+item.getRoom().getType());
 				Rating rating = new Rating(5, item.getGrade());
 				rating.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -44,7 +44,7 @@ public class HotelCommentListCell extends ListCell<HotelCommentVO> {
 				});
 				rankVBox.getChildren().add(rating);
 				if(item.isHide())
-					name.setText("ÄäÃûÓÃ»§");
+					name.setText("åŒ¿åç”¨æˆ·");
 				else
 					name.setText(item.getName());
 				Image image = new Image(getClass().getClassLoader().getResourceAsStream("Presentation/MainUI/user50x50.png"));
@@ -52,7 +52,7 @@ public class HotelCommentListCell extends ListCell<HotelCommentVO> {
 				pic.setGraphic(new ImageView(image));
 				setGraphic(cell);
 			} catch (IOException e) {
-				Notifications.create().title("³õÊ¼»¯").text("³õÊ¼»¯Ê§°Ü£¡").showError();
+				Notifications.create().title("åˆå§‹åŒ–").text("åˆå§‹åŒ–å¤±è´¥ï¼").showError();
 				e.printStackTrace();
 			}
 		}else{

@@ -36,7 +36,7 @@ public class WebSalerCancelOrderController implements Initializable{
 	@FXML private ChoiceBox<String> orderType;
 	@FXML private TextField searchText;
 	private ObservableList<OrderVO> olist;
-	private String[] otypes={"È«²¿¶©µ¥","Î´Ö´ĞĞ¶©µ¥","ÒÑÖ´ĞĞ¶©µ¥","Òì³£¶©µ¥","ÒÑ³·Ïú¶©µ¥"};
+	private String[] otypes={"å…¨éƒ¨è®¢å•","æœªæ‰§è¡Œè®¢å•","å·²æ‰§è¡Œè®¢å•","å¼‚å¸¸è®¢å•","å·²æ’¤é”€è®¢å•"};
 	private Map<String,OrderStatus> otypeMap;
 	private Map<String,Integer> priorityMap;
 	private OrderLogicService orderLogic;
@@ -93,7 +93,7 @@ public class WebSalerCancelOrderController implements Initializable{
 			if(value==null)
 				return;
 			else{
-				if(value.equals("È«²¿¶©µ¥")){
+				if(value.equals("å…¨éƒ¨è®¢å•")){
 					orderListView.setItems(olist);
 					return;
 				}
@@ -109,19 +109,19 @@ public class WebSalerCancelOrderController implements Initializable{
 	private void setBaseInfo(){
     	Object o = DataController.getInstance().get("UserId");
     	if(o==null){
-    		Notifications.create().owner(orderListView.getScene().getWindow()).title("³õÊ¼»¯").text("³õÊ¼»¯´íÎó£¡").showError();
+    		Notifications.create().owner(orderListView.getScene().getWindow()).title("åˆå§‹åŒ–").text("åˆå§‹åŒ–é”™è¯¯ï¼").showError();
     		return;
     	}
     	this.userId=(long)o;
     	DataController.getInstance().put("WEBOrderController", this);
     	ObservableList<String> t = FXCollections.observableArrayList(otypes);
     	orderType.setItems(t);
-    	orderType.setValue("È«²¿¶©µ¥");
+    	orderType.setValue("å…¨éƒ¨è®¢å•");
     	otypeMap = new HashMap<>();
-    	otypeMap.put("Î´Ö´ĞĞ¶©µ¥", OrderStatus.UNEXECUTED);
-    	otypeMap.put("Òì³£¶©µ¥", OrderStatus.ABNORMAL);
-    	otypeMap.put("ÒÑÖ´ĞĞ¶©µ¥", OrderStatus.EXECUTED);
-    	otypeMap.put("ÒÑ³·Ïú¶©µ¥", OrderStatus.REVOKED);
+    	otypeMap.put("æœªæ‰§è¡Œè®¢å•", OrderStatus.UNEXECUTED);
+    	otypeMap.put("å¼‚å¸¸è®¢å•", OrderStatus.ABNORMAL);
+    	otypeMap.put("å·²æ‰§è¡Œè®¢å•", OrderStatus.EXECUTED);
+    	otypeMap.put("å·²æ’¤é”€è®¢å•", OrderStatus.REVOKED);
     	orderType.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -130,10 +130,10 @@ public class WebSalerCancelOrderController implements Initializable{
 			}
 		});
     	priorityMap= new HashMap<>();
-    	priorityMap.put("Ò»°ë", 0);
-    	priorityMap.put("È«²¿", 1);
+    	priorityMap.put("ä¸€åŠ", 0);
+    	priorityMap.put("å…¨éƒ¨", 1);
 	}
-    //³õÊ¼»¯ÁĞ±í
+    //åˆå§‹åŒ–åˆ—è¡¨
     public void initListView() throws RemoteException{
     	ListWrapper<OrderVO> volist=orderLogic.getWEBOrderInfo();
     	if(volist==null)
@@ -148,25 +148,25 @@ public class WebSalerCancelOrderController implements Initializable{
     }
 	public void revoke(OrderVO vo,String priority,ActionEvent e){
 		if(priority==null||priority==""){
-			Notifications.create().owner(orderListView.getScene().getWindow()).title("³·Ïú¶©µ¥").text("ÇëÑ¡ÔñÁ¿¼¶£¡£¡£¡").showWarning();
+			Notifications.create().owner(orderListView.getScene().getWindow()).title("æ’¤é”€è®¢å•").text("è¯·é€‰æ‹©é‡çº§ï¼ï¼ï¼").showWarning();
 			return;
 		}
 		try {
 			OrderResultMessage m = orderLogic.webRevoke(vo.getOrderId(), priorityMap.get(priority));
 			if(m==OrderResultMessage.SUCCESS){
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("³·Ïú¶©µ¥").text("³·Ïú³É¹¦£¡").showConfirm();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("æ’¤é”€è®¢å•").text("æ’¤é”€æˆåŠŸï¼").showConfirm();
 				vo.setStatus(OrderStatus.REVOKED);
 				olist.remove(vo);
 				olist.add(vo);
 			}
 			else if (m==OrderResultMessage.FAIL_WRONGID)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("³·Ïú¶©µ¥").text("³·ÏúÊ§°Ü£¡²»´æÔÚ´Ë¶©µ¥£¡").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("æ’¤é”€è®¢å•").text("æ’¤é”€å¤±è´¥ï¼ä¸å­˜åœ¨æ­¤è®¢å•ï¼").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGORDERINFO)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("³·Ïú¶©µ¥").text("³·ÏúÊ§°Ü£¡´íÎóµÄ¶©µ¥ĞÅÏ¢£¡").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("æ’¤é”€è®¢å•").text("æ’¤é”€å¤±è´¥ï¼é”™è¯¯çš„è®¢å•ä¿¡æ¯ï¼").showWarning();
 			else if (m==OrderResultMessage.FAIL_WRONGSTATUS)
-				Notifications.create().owner(orderListView.getScene().getWindow()).title("³·Ïú¶©µ¥").text("³·ÏúÊ§°Ü£¡´íÎóµÄ¶©µ¥×´Ì¬").showWarning();
+				Notifications.create().owner(orderListView.getScene().getWindow()).title("æ’¤é”€è®¢å•").text("æ’¤é”€å¤±è´¥ï¼é”™è¯¯çš„è®¢å•çŠ¶æ€").showWarning();
 		} catch (RemoteException e1) {
-			Notifications.create().owner(orderListView.getScene().getWindow()).title("³·Ïú¶©µ¥").text("³·ÏúÊ§°Ü£¡Î´Öª´íÎó£¡").showWarning();
+			Notifications.create().owner(orderListView.getScene().getWindow()).title("æ’¤é”€è®¢å•").text("æ’¤é”€å¤±è´¥ï¼æœªçŸ¥é”™è¯¯ï¼").showWarning();
 			e1.printStackTrace();
 		}
 	}

@@ -29,37 +29,37 @@ public class RegisterMainController implements Initializable{
 		String username = usernameField.getText();
 		String password = passwordField.getText();
 		if(username.equals("")||username==null){
-			Notifications.create().title("×¢²á").text("ÇëÊäÈëÓÃ»§Ãû").showWarning();
+			Notifications.create().title("æ³¨å†Œ").text("è¯·è¾“å…¥ç”¨æˆ·å").showWarning();
 			return;
 		}
 		if(password.equals("")||password==null){
-			Notifications.create().title("×¢²á").text("ÇëÊäÈëÃÜÂë").showWarning();
+			Notifications.create().title("æ³¨å†Œ").text("è¯·è¾“å…¥å¯†ç ").showWarning();
 			return;
 		}
 		if(username.length()<6||username.length()>16){
-			Notifications.create().title("×¢²á").text("ÓÃ»§Ãû³¤¶ÈÎª8µ½15Î»£¡").showWarning();
+			Notifications.create().title("æ³¨å†Œ").text("ç”¨æˆ·åé•¿åº¦ä¸º8åˆ°15ä½ï¼").showWarning();
 			return;
 		}
 		if(password.length()<6||password.length()>16){
-			Notifications.create().title("×¢²á").text("ÃÜÂë³¤¶ÈÎª8µ½15Î»£¡").showWarning();
+			Notifications.create().title("æ³¨å†Œ").text("å¯†ç é•¿åº¦ä¸º8åˆ°15ä½ï¼").showWarning();
 			return;
 		}
 		RegisterResultMessage result = serviceFactory.getUserLogicService().register(username, password);
 		if(result==RegisterResultMessage.FAIL_USEREXIST){
-			Notifications.create().title("×¢²á").text("ÓÃ»§ÒÑ´æÔÚ£¡").showWarning();
+			Notifications.create().title("æ³¨å†Œ").text("ç”¨æˆ·å·²å­˜åœ¨ï¼").showWarning();
 			return;
 		}
 		if(result==RegisterResultMessage.FAIL_PASSWORDLENGTH){
-			Notifications.create().title("×¢²á").text("ÃÜÂë³¤¶È²»·ûºÏ£¡").showWarning();
+			Notifications.create().title("æ³¨å†Œ").text("å¯†ç é•¿åº¦ä¸ç¬¦åˆï¼").showWarning();
 			return;
 		}
-		Notifications.create().title("×¢²á").text("×¢²á³É¹¦£¡").showConfirm();
+		Notifications.create().title("æ³¨å†Œ").text("æ³¨å†ŒæˆåŠŸï¼").showConfirm();
 		Parent root = FXMLLoader.load(getClass().getResource("LoginMainUI.fxml"));
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 		Stage login = new Stage();
 		login.setScene(scene);
-		login.setTitle("¾ÆµêÔ¤¶©ÏµÍ³µÇÂ¼");
+		login.setTitle("é…’åº—é¢„è®¢ç³»ç»Ÿç™»å½•");
 		login.show();
 		Stage register = (Stage) usernameField.getScene().getWindow();
 		register.close();
@@ -73,7 +73,7 @@ public class RegisterMainController implements Initializable{
 			scene.getStylesheets().add(getClass().getResource("ClientButton.css").toExternalForm());
 			Stage login = new Stage();
 			login.setScene(scene);
-			login.setTitle("¾ÆµêÔ¤¶©ÏµÍ³µÇÂ¼");
+			login.setTitle("é…’åº—é¢„è®¢ç³»ç»Ÿç™»å½•");
 			login.initStyle(StageStyle.UNDECORATED);
 			login.show();
 			((Stage)usernameField.getScene().getWindow()).close();

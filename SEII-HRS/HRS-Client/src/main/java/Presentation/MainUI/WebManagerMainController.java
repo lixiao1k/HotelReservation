@@ -81,7 +81,7 @@ public class WebManagerMainController implements Initializable{
 			RemoteHelper.getInstance().getServiceFactory().getUserLogicService().logout(userId);
 			((Stage)webManagerMain.getScene().getWindow()).close();
 		} catch (RemoteException e2) {
-			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("�ǳ�").text("�ǳ�ʧ�ܣ�").showError();
+			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("登出").text("失败").showError();
 			e2.printStackTrace();
 		}
     }
@@ -90,25 +90,25 @@ public class WebManagerMainController implements Initializable{
     	PopOver popOver = new PopOver();
 		GridPane pane = new GridPane();
 		Font font = new Font("YouYuan",15);
-		Text text1 = new Text("ԭ����");
+		Text text1 = new Text("原密码");
 		text1.setFont(font);
-		Text text2 = new Text("������");
+		Text text2 = new Text("新密码");
 		text2.setFont(font);
 		PasswordField password = new PasswordField();
 		PasswordField newPassword = new PasswordField();
-		Button btn = new Button("ȷ��");
+		Button btn = new Button("确认");
 		btn.setId("green-button");
 		btn.setFont(new Font("YouYuan",15));
 		btn.setOnAction((ActionEvent e3)->{
 			if(password.getText()==null||password.getText().equals("\\s")
 					||newPassword.getText()==null||newPassword.getText().equals("\\s")){
-				Notifications.create().owner(webManagerMain.getScene().getWindow()).title("��������").text("���������룡��").showError();
+				Notifications.create().owner(webManagerMain.getScene().getWindow()).title("更改密码").text("失败").showError();
 				return;
 			}
 			changePasswordAction(password.getText(),newPassword.getText());
 			popOver.hide();
 		});
-		Button btn2 = new Button("ȡ��");
+		Button btn2 = new Button("取消");
 		btn2.setId("red-button");
 		btn2.setFont(new Font("YouYuan",15));
 		btn2.setOnAction((ActionEvent e2)->{
@@ -136,14 +136,14 @@ public class WebManagerMainController implements Initializable{
     	try{
     		UserResultMessage result = RemoteHelper.getInstance().getServiceFactory().getUserLogicService().changePassword(userId, password, newPassword);
     		if(result==UserResultMessage.FAIL_WRONGID){
-    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("��������").text("�����û���").showError();
+    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("更改密码").text("错误ID").showError();
     		}else if(result==UserResultMessage.FAIL_WRONGINFO){
-    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("��������").text("ԭ�������").showError();
+    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("更改密码").text("错误信息").showError();
     		}
     		else
-    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("��������").text("�ɹ���").showConfirm();
+    			Notifications.create().owner(webManagerMain.getScene().getWindow()).title("更改密码").text("成功").showConfirm();
     	}catch(RemoteException e){
-    		Notifications.create().owner(webManagerMain.getScene().getWindow()).title("��������").text("�������").showError();
+    		Notifications.create().owner(webManagerMain.getScene().getWindow()).title("更改密码").text("网络错误").showError();
     		e.printStackTrace();
     	}
     }
