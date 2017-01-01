@@ -79,7 +79,7 @@ public class LoginMainController implements Initializable{
 	    					   };
 	    String[] nameProperties = {"KeepPersonInfoPane"
 	    						  ,"SetHotelInfoPane"
-	    						  ,"NewStrategy"
+	    						  ,"NewStrategyPane"
 	    						  ,"AddHotelInfoPane"
 	    						  };
 		LoginResultVO result = null;
