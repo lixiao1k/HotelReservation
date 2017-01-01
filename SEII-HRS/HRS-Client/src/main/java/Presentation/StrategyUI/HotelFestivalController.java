@@ -118,11 +118,11 @@ public class HotelFestivalController implements Initializable{
 		Room.setSourceItems(sourcelist);
 		Label sourceheader=new Label("所有房间：");
 		sourceheader.setFont(new Font(14));
-		sourceheader.setTextFill(Color.YELLOW);
+		sourceheader.setTextFill(Color.WHITE);
 		Room.setSourceHeader(sourceheader);
 		Label targetheader=new Label("使用策略的房间：");
 		targetheader.setFont(new Font(14));
-		targetheader.setTextFill(Color.YELLOW);
+		targetheader.setTextFill(Color.WHITE);
 		Room.setTargetHeader(targetheader);
 		mainPane.add(Room, 0, 1);
 		mainPane.setMargin(Room, new Insets(0,0,0,50));

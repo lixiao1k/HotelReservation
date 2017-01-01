@@ -10,7 +10,7 @@
 
 <GridPane fx:id="mainPane" hgap="10.0" maxHeight="430.0" minHeight="430.0" prefHeight="430.0" prefWidth="768.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.StrategyUI.HotelFestivalController">
   <children>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="80.0" text="作用时间：" textFill="YELLOW" GridPane.columnIndex="0" GridPane.rowIndex="2">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="80.0" text="作用时间：" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2">
       <font>
         <Font size="14.0" fx:id="x1" />
       </font>
@@ -18,7 +18,7 @@
         <Insets left="50.0" fx:id="x2" />
       </GridPane.margin>
     </Label>
-    <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" prefHeight="45.0" prefWidth="79.99990000000253" text="折扣：" textFill="YELLOW" GridPane.columnIndex="0" GridPane.rowIndex="3">
+    <Label alignment="CENTER" contentDisplay="CENTER" font="$x1" prefHeight="45.0" prefWidth="79.99990000000253" text="折扣：" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="3">
       <GridPane.margin>
         <Insets left="50.0" fx:id="x2" />
       </GridPane.margin>
@@ -33,7 +33,7 @@
         <Insets left="600.0" top="30.0" />
       </GridPane.margin>
     </Button>
-    <Label alignment="CENTER" font="$x1" prefHeight="20.0" prefWidth="80.0" text="策略名：" textFill="YELLOW" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    <Label alignment="CENTER" font="$x1" prefHeight="20.0" prefWidth="80.0" text="策略名：" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <GridPane.margin>
         <Insets bottom="23.0" left="50.0" />
       </GridPane.margin>
