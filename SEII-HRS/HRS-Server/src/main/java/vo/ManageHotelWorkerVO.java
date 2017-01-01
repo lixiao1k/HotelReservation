@@ -1,6 +1,12 @@
 package vo;
 
-public class ManageHotelWorkerVO {
+import java.io.Serializable;
+
+public class ManageHotelWorkerVO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1450062278500466774L;
 	private long hotelid;
 	private long userid;
 	private String username;

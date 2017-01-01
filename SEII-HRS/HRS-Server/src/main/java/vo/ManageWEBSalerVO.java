@@ -1,6 +1,12 @@
 package vo;
 
-public class ManageWEBSalerVO {
+import java.io.Serializable;
+
+public class ManageWEBSalerVO implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6045785147494329406L;
 	private long userid;
 	private String username;
 	private String password;

@@ -62,11 +62,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="password">
-         <GridPane.margin>
-            <Insets bottom="50.0" left="100.0" right="120.0" />
-         </GridPane.margin>
-      </TextField>
       <Button fx:id="addBT" mnemonicParsing="false" onAction="#AddInfo" text="添加" textFill="#0a0303">
          <GridPane.margin>
             <Insets left="300.0" top="320.0" />
@@ -83,5 +78,10 @@
             <Insets left="400.0" top="320.0" />
          </GridPane.margin>
       </Button>
+      <PasswordField fx:id="password">
+         <GridPane.margin>
+            <Insets bottom="50.0" left="100.0" right="120.0" />
+         </GridPane.margin>
+      </PasswordField>
    </children>
 </GridPane>

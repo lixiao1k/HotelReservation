@@ -161,6 +161,7 @@ public class AddHotelInfoController implements Initializable{
   //璺宠浆鍒板綍鍏ラ厭搴楀鎴夸俊鎭晫闈�
   public void goNext() throws IOException
   {
+		DataController.getInstance().putAndUpdate("addHotelInfo", addHotel);
 	  GridPane mainpane=(GridPane)addressField.getScene().getWindow().getScene().getRoot();
 	  Parent pane=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/HotelUI/AddHotelRoom.fxml"));
 		pane.getProperties().put("NAME", "addHotelRoomPane");

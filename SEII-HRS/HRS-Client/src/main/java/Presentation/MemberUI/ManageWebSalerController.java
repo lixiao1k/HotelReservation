@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import logic.service.MemberLogicService;
@@ -28,7 +29,7 @@ public class ManageWebSalerController implements Initializable{
 	@FXML private TextField searchField;
 	@FXML private TextField userName;//�û���
 	@FXML private TextField Name;//�ǳ�
-	@FXML private TextField password;
+	@FXML private PasswordField password;
 	@FXML private Button addBT;
 	@FXML private Button commitBT;
 	
@@ -69,11 +70,8 @@ public class ManageWebSalerController implements Initializable{
 			  MemberResultMessage result1=memberlogic.updateWEBSaler(upwebvo);
 			  if(MemberResultMessage.SUCCESS==result1)
 			  {
-				  Stage clickCheck=new Stage();
-				  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/clickCheck.fxml"));
-				  Scene scene=new Scene(root,275,125);
-				  clickCheck.setScene(scene);
-				  clickCheck.show();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("提示信息").text("提交成功").showConfirm();
+
 			  }
 			  else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result1)
 			  {
@@ -105,11 +103,8 @@ public class ManageWebSalerController implements Initializable{
 				MemberResultMessage result=memberlogic.addWEBSaler(addwebvo);
 				if(MemberResultMessage.SUCCESS==result)
 				{
-					Stage addCheck=new Stage();
-					  Parent root=FXMLLoader.load(getClass().getClassLoader().getResource("Presentation/FeedbackUI/addCheck.fxml"));
-					  Scene scene=new Scene(root,275,125);
-					  addCheck.setScene(scene);
-					  addCheck.show();
+					Notifications.create().owner(searchField.getScene().getWindow()).title("提示信息").text("添加成功").showError();
+
 				}
 				else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result)
 				{
