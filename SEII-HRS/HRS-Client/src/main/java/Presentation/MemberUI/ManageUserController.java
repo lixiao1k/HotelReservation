@@ -27,9 +27,9 @@ public class ManageUserController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		List<String> list = new ArrayList<String>();
-		list.add("瀹㈡埛");
-		list.add("閰掑簵宸ヤ綔浜哄憳");
-		list.add("缃戠珯钀ラ攢浜哄憳");
+		list.add("客户");
+		list.add("酒店工作人员");
+		list.add("网站营销人员");
 		ManageTypeChoice.setItems(FXCollections.observableArrayList(list));
 		ManageTypeChoice.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>(){
 			@Override
@@ -39,13 +39,13 @@ public class ManageUserController implements Initializable{
 			//	String newNode=null;			
 				if(newValue!=null){
 					switch(newValue){
-						case "瀹㈡埛" : 
+						case "客户" : 
 							newNode="ManageClient1.fxml";
 							break;
-						case "閰掑簵宸ヤ綔浜哄憳" : 
+						case "酒店工作人员" : 
 							newNode="ManageHotelWorker.fxml";
 							break;
-						case "缃戠珯钀ラ攢浜哄憳" : 
+						case "网站营销人员" : 
 							newNode="ManageWebSaler.fxml";
 							break;
 					}
