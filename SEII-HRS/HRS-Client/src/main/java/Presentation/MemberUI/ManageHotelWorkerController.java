@@ -126,7 +126,7 @@ public class ManageHotelWorkerController implements Initializable {
 		boolean empty=workerName.getText().equals("")||password.getText().equals("");
 		if(empty)
 		{
-			Notifications.create().owner(searchHotel.getScene().getWindow()).title("閿欒淇℃伅").text("濉啓鍐呭涓嶈兘涓虹┖").showError();
+			Notifications.create().owner(searchHotel.getScene().getWindow()).title("错误信息").text("信息不能为空").showError();
 
 		}
 		else
@@ -143,14 +143,14 @@ public class ManageHotelWorkerController implements Initializable {
 			MemberResultMessage result=memberlogic.updateHotelWorker(commitvo);
 			if(MemberResultMessage.SUCCESS==result)
 			{
-				Notifications.create().owner(searchHotel.getScene().getWindow()).title("鎻愮ず淇℃伅").text("鎻愪氦鎴愬姛").show();
+				Notifications.create().owner(searchHotel.getScene().getWindow()).title("提示信息").text("成功").show();
 
 				  workerName.clear();
 				  password.clear();
 			}
 			else if(MemberResultMessage.FAIL_PASSWORDLENGTH==result)
 			{
-				Notifications.create().owner(searchHotel.getScene().getWindow()).title("閿欒淇℃伅").text("瀵嗙爜涓嶇鍚堟牸寮�").showError();
+				Notifications.create().owner(searchHotel.getScene().getWindow()).title("错误信息").text("密码长度过短").showError();
 				
 			}
 			
