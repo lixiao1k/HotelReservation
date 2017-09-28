@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="po">
+    <class name="OrderPO" table="`Order`">
+        <id name="oid" type="long">
+            <column name="ORDER_ID"></column>
+            <generator class="native"></generator>
+        </id>
+        <property name="orderId" type="string">
+            <column name="ORDER_NUM" not-null="true"></column>
+        </property>
+        <property name="actualCheckInTime" type="date">
+            <column name="ACTUAL_CIN_TIME" not-null="false"></column>
+        </property>
+        <property name="actualCheckOutTime" type="date">
+            <column name="ACTUAL_COUT_TIME" not-null="false"></column>
+        </property>
+        <property name="status" not-null="true">
+   			<type name="org.hibernate.type.EnumType">
+    			<param name="enumClass">info.OrderStatus</param>
+   				 <!--
+    			 12为java.sql.Types.VARCHAR常量值，即保存枚举的字面值到数据库。如果不指定type参数，保存枚举的索引值(从0开始)到数据库
+    			 -->
+  		    	<param name="type">12</param>
+ 		   </type>
+        </property>
+        <property name="off" type="double">
+            <column name="OFF" not-null="false" default="0.0"></column>
+        </property>
+        <property name="checkInTime" type="date">
+            <column name="CHECK_IN_TIME" not-null="true"></column>
+        </property>
+        <property name="checkOutTime" type="date">
+            <column name="CHECK_OUT_TIME" not-null="true"></column>
+        </property>
+        <property name="abnormalTime" type="timestamp">
+            <column name="ABNORMAL_TIME" not-null="false"></column>
+        </property>
+        <property name="child" type="boolean">
+            <column name="CHILD" not-null="true"></column>
+        </property>
+        <property name="people" type="int">
+            <column name="PEOPLE" not-null="true"></column>
+        </property>   
+        <property name="roomNum" type="int">
+            <column name="ROOM_NUM" not-null="true"></column>
+        </property>
+        <property name="roomPrice" type="double">
+            <column name="ROOM_PRICE" not-null="true"></column>
+        </property>
+        <property name="contactWay" type="string">
+            <column name="CONTACT_WAY" not-null="true"></column>
+        </property>
+        <property name="contactName" type="string">
+            <column name="CONTACT_NAME" not-null="true"></column>
+        </property>
+        <property name="commented" type="boolean">
+            <column name="COMMENTED" not-null="false"></column>
+        </property>
+       	<many-to-one 
+       		name="room"
+       		column="ROOM_ID"
+       		class="info.Room"
+       		not-null="true"
+       		lazy="proxy"
+       	/>
+       	<many-to-one
+       	    name="strategy"
+       	    column="S_ID"
+       	    class="StrategyPO"
+       	    not-null="false"
+       	    lazy="proxy"
+       	/>
+       	<many-to-one
+       	    name="member"
+       	    column="MEMBER_ID"
+       	    class="MemberPO"
+       	    not-null="true"
+       	    lazy="false"
+		/>
+       	<many-to-one
+       	    name="hotel"
+       	    column="HOTEL_ID"
+       	    class="HotelPO"
+       	    not-null="true"
+       	    lazy="proxy"
+       	/>
+
+
+    </class>
+</hibernate-mapping>

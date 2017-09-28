@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="188.0" />
+      <RowConstraints minHeight="10.0" prefHeight="85.0" />
+      <RowConstraints maxHeight="208.0" minHeight="10.0" prefHeight="208.0" />
+      <RowConstraints maxHeight="177.0" minHeight="10.0" prefHeight="95.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="256.0" />
+   </columnConstraints>
+   <children>
+      <Label prefHeight="15.0" prefWidth="299.0" text="酒店名称" GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <GridPane.margin>
+            <Insets left="100.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2">
+         <GridPane.margin>
+            <Insets left="100.0" />
+         </GridPane.margin>
+         <image>
+            <Image url="@../../../../../../../../Pictures/285559.jpg" />
+         </image>
+      </ImageView>
+      <Label prefHeight="85.0" prefWidth="406.0" text="酒店地点、所属商圈、房间均价。。。。。。。。。。。。。。。。。。。" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="200.0" />
+         </GridPane.margin>
+      </Label>
+      <Label alignment="TOP_LEFT" prefHeight="208.0" prefWidth="406.0" text="酒店总体介绍" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="200.0" />
+         </GridPane.margin>
+      </Label>
+      <Label prefHeight="15.0" prefWidth="40.0" text="评分：" GridPane.columnIndex="2">
+         <GridPane.margin>
+            <Insets top="110.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="4.0" GridPane.columnIndex="2">
+         <GridPane.margin>
+            <Insets left="50.0" top="110.0" />
+         </GridPane.margin>
+      </Label>
+      <Button mnemonicParsing="false" text="查看详细信息" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+   </children>
+</GridPane>

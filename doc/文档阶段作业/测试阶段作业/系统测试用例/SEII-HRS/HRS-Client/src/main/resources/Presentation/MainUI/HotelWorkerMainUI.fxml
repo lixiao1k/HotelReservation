@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+
+<GridPane id="main-pane" fx:id="hotelmain" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="Presentation.MainUI.HotelWorkerMainController">
+  <children>
+    <VBox id="vbox" fx:id="mainUIVBox" prefHeight="555.0" prefWidth="73.0" styleClass="mainUIVBox" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="1" GridPane.rowSpan="1">
+      <children>
+        <Button id="mainbutton" alignment="CENTER" cancelButton="false" contentDisplay="CENTER" focusTraversable="true" mnemonicParsing="false" onAction="#goSetHotelInfo" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="维护酒店信息" textAlignment="CENTER" textFill="WHITE">
+          <font>
+            <Font name="幼圆" size="15.0" fx:id="x1" />
+          </font>
+          <VBox.margin>
+            <Insets left="7.0" right="7.0" top="7.0" fx:id="x2" />
+          </VBox.margin>
+        </Button>
+        <Button id="mainbutton" alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goOrderList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="浏览订单" textFill="WHITE" VBox.margin="$x2" />
+        <Button id="mainbutton" alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goRoomList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="更新客房" textFill="WHITE" VBox.margin="$x2" />
+        <Button id="mainbutton" fx:id="goStrategyListButton" alignment="CENTER" font="$x1" mnemonicParsing="false" onAction="#goStrategyList" prefHeight="48.0" prefWidth="129.0" styleClass="main-pane-button" text="浏览策略列表" textFill="WHITE" underline="false" wrapText="false" VBox.margin="$x2" />
+      </children>
+      <GridPane.margin>
+        <Insets />
+      </GridPane.margin>
+    </VBox>
+    <Separator orientation="VERTICAL" prefHeight="583.0" prefWidth="31.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="449.0" minWidth="10.0" prefWidth="145.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="449.0" minWidth="0.0" prefWidth="0.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="449.0" minWidth="0.0" prefWidth="0.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="843.0" minWidth="10.0" prefWidth="755.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="199.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="600.0" minHeight="10.0" prefHeight="600.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="581.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="581.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="200.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>

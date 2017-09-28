@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="po">
+    <class name="UserPO" table="User">
+        <id name="uid">
+            <column name="USER_ID"></column>
+            <generator class="native"></generator>
+        </id>
+        <property name="username" type="string">
+            <column name="USERNAME" not-null="true"></column>
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" not-null="true"></column>
+        </property>
+        <property name="status" not-null="true">
+   			<type name="org.hibernate.type.EnumType">
+    			<param name="enumClass">info.UserStatus</param>
+   				 <!--
+    			 12为java.sql.Types.VARCHAR常量值，即保存枚举的字面值到数据库。如果不指定type参数，保存枚举的索引值(从0开始)到数据库
+    			 -->
+  		    	<param name="type">12</param>
+ 		   </type>
+        </property>
+        <property name="type" not-null="true">
+   			<type name="org.hibernate.type.EnumType">
+    			<param name="enumClass">info.UserType</param>
+   				 <!--
+    			 12为java.sql.Types.VARCHAR常量值，即保存枚举的字面值到数据库。如果不指定type参数，保存枚举的索引值(从0开始)到数据库
+    			 -->
+  		    	<param name="type">12</param>
+ 		   </type>
+        </property>
+        <one-to-one name="member" class="MemberPO"></one-to-one>
+    </class>
+</hibernate-mapping>

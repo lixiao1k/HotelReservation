@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane prefHeight="580.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.OrderUI.CreateOrderController">
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="50.0" />
+      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="173.0" />
+      <RowConstraints maxHeight="120.0" minHeight="0.0" prefHeight="150.0" />
+      <RowConstraints maxHeight="70.0" minHeight="0.0" prefHeight="70.0" />
+      <RowConstraints maxHeight="100.0" minHeight="9.0" prefHeight="66.0" />
+      <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="164.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints minWidth="10.0" prefWidth="540.0" />
+   </columnConstraints>
+   <children>
+      <Label prefHeight="40.0" prefWidth="540.0" text="酒店名称（地址）" GridPane.columnIndex="1">
+         <font>
+            <Font size="26.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label text="预定信息" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="25.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label prefHeight="20.0" prefWidth="95.0" text="入住天数：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="至" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="200.0" top="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="预定间数：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="20.0" top="60.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="住客姓名：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="20.0" top="100.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="customerName" maxWidth="150.0" promptText="请填写入住人信息" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="80.0" top="98.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label opacity="0.31" prefHeight="49.0" prefWidth="396.0" text="请填写实际入住人信息，每个房间只填一位，所填姓名与入住时所持证件一致。" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="80.0" top="120.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="联系信息" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="25.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="手机号码：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="20.0" top="30.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField fx:id="phoneNumber" maxWidth="200.0" prefWidth="100.0" promptText="请填写手机号码" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="80.0" top="28.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="优惠信息" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="25.0" />
+         </GridPane.margin>
+      </Label>
+      <Label prefHeight="25.0" prefWidth="93.0" text="所享优惠：" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="20.0" top="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="strategyType" prefHeight="15.0" prefWidth="222.0" text="。。。。。。。。。。。。。。。。。。。" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets left="100.0" top="22.0" />
+         </GridPane.margin>
+      </Label>
+      <Button mnemonicParsing="false" onAction="#commit" prefHeight="37.0" prefWidth="93.0" text="提交订单" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="TOP">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="350.0" top="20.0" />
+         </GridPane.margin>
+      </Button>
+      <DatePicker fx:id="checkIntime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="115.0" left="75.0" right="350.0" />
+         </GridPane.margin>
+      </DatePicker>
+      <DatePicker fx:id="checkOuttime" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="115.0" left="220.0" right="200.0" />
+         </GridPane.margin>
+      </DatePicker>
+      <Label text="订单总价格" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets bottom="40.0" left="10.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="totalMoney" text="XXX" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets bottom="40.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="orderDes" text="（房间类型）价格*数量" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets bottom="40.0" left="50.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lateCheck" text="（订单最晚执行时间为：）" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="50.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="预计入住人数：" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets top="50.0" />
+         </GridPane.margin>
+      </Label>
+      <Label text="有无儿童：" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="200.0" top="50.0" />
+         </GridPane.margin>
+      </Label>
+      <CheckBox fx:id="Ifchild" mnemonicParsing="false" text="有" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="280.0" top="50.0" />
+         </GridPane.margin>
+      </CheckBox>
+      <TextField fx:id="peopleNum" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="100.0" right="380.0" top="50.0" />
+         </GridPane.margin>
+      </TextField>
+      <ComboBox fx:id="roomNumBox" onAction="#setRoom" prefWidth="150.0" promptText="房间数量" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets bottom="25.0" left="90.0" right="337.0" />
+         </GridPane.margin>
+      </ComboBox>
+   </children>
+</GridPane>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="564.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentation.CreditUI.RechargeCreditController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Button mnemonicParsing="false" onAction="#cancel" text="取消" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <font>
+        <Font size="20.0" fx:id="x1" />
+      </font>
+      <GridPane.margin>
+        <Insets top="40.0" />
+      </GridPane.margin>
+    </Button>
+    <Label alignment="CENTER_LEFT" font="$x1" prefHeight="122.0" prefWidth="369.0" text="用户ID：" GridPane.columnIndex="0" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="60.0" top="80.0" />
+         </GridPane.margin></Label>
+    <Label font="$x1" text="充值额度：" GridPane.columnIndex="0" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="45.0" />
+         </GridPane.margin></Label>
+    <TextField fx:id="money" prefHeight="30.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+      <GridPane.margin>
+        <Insets left="170.0" right="320.0" />
+      </GridPane.margin>
+    </TextField>
+    <Button mnemonicParsing="false" onAction="#commit" text="提交" GridPane.columnIndex="0" GridPane.rowIndex="4">
+      <font>
+        <Font size="20.0" fx:id="x3" />
+      </font>
+      <GridPane.margin>
+        <Insets left="260.0" top="40.0" />
+      </GridPane.margin>
+    </Button>
+      <Label text="（充值信用=充值额度*100））" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets bottom="15.0" left="35.0" />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="userID" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="170.0" right="325.0" top="80.0" />
+         </GridPane.margin>
+      </TextField>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="573.0" minWidth="10.0" prefWidth="369.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="399.0" minWidth="10.0" prefWidth="399.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="99.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="191.0" minHeight="10.0" prefHeight="191.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>

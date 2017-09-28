@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="po">
+    <class name="StrategyPO" table="Strategy">
+        <id name="id" type="long">
+            <column name="S_ID"></column>
+            <generator class="native"></generator>
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" not-null="true"></column>
+        </property>
+   		<property name="rule" type="blob">
+   		    <column name="RULE" not-null="true"></column>
+   		</property>
+   		<property name="status" type="boolean">
+   		    <column name="STATUS" not-null="true"></column>
+   		</property>
+   		<property name="off" type="double">
+   		    <column name="OFF" not-null="false" default="0.0"></column>
+   		</property>
+   		<many-to-one 
+   		    name="type" 
+   		    column="STYPE_ID" 
+   		    class="info.StrategyType"
+   		    not-null="true"
+   		    lazy="false"
+   		/>
+   		<many-to-one 
+   		    name="hotel"
+   		    column="HOTEL_ID"
+   		    class="HotelPO"
+   		    not-null="false"
+   		    lazy="proxy"
+   		/>
+   		<set name="items" inverse="true" cascade="all" lazy="true">
+   		    <key column="SI_ID"></key>
+   		    <one-to-many class="info.StrategyItem"/>
+   		</set>
+    </class>
+</hibernate-mapping> 

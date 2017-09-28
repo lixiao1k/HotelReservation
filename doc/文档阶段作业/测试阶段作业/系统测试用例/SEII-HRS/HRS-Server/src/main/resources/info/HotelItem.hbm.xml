@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC   
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
+<hibernate-mapping package="info">
+    <class name="HotelItem" table="HotelItem">
+        <id name="hiId" type="long">
+            <column name="HI_ID"></column>
+            <generator class="native"></generator>
+        </id>
+        <property name="num" type="int">
+            <column name="NUM" not-null="true"></column>
+        </property>
+        <property name="price" type="double">
+            <column name="PRICE" not-null="true"></column>
+        </property>
+        <property name="date" type="date">
+            <column name="DATE" not-null="true"></column>
+        </property>
+        <property name="total" type="int">
+            <column name="TOTAL" not-null="true"></column>
+        </property>
+        <many-to-one 
+            name="hotel"
+            column="HOTEL_ID"
+            class="po.HotelPO"
+            not-null="true"
+            lazy="proxy"
+         />
+        <many-to-one 
+            name="room"
+            column="ROOM_ID"
+            class="Room"
+            not-null="true"
+            lazy="proxy"
+        />
+    </class>
+</hibernate-mapping>

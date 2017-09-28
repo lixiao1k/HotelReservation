@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>nju.edu.cn</groupId>
+  <artifactId>HRS-Client</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>HRS-Client</name>
+ <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+</properties>
+<dependencies>
+<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-core</artifactId>
+  		<version>3.6.5.Final</version>
+</dependency>
+  	<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->  	
+  	<dependency>
+  		<groupId>org.controlsfx</groupId>
+  		<artifactId>controlsfx</artifactId>
+  		<version>8.40.12</version>
+  	</dependency>
+</dependencies>
+</project>

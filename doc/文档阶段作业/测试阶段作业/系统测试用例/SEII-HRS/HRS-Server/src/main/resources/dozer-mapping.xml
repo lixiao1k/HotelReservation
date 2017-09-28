@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net
+	http://dozer.sourceforge.net/schema/beanmapping.xsd">
+<configuration>
+    <stop-on-errors>true</stop-on-errors>
+    <date-format>MM/dd/yyyy HH:mm:ss</date-format>
+    <wildcard>true</wildcard>
+</configuration>
+<mapping>
+    <class-a>po.OrderPO</class-a>
+    <class-b>vo.OrderVO</class-b>
+    <field>
+        <a>member.name</a>
+        <b>name</b>
+    </field>
+    <field>
+        <a>orderId</a>
+        <b>orderNum</b>
+    </field>
+    <field>
+        <a>hotel.name</a>
+        <b>hotelName</b>
+    </field>
+    <field>
+        <a>strategy.name</a>
+        <b>strategy</b>
+    </field>
+    <field>
+        <a>off</a>
+        <b>strategyOff</b>
+    </field>
+    <field>
+        <a>oid</a>
+        <b>orderId</b>
+    </field>
+</mapping>
+<mapping>
+    <class-a>po.StrategyPO</class-a>
+    <class-b>vo.HotelStrategyVO</class-b>
+    <field>
+        <a>hotel.hid</a>
+        <b>hotelId</b>
+    </field>
+</mapping>
+<mapping>
+    <class-a>po.HotelPO</class-a>
+    <class-b>vo.BasicHotelVO</class-b>
+    <field>
+        <a>hid</a>
+        <b>hotelId</b>
+    </field>
+    <field>
+        <a>name</a>
+        <b>hotelName</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.VIPPO</class-a>
+    <class-b>vo.VIPVO</class-b>
+    <field>
+        <a>id</a>
+        <b>userId</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.MemberPO</class-a>
+    <class-b>vo.ManageHotelWorkerVO</class-b>
+    <field>
+        <a>mid</a>
+        <b>userid</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.MemberPO</class-a>
+    <class-b>vo.ManageClientVO</class-b>
+    <field>
+        <a>mid</a>
+        <b>userid</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.MemberPO</class-a>
+    <class-b>vo.ManageHotelVO</class-b>
+    <field>
+        <a>mid</a>
+        <b>userid</b>
+    </field>
+    <field>
+        <a>name</a>
+        <b>name</b>
+    </field>
+</mapping>
+<mapping>
+   <class-a>po.MemberPO</class-a>
+    <class-b>vo.ManageWEBSalerVO</class-b>
+    <field>
+        <a>mid</a>
+        <b>userid</b>
+    </field>
+    <field>
+        <a>name</a>
+        <b>name</b>
+    </field>
+</mapping>
+<mapping>
+    <class-a>po.ClientMemberPO</class-a>
+    <class-b>vo.MemberVO</class-b>
+    <field>
+        <a>contactWay</a>
+        <b>phone</b>
+    </field>
+    <field>
+        <a>vip</a>
+        <b>VIPFlag</b>
+    </field>
+    <field>
+        <a>mid</a>
+        <b>memberId</b>
+    </field>
+</mapping>
+<mapping>
+    <class-a>po.CreditPO</class-a>
+    <class-b>vo.CreditVO</class-b>
+    <field>
+        <a>member.mid</a>
+        <b>userId</b>
+    </field>
+</mapping>
+<mapping>
+    <class-a>po.CommentPO</class-a>
+    <class-b>vo.HotelCommentVO</class-b>
+    <field>
+        <a>member.name</a>
+        <b>name</b>
+    </field>
+    <field>
+        <a>hotel.hid</a>
+        <b>hotelId</b>
+    </field>
+</mapping>
+</mappings>

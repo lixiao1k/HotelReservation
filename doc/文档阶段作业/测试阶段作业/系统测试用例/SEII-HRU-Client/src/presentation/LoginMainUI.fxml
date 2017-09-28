@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="168.99998474121094" prefWidth="372.9998779296875" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="presentation.LoginMainController">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Label text="用户名" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+      <font>
+        <Font name="幼圆" size="15.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label font="$x1" text="密码" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+    <Button mnemonicParsing="false" onAction="#register" prefHeight="28.0" prefWidth="82.0" text="注册" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <GridPane.margin>
+        <Insets right="102.0" />
+      </GridPane.margin>
+    </Button>
+    <Button mnemonicParsing="false" onAction="#login" prefHeight="28.0" prefWidth="82.0" text="登录" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      <GridPane.margin>
+        <Insets left="10.0" right="10.0" fx:id="x2" />
+      </GridPane.margin>
+    </Button>
+    <TextField id="userName" fx:id="usernameField" prefHeight="28.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.margin="$x2" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+    <PasswordField fx:id="passwordField" prefHeight="28.0" prefWidth="303.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <GridPane.margin>
+        <Insets left="10.0" right="10.0" fx:id="x2" />
+      </GridPane.margin>
+    </PasswordField>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="79.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="323.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="118.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="217.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="217.0" minHeight="10.0" prefHeight="116.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>
